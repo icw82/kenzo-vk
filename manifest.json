@@ -7,20 +7,20 @@
     },
     "background": {
         "persistent": false,
-        "scripts": ["js/bg.js"]
+        "scripts": ["background/script.js"]
     },
     "permissions": [ "tabs", "*://vkontakte.ru/*", "*://vk.com/*", "*://*.vk.me/*" ],
     "browser_action": {
         "default_title": "",
         "default_icon": "icon.png",
-        "default_popup": "popup.html"
+        "default_popup": "popup/template.html"
     },
     "manifest_version": 2,
     "content_scripts": [
         {
             "matches": [ "*://vkontakte.ru/*", "*://vk.com/*" ],
-            "css": ["audio.css"],
-            "js": ["js/audio.js"]
+            "css": ["audio/styles.css"],
+            "js": ["audio/script.js"]
         }
     ]
 }

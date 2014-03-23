@@ -55,7 +55,7 @@ function process(element){
                 DOM_duration = element.querySelector('.duration');
 
             DOM_stats.classList.add('kz-vk-audio__stats');
-            DOM_stats.innerHTML = '<small>' + kbps + ' kbps</small>'
+            DOM_stats.innerHTML = ' <small>' + kbps + ' kbps</small>'
 
             element.querySelector('.title_wrap').appendChild(DOM_stats);
         }
