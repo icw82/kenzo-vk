@@ -3,3 +3,13 @@
 
 .audio.current
 .kz-vk-audio__stats{color: rgba(255,255,255,.7)}
+
+.kz-vk-audio__download{margin: 6px 6px 6px 0; padding: 4px; opacity: .4;}
+.kz-vk-audio__download:hover{opacity:1}
+.kz-vk-audio__download__btn{width: 13px; height: 13px; position: relative;
+    overflow: hidden; visibility: hidden; cursor: pointer;
+    background-image: url(chrome-extension://__MSG_@@extension_id__/audio/graphic.png);
+    background-repeat: no-repeat}
+.audio.over
+.kz-vk-audio__download__btn{visibility:visible}
+

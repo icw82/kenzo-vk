@@ -9,7 +9,7 @@
         "persistent": false,
         "scripts": ["background/script.js"]
     },
-    "permissions": [ "tabs", "*://vkontakte.ru/*", "*://vk.com/*", "*://*.vk.me/*" ],
+    "permissions": [ "tabs", "*://vk.com/*", "*://*.vk.me/*" ],
     "browser_action": {
         "default_title": "",
         "default_icon": "icon.png",
@@ -18,9 +18,15 @@
     "manifest_version": 2,
     "content_scripts": [
         {
-            "matches": [ "*://vkontakte.ru/*", "*://vk.com/*" ],
+            "matches": ["*://vk.com/*", "*://*.vk.me/*" ],
             "css": ["audio/styles.css"],
-            "js": ["audio/script.js"]
+            "js": ["libs/FileSaver.js", "injection.js", "audio/script.js"],
+            "run_at": "document_end"
         }
+    ],
+    "web_accessible_resources": [
+        "audio/graphic.png",
+        "audio/script.js",
+        "injection.js"
     ]
 }
