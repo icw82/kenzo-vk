@@ -1,5 +1,6 @@
 (function(){
 
+//  – — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —|
 'use strict';
 
 function each(array, callback){
@@ -15,7 +16,6 @@ function stopEvent(event){
     if (event.preventDefault) event.preventDefault();
     if (event.stopPropagation) event.stopPropagation();
     event.cancelBubble = true;
-    //event.returnValue = false;
     return false;
 }
 
@@ -38,6 +38,18 @@ function save(url, name){
 };
 
 function init(){
+    var DOM_body = document.querySelector('body');
+    DOM_body.classList.add('kz-vk-audio');
+
+    var DOM_body_observer = new MutationObserver(function(mutations){
+        mutations.forEach(function(mutation){
+            if (!DOM_body.classList.contains('kz-vk-audio'))
+                DOM_body.classList.add('kz-vk-audio');
+        });
+    });
+
+    DOM_body_observer.observe(DOM_body, { attributes: true /*MutationObserverInit*/});
+    //DOM_body_observer.disconnect();
 
     each(document.querySelectorAll('.audio'), process);
 
@@ -65,6 +77,8 @@ function init(){
 };
 
 function process(element){
+    if (element.classList.contains('kz-vk-audio__finished')) return false;
+
     var
         xhr = new XMLHttpRequest(),
         id = element.querySelector('a:first-child').getAttribute('name'),
@@ -72,7 +86,10 @@ function process(element){
         url = info[0],
         duration = info[1],
         size, kbps, artist, title,
-        DOM_title_wrap = element.querySelector('.title_wrap');
+        DOM_area = element.querySelector('.area'),
+        DOM_play = DOM_area.querySelector('.play_btn'),
+        DOM_info = DOM_area.querySelector('.info'),
+        DOM_title_wrap = DOM_info.querySelector('.title_wrap');
 
     artist = DOM_title_wrap.querySelector('b > a').textContent;
     title = DOM_title_wrap.querySelector('.title').textContent;
@@ -80,7 +97,26 @@ function process(element){
     title = title.replace(/^s+|\s+$/g, '');
 
     xhr.onreadystatechange = function(){
+        if (element.classList.contains('kz-vk-audio__finished')) return false;
+
         if ((xhr.readyState === 4) && (xhr.status === 200)){
+            var DOM_kz__wrapper = document.createElement('div');
+            DOM_kz__wrapper.classList.add('kz-vk-audio__wrapper');
+            var DOM_kz__btn = document.createElement('div');
+            DOM_kz__btn.classList.add('kz-vk-audio__btn');
+
+            DOM_kz__wrapper.appendChild(DOM_kz__btn);
+/*
+            DOM_kz__btn.setAttribute('onmouseover',
+                'Audio.rowActive(this, "Скачать", [9, 5, 0]);');
+            DOM_kz__btn.setAttribute('onmouseout',
+                'Audio.rowInactive(this)');
+*/
+            DOM_kz__btn.addEventListener('click', function(event){
+                stopEvent(event);
+                save(url, artist + ' — ' + title + '.mp3');
+            }, false)
+
             size = this.getResponseHeader('Content-Length');
             kbps = Math.floor(size * 8 / duration / 1000);
 
@@ -88,42 +124,23 @@ function process(element){
                 DOM_duration = element.querySelector('.duration'),
                 DOM_actions = element.querySelector('.actions');
 
-            // Битрейт
-            var DOM_stats = document.createElement('span');
+            DOM_kz__btn.setAttribute('data-kbps', kbps);
 
-            DOM_stats.classList.add('kz-vk-audio__stats');
-            DOM_stats.innerHTML = ' <small>' + kbps + ' kbps</small>'
+            if (kbps > 315)
+                DOM_kz__btn.classList.add('kz-vk-audio__bitrate--320');
+            else if (kbps > 250)
+                DOM_kz__btn.classList.add('kz-vk-audio__bitrate--256');
+            else if (kbps > 180)
+                DOM_kz__btn.classList.add('kz-vk-audio__bitrate--196');
+            else if (kbps > 124)
+                DOM_kz__btn.classList.add('kz-vk-audio__bitrate--128');
+            else if (kbps > 90)
+                DOM_kz__btn.classList.add('kz-vk-audio__bitrate--96');
+            else
+                DOM_kz__btn.classList.add('kz-vk-audio__bitrate--crap');
 
-            DOM_title_wrap.appendChild(DOM_stats);
-
-            // Кнопка
-            var DOM_download = document.createElement('div');
-
-//            setInterval(function(){
-//                console.log('rowActive' in Audio);
-//            }, 3000)
-            /*
-            DOM_download.addEventListener('mouseover', function(){
-                console.log(window);
-                //showTooltip(this, {text: 'Скачать', showdt: 0, black: 1, shift: [9, 5, 0]});
-            }, true)*/
-
-            //DOM_download.setAttribute('onmouseover', 'update(window);');
-            DOM_download.setAttribute('onmouseover', 'Audio.rowActive(this, "Скачать", [9, 5, 0]);');
-            DOM_download.setAttribute('onmouseout', 'Audio.rowInactive(this)');
-
-
-            DOM_download.classList.add('kz-vk-audio__download');
-            DOM_download.classList.add('fl_r');
-            DOM_download.innerHTML = '<div class="kz-vk-audio__download__btn"></div>'
-
-            //DOM_actions.insertBefore(DOM_download, DOM_actions.firstChild);
-            DOM_actions.appendChild(DOM_download);
-
-            DOM_download.addEventListener('click', function(event){
-                stopEvent(event);
-                save(url, artist + ' — ' + title + '.mp3');
-            }, false)
+            DOM_area.insertBefore(DOM_kz__wrapper, DOM_play.nextSibling);
+            element.classList.add('kz-vk-audio__finished');
         }
     }
 

@@ -20,13 +20,12 @@
         {
             "matches": ["*://vk.com/*", "*://*.vk.me/*" ],
             "css": ["audio/styles.css"],
-            "js": ["libs/FileSaver.js", "injection.js", "audio/script.js"],
+            "js": ["libs/FileSaver.js", "audio/script.js"],
             "run_at": "document_end"
         }
     ],
     "web_accessible_resources": [
-        "audio/graphic.png",
-        "audio/script.js",
-        "injection.js"
-    ]
+        "audio/download.png"
+    ],
+    "minimum_chrome_version": "27"
 }
