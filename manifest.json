@@ -26,7 +26,9 @@
     ],
     "web_accessible_resources": [
         "audio/download.png",
-        "audio/abort.png"
+        "audio/download-c.png",
+        "audio/abort.png",
+        "audio/abort-c.png"
     ],
     "minimum_chrome_version": "27"
 }

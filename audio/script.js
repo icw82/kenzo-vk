@@ -55,6 +55,16 @@ function save(url, name, element){
     }, false);
 
     xhr.responseType = 'blob';
+    xhr.onreadystatechange = function(){
+        if (xhr.readyState === 1)
+            show_progress_bar();
+ /*
+        if ((xhr.readyState === 4) && (xhr.status === 200)){
+
+        }
+*/
+    }
+
     xhr.onprogress = function(progress){
         if (progress.lengthComputable && !abort){
             show_progress_bar();
