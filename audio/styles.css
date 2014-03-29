@@ -1,23 +1,43 @@
 .kz-vk-audio{}
 
-.kz-vk-audio__wrapper{width:38px; float:left; padding:9px 9px 9px 0; box-sizing: border-box}
+.kz-vk-audio__wrapper{width:38px; float:left; padding:9px 9px 9px 0; box-sizing:border-box}
 .kz-vk-audio__btn{width:100%; height:16px; border-radius:2px;
-    background-color: rgba(0,0,0,.2);
-    background-position: center center; background-repeat: no-repeat;
-    text-align:center; font-size: 11px; line-height:16px; color:rgba(255,255,255,1);}
+    background-color:rgba(0,0,0,.2); cursor:pointer;
+    background-position:center center; background-repeat: no-repeat;
+    text-align:center; font-size:11px; line-height:16px; color:rgba(255,255,255,1);}
 
-.kz-vk-audio__btn:before{content: attr(data-kbps)}
+.kz-vk-audio__btn:before{content:attr(data-kbps)}
 
 .kz-vk-audio__bitrate--320{background-color: rgba(95, 127, 162, 1)}
-.kz-vk-audio__bitrate--256{background-color: rgba(95, 127, 162, .8)}
-.kz-vk-audio__bitrate--196{background-color: rgba(95, 127, 162, .6)}
-.kz-vk-audio__bitrate--128{background-color: rgba(95, 127, 162, .4)}
-.kz-vk-audio__bitrate--96{background-color: rgba(95, 127, 162, .2)}
+.kz-vk-audio__bitrate--256{background-color: rgba(95, 127, 162, .85)}
+.kz-vk-audio__bitrate--196{background-color: rgba(95, 127, 162, .7)}
+.kz-vk-audio__bitrate--128{background-color: rgba(95, 127, 162, .55)}
+.kz-vk-audio__bitrate--96{background-color: rgba(95, 127, 162, .4)}
 .kz-vk-audio__bitrate--crap{}
 
-.kz-vk-audio__btn:hover{cursor: pointer;
+.kz-vk-audio__btn:hover{
     background-image: url(chrome-extension://__MSG_@@extension_id__/audio/download.png)}
-.kz-vk-audio__btn:hover:before{opacity: 0}
+.kz-vk-audio__btn:hover:before{opacity:0}
+.kz-vk-audio__btn.kz-hidden{display:none}
+
+
+.kz-vk-audio__progress{width:100%; height:16px; overflow:hidden; position:relative;
+    border-radius:2px; border:1px solid rgb(95, 127, 162); box-sizing:border-box;
+    background-color:rgba(95, 127, 162, .5);
+    text-align:center; font-size:11px; line-height:14px; color:rgba(255,255,255,1);}
+
+.kz-vk-audio__progress:before{content:attr(data-progress); position:relative; z-index:2}
+.kz-vk-audio__progress:after{display:block; width:100%; height:100%;
+    position:absolute; top:0; left:0; z-index:3; content:""; opacity:0;
+    background-position: center center; background-repeat: no-repeat;
+    background-image: url(chrome-extension://__MSG_@@extension_id__/audio/abort.png)}
+.kz-vk-audio__progress.kz-hidden{display:none}
+.kz-vk-audio__progress:hover:before{opacity:0}
+.kz-vk-audio__progress:hover:after{opacity:1}
+
+.kz-vk-audio__progress-filling{width:100%; height:100%; position:absolute; top:0; z-index:1;
+    background-color:rgb(95,127,162);}
+
 
 .kz-vk-audio__download{margin: 6px 6px 6px 0; padding: 4px; opacity: .4;}
 .kz-vk-audio__download:hover{opacity:1}

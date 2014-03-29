@@ -1,6 +1,6 @@
 {
     "name": "Kenzo VK Music",
-    "version": "1",
+    "version": "0.3",
     "description": "",
     "icons": {
         "128": "icon.png"
@@ -25,7 +25,8 @@
         }
     ],
     "web_accessible_resources": [
-        "audio/download.png"
+        "audio/download.png",
+        "audio/abort.png"
     ],
     "minimum_chrome_version": "27"
 }
