@@ -93,18 +93,22 @@ function init(){
         });
     });
 
-    DOM_body_observer.observe(DOM_body, { attributes: true /*MutationObserverInit*/});
+    DOM_body_observer.observe(DOM_body, {attributes: true /*MutationObserverInit*/});
     //DOM_body_observer.disconnect();
 
     each(document.querySelectorAll('.audio'), process);
 
     // при вставке новых элементов
     document.addEventListener('DOMNodeInserted', function(event){
-        if (('classList' in event.target) && event.target.classList.contains('audio')){
-            process(event.target);
-        } else {
+        if ('classList' in event.target){
+            if (event.target.classList.contains('audio')){
+                process(event.target);
+                return true;
+            }
+
             if ('classList' in event.target){
                 each(event.target.querySelectorAll('.audio'), process);
+                return true;
             }
         }
     });
@@ -122,7 +126,19 @@ function init(){
 };
 
 function process(element){
+    var type;
+
     if (element.classList.contains('kz-vk-audio__finished')) return false;
+
+    if (element.parentElement.getAttribute('id') === 'initial_list')
+        type = 'default';
+    else if (element.parentElement.getAttribute('id') === 'pad_playlist')
+        type = 'pad';
+    else if (element.parentElement.classList.contains('wall_audio'))
+        type = 'wall';
+
+
+    if (!type) return false;
 
     var
         xhr = new XMLHttpRequest(),
@@ -131,8 +147,17 @@ function process(element){
         url = info[0],
         duration = info[1],
         size, kbps, artist, title,
-        DOM_area = element.querySelector('.area'),
-        DOM_play = DOM_area.querySelector('.play_btn'),
+        DOM_area = element.querySelector('.area');
+
+    if ((type === 'default') || (type === 'pad')){
+        var DOM_play = DOM_area.querySelector('.play_btn')
+    }
+
+    if (type === 'wall'){
+        var DOM_play = DOM_area.querySelector('.play_btn_wrap');
+    }
+
+    var
         DOM_info = DOM_area.querySelector('.info'),
         DOM_title_wrap = DOM_info.querySelector('.title_wrap');
 
@@ -140,6 +165,7 @@ function process(element){
     title = DOM_title_wrap.querySelector('.title').textContent;
     artist = artist.replace(/^s+|\s+$/g, '');
     title = title.replace(/^s+|\s+$/g, '');
+
 
     xhr.onreadystatechange = function(){
         if (element.classList.contains('kz-vk-audio__finished')) return false;
@@ -157,12 +183,6 @@ function process(element){
 
             var DOM_kz__btn = DOM_kz__wrapper.querySelector('.kz-vk-audio__btn');
 
-/*
-            DOM_kz__btn.setAttribute('onmouseover',
-                'Audio.rowActive(this, "Скачать", [9, 5, 0]);');
-            DOM_kz__btn.setAttribute('onmouseout',
-                'Audio.rowInactive(this)');
-*/
             DOM_kz__btn.addEventListener('click', function(event){
                 stopEvent(event);
                 save(url, artist + ' — ' + title + '.mp3', DOM_kz__wrapper);
@@ -190,7 +210,11 @@ function process(element){
             else
                 DOM_kz__btn.classList.add('kz-vk-audio__bitrate--crap');
 
-            DOM_area.insertBefore(DOM_kz__wrapper, DOM_play.nextSibling);
+            if (DOM_play.nextSibling)
+                DOM_play.parentElement.insertBefore(DOM_kz__wrapper, DOM_play.nextSibling);
+            else
+                DOM_play.parentElement.appendChild(DOM_kz__wrapper);
+
             element.classList.add('kz-vk-audio__finished');
         }
     }
