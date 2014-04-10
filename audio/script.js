@@ -132,6 +132,8 @@ function process(element){
 
     if (element.parentElement.getAttribute('id') === 'initial_list')
         type = 'default';
+    if (element.parentElement.getAttribute('id') === 'search_list')
+        type = 'default';
     else if (element.parentElement.getAttribute('id') === 'pad_playlist')
         type = 'pad';
     else if (element.parentElement.classList.contains('wall_audio'))
