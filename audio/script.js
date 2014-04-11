@@ -70,7 +70,7 @@ function save(url, name, element){
             show_progress_bar();
             progress = Math.floor(progress.loaded / progress.total * 100);
             DOM_kz__progress_filling.style.left = -100 + progress + '%';
-            DOM_kz__progress.setAttribute('data-progress', progress + '%');
+            //DOM_kz__progress.setAttribute('data-progress', progress + '%');
         }
     }
     xhr.onload = function(){

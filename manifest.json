@@ -1,10 +1,9 @@
 {
     "name": "Kenzo VK Music",
-    "version": "0.4.1",
+    "version": "0.4.2",
     "description": "",
     "icons": {
-        "128": "icon.png"
-    },
+        "128": "icons/128.png" },
     "background": {
         "persistent": false,
         "scripts": ["background/script.js"]
@@ -12,7 +11,7 @@
     "permissions": [ "tabs", "*://vk.com/*", "*://*.vk.me/*" ],
     "browser_action": {
         "default_title": "",
-        "default_icon": "icon.png",
+        "default_icon": "icons/128.png",
         "default_popup": "popup/template.html"
     },
     "manifest_version": 2,
