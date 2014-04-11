@@ -1,8 +1,10 @@
 {
     "name": "Kenzo VK Music",
-    "version": "0.4.2",
+    "version": "0.4.3",
     "description": "",
     "icons": {
+        "16": "icons/16.png",
+        "48": "icons/48.png",
         "128": "icons/128.png" },
     "background": {
         "persistent": false,
