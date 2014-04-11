@@ -62,6 +62,6 @@
 .kz-vk-audio .wall_module .play_btn_wrap + .kz-vk-audio__wrapper{width:35px; margin-left:-35px;
     padding-top:6px; padding-right:6px;}
 
-.kz-vk-audio .wall_module .audio .title_wrap{width:calc(260px - 38px);}
-.kz-vk-audio .wide_wall_module .audio .title_wrap{width:calc(430px - 38px);}
+.kz-vk-audio .wall_module .audio .title_wrap{width:calc(260px - 35px);}
+.kz-vk-audio .wide_wall_module .audio .title_wrap{width:calc(430px - 35px);}
 
