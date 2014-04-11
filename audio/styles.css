@@ -21,8 +21,7 @@
 .kz-vk-audio__bitrate--196:before{margin-left: -1px}
 .kz-vk-audio__bitrate--128{opacity:.55}
 .kz-vk-audio__bitrate--128:before{margin-left: -1px}
-.kz-vk-audio__bitrate--96{opacity:.4}
-.kz-vk-audio__bitrate--crap{opacity:.2}
+.kz-vk-audio__bitrate--crap{opacity:.3}
 
 .kz-vk-audio__btn:hover:before{opacity:0}
 .kz-vk-audio__btn.kz-hidden{display:none}
