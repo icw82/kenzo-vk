@@ -58,7 +58,7 @@ function save(url, name, element){
     xhr.onreadystatechange = function(){
         if (xhr.readyState === 1)
             show_progress_bar();
- /*
+/*
         if ((xhr.readyState === 4) && (xhr.status === 200)){
 
         }
@@ -208,13 +208,13 @@ function process(element){
 
             DOM_kz__btn.setAttribute('data-kbps', kbps);
 
-            if (kbps > 315)
+            if (kbps >= 288)
                 DOM_kz__btn.classList.add('kz-vk-audio__bitrate--320');
-            else if (kbps > 250)
+            else if (kbps >= 224)
                 DOM_kz__btn.classList.add('kz-vk-audio__bitrate--256');
-            else if (kbps > 180)
+            else if (kbps >= 176)
                 DOM_kz__btn.classList.add('kz-vk-audio__bitrate--196');
-            else if (kbps > 124)
+            else if (kbps >= 112)
                 DOM_kz__btn.classList.add('kz-vk-audio__bitrate--128');
             else
                 DOM_kz__btn.classList.add('kz-vk-audio__bitrate--crap');
