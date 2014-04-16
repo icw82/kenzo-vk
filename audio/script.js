@@ -100,10 +100,22 @@ function init(){
 
     // при вставке новых элементов
     document.addEventListener('DOMNodeInserted', function(event){
+
         if ('classList' in event.target){
             if (event.target.classList.contains('audio')){
                 process(event.target);
                 return true;
+            }
+
+            if (event.target.classList.contains('area')){
+                console.log(event.target);
+                console.log(event.target.parentElement);
+
+                if (event.target.parentElement.classList.contains('audio')){
+                    event.target.parentElement.classList.remove('kz-vk-audio__finished');
+                    process(event.target.parentElement);
+                    return true;
+                }
             }
 
             if ('classList' in event.target){
@@ -132,13 +144,14 @@ function process(element){
 
     if (element.parentElement.getAttribute('id') === 'initial_list')
         type = 'default';
-    if (element.parentElement.getAttribute('id') === 'search_list')
+    else if (element.parentElement.getAttribute('id') === 'search_list')
         type = 'default';
+    else if (element.parentElement.classList.contains('audio_results'))
+        type = 'search';
     else if (element.parentElement.getAttribute('id') === 'pad_playlist')
         type = 'pad';
     else if (element.parentElement.classList.contains('wall_audio'))
         type = 'wall';
-
 
     if (!type) return false;
 
@@ -155,7 +168,7 @@ function process(element){
         var DOM_play = DOM_area.querySelector('.play_btn')
     }
 
-    if (type === 'wall'){
+    if ((type === 'wall') || (type === 'search')){
         var DOM_play = DOM_area.querySelector('.play_btn_wrap');
     }
 
@@ -167,7 +180,6 @@ function process(element){
     title = DOM_title_wrap.querySelector('.title').textContent;
     artist = artist.replace(/^s+|\s+$/g, '');
     title = title.replace(/^s+|\s+$/g, '');
-
 
     xhr.onreadystatechange = function(){
         if (element.classList.contains('kz-vk-audio__finished')) return false;

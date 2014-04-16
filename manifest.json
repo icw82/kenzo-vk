@@ -1,7 +1,8 @@
 {
     "default_locale": "ru",
     "name": "Kenzo VK",
-    "version": "0.5",
+    "short_name": "KZVK",
+    "version": "0.5.1",
     "description": "__MSG_ext_description__",
     "author": "icw82",
     "icons": {
@@ -14,13 +15,11 @@
     },
     "permissions": [ "*://vk.com/*", "*://*.vk.me/*" ],
     "browser_action": {
-          "default_icon": {
+        "default_icon": {
             "19": "icons/19.png",
             "38": "icons/38.png"
-          }//,
-          //"default_title": "Kenzo VK",
-          //"default_popup": "popup/template.html"
-        },
+        }
+    },
     "manifest_version": 2,
     "content_scripts": [
         {
