@@ -147,6 +147,8 @@ function process(element){
     else if (element.parentElement.getAttribute('id') === 'search_list')
         type = 'default';
     else if (element.parentElement.classList.contains('audio_results'))
+        type = 'search_audio';
+    else if (element.parentElement.parentElement.classList.contains('show_media'))
         type = 'search';
     else if (element.parentElement.getAttribute('id') === 'pad_playlist')
         type = 'pad';
@@ -154,6 +156,8 @@ function process(element){
         type = 'wall';
 
     if (!type) return false;
+
+    console.log(type);
 
     var
         xhr = new XMLHttpRequest(),
@@ -168,7 +172,7 @@ function process(element){
         var DOM_play = DOM_area.querySelector('.play_btn')
     }
 
-    if ((type === 'wall') || (type === 'search')){
+    if ((type === 'wall') || (type === 'search_audio') || (type === 'search')){
         var DOM_play = DOM_area.querySelector('.play_btn_wrap');
     }
 
@@ -244,7 +248,7 @@ function process(element){
     xhr.send(null);
 }
 
-// onload
+
 if (document.readyState === 'complete'){
     init();
 } else (function(){

@@ -60,11 +60,16 @@
 .kz-vk-audio .wall_module .play_btn_wrap{float:left; margin-right:35px;}
 .kz-vk-audio .wall_module .play_btn_wrap + .kz-vk-audio__wrapper{width:35px; margin-left:-35px;
     padding-top:6px; padding-right:6px;}
+.kz-vk-audio .wall_module .audio .title_wrap{width:calc(260px - 35px)!important;}
+.kz-vk-audio .wide_wall_module .audio .title_wrap{width:calc(430px - 35px)!important;}
 
 .kz-vk-audio .audio_results .play_btn_wrap{float:left; margin-right:35px;}
 .kz-vk-audio .audio_results .play_btn_wrap + .kz-vk-audio__wrapper{width:35px; margin-left:-35px;
     padding-top:6px; padding-right:6px;}
 .kz-vk-audio .results .audio .title_wrap{width:calc(360px - 35px)}
 
-.kz-vk-audio .wall_module .audio .title_wrap{width:calc(260px - 35px);}
-.kz-vk-audio .wide_wall_module .audio .title_wrap{width:calc(430px - 35px);}
+.kz-vk-audio .show_media .audio .play_btn_wrap{float:left; margin-right:35px;}
+.kz-vk-audio .show_media .audio .play_btn_wrap + .kz-vk-audio__wrapper{width:35px; margin-left:-35px;
+    padding-top:6px; padding-right:6px;}
+.kz-vk-audio .show_media .audio .title_wrap{width:calc(510px - 35px)!important}
+
