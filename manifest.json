@@ -2,7 +2,7 @@
     "default_locale": "ru",
     "name": "Kenzo VK",
     "short_name": "KZVK",
-    "version": "0.5.2",
+    "version": "0.5.3",
     "description": "__MSG_ext_description__",
     "author": "icw82",
     "icons": {
@@ -25,7 +25,7 @@
         {
             "matches": ["*://vk.com/*", "*://*.vk.me/*" ],
             "css": ["audio/styles.css"],
-            "js": ["libs/FileSaver.js", "audio/script.js"],
+            "js": ["libs/FileSaver.js", "audio/script.js", "trash/script.js"],
             "run_at": "document_end"
         }
     ],

@@ -157,8 +157,6 @@ function process(element){
 
     if (!type) return false;
 
-    console.log(type);
-
     var
         xhr = new XMLHttpRequest(),
         id = element.querySelector('a:first-child').getAttribute('name'),
@@ -209,7 +207,7 @@ function process(element){
             size = this.getResponseHeader('Content-Length');
             kbps = Math.floor(size * 8 / duration / 1000);
 
-            if ((kbps >= 288) && (kbps < 352)) kbps = 320; else
+            if ((kbps >= 288)) kbps = 320; else
             if ((kbps >= 224) && (kbps < 288)) kbps = 256; else
             if ((kbps >= 176) && (kbps < 224)) kbps = 192; else
             if ((kbps >= 144) && (kbps < 176)) kbps = 160; else
@@ -261,5 +259,69 @@ if (document.readyState === 'complete'){
     document.addEventListener('DOMContentLoaded', on_load, false );
     window.addEventListener('load', on_load, false );
 })();
+
+
+/*
+(function(){
+
+    return;
+
+    var
+        request = indexedDB.open('test', 1),
+        db = null,
+        store = null;
+
+    request.onupgradeneeded = function(event){
+        store = event.target.result.createObjectStore('testStore', {keyPath: 'id'});
+    }
+
+    request.onsuccess = function(){
+        db = request.result;
+
+        var trreq = db.transaction('testStore', 'readwrite')
+            .objectStore('testStore')
+            .add({
+                'id': '12_12342',
+                'bitrate': 320
+            });
+
+        console.log('trreq: ', trreq);
+
+        trreq.onsuccess = function(){
+            console.log('trreq.onsuccess: ', trreq.result);
+        }
+
+        trreq.onerror = function(){
+            console.log('trreq.onerror: ', event);
+        }
+
+        console.log('close: ', db.close());
+    }
+
+})();
+
+var bitrate_cache = {
+    base: 'audio',
+    store: 'bitrate',
+    version: 1,
+
+    connect: function(callback){
+
+    },
+
+    get: function(){
+
+    },
+
+    add: function(id, bitrate){
+
+    },
+
+    reset: function(){
+        indexedDB.deleteDatabase(this.base);
+    }
+}
+
+*/
 
 })();
