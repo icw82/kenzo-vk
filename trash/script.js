@@ -9,7 +9,7 @@ function init(){
         DOM_trash = document.createElement('div'),
         DOM_left_ads = document.querySelector('#left_ads');
 
-    DOM_trash.classList.add('kz-trash');
+    DOM_trash.classList.add('kz-vk-trash');
     DOM_body.appendChild(DOM_trash);
     DOM_trash.appendChild(DOM_left_ads);
 /*

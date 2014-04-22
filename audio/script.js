@@ -260,68 +260,100 @@ if (document.readyState === 'complete'){
     window.addEventListener('load', on_load, false );
 })();
 
-
 /*
-(function(){
-
-    return;
-
-    var
-        request = indexedDB.open('test', 1),
-        db = null,
-        store = null;
-
-    request.onupgradeneeded = function(event){
-        store = event.target.result.createObjectStore('testStore', {keyPath: 'id'});
-    }
-
-    request.onsuccess = function(){
-        db = request.result;
-
-        var trreq = db.transaction('testStore', 'readwrite')
-            .objectStore('testStore')
-            .add({
-                'id': '12_12342',
-                'bitrate': 320
-            });
-
-        console.log('trreq: ', trreq);
-
-        trreq.onsuccess = function(){
-            console.log('trreq.onsuccess: ', trreq.result);
-        }
-
-        trreq.onerror = function(){
-            console.log('trreq.onerror: ', event);
-        }
-
-        console.log('close: ', db.close());
-    }
-
-})();
-
 var bitrate_cache = {
-    base: 'audio',
-    store: 'bitrate',
-    version: 1,
+    db: null,
+    dbName: 'audio',
+    dbVersion: 1,
+    store: null,
+    storeName: 'bitrate',
 
     connect: function(callback){
+        var
+            self = this,
+            request = indexedDB.open(self.dbName, self.dbVersion);
 
+        request.onupgradeneeded = function(event){
+            self.store = event.target.result.createObjectStore(self.storeName, {keyPath: 'id'});
+        }
+
+        request.onsuccess = function(){
+            self.db = request.result;
+            callback(self.db);
+        }
+
+        request.onerror = function(){
+            console.log('Сonnect error: ', event);
+        }
     },
 
-    get: function(){
+    get: function(id){
+        var
+            self = this,
+            test = null;
 
+        self.connect(function(db){
+            var request = db.transaction([self.storeName], 'readwrite')
+                .objectStore(self.storeName)
+                .get(id);
+
+            request.onsuccess = function(event){
+                //test();
+                console.log('add.onsuccess: ', event.target.result);
+            }
+
+            request.onerror = function(){
+                console.log('add.onerror: ', event);
+            }
+        });
+
+        return {
+            success: function(callback){
+                callback();
+                return this;
+            },
+            error: function(callback){
+                callback();
+                return this;
+            }
+        }
     },
 
     add: function(id, bitrate){
+        var self = this;
 
+        self.connect(function(db){
+            var request = db.transaction([self.storeName], 'readwrite')
+                .objectStore(self.storeName)
+                .add({
+                    'id': id,
+                    'bitrate': bitrate
+                });
+
+            request.onsuccess = function(){
+                console.log('add.onsuccess: ', request.result);
+            }
+
+            request.onerror = function(){
+                console.log('add.onerror: ', event);
+            }
+        });
     },
 
     reset: function(){
-        indexedDB.deleteDatabase(this.base);
+        indexedDB.deleteDatabase(self.dbName);
     }
 }
 
+//bitrate_cache.add('11_144', 320);
+bitrate_cache
+    .get('11_144')
+    .success(function(){
+        console.log('****OK');
+    })
+    .error(function(){
+        console.log('****ERROR');
+    });
 */
 
 })();
