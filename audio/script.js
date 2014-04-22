@@ -137,6 +137,19 @@ function init(){
 */
 };
 
+function roundBitrate(kbps){
+    if ((kbps >= 288)) kbps = 320; else
+    if ((kbps >= 224) && (kbps < 288)) kbps = 256; else
+    if ((kbps >= 176) && (kbps < 224)) kbps = 192; else
+    if ((kbps >= 144) && (kbps < 176)) kbps = 160; else
+    if ((kbps >= 112) && (kbps < 144)) kbps = 128; else
+    if ((kbps >= 80 ) && (kbps < 112)) kbps = 96; else
+    if ((kbps >= 48 ) && (kbps < 80 )) kbps = 64; else
+    if ((kbps >= 20 ) && (kbps < 48 )) kbps = 32;
+
+    return kbps;
+};
+
 function process(element){
     var type;
 
@@ -163,7 +176,7 @@ function process(element){
         info = element.querySelector('#audio_info' + id).value.split(','),
         url = info[0],
         duration = info[1],
-        size, kbps, artist, title,
+        artist, title,
         DOM_area = element.querySelector('.area');
 
     if ((type === 'default') || (type === 'pad')){
@@ -183,67 +196,144 @@ function process(element){
     artist = artist.replace(/^s+|\s+$/g, '');
     title = title.replace(/^s+|\s+$/g, '');
 
-    xhr.onreadystatechange = function(){
-        if (element.classList.contains('kz-vk-audio__finished')) return false;
+    function createButton(kbps){
+        //var fragment = document.createDocumentFragment();
+        var DOM_kz__wrapper = document.createElement('div');
+        DOM_kz__wrapper.classList.add('kz-vk-audio__wrapper');
 
-        if ((xhr.readyState === 4) && (xhr.status === 200)){
-            //var fragment = document.createDocumentFragment();
-            var DOM_kz__wrapper = document.createElement('div');
-            DOM_kz__wrapper.classList.add('kz-vk-audio__wrapper');
+        DOM_kz__wrapper.innerHTML =
+            '<div class="kz-vk-audio__btn"></div>' +
+            '<div class="kz-vk-audio__progress kz-hidden">' +
+                '<div class="kz-vk-audio__progress-filling"></div>'+
+            '</div>';
 
-            DOM_kz__wrapper.innerHTML =
-                '<div class="kz-vk-audio__btn"></div>' +
-                '<div class="kz-vk-audio__progress kz-hidden">' +
-                    '<div class="kz-vk-audio__progress-filling"></div>'+
-                '</div>';
+        var DOM_kz__btn = DOM_kz__wrapper.querySelector('.kz-vk-audio__btn');
 
-            var DOM_kz__btn = DOM_kz__wrapper.querySelector('.kz-vk-audio__btn');
+        DOM_kz__btn.addEventListener('click', function(event){
+            stopEvent(event);
+            save(url, artist + ' — ' + title + '.mp3', DOM_kz__wrapper);
+        }, false)
 
-            DOM_kz__btn.addEventListener('click', function(event){
-                stopEvent(event);
-                save(url, artist + ' — ' + title + '.mp3', DOM_kz__wrapper);
-            }, false)
+        DOM_kz__btn.setAttribute('data-kbps', kbps);
 
-            size = this.getResponseHeader('Content-Length');
-            kbps = Math.floor(size * 8 / duration / 1000);
+        if (kbps >= 288)
+            DOM_kz__btn.classList.add('kz-vk-audio__bitrate--320');
+        else if (kbps >= 224)
+            DOM_kz__btn.classList.add('kz-vk-audio__bitrate--256');
+        else if (kbps >= 176)
+            DOM_kz__btn.classList.add('kz-vk-audio__bitrate--196');
+        else if (kbps >= 112)
+            DOM_kz__btn.classList.add('kz-vk-audio__bitrate--128');
+        else
+            DOM_kz__btn.classList.add('kz-vk-audio__bitrate--crap');
 
-            if ((kbps >= 288)) kbps = 320; else
-            if ((kbps >= 224) && (kbps < 288)) kbps = 256; else
-            if ((kbps >= 176) && (kbps < 224)) kbps = 192; else
-            if ((kbps >= 144) && (kbps < 176)) kbps = 160; else
-            if ((kbps >= 112) && (kbps < 144)) kbps = 128; else
-            if ((kbps >= 80 ) && (kbps < 112)) kbps = 96; else
-            if ((kbps >= 48 ) && (kbps < 80 )) kbps = 64; else
-            if ((kbps >= 20 ) && (kbps < 48 )) kbps = 32;
+        if (DOM_play.nextSibling)
+            DOM_play.parentElement.insertBefore(DOM_kz__wrapper, DOM_play.nextSibling);
+        else
+            DOM_play.parentElement.appendChild(DOM_kz__wrapper);
 
-            var
-                DOM_duration = element.querySelector('.duration'),
-                DOM_actions = element.querySelector('.actions');
-
-            DOM_kz__btn.setAttribute('data-kbps', kbps);
-
-            if (kbps >= 288)
-                DOM_kz__btn.classList.add('kz-vk-audio__bitrate--320');
-            else if (kbps >= 224)
-                DOM_kz__btn.classList.add('kz-vk-audio__bitrate--256');
-            else if (kbps >= 176)
-                DOM_kz__btn.classList.add('kz-vk-audio__bitrate--196');
-            else if (kbps >= 112)
-                DOM_kz__btn.classList.add('kz-vk-audio__bitrate--128');
-            else
-                DOM_kz__btn.classList.add('kz-vk-audio__bitrate--crap');
-
-            if (DOM_play.nextSibling)
-                DOM_play.parentElement.insertBefore(DOM_kz__wrapper, DOM_play.nextSibling);
-            else
-                DOM_play.parentElement.appendChild(DOM_kz__wrapper);
-
-            element.classList.add('kz-vk-audio__finished');
-        }
+        element.classList.add('kz-vk-audio__finished');
     }
 
-    xhr.open('HEAD', url, true);
-    xhr.send(null);
+    function getBitrate(callback){
+        xhr.onreadystatechange = function(){
+            if (element.classList.contains('kz-vk-audio__finished')) return false;
+
+            if ((xhr.readyState === 4) && (xhr.status === 200)){
+                var
+                    size = this.getResponseHeader('Content-Length'),
+                    kbps = roundBitrate(Math.floor(size * 8 / duration / 1000));
+
+                if (typeof callback == 'function')
+                    callback(kbps);
+                else
+                    console.warn('getBitrate: callback не функция');
+            }
+        }
+
+        xhr.open('HEAD', url, true);
+        xhr.send(null);
+        console.log('kenzo-vk-audio xhr: ', url);
+    };
+
+
+    (function(){
+        var
+            db = null,
+            dbName = 'audio',
+            dbVersion = 1,
+            store = null,
+            storeName = 'bitrate';
+
+        var connect = function(callback){
+            var request = indexedDB.open(dbName, dbVersion);
+
+            request.onupgradeneeded = function(event){
+                store = event.target.result.createObjectStore(self.storeName, {keyPath: 'id'});
+            }
+
+            request.onsuccess = function(){
+                db = request.result;
+                callback(db);
+            }
+
+            request.onerror = function(){
+                console.log('Сonnect error: ', event);
+/* ???
+                getBitrate(function(kbps){
+                    console.log(kbps);
+                    createButton(kbps);
+                });
+*/
+            }
+
+        }
+
+        connect(function(db){
+            var request = db.transaction([storeName], 'readonly')
+                .objectStore(storeName)
+                .get(id);
+
+            request.onsuccess = function(event){
+                if (event.target.result){
+                    createButton(event.target.result.bitrate);
+                } else {
+                    getBitrate(function(kbps){
+                        createButton(kbps);
+
+                        connect(function(db){
+                            var request = db.transaction([storeName], 'readwrite')
+                                .objectStore(storeName)
+                                .add({
+                                    'id': id,
+                                    'bitrate': kbps
+                                });
+
+                            request.onsuccess = function(){
+                                db.close();
+                            }
+
+                            request.onerror = function(){
+                                console.log('add.onerror: ', event);
+                                db.close();
+                            }
+                        });
+
+                    })
+                }
+            }
+
+            request.onerror = function(){
+                console.log('add.onerror: ', event);
+
+                getBitrate(function(kbps){
+                    console.log(kbps);
+                    createButton(kbps);
+                });
+            }
+        });
+
+    })();
 }
 
 
@@ -259,101 +349,5 @@ if (document.readyState === 'complete'){
     document.addEventListener('DOMContentLoaded', on_load, false );
     window.addEventListener('load', on_load, false );
 })();
-
-/*
-var bitrate_cache = {
-    db: null,
-    dbName: 'audio',
-    dbVersion: 1,
-    store: null,
-    storeName: 'bitrate',
-
-    connect: function(callback){
-        var
-            self = this,
-            request = indexedDB.open(self.dbName, self.dbVersion);
-
-        request.onupgradeneeded = function(event){
-            self.store = event.target.result.createObjectStore(self.storeName, {keyPath: 'id'});
-        }
-
-        request.onsuccess = function(){
-            self.db = request.result;
-            callback(self.db);
-        }
-
-        request.onerror = function(){
-            console.log('Сonnect error: ', event);
-        }
-    },
-
-    get: function(id){
-        var
-            self = this,
-            test = null;
-
-        self.connect(function(db){
-            var request = db.transaction([self.storeName], 'readwrite')
-                .objectStore(self.storeName)
-                .get(id);
-
-            request.onsuccess = function(event){
-                //test();
-                console.log('add.onsuccess: ', event.target.result);
-            }
-
-            request.onerror = function(){
-                console.log('add.onerror: ', event);
-            }
-        });
-
-        return {
-            success: function(callback){
-                callback();
-                return this;
-            },
-            error: function(callback){
-                callback();
-                return this;
-            }
-        }
-    },
-
-    add: function(id, bitrate){
-        var self = this;
-
-        self.connect(function(db){
-            var request = db.transaction([self.storeName], 'readwrite')
-                .objectStore(self.storeName)
-                .add({
-                    'id': id,
-                    'bitrate': bitrate
-                });
-
-            request.onsuccess = function(){
-                console.log('add.onsuccess: ', request.result);
-            }
-
-            request.onerror = function(){
-                console.log('add.onerror: ', event);
-            }
-        });
-    },
-
-    reset: function(){
-        indexedDB.deleteDatabase(self.dbName);
-    }
-}
-
-//bitrate_cache.add('11_144', 320);
-bitrate_cache
-    .get('11_144')
-    .success(function(){
-        console.log('****OK');
-    })
-    .error(function(){
-        console.log('****ERROR');
-    });
-*/
 
 })();

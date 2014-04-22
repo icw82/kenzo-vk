@@ -33,4 +33,24 @@ if (document.readyState === 'complete'){
     window.addEventListener('load', on_load, false );
 })();
 
+/* Блок с рекомендациями тоже к херам.
+
+<div class="feed_row">
+    <div>
+        <div class="ads_ads_news_wrap">
+            <div class="ads_ads_news_close">
+                <div class="ads_ads_news_close_tooltip tooltip_text">Это не интересно</div>
+            </div>
+            <div class="ads_ads_news_left">
+                <a class="ads_ads_news_image" href="/apps"></a>
+            </div>
+            <div class="ads_ads_news_right">
+                …
+            </div>
+        </div>
+    </div>
+</div>
+
+*/
+
 })();

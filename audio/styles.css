@@ -52,6 +52,8 @@
 
 .kz-vk-audio #audio.new .audio .info{width:calc(390px - 38px);}
 .kz-vk-audio #audio.new .audio .title_wrap{width:calc(330px - 38px);}
+.kz-vk-audio #audio.new .audio .play_btn{margin-right:38px}
+.kz-vk-audio #audio.new .audio .play_btn + .kz-vk-audio__wrapper{margin-left:-38px;}
 
 .kz-vk-audio #pad_playlist_panel .audio .info{width:calc(390px - 38px)}
 .kz-vk-audio #pad_playlist_panel .audio .title_wrap{width:calc(336px - 38px)}
@@ -60,8 +62,14 @@
 .kz-vk-audio .wall_module .play_btn_wrap{float:left; margin-right:35px;}
 .kz-vk-audio .wall_module .play_btn_wrap + .kz-vk-audio__wrapper{width:35px; margin-left:-35px;
     padding-top:6px; padding-right:6px;}
-.kz-vk-audio .wall_module .audio .title_wrap{width:calc(260px - 35px)!important;}
-.kz-vk-audio .wide_wall_module .audio .title_wrap{width:calc(430px - 35px)!important;}
+.kz-vk-audio .wall_module .audio .title_wrap{
+    width:calc(260px - 35px)!important;}
+.kz-vk-audio .wall_module .audio .reply_table .title_wrap{
+    width:calc(200px - 35px)!important;}
+.kz-vk-audio .wide_wall_module .audio .title_wrap{
+    width:calc(430px - 35px)!important;}
+.kz-vk-audio .wide_wall_module .reply_table .audio .title_wrap{
+    width:calc(400px - 35px)!important;}
 
 .kz-vk-audio .audio_results .play_btn_wrap{float:left; margin-right:35px;}
 .kz-vk-audio .audio_results .play_btn_wrap + .kz-vk-audio__wrapper{width:35px; margin-left:-35px;
