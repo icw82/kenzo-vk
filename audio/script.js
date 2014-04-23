@@ -256,7 +256,11 @@ function process(element){
         console.log('kenzo-vk-audio xhr: ', url);
     };
 
+    getBitrate(function(kbps){
+        createButton(kbps);
+    });
 
+/*
     (function(){
         var
             db = null,
@@ -279,12 +283,6 @@ function process(element){
 
             request.onerror = function(){
                 console.log('Сonnect error: ', event);
-/* ???
-                getBitrate(function(kbps){
-                    console.log(kbps);
-                    createButton(kbps);
-                });
-*/
             }
 
         }
@@ -334,6 +332,9 @@ function process(element){
         });
 
     })();
+*/
+
+
 }
 
 
