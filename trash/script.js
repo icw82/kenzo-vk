@@ -3,21 +3,35 @@
 //  – — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —|
 'use strict';
 
+function each(array, callback){
+    for (var i = 0; i < array.length; i++){
+        callback(array[i]);
+    }
+}
+
 function init(){
     var
         DOM_body = document.querySelector('body'),
-        DOM_trash = document.createElement('div'),
-        DOM_left_ads = document.querySelector('#left_ads');
+        DOM_trash_bin = document.createElement('div'),
+        DOM_trash = [
+            document.querySelector('#left_ads'),
+            document.querySelector('#left_friends')
+        ];
 
-    DOM_trash.classList.add('kz-vk-trash');
-    DOM_body.appendChild(DOM_trash);
-    DOM_trash.appendChild(DOM_left_ads);
-/*
+    DOM_trash_bin.classList.add('kz-vk-trash__bin');
+    DOM_body.appendChild(DOM_trash_bin);
+
+    each(DOM_trash, function(item){
+        (item) && ('appendChild' in item) && DOM_trash_bin.appendChild(item);
+    });
+
     document.addEventListener('DOMNodeInserted', function(event){
-        console.log(event.target);
-    })
-*/
-
+        if ('classList' in event.target){
+            if (event.target.getAttribute('id') == 'left_friends'){
+                DOM_trash_bin.appendChild(event.target);
+            }
+        }
+    });
 }
 
 if (document.readyState === 'complete'){

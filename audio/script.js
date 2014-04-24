@@ -26,25 +26,30 @@ function save(url, name, element){
         xhr = new XMLHttpRequest(),
         progress = 0,
         abort = false,
-        DOM_kz__btn =
-            element.querySelector('.kz-vk-audio__btn'),
+        DOM_kz__carousel =
+            element.querySelector('.kz-vk-audio__carousel'),
+        DOM_kz__bitrate =
+            element.querySelector('.kz-vk-audio__carousel__item.kz-bitrate'),
         DOM_kz__progress =
-            element.querySelector('.kz-vk-audio__progress'),
+            element.querySelector('.kz-vk-audio__carousel__item.kz-progress'),
         DOM_kz__progress_filling =
             element.querySelector('.kz-vk-audio__progress-filling');
 
     function show_progress_bar(){
-        if (!DOM_kz__btn.classList.contains('kz-hidden'))
-            DOM_kz__btn.classList.add('kz-hidden');
+        console.log('----show');
+        if (!DOM_kz__carousel.classList.contains('kz-progress'))
+            DOM_kz__carousel.classList.add('kz-progress');
 
-        DOM_kz__progress.classList.remove('kz-hidden');
+        if (DOM_kz__carousel.classList.contains('kz-bitrate'))
+            DOM_kz__carousel.classList.remove('kz-bitrate');
     }
 
     function hide_progress_bar(){
-        if (!DOM_kz__progress.classList.contains('kz-hidden'))
-            DOM_kz__progress.classList.add('kz-hidden');
+        if (!DOM_kz__carousel.classList.contains('kz-bitrate'))
+            DOM_kz__carousel.classList.add('kz-bitrate');
 
-        DOM_kz__btn.classList.remove('kz-hidden');
+        if (DOM_kz__carousel.classList.contains('kz-progress'))
+            DOM_kz__carousel.classList.remove('kz-progress');
     }
 
     DOM_kz__progress.addEventListener('click', function(event){
@@ -100,7 +105,6 @@ function init(){
 
     // при вставке новых элементов
     document.addEventListener('DOMNodeInserted', function(event){
-
         if ('classList' in event.target){
             if (event.target.classList.contains('audio')){
                 process(event.target);
@@ -108,9 +112,6 @@ function init(){
             }
 
             if (event.target.classList.contains('area')){
-                console.log(event.target);
-                console.log(event.target.parentElement);
-
                 if (event.target.parentElement.classList.contains('audio')){
                     event.target.parentElement.classList.remove('kz-vk-audio__finished');
                     process(event.target.parentElement);
@@ -202,30 +203,34 @@ function process(element){
         DOM_kz__wrapper.classList.add('kz-vk-audio__wrapper');
 
         DOM_kz__wrapper.innerHTML =
-            '<div class="kz-vk-audio__btn"></div>' +
-            '<div class="kz-vk-audio__progress kz-hidden">' +
-                '<div class="kz-vk-audio__progress-filling"></div>'+
+            '<div class="kz-vk-audio__carousel kz-bitrate">' +
+                '<div class="kz-vk-audio__carousel__item kz-bitrate"></div>' +
+                '<div class="kz-vk-audio__carousel__item kz-progress">' +
+                    '<div class="kz-vk-audio__progress-filling"></div>' +
+                '</div>' +
             '</div>';
 
-        var DOM_kz__btn = DOM_kz__wrapper.querySelector('.kz-vk-audio__btn');
+        var
+            DOM_kz__carousel = DOM_kz__wrapper.querySelector('.kz-vk-audio__carousel'),
+            DOM_kz__bitrate = DOM_kz__wrapper.querySelector('.kz-vk-audio__carousel__item.kz-bitrate');
 
-        DOM_kz__btn.addEventListener('click', function(event){
+        DOM_kz__bitrate.addEventListener('click', function(event){
             stopEvent(event);
             save(url, artist + ' — ' + title + '.mp3', DOM_kz__wrapper);
         }, false)
 
-        DOM_kz__btn.setAttribute('data-kbps', kbps);
+        DOM_kz__bitrate.setAttribute('data-kbps', kbps);
 
         if (kbps >= 288)
-            DOM_kz__btn.classList.add('kz-vk-audio__bitrate--320');
+            DOM_kz__carousel.classList.add('kz-vk-audio__bitrate--320');
         else if (kbps >= 224)
-            DOM_kz__btn.classList.add('kz-vk-audio__bitrate--256');
+            DOM_kz__carousel.classList.add('kz-vk-audio__bitrate--256');
         else if (kbps >= 176)
-            DOM_kz__btn.classList.add('kz-vk-audio__bitrate--196');
+            DOM_kz__carousel.classList.add('kz-vk-audio__bitrate--196');
         else if (kbps >= 112)
-            DOM_kz__btn.classList.add('kz-vk-audio__bitrate--128');
+            DOM_kz__carousel.classList.add('kz-vk-audio__bitrate--128');
         else
-            DOM_kz__btn.classList.add('kz-vk-audio__bitrate--crap');
+            DOM_kz__carousel.classList.add('kz-vk-audio__bitrate--crap');
 
         if (DOM_play.nextSibling)
             DOM_play.parentElement.insertBefore(DOM_kz__wrapper, DOM_play.nextSibling);
@@ -253,19 +258,21 @@ function process(element){
 
         xhr.open('HEAD', url, true);
         xhr.send(null);
-        console.log('kenzo-vk-audio xhr: ', url);
+
+        console.log('KZVK:', 'xhr: ', url);
     };
 
+/*
     getBitrate(function(kbps){
         createButton(kbps);
     });
+*/
 
-/*
     (function(){
         var
             db = null,
             dbName = 'audio',
-            dbVersion = 1,
+            dbVersion = 2,
             store = null,
             storeName = 'bitrate';
 
@@ -273,7 +280,12 @@ function process(element){
             var request = indexedDB.open(dbName, dbVersion);
 
             request.onupgradeneeded = function(event){
-                store = event.target.result.createObjectStore(self.storeName, {keyPath: 'id'});
+                if (event.target.result.objectStoreNames.contains(storeName)){
+                    event.target.result.deleteObjectStore(storeName);
+                    console.log('KZVK:', 'Объект удалён');
+                }
+
+                store = event.target.result.createObjectStore(storeName, {keyPath: 'id'});
             }
 
             request.onsuccess = function(){
@@ -282,7 +294,7 @@ function process(element){
             }
 
             request.onerror = function(){
-                console.log('Сonnect error: ', event);
+                console.log('KZVK:', 'Сonnect error:', event);
             }
 
         }
@@ -312,7 +324,7 @@ function process(element){
                             }
 
                             request.onerror = function(){
-                                console.log('add.onerror: ', event);
+                                console.log('KZVK:', 'add.onerror:', event);
                                 db.close();
                             }
                         });
@@ -322,21 +334,17 @@ function process(element){
             }
 
             request.onerror = function(){
-                console.log('add.onerror: ', event);
+                console.log('KZVK:', 'connect.onerror:', event);
 
                 getBitrate(function(kbps){
-                    console.log(kbps);
                     createButton(kbps);
                 });
             }
         });
 
     })();
-*/
-
 
 }
-
 
 if (document.readyState === 'complete'){
     init();
