@@ -2,17 +2,13 @@
     "default_locale": "ru",
     "name": "Kenzo VK",
     "short_name": "KZVK",
-    "version": "0.6.2",
+    "version": "0.6.3",
     "description": "__MSG_ext_description__",
     "author": "icw82",
     "icons": {
         "16": "icons/16.png",
         "48": "icons/48.png",
         "128": "icons/128.png" },
-    "background": {
-        "persistent": false,
-        "scripts": ["background/script.js"]
-    },
     "permissions": [ "unlimitedStorage", "*://vk.com/*", "*://*.vk.me/*" ],
     "manifest_version": 2,
     "content_scripts": [
