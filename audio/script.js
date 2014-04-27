@@ -35,32 +35,204 @@ function calc_bitrate_classic(size, duration){
     return kbps;
 }
 
-function get_mp3_first_frame_info(url, offset, callback){
-/*
-    var
-        xhr = new XMLHttpRequest(),
-        data = {};
+function get_binary_data_from_url(/* String url [, Array range], Function callback */){
+    // Проверка
+    if (typeof arguments[0] !== 'string'){
+        console.warn('KZ: url не передан');
+        return false;
+    } else
+        var url = arguments[0];
 
-    xhr.onreadystatechange = function(){
-        if ((xhr.readyState === 4) && (xhr.status === 206)){
+    if (arguments[1]){
+        if (typeof arguments[1] == 'function'){
+            var callback = arguments[1];
+        } else if (arguments[1] instanceof Array){
+            if (arguments[1][0] instanceof Array)
+                var ranges = arguments[1];
+            else
+                var ranges = [arguments[1]];
 
-            console.log(this.getResponseHeader('Content-Range'));
-
-            var buffer = this.response;
-            var int = new Int8Array(buffer);
-            console.log(int);
+            if (typeof arguments[2] == 'function')
+                var callback = arguments[2];
+            else {
+                console.warn('KZ: Функция обратного вызова не передана');
+                return false;
+            }
+        } else {
+            console.warn('KZ: Второй аргумент не передан');
+            return false;
         }
     }
 
+    var xhr = new XMLHttpRequest();
     xhr.open('GET', url, true);
-    xhr.setRequestHeader('Range', 'bytes=' + offset + '-' + (offset + 4));
+
+    if (!ranges) {
+    // Передача файла полностью
+
+    } else if (ranges.length === 1){
+    // Передача файла одной части файла
+        xhr.setRequestHeader('Range', 'bytes=' + ranges[0][0] + '-' + ranges[0][1]);
+
+        xhr.onreadystatechange = function(){
+            if (xhr.readyState !== 4) return false;
+            if (xhr.status === 206){
+                var self = this;
+                callback([{
+                    'headers': self.getAllResponseHeaders(),
+                    'getHeader': function(header){
+                        return self.getResponseHeader(header);
+                    },
+                    'content': self.response
+                }]);
+            } else {
+                callback(false);
+            }
+        }
+
+    } else {
+    // Передача файла нескольких частей файла
+        xhr.setRequestHeader('Range', 'bytes=' + (function(){
+            ranges.forEach(function(element, index){
+                ranges[index] = ranges[index][0] + '-' + ranges[index][1];
+            })
+            return ranges.join(',');
+        })());
+
+        xhr.onreadystatechange = function(){
+            if (xhr.readyState !== 4) return false;
+            if (xhr.status === 206){
+
+                // Разделитель
+                var separator = (function(range){
+                    var out = range.match(/boundary=(.+)$/);
+                    if (out && out[1])
+                        return out[1];
+                    else
+                        return false;
+                })(this.getResponseHeader('Content-Type'));
+
+                // Части
+                var parts = (function(response, separator){
+                    var
+                        ranges = [],
+                        view = new Uint8Array(response),
+                        out = [],
+                        cur = 0;
+// — — — — — — — — — — — — — — — indian Magic
+// Поиск начала данных раздела
+while (cur < response.byteLength){
+    if (view[cur] === 45 && view[cur + 1] === 45){
+        cur += 2;
+        for (var i = 0; i < separator.length; i++){
+            if (separator.charCodeAt(i) === view[cur]){
+                if (i == separator.length - 1){
+                    cur++;
+                    if (view[cur] === 13 && view[cur + 1] === 10){
+                        cur += 2;
+                        if (ranges.length > 0){
+                            ranges[ranges.length - 1].end = cur - separator.length - 7;
+                        }
+
+                        ranges.push({headers: cur});
+
+                        while (
+                            cur < response.byteLength &&
+                            !(view[cur + 2] === 45 && view[cur + 3] === 45)
+                        ){
+                            if (
+                                view[cur] === 13 && view[cur + 1] === 10 &&
+                                view[cur + 2] === 13 && view[cur + 3] === 10
+                            ){
+                                cur += 4;
+                                break;
+                            } else {
+                                cur++;
+                            }
+                        }
+
+                        if (cur !== response.byteLength - 1)
+                            ranges[ranges.length - 1].begin = cur;
+
+                    } else if (view[cur] === 45 && view[cur + 1] === 45){
+                        ranges[ranges.length - 1].end = cur - separator.length - 5;
+                    }
+                }
+            } else {
+                break;
+            }
+
+            cur++;
+        }
+    } else {
+        cur++;
+    }
+}
+// — — — — — — — — — — — — — — —
+                    for (var i = 0; i < ranges.length; i++){
+                        var headers = '',
+                            headers_array = new Uint8Array(
+                                response,
+                                ranges[i].headers,
+                                ranges[i].begin - 4 - ranges[i].headers
+                            );
+
+                        for (var j = 0; j < headers_array.length; j++){
+                            headers += String.fromCharCode(headers_array[j]);
+                        }
+
+                        out.push({
+                            'headers': headers,
+                            'getHeader': function(header){
+                                var
+                                    regexp = new RegExp(header + ': (.+)'),
+                                    matches = this.headers.match(regexp);
+
+                                return matches[1];
+                            },
+                            'content': response.slice(ranges[i].begin, ranges[i].end)
+                        })
+                    }
+
+                    return out;
+                })(this.response, separator);
+
+                callback(parts);
+            } else {
+                callback(false);
+            }
+        }
+    }
+
     xhr.responseType = 'arraybuffer';
     xhr.send(null);
-
-    //console.log('get_mp3_first_frame_info');
-*/
-    callback();
 }
+
+var test_limit = 5;
+
+function get_mp3_first_frame_info(url, offset, callback){
+
+    if (test_limit > 0){
+        test_limit--;
+    } else {
+        callback({});
+        return false;
+    }
+
+    var ranges = [
+        [offset, offset + 4],
+        [offset + 8, offset + 12]
+    ];
+
+    get_binary_data_from_url(url, ranges, function(response){
+        // new Uint8Array();
+        //console.log('callback:', response[0]);
+        // Версия MPEG
+
+        // Layer
+        callback({});
+    });
+};
 
 
 function get_mp3_info(url, callback){
@@ -70,22 +242,21 @@ function get_mp3_info(url, callback){
     }
 
     var
-        xhr = new XMLHttpRequest(),
-        data = {
-            'available': true
-        };
+        range = [0, 9],
+        data = {'available': false};
 
-    xhr.onreadystatechange = function(){
-        if (xhr.readyState !== 4) return false;
+    get_binary_data_from_url(url, range, function(response){
+        if (response && response[0].headers){
+            response = response[0];
 
-        if (xhr.status === 206){
-            if (this.getResponseHeader('Content-Type') != 'audio/mpeg'){
+            if (response.getHeader('Content-Type') != 'audio/mpeg'){
                 console.log('KZVK: get_mp3_info:', 'не «audio/mpeg»');
                 callback(data);
                 return false;
             }
 
-            var buffer = this.response;
+            data.available = true;
+            var buffer = response.content;
 
             // Размер файла
             data.size = (function(range){
@@ -94,7 +265,7 @@ function get_mp3_info(url, callback){
                     return out[0];
                 else
                     return false;
-            })(this.getResponseHeader('Content-Range'));
+            })(response.getHeader('Content-Range'));
 
             if (!data.size){
                 callback(data);
@@ -103,11 +274,11 @@ function get_mp3_info(url, callback){
 
             // Версия тега
             data.tag_version = (function(buffer){
-                var identifier = new Int8Array(buffer, 0, 3);
+                var identifier = new Uint8Array(buffer, 0, 3);
                 identifier = String.fromCharCode(identifier[0], identifier[1], identifier[2]);
 
                 if (identifier == 'ID3'){
-                    var version = new Int8Array(buffer, 3, 1);
+                    var version = new Uint8Array(buffer, 3, 1);
                     return 'ID3v2.' + version[0];
                 } else {
                     //console.log('KZVK: get_mp3_info:', 'not ID3v2');
@@ -122,7 +293,7 @@ function get_mp3_info(url, callback){
 
             // Длина тега
             data.tag_length = (function(buffer){
-                var length = new Int8Array(buffer, 6, 4);
+                var length = new Uint8Array(buffer, 6, 4);
 
                 return length[3] & 0x7f
                     | ((length[2] & 0x7f) << 7)
@@ -131,22 +302,16 @@ function get_mp3_info(url, callback){
             })(buffer);
 
             // Первый фрейм
-            get_mp3_first_frame_info(url, data.tag_length, function(){
-
+            get_mp3_first_frame_info(url, data.tag_length + 10, function(frame_info){
+                // ??
                 callback(data);
             });
+
         } else {
-            data.available = false;
             callback(data);
         }
-    }
-
-    xhr.open('GET', url, true);
-    xhr.setRequestHeader('Range', 'bytes=0-9');
-    xhr.responseType = 'arraybuffer';
-    xhr.send(null);
+    });
 }
-
 
 function save(url, name, element){
     (name) || (name = 'kenzo-vk-audio.mp3');
@@ -165,7 +330,6 @@ function save(url, name, element){
             element.querySelector('.kz-vk-audio__progress-filling');
 
     function show_progress_bar(){
-        console.log('----show');
         if (!DOM_kz__carousel.classList.contains('kz-progress'))
             DOM_kz__carousel.classList.add('kz-progress');
 
