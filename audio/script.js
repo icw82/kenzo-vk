@@ -208,7 +208,7 @@ while (cur < response.byteLength){
     xhr.send(null);
 }
 
-var test_limit = 5;
+var test_limit = 0;
 
 function get_mp3_first_frame_info(url, offset, callback){
 
