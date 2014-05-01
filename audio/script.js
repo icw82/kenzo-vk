@@ -501,7 +501,7 @@ function process(element){
         return data;
     }
 
-    function createButton(data){
+    function createButton(data, element){
         if (element.classList.contains('kz-vk-audio__finished')) return false;
 
         var DOM_kz__wrapper = document.createElement('div');
@@ -546,9 +546,8 @@ function process(element){
                 DOM_kz__carousel.classList.add('kz-vk-audio__bitrate--crap');
 
         } else {
-            DOM_kz__carousel.classList.add('kz-unavailable');
+            element.classList.add('kz-vk-audio__unavailable');
             DOM_kz__unavailable.addEventListener('click', stopEvent, false);
-
         }
 
         if (DOM_play.nextSibling)
@@ -562,14 +561,14 @@ function process(element){
     if (!url || url == ""){
         createButton({
             'available': false
-        });
+        }, element);
 
         return false;
     }
 
 /*
     get_mp3_info(url, function(data){
-        createButton(validate_data(data));
+        createButton(validate_data(data), element);
     });
 //*/
 
@@ -616,11 +615,11 @@ function process(element){
                         'bitrate': event.target.result.bitrate
                     }
 
-                    createButton(data);
+                    createButton(data, element);
                 } else {
                     get_mp3_info(url, function(data){
                         var valid_data = validate_data(data);
-                        createButton(valid_data);
+                        createButton(valid_data, element);
 
                         connect(function(db){
                             var request = db.transaction([storeName], 'readwrite')
@@ -648,7 +647,7 @@ function process(element){
                 console.log('KZVK:', 'connect.onerror:', event);
 
                 get_mp3_info(url, function(data){
-                    createButton(validate_data(data));
+                    createButton(validate_data(data), element);
                 });
             }
         });
