@@ -33,6 +33,14 @@
             <span class="mb-block-header__description">[[ i18n.audio.description ]]</span>
         </div>
     </div>
+    <div class="col-6">
+        <p>
+            <label class="mb-label__checkbox">
+                <input type="checkbox" ng-model="Options.audio__cache">
+                [[ i18n.audio.options.cache ]]
+            </label>
+        </p>
+    </div>
 </div>
 <div class="mb-delimiter"></div>
 <div class="grid-12">
@@ -43,21 +51,22 @@
     </div>
     <div class="col-6">
         <p>
-            <label>
+            <label class="mb-label__checkbox">
                 <input type="checkbox" ng-model="Options.trash__lsb__ad">
                 [[ i18n.trash.options.lsb__ad ]]
             </label>
         </p>
         <p>
-            <label>
-                <input type="checkbox" ng-model="Options.trash__lsb__fr">
-                [[ i18n.trash.options.lsb__fr ]]
-            </label>
-        </p>
-        <p>
-            <label>
+            <label class="mb-label__checkbox">
                 <input type="checkbox" ng-model="Options.trash__newsads">
                 [[ i18n.trash.options.newsads ]]
+            </label>
+        </p>
+    </div><div class="col-6">
+        <p>
+            <label class="mb-label__checkbox">
+                <input type="checkbox" ng-model="Options.trash__lsb__fr">
+                [[ i18n.trash.options.lsb__fr ]]
             </label>
         </p>
     </div>

@@ -15,7 +15,10 @@ $scope.i18n = {
     'annotation': chrome.i18n.getMessage('o__annotation'),
     'audio': {
         'header': chrome.i18n.getMessage('o__audio__header'),
-        'description': chrome.i18n.getMessage('o__audio__description')
+        'description': chrome.i18n.getMessage('o__audio__description'),
+        'options': {
+            'cache' :chrome.i18n.getMessage('o__audio__cache')
+        }
     },
     'trash': {
         'header': chrome.i18n.getMessage('o__trash__header'),

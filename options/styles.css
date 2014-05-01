@@ -75,6 +75,11 @@ p{margin-bottom: 5px}
     color: rgba(0,0,0,.6)}
 .mb-block-header__description:before{content: '— '}
 
+.mb-label__checkbox{display:inline-block; position:relative;
+    padding-left:23px; padding-right:5px; margin-right: -5px; cursor: pointer}
+.mb-label__checkbox > input[type="checkbox"]{position:absolute; left:1px; top:.15em;}
+.mb-label__checkbox:hover{background-color: rgba(0,0,0,.05)}
+
 .b-footer{text-align:center}
 .b-footer__sign{display:inline-block; width:29px; height:29px; opacity:.8;
     background-repeat: no-repeat; background-image: url('icw82.png');
