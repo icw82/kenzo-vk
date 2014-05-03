@@ -3,6 +3,13 @@
 //  – — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —|
 'use strict';
 
+var audio_item_classes = [
+    'kz-bitrate',
+    'kz-progress',
+    'kz-unavailable'
+];
+
+
 function each(array, callback){
     for (var i = 0; i < array.length; i++){
         callback(array[i]);
@@ -28,6 +35,8 @@ function save(url, name, element){
         xhr = new XMLHttpRequest(),
         progress = 0,
         abort = false,
+
+        // TODO: clean
         DOM_kz__carousel =
             element.querySelector('.kz-vk-audio__carousel'),
         DOM_kz__bitrate =
@@ -37,33 +46,17 @@ function save(url, name, element){
         DOM_kz__progress_filling =
             element.querySelector('.kz-vk-audio__progress-filling');
 
-    function show_progress_bar(){
-        if (!DOM_kz__carousel.classList.contains('kz-progress'))
-            DOM_kz__carousel.classList.add('kz-progress');
-
-        if (DOM_kz__carousel.classList.contains('kz-bitrate'))
-            DOM_kz__carousel.classList.remove('kz-bitrate');
-    }
-
-    function hide_progress_bar(){
-        if (!DOM_kz__carousel.classList.contains('kz-bitrate'))
-            DOM_kz__carousel.classList.add('kz-bitrate');
-
-        if (DOM_kz__carousel.classList.contains('kz-progress'))
-            DOM_kz__carousel.classList.remove('kz-progress');
-    }
-
     DOM_kz__progress.addEventListener('click', function(event){
         stopEvent(event);
         xhr.abort();
         abort = true;
-        hide_progress_bar();
+        toggle_class(element, 'kz-bitrate', audio_item_classes);
     }, false);
 
     xhr.responseType = 'blob';
     xhr.onreadystatechange = function(){
         if (xhr.readyState === 1)
-            show_progress_bar();
+            toggle_class(element, 'kz-progress', audio_item_classes);
 /*
         if ((xhr.readyState === 4) && (xhr.status === 200)){
 
@@ -73,7 +66,7 @@ function save(url, name, element){
 
     xhr.onprogress = function(progress){
         if (progress.lengthComputable && !abort){
-            show_progress_bar();
+            toggle_class(element, 'kz-progress', audio_item_classes);
             progress = Math.floor(progress.loaded / progress.total * 100);
             DOM_kz__progress_filling.style.left = -100 + progress + '%';
             //DOM_kz__progress.setAttribute('data-progress', progress + '%');
@@ -82,214 +75,127 @@ function save(url, name, element){
     xhr.onload = function(){
         var blob = new window.Blob([this.response], {'type': 'audio/mpeg'});
         saveAs(blob, name);
-        hide_progress_bar();
+        toggle_class(element, 'kz-bitrate', audio_item_classes);
     }
     xhr.open('GET', url, true);
     xhr.send(null);
 };
 
 
-function get_binary_data_from_url(/* String url [, Array range], Function callback */){
-    // Проверка
-    if (typeof arguments[0] !== 'string'){
-        console.warn('KZ: url не передан');
-        return false;
-    } else
-        var url = arguments[0];
+function i8ArrayTo2(array){
+    var out = '';
+    each(array, function(item){
+        out += i8to2(item);
+    });
+    return out;
+}
 
-    if (arguments[1]){
-        if (typeof arguments[1] == 'function'){
-            var callback = arguments[1];
-        } else if (arguments[1] instanceof Array){
-            if (arguments[1][0] instanceof Array)
-                var ranges = arguments[1];
-            else
-                var ranges = [arguments[1]];
+function i8to2(int8){
+    var out = int8.toString(2);
+    while (out.length < 8){
+        out = '0' + out;
+    }
+    return out;
+}
 
-            if (typeof arguments[2] == 'function')
-                var callback = arguments[2];
-            else {
-                console.warn('KZ: Функция обратного вызова не передана');
+function i8ArrayToString(array){
+    var out = '';
+    each(array, function(item){
+        out += String.fromCharCode(item);
+    });
+    return out;
+}
+
+function get_more_mp3_info(url, info, callback){
+
+    var
+        offset = info.mp3.tag_length,
+        ranges = [
+            [offset, offset + 40] //170
+        ];
+
+    kzGetBuffer(url, ranges, function(response){
+
+        // VBR по умолчанию false;
+        info.mp3.vbr = false;
+
+        // Чтение заголовка mp3 фрейма
+        (function(){
+            var view = new Uint8Array(response[0].content, 0, 4);
+            var view_binary = i8ArrayTo2(view);
+
+            // AAAAAAAAAAA BB CC D EEEE FF G H II JJ K L MM
+            // 11111111111 11 01 1 1001 00 0 0 01 10 0 1 00
+
+            // A
+            if (view_binary.slice(0, 11) !== '11111111111'){
+                info.mp3.error = 'Фрейм не обнаружен';
                 return false;
             }
-        } else {
-            console.warn('KZ: Второй аргумент не передан');
+
+            // B
+            if (view_binary.slice(11, 13) !== '11'){
+                info.mp3.error = 'Версия не MPEG 1';
+                return false;
+            }
+
+            // E
+            info.mp3.bitrate = {
+                '01': [0, 32, 40, 48,  56,  64,  80,  96, 112, 128, 160, 192, 224, 256, 320, 0],
+                '10': [0, 32, 48, 56,  64,  80,  96, 112, 128, 160, 192, 224, 256, 320, 384, 0],
+                '11': [0, 32, 64, 96, 128, 160, 192, 224, 256, 288, 320, 352, 384, 416, 448, 0]
+            }[view_binary.slice(13, 15)][parseInt(view_binary.slice(16, 20), 2)];
+
+            // F
+            info.mp3.samplerate = {
+                '00': 44100,
+                '01': 48000,
+                '10': 32000
+            }[view_binary.slice(20, 22)];
+
+            // I
+            info.mp3.channelmode = parseInt(view_binary.slice(24, 26), 2);
+// ['Stereo', 'Joint stereo (Stereo)', 'Dual channel (Stereo)', 'Single channel (Mono)'];
+
+        })();
+
+        if ('error' in info.mp3){
+            console.warn(info.mp3.error);
+            callback(info);
             return false;
         }
-    }
 
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', url, true);
+        // Проверка на наличие VBR заголовков
+        (function(){
+            var
+                view = new Uint8Array(response[0].content, 36, 4),
+                header = i8ArrayToString(view);
 
-    if (!ranges) {
-    // Передача файла полностью
 
-    } else if (ranges.length === 1){
-    // Передача файла одной части файла
-        xhr.setRequestHeader('Range', 'bytes=' + ranges[0][0] + '-' + ranges[0][1]);
-
-        xhr.onreadystatechange = function(){
-            if (xhr.readyState !== 4) return false;
-            if (xhr.status === 206){
-                var self = this;
-                callback([{
-                    'headers': self.getAllResponseHeaders(),
-                    'getHeader': function(header){
-                        return self.getResponseHeader(header);
-                    },
-                    'content': self.response
-                }]);
-            } else {
-                callback(false);
-            }
-        }
-
-    } else {
-    // Передача файла нескольких частей файла
-        xhr.setRequestHeader('Range', 'bytes=' + (function(){
-            ranges.forEach(function(element, index){
-                ranges[index] = ranges[index][0] + '-' + ranges[index][1];
-            })
-            return ranges.join(',');
-        })());
-
-        xhr.onreadystatechange = function(){
-            if (xhr.readyState !== 4) return false;
-            if (xhr.status === 206){
-
-                // Разделитель
-                var separator = (function(range){
-                    var out = range.match(/boundary=(.+)$/);
-                    if (out && out[1])
-                        return out[1];
-                    else
-                        return false;
-                })(this.getResponseHeader('Content-Type'));
-
-                // Части
-                var parts = (function(response, separator){
-                    var
-                        ranges = [],
-                        view = new Uint8Array(response),
-                        out = [],
-                        cur = 0;
-// — — — — — — — — — — — — — — — indian Magic (рождённое в муках и бреду)
-// Поиск начала данных раздела
-while (cur < response.byteLength){
-    if (view[cur] === 45 && view[cur + 1] === 45){
-        cur += 2;
-        for (var i = 0; i < separator.length; i++){
-            if (separator.charCodeAt(i) === view[cur]){
-                if (i == separator.length - 1){
-                    cur++;
-                    if (view[cur] === 13 && view[cur + 1] === 10){
-                        cur += 2;
-                        if (ranges.length > 0){
-                            ranges[ranges.length - 1].end = cur - separator.length - 7;
-                        }
-
-                        ranges.push({headers: cur});
-
-                        while (
-                            cur < response.byteLength &&
-                            !(view[cur + 2] === 45 && view[cur + 3] === 45)
-                        ){
-                            if (
-                                view[cur] === 13 && view[cur + 1] === 10 &&
-                                view[cur + 2] === 13 && view[cur + 3] === 10
-                            ){
-                                cur += 4;
-                                break;
-                            } else {
-                                cur++;
-                            }
-                        }
-
-                        if (cur !== response.byteLength - 1)
-                            ranges[ranges.length - 1].begin = cur;
-
-                    } else if (view[cur] === 45 && view[cur + 1] === 45){
-                        ranges[ranges.length - 1].end = cur - separator.length - 5;
-                    }
-                }
-            } else {
-                break;
+            if (header === 'VBRI' || header === 'Xing'){
+                info.mp3.vbr = header;
+            } else if (info.mp3.channelmode === 3){
+                view = new Uint8Array(response[0].content, 21, 4);
+                header = i8ArrayToString(view);
+                if (header === 'Xing')
+                    info.mp3.vbr = header;
             }
 
-            cur++;
-        }
-    } else {
-        cur++;
-    }
-}
-// — — — — — — — — — — — — — — —
-                    for (var i = 0; i < ranges.length; i++){
-                        var headers = '',
-                            headers_array = new Uint8Array(
-                                response,
-                                ranges[i].headers,
-                                ranges[i].begin - 4 - ranges[i].headers
-                            );
+            callback(info);
+/*
+            var
+                view = new Uint8Array(response[0].content, 155, 15);
 
-                        for (var j = 0; j < headers_array.length; j++){
-                            headers += String.fromCharCode(headers_array[j]);
-                        }
+            console.log(header, view , i8ArrayToString(view));
 
-                        out.push({
-                            'headers': headers,
-                            'getHeader': function(header){
-                                var
-                                    regexp = new RegExp(header + ': (.+)'),
-                                    matches = this.headers.match(regexp);
-
-                                return matches[1];
-                            },
-                            'content': response.slice(ranges[i].begin, ranges[i].end)
-                        })
-                    }
-
-                    return out;
-                })(this.response, separator);
-
-                callback(parts);
-            } else {
-                callback(false);
-            }
-        }
-    }
-
-    xhr.responseType = 'arraybuffer';
-    xhr.send(null);
-}
-
-var test_limit = 0;
-
-function get_mp3_first_frame_info(url, offset, callback){
-
-    if (test_limit > 0){
-        test_limit--;
-    } else {
-        callback({});
-        return false;
-    }
-
-    var ranges = [
-        [offset, offset + 4],
-        [offset + 8, offset + 12]
-    ];
-
-    get_binary_data_from_url(url, ranges, function(response){
-        // new Uint8Array();
-        //console.log('callback:', response[0]);
-        // Версия MPEG
-
-        // Layer
-        callback({});
+*/
+        })();
     });
 };
 
 
-function get_mp3_info(url, callback){
+function get_mp3_info(url, callback, vbr){
+
     if (typeof callback != 'function'){
         console.warn('KZVK: get_mp3_info: callback не функция');
         return false;
@@ -302,7 +208,7 @@ function get_mp3_info(url, callback){
             'mp3': {}
         };
 
-    get_binary_data_from_url(url, range, function(response){
+    kzGetBuffer(url, range, function(response){
         if (response && response[0].headers){
             response = response[0];
 
@@ -349,7 +255,7 @@ function get_mp3_info(url, callback){
             }
 
             // Длина тега
-            data.mp3.tag_length = (function(buffer){
+            data.mp3.tag_length = 10 + (function(buffer){
                 var length = new Uint8Array(buffer, 6, 4);
 
                 return length[3] & 0x7f
@@ -358,12 +264,14 @@ function get_mp3_info(url, callback){
                     | ((length[0] & 0x7f) << 21);
             })(buffer);
 
-            // Первый фрейм
-            get_mp3_first_frame_info(url, data.mp3.tag_length + 10, function(frame_info){
-                // ??
+            // VBR
+            if (vbr){
+                get_more_mp3_info(url, data, function(response){
+                    callback(response);
+                });
+            } else {
                 callback(data);
-            });
-
+            }
         } else {
             callback(data);
         }
@@ -387,9 +295,26 @@ function calc_bitrate_classic(size, duration){
     return kbps;
 }
 
-function createButton(element, info){
-    if (element.classList.contains('kz-vk-audio__finished')) return false;
+function toggle_class(element, classname, classlist){
+    if (!(element instanceof Element)) return false;
+    if (typeof classname !== 'string') return false;
 
+    if (classlist instanceof Array){
+        each(classlist, function(item){
+            if (item !== classname)
+                element.classList.remove(item);
+        });
+        if (!element.classList.contains(classname))
+            element.classList.add(classname);
+    } else {
+        if (element.classList.contains(classname))
+            element.classList.remove(classname);
+        else
+            element.classList.add(classname);
+    }
+}
+
+function createButton(element, info){
     // Если кнопка уже есть
     var
         DOM_kz__wrapper = element.querySelector('.kz-vk-audio__wrapper'),
@@ -434,8 +359,6 @@ function createButton(element, info){
                 '</div>' +
                 '<div class="kz-vk-audio__carousel__item kz-unavailable"></div>' +
             '</div>';
-    } else {
-        console.log('УЖЕ БЫЛА')
     }
 
     var
@@ -446,34 +369,46 @@ function createButton(element, info){
         DOM_kz__unavailable = DOM_kz__wrapper
             .querySelector('.kz-vk-audio__carousel__item.kz-unavailable');
 
+    DOM_kz__unavailable.addEventListener('click', stopEvent, false);
+
     if (info.available){
         if (!('mp3' in info)) info.mp3 = {};
-        if (!('bitrate' in info.mp3)){
-            if ('size' in info.mp3){
-                if ('tag_version' in info.mp3 && (
-                    info.mp3.tag_version == 'ID3v2.2' ||
-                    info.mp3.tag_version == 'ID3v2.3' ||
-                    info.mp3.tag_version == 'ID3v2.4'
-                )){
-                    info.mp3.bitrate =
-                        calc_bitrate_classic(info.mp3.size - info.mp3.tag_length - 10,
-                            info.vk.duration);
-                } else
-                    info.mp3.bitrate = calc_bitrate_classic(info.mp3.size, info.vk.duration);
-            } else
-                info.mp3.bitrate = false;
+
+        if (
+            ('vbr' in info.mp3) &&
+            (typeof info.mp3.vbr !== 'undefined') &&
+            (info.mp3.vbr !== false)
+        ){
+            var message = 'VBR';
+        } else {
+            if (!('bitrate' in info.mp3) || (typeof info.mp3.bitrate === 'undefined')){
+                if ('size' in info.mp3){
+                    if ('tag_version' in info.mp3 && (
+                        info.mp3.tag_version == 'ID3v2.2' ||
+                        info.mp3.tag_version == 'ID3v2.3' ||
+                        info.mp3.tag_version == 'ID3v2.4'
+                    )){
+                        info.mp3.bitrate =
+                            calc_bitrate_classic(info.mp3.size - info.mp3.tag_length - 10,
+                                info.vk.duration);
+                    } else
+                        info.mp3.bitrate = calc_bitrate_classic(info.mp3.size, info.vk.duration);
+                } else {
+                    info.mp3.bitrate = false;
+                }
+            }
+
+            var message = info.mp3.bitrate || '??';
         }
 
-        DOM_kz__carousel.classList.add('kz-bitrate');
-        //NOTE: Нужен TOGGLE для классов, отвечающих за состояния элемента
-        //element.classList.add('kz-bitrate');
+        toggle_class(element, 'kz-bitrate', audio_item_classes);
 
         DOM_kz__bitrate.addEventListener('click', function(event){
             stopEvent(event);
-            save(info.vk.url, info.vk.artist + ' — ' + info.vk.title + '.mp3', DOM_kz__wrapper);
+            save(info.vk.url, info.vk.artist + ' — ' + info.vk.title + '.mp3', element);
         }, false)
 
-        DOM_kz__bitrate.setAttribute('data-bitrate', info.mp3.bitrate || '??');
+        DOM_kz__bitrate.setAttribute('data-message', message);
 
         if (info.mp3.bitrate >= 288)
             DOM_kz__carousel.classList.add('kz-vk-audio__bitrate--320');
@@ -486,8 +421,7 @@ function createButton(element, info){
         else
             DOM_kz__carousel.classList.add('kz-vk-audio__bitrate--crap');
     } else {
-        element.classList.add('kz-vk-audio__unavailable');
-        DOM_kz__unavailable.addEventListener('click', stopEvent, false);
+        toggle_class(element, 'kz-unavailable', audio_item_classes);
     }
 
     if (makenew){
@@ -496,14 +430,11 @@ function createButton(element, info){
         else
             DOM_play.parentElement.appendChild(DOM_kz__wrapper);
     }
-
-    element.classList.add('kz-vk-audio__finished');
-
 }
 
 
 function process(element, options){
-    if (element.classList.contains('kz-vk-audio__finished')) return false;
+    element.classList.add('kz-vk-audio__item');
 
     // Информация об аудиозаписи со страницы
     var info = (function(element){
@@ -514,9 +445,7 @@ function process(element, options){
 
         info.vk.id = element.querySelector('a:first-child').getAttribute('name');
 
-        var deleted = element.querySelector('.area.deleted');
-
-        if (deleted){
+        if (element.querySelector('.area.deleted')){
             info.available = false;
             return false;
         }
@@ -536,6 +465,9 @@ function process(element, options){
         return info;
     })(element);
 
+    //element.classList.contains('kz-data-obtained')
+
+    // Получение инфомации о файле, если он доступен
     if (info.available === true){
         if (options.audio__cache === true){
 // — — — — — — — — — — — — — — — — — — — — — — — —
@@ -544,7 +476,7 @@ function process(element, options){
     var
         db = null,
         dbName = 'audio',
-        dbVersion = 2,
+        dbVersion = 3,
         store = null,
         storeName = 'bitrate';
 
@@ -578,38 +510,62 @@ function process(element, options){
 
         request.onsuccess = function(event){
             if (event.target.result){
-                if(!('mp3' in info)) info.mp3 = {};
+                if (!('mp3' in info)) info.mp3 = {};
+
                 info.mp3.bitrate = event.target.result.bitrate;
-                createButton(element, info);
-            } else {
-                get_mp3_info(info.vk.url, function(response){
-                    if (response.available === true)
-                        info.available = true;
-                    if ('mp3' in response)
-                        info.mp3 = response.mp3;
+                info.mp3.size = event.target.result.size;
 
+                if (options.audio__vbr === false){
                     createButton(element, info);
+                    return false;
+                }
 
-                    connect(function(db){
-                        var request = db.transaction([storeName], 'readwrite')
-                            .objectStore(storeName)
-                            .add({
-                                'id': info.vk.id,
-                                'bitrate': response.mp3.bitrate
-                            });
-
-                        request.onsuccess = function(){
-                            db.close();
-                        }
-
-                        request.onerror = function(){
-                            console.warn('KZVK: cache-add:', event);
-                            db.close();
-                        }
-                    });
-
-                })
+                if (typeof event.target.result.vbr !== 'undefined'){
+                    info.mp3.vbr = event.target.result.vbr;
+                    createButton(element, info);
+                    return false;
+                }
             }
+
+            get_mp3_info(info.vk.url, function(response){
+                info.available = response.available;
+
+                if (info.available !== true){
+                    createButton(element, info);
+                    return false;
+                }
+
+                if ('mp3' in response)
+                    info.mp3 = response.mp3;
+
+                createButton(element, info);
+
+                // TODO: проверка на наличие битрейта
+
+                connect(function(db){
+                    var data = {
+                        'id': info.vk.id,
+                        'size': info.mp3.size,
+                        'vbr': info.mp3.vbr,
+                        'bitrate': info.mp3.bitrate
+                    }
+
+                    var request = db.transaction([storeName], 'readwrite')
+                        .objectStore(storeName)
+                        .put(data);
+
+                    request.onsuccess = function(event){
+                        db.close();
+                    }
+
+                    request.onerror = function(){
+                        console.warn('KZVK: cache-update:', event);
+                        db.close();
+                    }
+                });
+
+            }, options.audio__vbr);
+
         }
 
         request.onerror = function(){
@@ -622,7 +578,7 @@ function process(element, options){
                     info.mp3 = response.mp3;
 
                 createButton(element, info);
-            });
+            }, options.audio__vbr);
         }
     });
 
@@ -636,10 +592,9 @@ function process(element, options){
                     info.mp3 = response.mp3;
 
                 createButton(element, info);
-            });
+            }, options.audio__vbr);
         }
     } else {
-        //console.log('Не доступен', info);
         createButton(element, info);
     }
 
@@ -674,7 +629,7 @@ function init(options){
 
             if (event.target.classList.contains('area')){
                 if (event.target.parentElement.classList.contains('audio')){
-                    event.target.parentElement.classList.remove('kz-vk-audio__finished');
+                    //console.log(event.target.parentElement);
                     process(event.target.parentElement, options);
                     return true;
                 }

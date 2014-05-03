@@ -17,7 +17,8 @@ $scope.i18n = {
         'header': chrome.i18n.getMessage('o__audio__header'),
         'description': chrome.i18n.getMessage('o__audio__description'),
         'options': {
-            'cache' :chrome.i18n.getMessage('o__audio__cache')
+            'cache' :chrome.i18n.getMessage('o__audio__cache'),
+            'vbr' :chrome.i18n.getMessage('o__audio__vbr')
         }
     },
     'trash': {

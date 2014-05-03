@@ -17,6 +17,9 @@
     "o__audio__cache": {
         "message": "Кэширование информации об аудиозаписях"
     },
+    "o__audio__vbr": {
+        "message": "Опредлеение VBR (βeta)"
+    },
     "o__trash__header": {
         "message": "Trash"
     },

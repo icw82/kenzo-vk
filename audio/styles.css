@@ -26,33 +26,33 @@
     transition: all .25s ease;}
 
 
-.kz-vk-audio__carousel.kz-bitrate{
+.kz-bitrate .kz-vk-audio__carousel{
     -webkit-transform: translateZ(-14.5px) rotateY(0deg);
             transform: translateZ(-14.5px) rotateY(0deg);}
 .kz-vk-audio__carousel__item.kz-bitrate{
     -webkit-transform: translateZ(14.5px) rotateY(0deg);
             transform: translateZ(14.5px) rotateY(0deg);}
-.kz-vk-audio__carousel.kz-bitrate
-    > .kz-vk-audio__carousel__item.kz-bitrate{opacity:1; pointer-events:auto}
+.kz-bitrate
+    .kz-vk-audio__carousel__item.kz-bitrate{opacity:1; pointer-events:auto}
 
 
-.kz-vk-audio__carousel.kz-progress{
+.kz-progress .kz-vk-audio__carousel{
     -webkit-transform: translateZ(-14.5px) rotateY(-90deg);
             transform: translateZ(-14.5px) rotateY(-90deg);}
 .kz-vk-audio__carousel__item.kz-progress{
     -webkit-transform: translateX(14.5px) rotateY(90deg);
             transform: translateX(14.5px) rotateY(90deg);}
-.kz-vk-audio__carousel.kz-progress
-    > .kz-vk-audio__carousel__item.kz-progress{opacity:1; pointer-events:auto}
+.kz-progress
+    .kz-vk-audio__carousel__item.kz-progress{opacity:1; pointer-events:auto}
 
 
-.kz-vk-audio__unavailable .kz-vk-audio__carousel{opacity:.4;
+.kz-unavailable .kz-vk-audio__carousel{opacity:.4;
     -webkit-transform: translateZ(-14.5px) rotateY(180deg);
             transform: translateZ(-14.5px) rotateY(180deg);}
 .kz-vk-audio__carousel__item.kz-unavailable{
     -webkit-transform: translateZ(-14.5px) rotateY(180deg);
             transform: translateZ(-14.5px) rotateY(180deg);}
-.kz-vk-audio__unavailable
+.kz-unavailable
     .kz-vk-audio__carousel__item.kz-unavailable{opacity:1 !important; pointer-events:auto}
 
 #audio.new .audio.current
@@ -60,7 +60,7 @@
 #pad_playlist .audio.current
 .kz-vk-audio__carousel__item{border:1px solid; color:white}
 
-.kz-vk-audio__carousel__item.kz-bitrate:before{content:attr(data-bitrate); opacity:1;
+.kz-vk-audio__carousel__item.kz-bitrate:before{content:attr(data-message); opacity:1;
     /*transition: opacity .2s*/}
 .kz-vk-audio__carousel__item.kz-bitrate:after{display:block; width:11px; height:13px;
     position:absolute; left:8px; top:-4px; opacity:0; content:"";
