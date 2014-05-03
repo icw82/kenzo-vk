@@ -69,7 +69,27 @@ function init(options){
                     }
                 }
             }
-        })
+        });
+
+        document.addEventListener('DOMNodeInserted', function(event){
+            if (!(event.target instanceof Element)) return false;
+            if (event.target.getAttribute('id') !== 'wrap2') return false;
+
+            var newsads = event.target.querySelectorAll('.ads_ads_news_wrap');
+            //FIXME: говнокод
+            each(newsads, function(item){
+                if ('parentNode' in item){
+                    if (item.parentNode.classList.contains('feed_row')){
+                        drop(item.parentNode);
+                    } else if ('parentNode' in item.parentNode){
+                        if (item.parentNode.parentNode.classList.contains('feed_row')){
+                            drop(item.parentNode.parentNode);
+                        }
+                    }
+                }
+            });
+
+        });
     }
 }
 
