@@ -381,7 +381,11 @@ function createButton(element, info){
         ){
             var message = 'VBR';
         } else {
-            if (!('bitrate' in info.mp3) || (typeof info.mp3.bitrate === 'undefined')){
+            if (
+                !('bitrate' in info.mp3) ||
+                (typeof info.mp3.bitrate === 'undefined') ||
+                (info.mp3.bitrate === false)
+            ){
                 if ('size' in info.mp3){
                     if ('tag_version' in info.mp3 && (
                         info.mp3.tag_version == 'ID3v2.2' ||
@@ -516,6 +520,7 @@ function process(element, options){
                 info.mp3.size = event.target.result.size;
 
                 if (options.audio__vbr === false){
+                    info.mp3.bitrate = false;
                     createButton(element, info);
                     return false;
                 }
