@@ -21,6 +21,13 @@ $scope.i18n = {
             'vbr' :chrome.i18n.getMessage('o__audio__vbr')
         }
     },
+    'video': {
+        'header': chrome.i18n.getMessage('o__video__header'),
+        'description': chrome.i18n.getMessage('o__video__description'),
+        'options': {
+            'direct_links' :chrome.i18n.getMessage('o__video__direct_links')
+        }
+    },
     'trash': {
         'header': chrome.i18n.getMessage('o__trash__header'),
         'description': chrome.i18n.getMessage('o__trash__description'),
@@ -29,7 +36,7 @@ $scope.i18n = {
             'lsb__fr': chrome.i18n.getMessage('o__trash__lsb__fr'),
             'newsads': chrome.i18n.getMessage('o__trash__newsads')
         }
-    },
+    }
 }
 
 $scope.Manifest = chrome.runtime.getManifest();

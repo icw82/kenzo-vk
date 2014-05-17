@@ -26,13 +26,16 @@
             ],
             "css": [
                 "audio/styles.css",
+                "video/styles.css",
                 "trash/styles.css"
             ],
             "js": [
                 "libs/FileSaver.js",
+                "commons/kenzo-set.js",
                 "commons/default_options.js",
                 "commons/kz-get-buffer.js",
                 "audio/script.js",
+                "video/script.js",
                 "trash/script.js"
             ],
             "run_at": "document_end"

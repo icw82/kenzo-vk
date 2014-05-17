@@ -10,13 +10,6 @@ var audio_item_classes = [
 ];
 
 
-function each(array, callback){
-    for (var i = 0; i < array.length; i++){
-        callback(array[i]);
-    }
-}
-
-
 function stopEvent(event){
     event = event || window.event;
     if (!event) return false;
