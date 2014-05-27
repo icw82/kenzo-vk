@@ -3,11 +3,14 @@
 //  – — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —|
 'use strict';
 
-var audio_item_classes = [
-    'kz-bitrate',
-    'kz-progress',
-    'kz-unavailable'
-];
+var
+    audio_item_classes = [
+        'kz-bitrate',
+        'kz-progress',
+        'kz-unavailable'
+    ],
+    options = null,
+    globals = {};
 
 
 function stopEvent(event){
@@ -316,6 +319,11 @@ function createButton(element, info){
     if (!DOM_kz__wrapper){
         makenew = true
 
+        if (!element.parentElement){
+            console.warn('?:', element);
+            return false;
+        }
+
         // Опредлеение типа элемента
         if (element.parentElement.getAttribute('id') === 'initial_list')
             var type = 'default';
@@ -329,14 +337,24 @@ function createButton(element, info){
             var type = 'pad';
         else if (element.parentElement.classList.contains('wall_audio'))
             var type = 'wall';
+        else if (element.parentElement.classList.contains('post_audio'))
+            var type = 'messages';
 
         if (!type) return false;
 
-        if ((type === 'default') || (type === 'pad')){
-            var DOM_play = element.querySelector('.area .play_btn')
+        if (
+            (type === 'default') ||
+            (type === 'pad')
+        ){
+            var DOM_play = element.querySelector('.area .play_btn');
         }
 
-        if ((type === 'wall') || (type === 'search_audio') || (type === 'search')){
+        if (
+            (type === 'wall') ||
+            (type === 'search_audio') ||
+            (type === 'search') ||
+            (type === 'messages')
+        ){
             var DOM_play = element.querySelector('.area .play_btn_wrap');
         }
 
@@ -351,6 +369,7 @@ function createButton(element, info){
                     '<div class="kz-vk-audio__progress-filling"></div>' +
                 '</div>' +
                 '<div class="kz-vk-audio__carousel__item kz-unavailable"></div>' +
+                '<div class="kz-vk-audio__carousel__item kz-direct"></div>' +
             '</div>';
     }
 
@@ -402,7 +421,9 @@ function createButton(element, info){
 
         DOM_kz__bitrate.addEventListener('click', function(event){
             stopEvent(event);
-            save(info.vk.url, info.vk.artist + ' — ' + info.vk.title + '.mp3', element);
+            save(info.vk.url, info.vk.artist
+                + ' ' + options.audio__separator + ' '
+                + info.vk.title + '.mp3', element);
         }, false)
 
         DOM_kz__bitrate.setAttribute('data-message', message);
@@ -430,7 +451,11 @@ function createButton(element, info){
 }
 
 
-function process(element, options){
+function process(element){
+    if (element.getAttribute('id') === 'audio_global'){
+        return false;
+    }
+
     element.classList.add('kz-vk-audio__item');
 
     // Информация об аудиозаписи со страницы
@@ -599,8 +624,19 @@ function process(element, options){
 }
 
 
-function init(options){
-    var DOM_body = document.querySelector('body');
+function init(items){
+    options = items;
+
+    chrome.storage.onChanged.addListener(function(a){
+        chrome.storage.sync.get(default_options, function(items){
+            options = items;
+        });
+    })
+
+    var
+        DOM_body = document.querySelector('body'),
+        DOM_global_player = document.querySelector('#gp');
+
     DOM_body.classList.add('kz-vk-audio');
 
     var DOM_body_observer = new MutationObserver(function(mutations){
@@ -614,33 +650,75 @@ function init(options){
     //DOM_body_observer.disconnect();
 
     each(document.querySelectorAll('.audio'), function(item){
-        process(item, options);
+        process(item);
     });
 
-    // при вставке новых элементов
+    // Событие плеера
+    //var player_state_changed = new CustomEvent();
+
+    // Отлов изменений в DOM
     document.addEventListener('DOMNodeInserted', function(event){
-        if ('classList' in event.target){
+        if (event.target instanceof Element){
+
             if (event.target.classList.contains('audio')){
-                process(event.target, options);
+                process(event.target);
                 return true;
             }
 
             if (event.target.classList.contains('area')){
                 if (event.target.parentElement.classList.contains('audio')){
                     //console.log(event.target.parentElement);
-                    process(event.target.parentElement, options);
+                    process(event.target.parentElement);
                     return true;
                 }
             }
 
-            if ('classList' in event.target){
-                each(event.target.querySelectorAll('.audio'), function(item){
-                    process(item, options);
+            var audio = event.target.querySelectorAll('.audio')
+
+            if (audio.length > 0){
+                each(audio, function(item){
+                    process(item);
                 });
                 return true;
             }
+
+            if (!DOM_global_player){
+                if (event.target.getAttribute('id') === 'gp'){
+                    DOM_global_player = event.target;
+                    global_player_event_listener();
+                    return true;
+                }
+            }
         }
     });
+
+    // Определение играющего трека
+    // Нужно определять глобально, а не для одной вкладки
+    globals.now_playing = null;
+
+    var global_player_event_listener = function(){
+        DOM_global_player.addEventListener('DOMNodeInserted', function(event){
+            if (event.target instanceof Element){
+                //console.log(event.target);
+/*
+<a onmousedown="cancelEvent(event)" onclick="playAudioNew('---- ID ----', false)"><div class="gp_play_wrap"><div id="gp_play" class="playing"></div></div></a>
+*/
+            }
+        });
+    }
+
+    if (DOM_global_player)
+        global_player_event_listener();
+
+
+    // Индикатор загрузки играющего трека
+    globals.vk_load = null;
+
+/*
+    #pd_load_line
+    ac_load_line
+    audio_progress_line
+*/
 };
 
 

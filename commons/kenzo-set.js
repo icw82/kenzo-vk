@@ -6,3 +6,19 @@ function each(array, callback){
         callback(array[i]);
     }
 }
+
+var kzCurrentlyPressedKeys = [];
+
+window.addEventListener('keydown', function(event){
+    var pos = kzCurrentlyPressedKeys.indexOf(event.keyCode);
+
+    if (pos === -1)
+        kzCurrentlyPressedKeys.push(event.keyCode);
+});
+
+window.addEventListener('keyup', function(event){
+    var pos = kzCurrentlyPressedKeys.indexOf(event.keyCode);
+
+    if (pos > -1)
+        kzCurrentlyPressedKeys.splice(pos, 1);
+});
