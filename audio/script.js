@@ -631,7 +631,7 @@ function init(items){
         chrome.storage.sync.get(default_options, function(items){
             options = items;
         });
-    })
+    });
 
     var
         DOM_body = document.querySelector('body'),

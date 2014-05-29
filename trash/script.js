@@ -3,7 +3,17 @@
 
 'use strict';
 
-function init(options){
+var options = null;
+
+function init(items){
+    options = items;
+
+    chrome.storage.onChanged.addListener(function(a){
+        chrome.storage.sync.get(default_options, function(items){
+            options = items;
+        });
+    });
+
     var
         DOM_body = document.querySelector('body'),
         DOM_trash_bin = document.createElement('div');
