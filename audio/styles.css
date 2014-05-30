@@ -5,11 +5,7 @@
     -webkit-perspective:50px;
             perspective:50px;}
 
-.kz-vk-audio__carousel{width:100%; height:100%; position:relative;
-    -webkit-transform-style: preserve-3d;
-            transform-style: preserve-3d;
-    transition: -webkit-transform .25s ease;
-    transition:         transform .25s ease;}
+.kz-vk-audio__carousel{width:100%; height:100%; position:relative;}
 
 .kz-vk-audio__bitrate--320{opacity:1}
 .kz-vk-audio__bitrate--256{opacity:.85}
@@ -23,8 +19,16 @@
     position:absolute; left:0; top:0; opacity:0; pointer-events:none;
     border:1px solid; border-radius:3px; color:rgb(95,127,162);
     text-align:center; font-size:11px; line-height:14px;
-    transition: all .25s ease;}
+    transition:all .25s ease;}
 
+/*
+ *  Трансформации
+ */
+.kz-vk-audio__carousel{
+    -webkit-transform-style:preserve-3d;
+            transform-style:preserve-3d;
+    transition: -webkit-transform .25s ease;
+    transition:         transform .25s ease;}
 
 .kz-bitrate .kz-vk-audio__carousel{
     -webkit-transform: translateZ(-14.5px) rotateY(0deg);
@@ -64,6 +68,21 @@
             transform: translateZ(-14.5px) rotateY(-90deg);}
 .kz-direct
     .kz-vk-audio__carousel__item.kz-direct{opacity:1 !important; pointer-events:auto}
+
+/*
+ *  Упращённая версия
+ */
+.kz-vk-audio__carousel.kz-simplified-view{
+    -webkit-transform-style:flat;
+            transform-style:flat;
+    transition:none;
+    -webkit-transform:none;
+            transform:none;
+}
+.kz-simplified-view > .kz-vk-audio__carousel__item{
+    -webkit-transform:none;
+            transform:none;
+}
 
 
 #audio.new .audio.current

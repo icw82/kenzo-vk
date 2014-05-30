@@ -46,6 +46,7 @@ function save(url, name, element){
         stopEvent(event);
         xhr.abort();
         abort = true;
+        //DOM_kz__carousel.localName.addClass('kz-simplified-view');
         toggle_class(element, 'kz-bitrate', audio_item_classes);
     }, false);
 
@@ -65,12 +66,14 @@ function save(url, name, element){
             toggle_class(element, 'kz-progress', audio_item_classes);
             progress = Math.floor(progress.loaded / progress.total * 100);
             DOM_kz__progress_filling.style.left = -100 + progress + '%';
+            //DOM_kz__carousel.localName.removeClass('kz-simplified-view');
             //DOM_kz__progress.setAttribute('data-progress', progress + '%');
         }
     }
     xhr.onload = function(){
         var blob = new window.Blob([this.response], {'type': 'audio/mpeg'});
         saveAs(blob, name);
+        //DOM_kz__carousel.localName.addClass('kz-simplified-view');
         toggle_class(element, 'kz-bitrate', audio_item_classes);
     }
     xhr.open('GET', url, true);
@@ -362,7 +365,7 @@ function createButton(element, info){
         DOM_kz__wrapper = document.createElement('div');
         DOM_kz__wrapper.classList.add('kz-vk-audio__wrapper');
 
-        DOM_kz__wrapper.innerHTML =
+        DOM_kz__wrapper.innerHTML = //kz-simplified-view
             '<div class="kz-vk-audio__carousel">' +
                 '<div class="kz-vk-audio__carousel__item kz-bitrate"></div>' +
                 '<div class="kz-vk-audio__carousel__item kz-progress">' +
