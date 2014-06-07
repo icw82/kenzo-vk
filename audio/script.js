@@ -342,6 +342,10 @@ function createButton(element, info){
             var type = 'wall';
         else if (element.parentElement.classList.contains('post_audio'))
             var type = 'messages';
+        else if (element.parentElement.classList.contains('audio_content')){
+            if(element.parentElement.parentElement.classList.contains('choose_audio_row'))
+                var type = 'attach';
+        }
 
         if (!type) return false;
 
@@ -356,7 +360,8 @@ function createButton(element, info){
             (type === 'wall') ||
             (type === 'search_audio') ||
             (type === 'search') ||
-            (type === 'messages')
+            (type === 'messages') ||
+            (type === 'attach')
         ){
             var DOM_play = element.querySelector('.area .play_btn_wrap');
         }

@@ -19,7 +19,7 @@ function init(items){
         DOM_trash_bin = document.createElement('div');
 
     DOM_trash_bin.classList.add('kz-vk-trash__bin');
-    DOM_body.appendChild(DOM_trash_bin);
+    DOM_body.insertBefore(DOM_trash_bin, DOM_body.firstChild);
 
     function drop(node){
         if (node instanceof NodeList){

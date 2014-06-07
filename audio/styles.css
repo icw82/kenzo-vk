@@ -151,11 +151,15 @@
 .kz-vk-audio #pad_playlist_panel .audio .title_wrap{width:calc(336px - 38px)}
 .font_medium.kz-vk-audio #pad_playlist_panel .audio .title_wrap{width:calc(331px - 38px)}
 
-.kz-vk-audio .wall_module .play_btn_wrap{float:left; margin-right:35px;}
-.kz-vk-audio .wall_module .play_btn_wrap + .kz-vk-audio__wrapper{width:35px; margin-left:-35px;
+.kz-vk-audio .wall_module .play_btn_wrap,
+.kz-vk-audio .choose_box .play_btn_wrap{float:left; margin-right:35px;}
+.kz-vk-audio .wall_module .play_btn_wrap + .kz-vk-audio__wrapper,
+.kz-vk-audio .choose_box .play_btn_wrap + .kz-vk-audio__wrapper{width:35px; margin-left:-35px;
     margin-top:6px; padding-right:6px;}
 .kz-vk-audio .wall_module .audio .title_wrap{
     width:calc(260px - 35px)!important;}
+.kz-vk-audio .wall_module .reply_text .audio .title_wrap{
+    width:calc(220px - 35px)!important;}
 .kz-vk-audio .wall_module .audio .reply_table .title_wrap{
     width:calc(200px - 35px)!important;}
 .kz-vk-audio .wide_wall_module .audio .title_wrap{
