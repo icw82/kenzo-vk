@@ -635,12 +635,6 @@ function process(element){
 function init(items){
     options = items;
 
-    chrome.storage.onChanged.addListener(function(a){
-        chrome.storage.sync.get(default_options, function(items){
-            options = items;
-        });
-    });
-
     var
         DOM_body = document.querySelector('body'),
         DOM_global_player = document.querySelector('#gp');
@@ -700,17 +694,29 @@ function init(items){
         }
     });
 
+
     // Определение играющего трека
-    // Нужно определять глобально, а не для одной вкладки
     globals.now_playing = null;
+
+    chrome.storage.local.get(default_globals, function(items){
+        globals.now_playing = items.audio.now_playing;
+    });
 
     var global_player_event_listener = function(){
         DOM_global_player.addEventListener('DOMNodeInserted', function(event){
-            if (event.target instanceof Element){
-                //console.log(event.target);
-/*
-<a onmousedown="cancelEvent(event)" onclick="playAudioNew('---- ID ----', false)"><div class="gp_play_wrap"><div id="gp_play" class="playing"></div></div></a>
-*/
+            if (
+                (event.target instanceof Element) &&
+                (event.target.localName == 'a') &&
+                (event.target.querySelector('#gp_play'))
+            ){
+                var
+                    onclick_instructions = event.target.getAttribute('onclick'),
+                    matches = onclick_instructions.match(/playAudioNew\('(.+?)'/);
+
+                if (matches[1] && (matches[1] != globals.now_playing)){
+                    chrome.storage.local.set({'audio':{'now_playing': matches[1]}});
+                }
+
             }
         });
     }
@@ -727,6 +733,19 @@ function init(items){
     ac_load_line
     audio_progress_line
 */
+
+    // Прослушивание изменений настроек и глобальных переменных
+    chrome.storage.onChanged.addListener(function(changes, areaName){
+        if (areaName == 'local'){
+            chrome.storage.local.get(default_globals, function(items){
+                globals.now_playing = items.audio.now_playing;
+            });
+        } else if (areaName == 'sync'){
+            chrome.storage.sync.get(default_options, function(items){
+                options = items;
+            });
+        }
+    });
 };
 
 

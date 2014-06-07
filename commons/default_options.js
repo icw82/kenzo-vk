@@ -7,3 +7,9 @@ var default_options = {
     'trash__lsb__fr': true,
     'trash__newsads': true
 }
+
+var default_globals = {
+    'audio': {
+        'now_playing': null
+    }
+}
