@@ -334,11 +334,17 @@ function createButton(element, info){
             var type = 'default';
         else if (element.parentElement.classList.contains('audio_results'))
             var type = 'search_audio';
-        else if (element.parentElement.parentElement.classList.contains('show_media'))
+        else if (
+            (element.parentElement.parentElement instanceof Element) &&
+            element.parentElement.parentElement.classList.contains('show_media')
+        )
             var type = 'search';
         else if (element.parentElement.getAttribute('id') === 'pad_playlist')
             var type = 'pad';
-        else if (element.parentElement.classList.contains('wall_audio'))
+        else if (
+            element.parentElement.classList.contains('wall_text') ||
+            element.parentElement.classList.contains('wall_audio')
+        )
             var type = 'wall';
         else if (element.parentElement.classList.contains('post_audio'))
             var type = 'messages';
