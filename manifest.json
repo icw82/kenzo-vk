@@ -1,6 +1,6 @@
 {
     "default_locale": "ru",
-    "name": "Kenzo VK (вконтакте, vkontakte)",
+    "name": "Kenzo VK",
     "short_name": "Kenzo VK",
     "version": "0.8.6",
     "description": "__MSG_ext_description__",
