@@ -23,6 +23,9 @@
     "o__audio__separator": {
         "message": "Разделитель:"
     },
+    "o__audio__simplified": {
+        "message": "Упрощённый вид кнопки"
+    },
     "o__video__header": {
         "message": "Video"
     },
@@ -46,5 +49,8 @@
     },
     "o__trash__newsads": {
         "message": "Реклама между постами"
+    },
+    "o__trash__group_recom": {
+        "message": "Популярные сообщества"
     }
 }

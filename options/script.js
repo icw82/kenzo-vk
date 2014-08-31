@@ -19,7 +19,8 @@ $scope.i18n = {
         'options': {
             'cache': chrome.i18n.getMessage('o__audio__cache'),
             'vbr': chrome.i18n.getMessage('o__audio__vbr'),
-            'separator': chrome.i18n.getMessage('o__audio__separator')
+            'separator': chrome.i18n.getMessage('o__audio__separator'),
+            'simplified': chrome.i18n.getMessage('o__audio__simplified')
         }
     },
     'video': {
@@ -35,7 +36,8 @@ $scope.i18n = {
         'options': {
             'lsb__ad': chrome.i18n.getMessage('o__trash__lsb__ad'),
             'lsb__fr': chrome.i18n.getMessage('o__trash__lsb__fr'),
-            'newsads': chrome.i18n.getMessage('o__trash__newsads')
+            'newsads': chrome.i18n.getMessage('o__trash__newsads'),
+            'group_recom': chrome.i18n.getMessage('o__trash__group_recom')
         }
     }
 }

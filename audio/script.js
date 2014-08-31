@@ -376,8 +376,14 @@ function createButton(element, info){
         DOM_kz__wrapper = document.createElement('div');
         DOM_kz__wrapper.classList.add('kz-vk-audio__wrapper');
 
-        DOM_kz__wrapper.innerHTML = //kz-simplified-view
-            '<div class="kz-vk-audio__carousel">' +
+        console.log('**', options.audio__simplified);
+
+        var carousel_classes = 'kz-vk-audio__carousel';
+        if (options.audio__simplified)
+            carousel_classes += ' kz-simplified-view';
+
+        DOM_kz__wrapper.innerHTML =
+            '<div class="' + carousel_classes + '">' +
                 '<div class="kz-vk-audio__carousel__item kz-bitrate"></div>' +
                 '<div class="kz-vk-audio__carousel__item kz-progress">' +
                     '<div class="kz-vk-audio__progress-filling"></div>' +

@@ -3,9 +3,9 @@
 .kz-vk-audio__wrapper{width:38px; height:16px; position:relative; float:left;
     box-sizing:border-box; margin-top:9px; padding-right:9px;
     -webkit-perspective:50px;
-            perspective:50px;}
+            perspective:50px}
 
-.kz-vk-audio__carousel{width:100%; height:100%; position:relative;}
+.kz-vk-audio__carousel{width:100%; height:100%; position:relative}
 
 .kz-vk-audio__bitrate--320{opacity:1}
 .kz-vk-audio__bitrate--256{opacity:.85}
@@ -19,7 +19,7 @@
     position:absolute; left:0; top:0; opacity:0; pointer-events:none;
     border:1px solid; border-radius:3px; color:rgb(95,127,162);
     text-align:center; font-size:11px; line-height:14px;
-    transition:all .25s ease;}
+    transition:all .25s ease}
 
 /*
  *  Трансформации
@@ -28,44 +28,44 @@
     -webkit-transform-style:preserve-3d;
             transform-style:preserve-3d;
     transition: -webkit-transform .25s ease;
-    transition:         transform .25s ease;}
+    transition:         transform .25s ease}
 
 .kz-bitrate .kz-vk-audio__carousel{
     -webkit-transform: translateZ(-14.5px) rotateY(0deg);
-            transform: translateZ(-14.5px) rotateY(0deg);}
+            transform: translateZ(-14.5px) rotateY(0deg)}
 .kz-vk-audio__carousel__item.kz-bitrate{
     -webkit-transform: translateZ(14.5px) rotateY(0deg);
-            transform: translateZ(14.5px) rotateY(0deg);}
+            transform: translateZ(14.5px) rotateY(0deg)}
 .kz-bitrate
     .kz-vk-audio__carousel__item.kz-bitrate{opacity:1; pointer-events:auto}
 
 
 .kz-progress .kz-vk-audio__carousel{
     -webkit-transform: translateZ(-14.5px) rotateY(-90deg);
-            transform: translateZ(-14.5px) rotateY(-90deg);}
+            transform: translateZ(-14.5px) rotateY(-90deg)}
 .kz-vk-audio__carousel__item.kz-progress{
     -webkit-transform: translateX(14.5px) rotateY(90deg);
-            transform: translateX(14.5px) rotateY(90deg);}
+            transform: translateX(14.5px) rotateY(90deg)}
 .kz-progress
     .kz-vk-audio__carousel__item.kz-progress{opacity:1; pointer-events:auto}
 
 
 .kz-unavailable .kz-vk-audio__carousel{opacity:.4;
     -webkit-transform: translateZ(-14.5px) rotateY(180deg);
-            transform: translateZ(-14.5px) rotateY(180deg);}
+            transform: translateZ(-14.5px) rotateY(180deg)}
 .kz-vk-audio__carousel__item.kz-unavailable{
     -webkit-transform: translateZ(-14.5px) rotateY(180deg);
-            transform: translateZ(-14.5px) rotateY(180deg);}
+            transform: translateZ(-14.5px) rotateY(180deg)}
 .kz-unavailable
     .kz-vk-audio__carousel__item.kz-unavailable{opacity:1 !important; pointer-events:auto}
 
 
 .kz-direct .kz-vk-audio__carousel{opacity:.4;
     -webkit-transform: translateZ(-14.5px) rotateY(90deg);
-            transform: translateZ(-14.5px) rotateY(90deg);}
+            transform: translateZ(-14.5px) rotateY(90deg)}
 .kz-vk-audio__carousel__item.kz-direct{
     -webkit-transform: translateZ(-14.5px) rotateY(-90deg);
-            transform: translateZ(-14.5px) rotateY(-90deg);}
+            transform: translateZ(-14.5px) rotateY(-90deg)}
 .kz-direct
     .kz-vk-audio__carousel__item.kz-direct{opacity:1 !important; pointer-events:auto}
 
@@ -113,7 +113,7 @@
 
 /* Progress bar */
 .kz-vk-audio__carousel__item.kz-progress{overflow:hidden;
-    background-position:center center; background-repeat:no-repeat;}
+    background-position:center center; background-repeat:no-repeat}
 .kz-vk-audio__carousel__item.kz-progress:before{content:attr(data-progress); position:relative; z-index:2}
 .kz-vk-audio__carousel__item.kz-progress:after{display:block; width:100%; height:100%;
     position:absolute; top:0; left:0; z-index:3; content:""; opacity:0;
@@ -133,7 +133,7 @@
     transition: left .5s ease}
 
 
-.kz-vk-audio__carousel__item.kz-unavailable{line-height:12px; font-size: 12px;}
+.kz-vk-audio__carousel__item.kz-unavailable{line-height:12px; font-size: 12px}
 .kz-vk-audio__carousel__item.kz-unavailable:before{content: "×_×"}
 
 .kz-vk-audio__unavailable .play_btn_wrap,
@@ -142,37 +142,41 @@
 
 
 /* Sizes */
-.kz-vk-audio #audio.new .audio .info{width:calc(390px - 38px);}
-.kz-vk-audio #audio.new .audio .title_wrap{width:calc(330px - 38px);}
+.kz-vk-audio #audio.new .audio .info{width:calc(390px - 38px)}
+.kz-vk-audio #audio.new .audio .title_wrap{width:calc(330px - 38px)}
 .kz-vk-audio #audio.new .audio .play_btn{margin-right:38px}
-.kz-vk-audio #audio.new .audio .play_btn + .kz-vk-audio__wrapper{margin-left:-38px;}
+.kz-vk-audio #audio.new .audio .play_btn + .kz-vk-audio__wrapper{margin-left:-38px}
 
 .kz-vk-audio #pad_playlist_panel .audio .info{width:calc(390px - 38px)}
 .kz-vk-audio #pad_playlist_panel .audio .title_wrap{width:calc(336px - 38px)}
 .font_medium.kz-vk-audio #pad_playlist_panel .audio .title_wrap{width:calc(331px - 38px)}
 
 .kz-vk-audio .wall_module .play_btn_wrap,
-.kz-vk-audio .choose_box .play_btn_wrap{float:left; margin-right:35px;}
+.kz-vk-audio .choose_box .play_btn_wrap{float:left; margin-right:35px}
 .kz-vk-audio .wall_module .play_btn_wrap + .kz-vk-audio__wrapper,
 .kz-vk-audio .choose_box .play_btn_wrap + .kz-vk-audio__wrapper{width:35px; margin-left:-35px;
-    margin-top:6px; padding-right:6px;}
+    margin-top:6px; padding-right:6px}
 .kz-vk-audio .wall_module .audio .title_wrap{
-    width:calc(260px - 35px)!important;}
+    width:calc(260px - 35px)!important}
 .kz-vk-audio .wall_module .reply_text .audio .title_wrap{
-    width:calc(220px - 35px)!important;}
+    width:calc(220px - 35px)!important}
 .kz-vk-audio .wall_module .audio .reply_table .title_wrap{
-    width:calc(200px - 35px)!important;}
+    width:calc(200px - 35px)!important}
 .kz-vk-audio .wide_wall_module .audio .title_wrap{
-    width:calc(430px - 35px)!important;}
+    width:calc(430px - 35px)!important}
 .kz-vk-audio .wide_wall_module .reply_table .audio .title_wrap{
-    width:calc(400px - 35px)!important;}
+    width:calc(400px - 35px)!important}
 
-.kz-vk-audio .audio_results .play_btn_wrap{float:left; margin-right:35px;}
+.kz-vk-audio .audio_results .play_btn_wrap{float:left; margin-right:35px}
 .kz-vk-audio .audio_results .play_btn_wrap + .kz-vk-audio__wrapper{width:35px; margin-left:-35px;
-    margin-top:6px; padding-right:6px;}
+    margin-top:6px; padding-right:6px}
 .kz-vk-audio .results .audio .title_wrap{width:calc(360px - 35px)}
 
-.kz-vk-audio .show_media .audio .play_btn_wrap{float:left; margin-right:35px;}
+.kz-vk-audio .show_media .audio .play_btn_wrap{float:left; margin-right:35px}
 .kz-vk-audio .show_media .audio .play_btn_wrap + .kz-vk-audio__wrapper{width:35px; margin-left:-35px;
-    margin-top:6px; padding-right:6px;}
+    margin-top:6px; padding-right:6px}
 .kz-vk-audio .show_media .audio .title_wrap{width:calc(510px - 35px)!important}
+
+.kz-vk-audio .im_fwd_log_row .audio .title_wrap,
+.kz-vk-audio .im_fwd_log_row .post_media .audio .title_wrap{width:calc(220px - 35px)!important}
+

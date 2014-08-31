@@ -59,11 +59,23 @@ function init(items){
         });
     }
 
+    // Популярные сообщества
+    if (options.trash__group_recom === true){
+        drop (document.querySelector('#group_recom_wrap'));
+
+        document.addEventListener('DOMNodeInserted', function(event){
+            if (!(event.target instanceof Element)) return false;
+            if (event.target.getAttribute('id') !== 'wrap2') return false;
+
+            drop (event.target.querySelector('#group_recom_wrap'));
+        });
+    };
+
     // Реклама между постами
     if (options.trash__newsads === true){
         var newsads = document.querySelectorAll('.ads_ads_news_wrap');
         //FIXME: говнокод
-        each(newsads, function(item){
+        each (newsads, function(item){
             if ('parentNode' in item){
                 if (item.parentNode.classList.contains('feed_row')){
                     drop(item.parentNode);
@@ -95,6 +107,7 @@ function init(items){
 
         });
     }
+
 }
 
 if (document.readyState === 'complete'){
