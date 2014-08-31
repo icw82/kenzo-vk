@@ -2,7 +2,7 @@
     "default_locale": "ru",
     "name": "Kenzo VK",
     "short_name": "Kenzo VK",
-    "version": "0.8.7",
+    "version": "0.9",
     "description": "__MSG_ext_description__",
     "author": "icw82",
     "homepage_url": "http://chrome.google.com/webstore/detail/kenzo-vk/kkmoffkcnaagfmkigckpkdcodobjdfga",
@@ -50,5 +50,5 @@
         "audio/abort.png",
         "audio/abort-c.png"
     ],
-    "minimum_chrome_version": "27"
+    "minimum_chrome_version": "32"
 }

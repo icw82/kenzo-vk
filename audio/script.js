@@ -376,8 +376,6 @@ function createButton(element, info){
         DOM_kz__wrapper = document.createElement('div');
         DOM_kz__wrapper.classList.add('kz-vk-audio__wrapper');
 
-        console.log('**', options.audio__simplified);
-
         var carousel_classes = 'kz-vk-audio__carousel';
         if (options.audio__simplified)
             carousel_classes += ' kz-simplified-view';
