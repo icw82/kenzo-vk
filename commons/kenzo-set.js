@@ -96,6 +96,17 @@ kenzo.rand = function(){
     }
 }
 
+kenzo.stop_event = function(event){
+    event = event || window.event;
+    if (!event) return false;
+    while (event.originalEvent){event = event.originalEvent}
+    if (event.preventDefault) event.preventDefault();
+    if (event.stopPropagation) event.stopPropagation();
+    event.cancelBubble = true;
+    return false;
+}
+
+
 // Для руского языка
 kenzo.plural = function(){
     var amount, singular, paucal, plural, fr;

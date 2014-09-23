@@ -13,17 +13,6 @@ var
     globals = {};
 
 
-function stopEvent(event){
-    event = event || window.event;
-    if (!event) return false;
-    while (event.originalEvent){event = event.originalEvent}
-    if (event.preventDefault) event.preventDefault();
-    if (event.stopPropagation) event.stopPropagation();
-    event.cancelBubble = true;
-    return false;
-}
-
-
 function save(url, name, element){
     (name) || (name = 'kenzo-vk-audio.mp3');
 
@@ -43,7 +32,7 @@ function save(url, name, element){
             element.querySelector('.kz-vk-audio__progress-filling');
 
     DOM_kz__progress.addEventListener('click', function(event){
-        stopEvent(event);
+        kenzo.stop_event(event);
         xhr.abort();
         abort = true;
         //DOM_kz__carousel.localName.addClass('kz-simplified-view');
@@ -83,7 +72,7 @@ function save(url, name, element){
 
 function i8ArrayTo2(array){
     var out = '';
-    each(array, function(item){
+    each (array, function(item){
         out += i8to2(item);
     });
     return out;
@@ -99,7 +88,7 @@ function i8to2(int8){
 
 function i8ArrayToString(array){
     var out = '';
-    each(array, function(item){
+    each (array, function(item){
         out += String.fromCharCode(item);
     });
     return out;
@@ -196,7 +185,7 @@ function get_more_mp3_info(url, info, callback){
 function get_mp3_info(url, callback, vbr){
 
     if (typeof callback != 'function'){
-        console.warn('KZVK: get_mp3_info: callback не функция');
+        console.warn('KZVK: callback не функция');
         return false;
     }
 
@@ -212,7 +201,7 @@ function get_mp3_info(url, callback, vbr){
             response = response[0];
 
             if (response.getHeader('Content-Type') != 'audio/mpeg'){
-                console.log('KZVK: get_mp3_info:', 'не «audio/mpeg»');
+                console.log('KZVK: не «audio/mpeg»');
                 callback(data);
                 return false;
             }
@@ -243,7 +232,7 @@ function get_mp3_info(url, callback, vbr){
                     var version = new Uint8Array(buffer, 3, 1);
                     return 'ID3v2.' + version[0];
                 } else {
-                    //console.log('KZVK: get_mp3_info:', 'not ID3v2');
+                    //console.log('KZVK: not ID3v2');
                     return false;
                 }
             })(buffer);
@@ -299,7 +288,7 @@ function toggle_class(element, classname, classlist){
     if (typeof classname !== 'string') return false;
 
     if (classlist instanceof Array){
-        each(classlist, function(item){
+        each (classlist, function(item){
             if (item !== classname)
                 element.classList.remove(item);
         });
@@ -388,7 +377,7 @@ function createButton(element, info){
                 '</div>' +
                 '<div class="kz-vk-audio__carousel__item kz-unavailable"></div>' +
                 '<div class="kz-vk-audio__carousel__item kz-direct"></div>' +
-            '</div>';
+            '</div>'
     }
 
     var
@@ -399,7 +388,7 @@ function createButton(element, info){
         DOM_kz__unavailable = DOM_kz__wrapper
             .querySelector('.kz-vk-audio__carousel__item.kz-unavailable');
 
-    DOM_kz__unavailable.addEventListener('click', stopEvent, false);
+    DOM_kz__unavailable.addEventListener('click', kenzo.stop_event, false);
 
     if (info.available){
         if (!('mp3' in info)) info.mp3 = {};
@@ -438,10 +427,20 @@ function createButton(element, info){
         toggle_class(element, 'kz-bitrate', audio_item_classes);
 
         DOM_kz__bitrate.addEventListener('click', function(event){
-            stopEvent(event);
-            save(info.vk.url, info.vk.artist
-                + ' ' + options.audio__separator + ' '
-                + info.vk.title + '.mp3', element);
+            kenzo.stop_event(event);
+
+//            save(info.vk.url, info.vk.artist
+//                + ' ' + options.audio__separator + ' '
+//                + info.vk.title + '.mp3', element);
+
+            chrome.runtime.sendMessage({
+                action: 'save',
+                url: info.vk.url,
+                name: info.vk.artist + ' ' + options.audio__separator + ' ' + info.vk.title + '.mp3',
+                vk: info.vk
+            });
+
+
         }, false)
 
         DOM_kz__bitrate.setAttribute('data-message', message);
@@ -661,7 +660,7 @@ function init(items){
     DOM_body_observer.observe(DOM_body, {attributes: true /*MutationObserverInit*/});
     //DOM_body_observer.disconnect();
 
-    each(document.querySelectorAll('.audio'), function(item){
+    each (document.querySelectorAll('.audio'), function(item){
         process(item);
     });
 
@@ -688,7 +687,7 @@ function init(items){
             var audio = event.target.querySelectorAll('.audio')
 
             if (audio.length > 0){
-                each(audio, function(item){
+                each (audio, function(item){
                     process(item);
                 });
                 return true;
@@ -743,7 +742,6 @@ function init(items){
     ac_load_line
     audio_progress_line
 */
-
     // Прослушивание изменений настроек и глобальных переменных
     chrome.storage.onChanged.addListener(function(changes, areaName){
         if (areaName == 'local'){
@@ -775,6 +773,5 @@ if (document.readyState === 'complete'){
     document.addEventListener('DOMContentLoaded', on_load, false );
     window.addEventListener('load', on_load, false );
 })();
-
 
 })();

@@ -2,7 +2,7 @@
     "default_locale": "ru",
     "name": "Kenzo VK",
     "short_name": "Kenzo VK",
-    "version": "0.9",
+    "version": "0.10",
     "description": "__MSG_ext_description__",
     "author": "icw82",
     "homepage_url": "http://chrome.google.com/webstore/detail/kenzo-vk/kkmoffkcnaagfmkigckpkdcodobjdfga",
@@ -14,15 +14,32 @@
     "permissions": [
         "storage",
         "unlimitedStorage",
+        "downloads",
         "*://vk.com/*",
+        "*://*.vk.com/*",
         "*://*.vk.me/*"
     ],
-    "manifest_version": 2,
+    "externally_connectable": {
+        "matches": [
+            "*://vk.com/*",
+            "*://*.vk.com/*",
+            "*://*.vk.me/*"
+        ]
+    },
+    "background": {
+        "persistent": false,
+        "scripts": [
+            "commons/kenzo-set.js",
+            "commons/default_options.js",
+            "background/script.js"
+        ]
+    },
     "options_page": "options/template.html",
     "content_scripts": [
         {
             "matches": [
                 "*://vk.com/*",
+                "*://*.vk.com/*",
                 "*://*.vk.me/*"
             ],
             "css": [
@@ -50,5 +67,6 @@
         "audio/abort.png",
         "audio/abort-c.png"
     ],
-    "minimum_chrome_version": "32"
+    "minimum_chrome_version": "31",
+    "manifest_version": 2
 }
