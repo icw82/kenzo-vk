@@ -3,46 +3,177 @@
 //  – — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —|
 'use strict';
 
-// TODO: принять сигнал,
-// TODO: начать скачивание,
-// TODO: обновлять информацию о состоянии chrome.storage
+var options = {};
 
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
+function ids_add(download_id, vk_audio_id){
+    var default_values = {audio: {ids: []}};
+
+    chrome.storage.local.get(default_values, function(storage){
+        storage.audio.ids.push({
+            vk: vk_audio_id, // идентификатор аудиозаписи
+            download: download_id // идентификатор загрузки
+        });
+
+        chrome.storage.local.set(storage);
+    });
+}
+
+function message_listner(request, sender, sendResponse){
     if (sender.id !== chrome.runtime.id) return false;
 
-    console.log(request);
-
-    if (request.action === 'save'){
+    if (request.action === 'save-vk-audio'){
         chrome.downloads.download({
             url: request.url,
             filename: request.name,
             conflictAction: 'prompt'
-        }, function(id){
-            console.log(id);
-        })
+        }, function(download_id){
+            ids_add(download_id, request.vk.id);
+        });
     }
+}
 
-})
-
-
-chrome.storage.onChanged.addListener(function(changes, area_name){
+function storage_listner(changes, area_name){
     var keys = Object.keys(changes);
 
     if (area_name == 'local'){
         chrome.storage.local.get(function(items){
-            console.log(keys);
-            console.log(items);
+            console.log('> Storage changed', keys, items);
         });
     } else if (area_name == 'sync'){
-//        chrome.storage.sync.get(default_options, function(items){
-//            options = items;
-//        });
+        chrome.storage.sync.get(function(items){
+            options = items;
+        });
     }
+}
+
+function downloads_listner(delta){
+    //console.log('downloads_listner:', delta);
+
+    if (delta.filename)
+        watch_downloads.start();
+
+    else if (delta.endTime){
+        console.log('download complete', delta.id);
+    }
+
+    else if (delta.paused)
+        if (delta.paused.current)
+            console.log('Paused');
+        else
+            console.log('Resume');
+}
+
+// Залитые или отмененные нужно выбрасывать из хранилища.
+
+var watch_downloads = (function(){
+    var id = null,
+        interval = 1000,
+        _ = {};
+
+    function update_2(downloads){
+        var default_values = {audio: {ids: []}};
+
+        chrome.storage.local.get(default_values, function(storage){
+
+            var progress_list = [];
+
+            each (downloads, function(d_item){
+                each (storage.audio.ids, function(rels){
+                    if (rels.download === d_item.id){
+                        progress_list.push({
+                            id: rels.vk,
+                            done: Math.floor(d_item.bytesReceived / d_item.totalBytes * 100)
+                        });
+                    }
+                });
+            });
+
+            storage.audio.progress = progress_list;
+            chrome.storage.local.set(storage);
+
+            console.log('update_2')
+
+            if (progress_list.length === 0)
+                _.stop();
+        });
+    }
+
+    function update(){
+        chrome.downloads.search({
+            state: 'in_progress'
+        }, function(items){
+            if (items.length <= 0){
+                _.stop();
+                return false;
+            }
+
+            update_2(items);
+        })
+
+    }
+
+    _.start = function(){
+        if (id !== null) return false;
+
+        id = setInterval(update, interval);
+
+        return true;
+    }
+
+    _.stop = function(){
+        chrome.storage.local.get(function(storage){
+            storage.audio.progress = [];
+            chrome.storage.local.set(storage);
+        });
+
+        clearInterval(id);
+        id = null;
+        console.log('watch complete');
+    }
+
+    return _;
+})();
+
+
+chrome.storage.sync.get(function(items){
+    options = items;
 });
 
+chrome.storage.local.get(function(items){
+    console.log('> Storage:', items);
+});
+
+watch_downloads.start();
+
+chrome.runtime.onMessage.addListener(message_listner);
+
+chrome.storage.onChanged.addListener(storage_listner);
+
+chrome.downloads.onChanged.addListener(downloads_listner);
 
 
-//var port = chrome.runtime.connect();
+// TODO: удаление связки ids при окончании закачки файла
+// TODO: очередь закачки
+// TODO: история закачек
+
+//byExtensionId: "---"
+//byExtensionName: "Kenzo VK"
+//bytesReceived: 6295379
+//canResume: false
+//danger: "safe"
+//endTime: "2014-09-23T11:34:08.303Z"
+//estimatedEndTime: "2014-09-23T11:36:01.275Z"
+//exists: truefileSize: 6295379
+//filename: "---.mp3"
+//id: 69
+//incognito: false
+//mime: "audio/mpeg"
+//paused: false
+//referrer: ""
+//startTime: "2014-09-23T11:33:51.034Z"
+//state: "complete"
+//totalBytes: 6295379
+//url: "---"
 
 //(function(){
 //

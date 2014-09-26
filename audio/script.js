@@ -3,8 +3,7 @@
 //  – — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —|
 'use strict';
 
-var
-    audio_item_classes = [
+var audio_item_classes = [
         'kz-bitrate',
         'kz-progress',
         'kz-unavailable'
@@ -13,61 +12,61 @@ var
     globals = {};
 
 
-function save(url, name, element){
-    (name) || (name = 'kenzo-vk-audio.mp3');
-
-    var
-        xhr = new XMLHttpRequest(),
-        progress = 0,
-        abort = false,
-
-        // TODO: clean
-        DOM_kz__carousel =
-            element.querySelector('.kz-vk-audio__carousel'),
-        DOM_kz__bitrate =
-            element.querySelector('.kz-vk-audio__carousel__item.kz-bitrate'),
-        DOM_kz__progress =
-            element.querySelector('.kz-vk-audio__carousel__item.kz-progress'),
-        DOM_kz__progress_filling =
-            element.querySelector('.kz-vk-audio__progress-filling');
-
-    DOM_kz__progress.addEventListener('click', function(event){
-        kenzo.stop_event(event);
-        xhr.abort();
-        abort = true;
-        //DOM_kz__carousel.localName.addClass('kz-simplified-view');
-        toggle_class(element, 'kz-bitrate', audio_item_classes);
-    }, false);
-
-    xhr.responseType = 'blob';
-    xhr.onreadystatechange = function(){
-        if (xhr.readyState === 1)
-            toggle_class(element, 'kz-progress', audio_item_classes);
-/*
-        if ((xhr.readyState === 4) && (xhr.status === 200)){
-
-        }
-*/
-    }
-
-    xhr.onprogress = function(progress){
-        if (progress.lengthComputable && !abort){
-            toggle_class(element, 'kz-progress', audio_item_classes);
-            progress = Math.floor(progress.loaded / progress.total * 100);
-            DOM_kz__progress_filling.style.left = -100 + progress + '%';
-            //DOM_kz__carousel.localName.removeClass('kz-simplified-view');
-            //DOM_kz__progress.setAttribute('data-progress', progress + '%');
-        }
-    }
-    xhr.onload = function(){
-        var blob = new window.Blob([this.response], {'type': 'audio/mpeg'});
-        saveAs(blob, name);
-        //DOM_kz__carousel.localName.addClass('kz-simplified-view');
-        toggle_class(element, 'kz-bitrate', audio_item_classes);
-    }
-    xhr.open('GET', url, true);
-    xhr.send(null);
-};
+//function save(url, name, element){
+//    (name) || (name = 'kenzo-vk-audio.mp3');
+//
+//    var
+//        xhr = new XMLHttpRequest(),
+//        progress = 0,
+//        abort = false,
+//
+//        // TODO: clean
+//        DOM_kz__carousel =
+//            element.querySelector('.kz-vk-audio__carousel'),
+//        DOM_kz__bitrate =
+//            element.querySelector('.kz-vk-audio__carousel__item.kz-bitrate'),
+//        DOM_kz__progress =
+//            element.querySelector('.kz-vk-audio__carousel__item.kz-progress'),
+//        DOM_kz__progress_filling =
+//            element.querySelector('.kz-vk-audio__progress-filling');
+//
+//    DOM_kz__progress.addEventListener('click', function(event){
+//        kenzo.stop_event(event);
+//        xhr.abort();
+//        abort = true;
+//        //DOM_kz__carousel.localName.addClass('kz-simplified-view');
+//        toggle_class(element, 'kz-bitrate', audio_item_classes);
+//    }, false);
+//
+//    xhr.responseType = 'blob';
+//    xhr.onreadystatechange = function(){
+//        if (xhr.readyState === 1)
+//            toggle_class(element, 'kz-progress', audio_item_classes);
+///*
+//        if ((xhr.readyState === 4) && (xhr.status === 200)){
+//
+//        }
+//*/
+//    }
+//
+//    xhr.onprogress = function(progress){
+//        if (progress.lengthComputable && !abort){
+//            toggle_class(element, 'kz-progress', audio_item_classes);
+//            progress = Math.floor(progress.loaded / progress.total * 100);
+//            DOM_kz__progress_filling.style.left = -100 + progress + '%';
+//            //DOM_kz__carousel.localName.removeClass('kz-simplified-view');
+//            //DOM_kz__progress.setAttribute('data-progress', progress + '%');
+//        }
+//    }
+//    xhr.onload = function(){
+//        var blob = new window.Blob([this.response], {'type': 'audio/mpeg'});
+//        saveAs(blob, name);
+//        //DOM_kz__carousel.localName.addClass('kz-simplified-view');
+//        toggle_class(element, 'kz-bitrate', audio_item_classes);
+//    }
+//    xhr.open('GET', url, true);
+//    xhr.send(null);
+//};
 
 
 function i8ArrayTo2(array){
@@ -96,8 +95,7 @@ function i8ArrayToString(array){
 
 function get_more_mp3_info(url, info, callback){
 
-    var
-        offset = info.mp3.tag_length,
+    var offset = info.mp3.tag_length,
         ranges = [
             [offset, offset + 40] //170
         ];
@@ -109,8 +107,8 @@ function get_more_mp3_info(url, info, callback){
 
         // Чтение заголовка mp3 фрейма
         (function(){
-            var view = new Uint8Array(response[0].content, 0, 4);
-            var view_binary = i8ArrayTo2(view);
+            var view = new Uint8Array(response[0].content, 0, 4),
+                view_binary = i8ArrayTo2(view);
 
             // AAAAAAAAAAA BB CC D EEEE FF G H II JJ K L MM
             // 11111111111 11 01 1 1001 00 0 0 01 10 0 1 00
@@ -155,8 +153,7 @@ function get_more_mp3_info(url, info, callback){
 
         // Проверка на наличие VBR заголовков
         (function(){
-            var
-                view = new Uint8Array(response[0].content, 36, 4),
+            var view = new Uint8Array(response[0].content, 36, 4),
                 header = i8ArrayToString(view);
 
 
@@ -171,8 +168,7 @@ function get_more_mp3_info(url, info, callback){
 
             callback(info);
 /*
-            var
-                view = new Uint8Array(response[0].content, 155, 15);
+            var view = new Uint8Array(response[0].content, 155, 15);
 
             console.log(header, view , i8ArrayToString(view));
 
@@ -189,8 +185,7 @@ function get_mp3_info(url, callback, vbr){
         return false;
     }
 
-    var
-        range = [0, 9],
+    var range = [0, 9],
         data = {
             'available': false,
             'mp3': {}
@@ -304,8 +299,7 @@ function toggle_class(element, classname, classlist){
 
 function createButton(element, info){
     // Если кнопка уже есть
-    var
-        DOM_kz__wrapper = element.querySelector('.kz-vk-audio__wrapper'),
+    var DOM_kz__wrapper = element.querySelector('.kz-vk-audio__wrapper'),
         makenew = false;
 
     if (!DOM_kz__wrapper){
@@ -380,8 +374,7 @@ function createButton(element, info){
             '</div>'
     }
 
-    var
-        DOM_kz__carousel = DOM_kz__wrapper
+    var DOM_kz__carousel = DOM_kz__wrapper
             .querySelector('.kz-vk-audio__carousel'),
         DOM_kz__bitrate = DOM_kz__wrapper
             .querySelector('.kz-vk-audio__carousel__item.kz-bitrate'),
@@ -434,7 +427,7 @@ function createButton(element, info){
 //                + info.vk.title + '.mp3', element);
 
             chrome.runtime.sendMessage({
-                action: 'save',
+                action: 'save-vk-audio',
                 url: info.vk.url,
                 name: info.vk.artist + ' ' + options.audio__separator + ' ' + info.vk.title + '.mp3',
                 vk: info.vk
@@ -512,8 +505,7 @@ function process(element){
 // — — — — — — — — — — — — — — — — — — — — — — — —
 // NOTE: Нужен рефакторинг
 (function(info){
-    var
-        db = null,
+    var db = null,
         dbName = 'audio',
         dbVersion = 3,
         store = null,
@@ -644,8 +636,7 @@ function process(element){
 function init(items){
     options = items;
 
-    var
-        DOM_body = document.querySelector('body'),
+    var DOM_body = document.querySelector('body'),
         DOM_global_player = document.querySelector('#gp');
 
     DOM_body.classList.add('kz-vk-audio');
@@ -773,5 +764,6 @@ if (document.readyState === 'complete'){
     document.addEventListener('DOMContentLoaded', on_load, false );
     window.addEventListener('load', on_load, false );
 })();
+
 
 })();
