@@ -3,12 +3,12 @@
 //  – — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —|
 'use strict';
 
+// default_globals — подкючается отдельным файлом.
+
 var options = {};
 
 function ids_add(download_id, vk_audio_id){
-    var default_values = {audio: {ids: []}};
-
-    chrome.storage.local.get(default_values, function(storage){
+    chrome.storage.local.get(default_globals, function(storage){
         storage.audio.ids.push({
             vk: vk_audio_id, // идентификатор аудиозаписи
             download: download_id // идентификатор загрузки
@@ -22,6 +22,10 @@ function message_listner(request, sender, sendResponse){
     if (sender.id !== chrome.runtime.id) return false;
 
     if (request.action === 'save-vk-audio'){
+        console.log(request.name);
+        request.name = request.name.replace(/[\\\/:\*\?<>\|]*/g, '');
+        console.log(request.name);
+
         chrome.downloads.download({
             url: request.url,
             filename: request.name,
@@ -63,17 +67,13 @@ function downloads_listner(delta){
             console.log('Resume');
 }
 
-// Залитые или отмененные нужно выбрасывать из хранилища.
-
 var watch_downloads = (function(){
     var id = null,
         interval = 1000,
         _ = {};
 
     function update_2(downloads){
-        var default_values = {audio: {ids: []}};
-
-        chrome.storage.local.get(default_values, function(storage){
+        chrome.storage.local.get(default_globals, function(storage){
 
             var progress_list = [];
 
@@ -94,7 +94,7 @@ var watch_downloads = (function(){
             console.log('update_2')
 
             if (progress_list.length === 0)
-                _.stop();
+                stop();
         });
     }
 
@@ -103,13 +103,24 @@ var watch_downloads = (function(){
             state: 'in_progress'
         }, function(items){
             if (items.length <= 0){
-                _.stop();
+                stop();
                 return false;
             }
 
             update_2(items);
         })
 
+    }
+
+    function stop(){
+        chrome.storage.local.get(function(storage){
+            storage.audio.progress = [];
+            chrome.storage.local.set(storage);
+        });
+
+        clearInterval(id);
+        id = null;
+        console.log('watch complete');
     }
 
     _.start = function(){
@@ -120,16 +131,6 @@ var watch_downloads = (function(){
         return true;
     }
 
-    _.stop = function(){
-        chrome.storage.local.get(function(storage){
-            storage.audio.progress = [];
-            chrome.storage.local.set(storage);
-        });
-
-        clearInterval(id);
-        id = null;
-        console.log('watch complete');
-    }
 
     return _;
 })();

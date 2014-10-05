@@ -9,7 +9,8 @@ var audio_item_classes = [
         'kz-unavailable'
     ],
     options = null,
-    globals = {};
+    globals = {},
+    elements = [];
 
 
 //function save(url, name, element){
@@ -278,6 +279,7 @@ function calc_bitrate_classic(size, duration){
     return kbps;
 }
 
+// TODO: перенести в kenzo-set
 function toggle_class(element, classname, classlist){
     if (!(element instanceof Element)) return false;
     if (typeof classname !== 'string') return false;
@@ -371,7 +373,7 @@ function createButton(element, info){
                 '</div>' +
                 '<div class="kz-vk-audio__carousel__item kz-unavailable"></div>' +
                 '<div class="kz-vk-audio__carousel__item kz-direct"></div>' +
-            '</div>'
+            '</div>';
     }
 
     var DOM_kz__carousel = DOM_kz__wrapper
@@ -422,10 +424,6 @@ function createButton(element, info){
         DOM_kz__bitrate.addEventListener('click', function(event){
             kenzo.stop_event(event);
 
-//            save(info.vk.url, info.vk.artist
-//                + ' ' + options.audio__separator + ' '
-//                + info.vk.title + '.mp3', element);
-
             chrome.runtime.sendMessage({
                 action: 'save-vk-audio',
                 url: info.vk.url,
@@ -460,51 +458,7 @@ function createButton(element, info){
     }
 }
 
-
-function process(element){
-    if (element.getAttribute('id') === 'audio_global'){
-        return false;
-    }
-
-    element.classList.add('kz-vk-audio__item');
-
-    // Информация об аудиозаписи со страницы
-    var info = (function(element){
-        var info = {
-            'available': true,
-            'vk' : {}
-        }
-
-        info.vk.id = element.querySelector('a:first-child').getAttribute('name');
-
-        if (element.querySelector('.area.deleted')){
-            info.available = false;
-            return false;
-        }
-
-        var audio_info = element.querySelector('#audio_info' + info.vk.id).value.split(',');
-
-        info.vk.url = audio_info[0];
-        info.vk.duration = audio_info[1];
-
-        if (!info.vk.url || info.vk.url == '')
-            info.available = false;
-
-        var DOM_tw = element.querySelector('.area .info .title_wrap');
-        info.vk.artist = DOM_tw.querySelector('b > a').textContent.replace(/^s+|\s+$/g, '');
-        info.vk.title = DOM_tw.querySelector('.title').textContent.replace(/^s+|\s+$/g, '');
-
-        return info;
-    })(element);
-
-    //element.classList.contains('kz-data-obtained')
-
-    // Получение инфомации о файле, если он доступен
-    if (info.available === true){
-        if (options.audio__cache === true){
-// — — — — — — — — — — — — — — — — — — — — — — — —
-// NOTE: Нужен рефакторинг
-(function(info){
+function process_2(element, info, options){
     var db = null,
         dbName = 'audio',
         dbVersion = 3,
@@ -602,30 +556,69 @@ function process(element){
 
         request.onerror = function(){
             console.log('KZVK:', 'connect.onerror:', event);
-
-            get_mp3_info(info.vk.url, function(response){
-                if (response.available === true)
-                    info.available = true;
-                if ('mp3' in response)
-                    info.mp3 = response.mp3;
-
-                createButton(element, info);
-            }, options.audio__vbr);
+            process__simple(element, info, options);
         }
     });
 
-})(info);
-// — — — — — — — — — — — — — — — — — — — — — — — —
-        } else {
-            get_mp3_info(info.vk.url, function(response){
-                if (response.available === true)
-                    info.available = true;
-                if ('mp3' in response)
-                    info.mp3 = response.mp3;
+}
 
-                createButton(element, info);
-            }, options.audio__vbr);
+function process__simple(element, info, options){
+    get_mp3_info(info.vk.url, function(response){
+        if (response.available === true)
+            info.available = true;
+        if ('mp3' in response)
+            info.mp3 = response.mp3;
+
+        createButton(element, info);
+    }, options.audio__vbr);
+}
+
+// Обработка элемента
+function process(element){
+    if (element.getAttribute('id') === 'audio_global'){
+        return false;
+    }
+
+    element.classList.add('kz-vk-audio__item');
+
+    // Информация об аудиозаписи со страницы
+    var info = (function(element){
+        var info = {
+            'available': true,
+            'vk' : {}
         }
+
+        info.vk.id = element.querySelector('a:first-child').getAttribute('name');
+
+        if (element.querySelector('.area.deleted')){
+            info.available = false;
+            return false;
+        }
+
+        var audio_info = element.querySelector('#audio_info' + info.vk.id).value.split(',');
+
+        info.vk.url = audio_info[0];
+        info.vk.duration = audio_info[1];
+
+        if (!info.vk.url || info.vk.url == '')
+            info.available = false;
+
+        var DOM_tw = element.querySelector('.area .info .title_wrap');
+        info.vk.artist = DOM_tw.querySelector('b > a').textContent.replace(/^s+|\s+$/g, '');
+        info.vk.title = DOM_tw.querySelector('.title').textContent.replace(/^s+|\s+$/g, '');
+
+        return info;
+    })(element);
+
+    //element.classList.contains('kz-data-obtained')
+
+    // Получение инфомации о файле, если он доступен
+    if (info.available === true){
+        if (options.audio__cache === true)
+            process_2(element, info, options);
+        else
+            process__simple(element, info, options);
+
     } else {
         createButton(element, info);
     }
@@ -633,8 +626,8 @@ function process(element){
 }
 
 
-function init(items){
-    options = items;
+function init(sync_storage){
+    options = sync_storage;
 
     var DOM_body = document.querySelector('body'),
         DOM_global_player = document.querySelector('#gp');
@@ -698,8 +691,8 @@ function init(items){
     // Определение играющего трека
     globals.now_playing = null;
 
-    chrome.storage.local.get(default_globals, function(items){
-        globals.now_playing = items.audio.now_playing;
+    chrome.storage.local.get(default_globals, function(storage){
+        globals.now_playing = storage.audio.now_playing;
     });
 
     var global_player_event_listener = function(){
@@ -736,12 +729,12 @@ function init(items){
     // Прослушивание изменений настроек и глобальных переменных
     chrome.storage.onChanged.addListener(function(changes, areaName){
         if (areaName == 'local'){
-            chrome.storage.local.get(default_globals, function(items){
-                globals.now_playing = items.audio.now_playing;
+            chrome.storage.local.get(default_globals, function(storage){
+                globals.now_playing = storage.audio.now_playing;
             });
         } else if (areaName == 'sync'){
-            chrome.storage.sync.get(default_options, function(items){
-                options = items;
+            chrome.storage.sync.get(default_options, function(sync_storage){
+                options = sync_storage;
             });
         }
     });
@@ -749,15 +742,15 @@ function init(items){
 
 
 if (document.readyState === 'complete'){
-    chrome.storage.sync.get(default_options, function(items){
-        init(items);
+    chrome.storage.sync.get(default_options, function(sync_storage){
+        init(sync_storage);
     });
 } else (function(){
     function on_load(){
         document.removeEventListener('DOMContentLoaded', on_load);
         window.removeEventListener('load', on_load);
-        chrome.storage.sync.get(default_options, function(items){
-            init(items);
+        chrome.storage.sync.get(default_options, function(sync_storage){
+            init(sync_storage);
         });
     }
 

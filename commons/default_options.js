@@ -12,6 +12,7 @@ var default_options = {
 
 var default_globals = {
     'audio': {
-        'now_playing': null
+        'now_playing': null,
+        'ids': []
     }
 }
