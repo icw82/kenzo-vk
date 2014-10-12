@@ -22,9 +22,7 @@ function message_listner(request, sender, sendResponse){
     if (sender.id !== chrome.runtime.id) return false;
 
     if (request.action === 'save-vk-audio'){
-        console.log(request.name);
         request.name = request.name.replace(/[\\\/:\*\?<>\|]*/g, '');
-        console.log(request.name);
 
         chrome.downloads.download({
             url: request.url,
@@ -157,25 +155,6 @@ chrome.downloads.onChanged.addListener(downloads_listner);
 // TODO: очередь закачки
 // TODO: история закачек
 
-//byExtensionId: "---"
-//byExtensionName: "Kenzo VK"
-//bytesReceived: 6295379
-//canResume: false
-//danger: "safe"
-//endTime: "2014-09-23T11:34:08.303Z"
-//estimatedEndTime: "2014-09-23T11:36:01.275Z"
-//exists: truefileSize: 6295379
-//filename: "---.mp3"
-//id: 69
-//incognito: false
-//mime: "audio/mpeg"
-//paused: false
-//referrer: ""
-//startTime: "2014-09-23T11:33:51.034Z"
-//state: "complete"
-//totalBytes: 6295379
-//url: "---"
-
 //(function(){
 //
 //    var xhr = new XMLHttpRequest();
@@ -185,9 +164,6 @@ chrome.downloads.onChanged.addListener(downloads_listner);
 //    }
 //
 //    xhr.send(null);
-//
-//
 //})();
-
 
 })();

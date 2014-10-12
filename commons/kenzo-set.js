@@ -183,3 +183,32 @@ window.addEventListener('keyup', function(event){
     if (pos > -1)
         kzCurrentlyPressedKeys.splice(pos, 1);
 });
+
+function toggle_class(element, classes, classlist){
+    if (!(element instanceof Element)) return false;
+
+    if (typeof classes === 'string') classes = [classes];
+    if (!(classes instanceof Array)) return false;
+    if (!(classlist instanceof Array))
+        classlist = classes;
+
+    var exist = true;
+
+    each (classes, function(cls){
+        if (classlist.indexOf(cls) < 0)
+            classlist.push(cls);
+        if (!element.classList.contains(cls))
+            exist = false;
+    });
+
+    each (classlist, function(cls){
+        if (exist) {
+            element.classList.remove(cls);
+        } else {
+            if (classes.indexOf(cls) < 0)
+                element.classList.remove(cls);
+            else
+                element.classList.add(cls);
+        }
+    });
+}

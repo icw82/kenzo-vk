@@ -279,25 +279,6 @@ function calc_bitrate_classic(size, duration){
     return kbps;
 }
 
-// TODO: перенести в kenzo-set
-function toggle_class(element, classname, classlist){
-    if (!(element instanceof Element)) return false;
-    if (typeof classname !== 'string') return false;
-
-    if (classlist instanceof Array){
-        each (classlist, function(item){
-            if (item !== classname)
-                element.classList.remove(item);
-        });
-        if (!element.classList.contains(classname))
-            element.classList.add(classname);
-    } else {
-        if (element.classList.contains(classname))
-            element.classList.remove(classname);
-        else
-            element.classList.add(classname);
-    }
-}
 
 function createButton(element, info){
     // Если кнопка уже есть
@@ -427,12 +408,12 @@ function createButton(element, info){
             chrome.runtime.sendMessage({
                 action: 'save-vk-audio',
                 url: info.vk.url,
-                name: info.vk.artist + ' ' + options.audio__separator + ' ' + info.vk.title + '.mp3',
+                name: info.vk.artist + ' ' + options.audio__separator + ' '
+                    + info.vk.title + '.mp3',
                 vk: info.vk
             });
 
-
-        }, false)
+        }, false);
 
         DOM_kz__bitrate.setAttribute('data-message', message);
 
