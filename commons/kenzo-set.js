@@ -184,7 +184,7 @@ window.addEventListener('keyup', function(event){
         kzCurrentlyPressedKeys.splice(pos, 1);
 });
 
-function toggle_class(element, classes, classlist){
+function toggle_class(element, classes, classlist, toggle_exist){
     if (!(element instanceof Element)) return false;
 
     if (typeof classes === 'string') classes = [classes];
@@ -194,6 +194,9 @@ function toggle_class(element, classes, classlist){
 
     var exist = true;
 
+    if (toggle_exist !== false)
+        toggle_exist = true;
+
     each (classes, function(cls){
         if (classlist.indexOf(cls) < 0)
             classlist.push(cls);
@@ -202,7 +205,7 @@ function toggle_class(element, classes, classlist){
     });
 
     each (classlist, function(cls){
-        if (exist) {
+        if (toggle_exist && exist) {
             element.classList.remove(cls);
         } else {
             if (classes.indexOf(cls) < 0)

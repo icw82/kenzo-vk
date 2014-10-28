@@ -10,7 +10,7 @@ var audio_item_classes = [
     ],
     options = null,
     globals = {},
-    elements = [];
+    list = [];
 
 
 //function save(url, name, element){
@@ -413,6 +413,8 @@ function createButton(element, info){
                 vk: info.vk
             });
 
+            console.log('Отправлено в загрузки');
+
         }, false);
 
         DOM_kz__bitrate.setAttribute('data-message', message);
@@ -428,7 +430,7 @@ function createButton(element, info){
         else
             DOM_kz__carousel.classList.add('kz-vk-audio__bitrate--crap');
     } else {
-        toggle_class(element, 'kz-unavailable', audio_item_classes);
+        toggle_class(element, 'kz-unavailable', audio_item_classes, false);
     }
 
     if (makenew){
@@ -466,13 +468,12 @@ function process_2(element, info, options){
         request.onerror = function(){
             console.log('KZVK:', 'Сonnect error:', event);
         }
-
     }
 
     connect(function(db){
         var request = db.transaction([storeName], 'readonly')
             .objectStore(storeName)
-            .get(info.vk.id);
+            .get(info.id);
 
         request.onsuccess = function(event){
             if (event.target.result){
@@ -511,7 +512,7 @@ function process_2(element, info, options){
 
                 connect(function(db){
                     var data = {
-                        'id': info.vk.id,
+                        'id': info.id,
                         'size': info.mp3.size,
                         'vbr': info.mp3.vbr,
                         'bitrate': info.mp3.bitrate
@@ -554,42 +555,54 @@ function process__simple(element, info, options){
     }, options.audio__vbr);
 }
 
+function get_vk_info(element){
+    var info = {
+        'dom': element,
+        'available': true,
+        'vk' : {}
+    }
+
+    info.id = element.querySelector('a:first-child').getAttribute('name');
+
+    if (element.querySelector('.area.deleted')){
+        info.available = false;
+        return info;
+    }
+
+    var audio_info = element.querySelector('#audio_info' + info.id).value.split(',');
+
+    info.vk.url = audio_info[0];
+    info.vk.duration = audio_info[1];
+
+    if (!info.vk.url || info.vk.url == '')
+        info.available = false;
+
+    var DOM_tw = element.querySelector('.area .info .title_wrap');
+    info.vk.artist = DOM_tw.querySelector('b > a').textContent.replace(/^s+|\s+$/g, '');
+    info.vk.title = DOM_tw.querySelector('.title').textContent.replace(/^s+|\s+$/g, '');
+
+    return info;
+}
+
 // Обработка элемента
 function process(element){
-    if (element.getAttribute('id') === 'audio_global'){
-        return false;
-    }
+    if (element.getAttribute('id') === 'audio_global') return false;
 
     element.classList.add('kz-vk-audio__item');
 
     // Информация об аудиозаписи со страницы
-    var info = (function(element){
-        var info = {
-            'available': true,
-            'vk' : {}
+    var info = get_vk_info(element);
+
+    each (list, function(item, i){
+        if (item.id === info.id){
+            list[i] = info;
+            console.log(info.id, 'уже есть');
+            return true;
         }
-
-        info.vk.id = element.querySelector('a:first-child').getAttribute('name');
-
-        if (element.querySelector('.area.deleted')){
-            info.available = false;
-            return false;
-        }
-
-        var audio_info = element.querySelector('#audio_info' + info.vk.id).value.split(',');
-
-        info.vk.url = audio_info[0];
-        info.vk.duration = audio_info[1];
-
-        if (!info.vk.url || info.vk.url == '')
-            info.available = false;
-
-        var DOM_tw = element.querySelector('.area .info .title_wrap');
-        info.vk.artist = DOM_tw.querySelector('b > a').textContent.replace(/^s+|\s+$/g, '');
-        info.vk.title = DOM_tw.querySelector('.title').textContent.replace(/^s+|\s+$/g, '');
-
-        return info;
-    })(element);
+    }, function(){
+        list.push(info);
+        //console.log(info.id, '— новый');
+    });
 
     //element.classList.contains('kz-data-obtained')
 
