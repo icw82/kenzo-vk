@@ -2,14 +2,13 @@
     "default_locale": "ru",
     "name": "Kenzo VK",
     "short_name": "Kenzo VK",
-    "version": "0.10.3",
+    "version": "1.0.0",
     "description": "__MSG_ext_description__",
     "author": "icw82",
-    "homepage_url": "http://chrome.google.com/webstore/detail/kenzo-vk/kkmoffkcnaagfmkigckpkdcodobjdfga",
     "icons": {
-        "16": "icons/16.png",
-        "48": "icons/48.png",
-        "128": "icons/128.png"
+        "16": "images/icons/16.png",
+        "48": "images/icons/48.png",
+        "128": "images/icons/128.png"
     },
     "permissions": [
         "storage",
