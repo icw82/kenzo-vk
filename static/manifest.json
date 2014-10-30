@@ -30,8 +30,6 @@
     "background": {
         "persistent": false,
         "scripts": [
-            "commons/kenzo-set.js",
-            "commons/default_options.js",
             "background/script.js"
         ]
     },
@@ -44,29 +42,23 @@
                 "*://*.vk.me/*"
             ],
             "css": [
-                "audio/styles.css",
-                "video/styles.css",
-                "trash/styles.css"
+                "styles.css"
             ],
             "js": [
-                "commons/kenzo-set.js",
-                "commons/default_options.js",
-                "commons/kz-get-buffer.js",
-                "audio/script.js",
-                "video/script.js",
-                "trash/script.js"
+                "scripts.min.js"
             ],
             "run_at": "document_end"
         }
     ],
     "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
     "web_accessible_resources": [
-        "audio/download.png",
-        "audio/download-c.png",
-        "audio/download-u.png",
-        "audio/abort.png",
-        "audio/abort-c.png"
+        "scripts.min.js.map",
+        "images/download.png",
+        "images/download-c.png",
+        "images/download-u.png",
+        "images/abort.png",
+        "images/abort-c.png"
     ],
-    "minimum_chrome_version": "31",
+    "minimum_chrome_version": "38",
     "manifest_version": 2
 }

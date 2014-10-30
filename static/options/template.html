@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html ng-app="kenzo-vk">
+<head>
+    <title>Настройки Kenzo VK</title>
+    <meta charset="UTF-8" />
+
+    <link type="image/png" rel="icon" href="../icons/favicon.png" />
+    <link rel="stylesheet" href="../commons/reset.css" />
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body ng-controller="settings">
+    <div class="layout-global-wrapper">
+        <div class="layout-wrapper">
+            <div class="grid-12">
+                <div class="col-12">
+                    <div class="mb-page-header">[[ i18n.header ]]</div>
+                    <div class="mb-ext-name">[[ Manifest.name ]] [[ Manifest.version ]]</div>
+                </div>
+            </div>
+        </div>
+        <div class="layout-wrapper dec-page">
+<!-- --------------------------- -->
+<div class="grid-12">
+    <div class="col-12">
+        <div class="mb-annotation">[[ i18n.annotation ]]</div>
+    </div>
+</div>
+<div class="mb-delimiter"></div>
+<!-- --------------------------- -->
+<div class="grid-12">
+    <div class="col-12">
+        <div class="mb-block-header">[[ i18n.audio.header ]]
+            <span class="mb-block-header__description">[[ i18n.audio.description ]]</span>
+        </div>
+    </div>
+    <div class="col-6">
+        <p>
+            <label class="mb-label__checkbox">
+                <input type="checkbox" ng-model="Options.audio__cache">
+                [[ i18n.audio.options.cache ]]
+            </label>
+        </p>
+        <p>
+            <label class="mb-label__checkbox">
+                <input type="checkbox" ng-model="Options.audio__vbr">
+                [[ i18n.audio.options.vbr ]]
+            </label>
+        </p>
+        <p>
+            <label class="mb-label__checkbox">
+                <input type="checkbox" ng-model="Options.audio__simplified">
+                [[ i18n.audio.options.simplified ]]
+            </label>
+        </p>
+    </div><div class="col-6">
+        <p>
+            <label class="mb-label__select">
+                [[ i18n.audio.options.separator ]]
+                <select ng-model="Options.audio__separator">
+                    <option value="—">— (тире)</option>
+                    <option value="-">- (дефис)</option>
+                </select>
+            </label>
+        </p>
+    </div>
+</div>
+<div class="mb-delimiter"></div>
+<!-- --------------------------- -->
+<div class="grid-12">
+    <div class="col-12">
+        <div class="mb-block-header">[[ i18n.video.header ]]
+            <span class="mb-block-header__description">[[ i18n.video.description ]]</span>
+        </div>
+    </div>
+    <div class="col-6">
+        <p>
+            <label class="mb-label__checkbox">
+                <input type="checkbox" ng-model="Options.video__direct_links">
+                [[ i18n.video.options.direct_links ]]
+            </label>
+        </p>
+    </div><div class="col-6">
+
+    </div>
+</div>
+<div class="mb-delimiter"></div>
+<!-- --------------------------- -->
+<div class="grid-12">
+    <div class="col-12">
+        <div class="mb-block-header">[[ i18n.trash.header ]]
+            <span class="mb-block-header__description">[[ i18n.trash.description ]]</span>
+        </div>
+    </div>
+    <div class="col-6">
+        <p>
+            <label class="mb-label__checkbox">
+                <input type="checkbox" ng-model="Options.trash__lsb__ad">
+                [[ i18n.trash.options.lsb__ad ]]
+            </label>
+        </p>
+        <p>
+            <label class="mb-label__checkbox">
+                <input type="checkbox" ng-model="Options.trash__newsads">
+                [[ i18n.trash.options.newsads ]]
+            </label>
+        </p>
+    </div><div class="col-6">
+        <p>
+            <label class="mb-label__checkbox">
+                <input type="checkbox" ng-model="Options.trash__lsb__fr">
+                [[ i18n.trash.options.lsb__fr ]]
+            </label>
+        </p>
+        <p>
+            <label class="mb-label__checkbox">
+                <input type="checkbox" ng-model="Options.trash__group_recom">
+                [[ i18n.trash.options.group_recom ]]
+            </label>
+        </p>
+    </div>
+</div>
+<!-- --------------------------- -->
+        </div>
+        <div class="layout-wrapper">
+            <div class="grid-12">
+                <div class="col-12">
+                    <div class="b-footer">
+                        <a class="b-footer__sign" href="http://github.com/icw82"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../libs/angular.min.js"></script>
+    <script src="../commons/default_options.js"></script>
+    <script src="script.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+</body>
+</html>
