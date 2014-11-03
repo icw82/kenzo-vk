@@ -42,17 +42,18 @@
                 "*://*.vk.me/*"
             ],
             "css": [
-                "styles.css"
+                "styles/styles.css"
             ],
             "js": [
-                "scripts.min.js"
+                "scripts/defaults.js",
+                "scripts/scripts.min.js"
             ],
             "run_at": "document_end"
         }
     ],
     "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
     "web_accessible_resources": [
-        "scripts.min.js.map",
+        "scripts/scripts.min.js.map",
         "images/download.png",
         "images/download-c.png",
         "images/download-u.png",

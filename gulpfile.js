@@ -14,13 +14,24 @@ gulp.task('static', function(){
 });
 
 gulp.task('scripts', function(){
+    var angular = gulp.src([
+        './bower_components/angular/angular.min.js',
+        './bower_components/angular/angular.min.js.map'
+    ])
+        .pipe(gulp.dest('build/scripts'));
+
+    var defaults = gulp.src([
+        './scripts/defaults.js'
+    ])
+        .pipe(gulp.dest('build/scripts'));
+
     var paths = [
         './scripts/kenzo-set.js',
         './scripts/kenzo-get-buffer.js',
-        './scripts/defaults.js',
         './scripts/*.js'
     ];
-    return gulp.src(paths)
+
+    var scripts = gulp.src(paths)
         .pipe(sourcemaps.init())
         .pipe(concat('scripts.js'))
         //.pipe(gulp.dest(paths.build.abs.scripts))
@@ -28,7 +39,9 @@ gulp.task('scripts', function(){
         .pipe(rename({suffix: '.min'}))
         .pipe(uglify().on("error", gutil.log))
         .pipe(sourcemaps.write('/'))
-        .pipe(gulp.dest('build'));
+        .pipe(gulp.dest('build/scripts'));
+
+    return es.merge(angular, defaults, scripts)
 });
 
 gulp.task('watch', function(){
