@@ -28,17 +28,18 @@ gulp.task('scripts', function(){
     var paths = [
         './scripts/kenzo-set.js',
         './scripts/kenzo-get-buffer.js',
-        './scripts/*.js'
+        './scripts/base.js',
+        './scripts/*.js',
+        './scripts/modules/*.js',
+        './scripts/init.js'
     ];
 
     var scripts = gulp.src(paths)
         .pipe(sourcemaps.init())
         .pipe(concat('scripts.js'))
-        //.pipe(gulp.dest(paths.build.abs.scripts))
-        //.pipe(sourcemaps.init())
         .pipe(rename({suffix: '.min'}))
         .pipe(uglify().on("error", gutil.log))
-        .pipe(sourcemaps.write('/'))
+        .pipe(sourcemaps.write('../scripts/'))
         .pipe(gulp.dest('build/scripts'));
 
     return es.merge(angular, defaults, scripts)
@@ -46,7 +47,7 @@ gulp.task('scripts', function(){
 
 gulp.task('watch', function(){
     gulp.watch(['./static/**/*.*'], ['static']);
-    gulp.watch(['./scripts/*.js'], ['scripts']);
+    gulp.watch(['./scripts/*.js', './scripts/*/*.js'], ['scripts']);
 });
 
 gulp.task('clean', function(callback){

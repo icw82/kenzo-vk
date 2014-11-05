@@ -1,87 +1,83 @@
-//  – — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —|
-(function(){
-
+(function(kzvk){
 'use strict';
+//  – — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —|
 
-var options = null;
+var mod = {
+    name: 'trash',
+    version: '1.0.0'
+};
 
-function init(items){
-    options = items;
+mod.drop = function(input){
+    var _ = function(node){
+        mod.dom.trash_bin.appendChild(node);
+        console.info(kzvk.name, '—', mod.name, ':', node);
+    };
 
-    chrome.storage.onChanged.addListener(function(a){
-        chrome.storage.sync.get(default_options, function(items){
-            options = items;
-        });
-    });
-
-    var
-        DOM_body = document.querySelector('body'),
-        DOM_trash_bin = document.createElement('div');
-
-    DOM_trash_bin.classList.add('kz-vk-trash__bin');
-    DOM_body.insertBefore(DOM_trash_bin, DOM_body.firstChild);
-
-    function drop(node){
-        if (node instanceof NodeList){
-            each(node, function(item){
-                DOM_trash_bin.appendChild(item);
-                console.log('KZVK: TRASH:', item);
-            });
-        } else if (node instanceof Node){
-            DOM_trash_bin.appendChild(node);
-            console.log('KZVK: TRASH:', node);
-        }
+    if (input instanceof NodeList){
+        each (input, _);
+    } else if (input instanceof Node){
+        _(input);
     }
+}
+
+mod.init = function(){
+    mod.dom = {
+        body: document.querySelector('body'),
+        trash_bin: document.createElement('div')
+    };
+
+    mod.dom.trash_bin.classList.add('kz-vk-trash__bin');
+    mod.dom.body.insertBefore(mod.dom.trash_bin, mod.dom.body.firstChild);
 
     // Реклама в сайдбаре
-    if (options.trash__lsb__ad === true){
-        drop(document.querySelectorAll('#left_ads'));
+    if (kzvk.options.trash__lsb__ad === true){
+        mod.drop(document.querySelectorAll('#left_ads'));
 
         document.addEventListener('DOMNodeInserted', function(event){
             if (event.target instanceof Element){
                 if (event.target.getAttribute('id') == 'left_ads'){
-                    drop(event.target);
+                    mod.drop(event.target);
                 }
             }
         });
     }
 
     // Предложение друзей
-    if (options.trash__lsb__fr === true){
-        drop(document.querySelector('#left_friends'));
+    if (kzvk.options.trash__lsb__fr === true){
+        mod.drop(document.querySelector('#left_friends'));
 
         document.addEventListener('DOMNodeInserted', function(event){
             if (event.target instanceof Element){
                 if (event.target.getAttribute('id') == 'left_friends'){
-                    drop(event.target);
+                    mod.drop(event.target);
                 }
             }
         });
     }
 
     // Популярные сообщества
-    if (options.trash__group_recom === true){
-        drop (document.querySelector('#group_recom_wrap'));
+    if (kzvk.options.trash__group_recom === true){
+        mod.drop(document.querySelector('#group_recom_wrap'));
 
         document.addEventListener('DOMNodeInserted', function(event){
             if (!(event.target instanceof Element)) return false;
             if (event.target.getAttribute('id') !== 'wrap2') return false;
 
-            drop (event.target.querySelector('#group_recom_wrap'));
+            mod.drop(event.target.querySelector('#group_recom_wrap'));
         });
     };
 
     // Реклама между постами
-    if (options.trash__newsads === true){
+    if (kzvk.options.trash__newsads === true){
         var newsads = document.querySelectorAll('.ads_ads_news_wrap');
         //FIXME: говнокод
         each (newsads, function(item){
             if ('parentNode' in item){
                 if (item.parentNode.classList.contains('feed_row')){
-                    drop(item.parentNode);
+                    mod.drop(item.parentNode);
                 } else if ('parentNode' in item.parentNode){
                     if (item.parentNode.parentNode.classList.contains('feed_row')){
-                        drop(item.parentNode.parentNode);
+                        mod.drop(item.parentNode.parentNode);
                     }
                 }
             }
@@ -96,10 +92,10 @@ function init(items){
             each(newsads, function(item){
                 if ('parentNode' in item){
                     if (item.parentNode.classList.contains('feed_row')){
-                        drop(item.parentNode);
+                        mod.drop(item.parentNode);
                     } else if ('parentNode' in item.parentNode){
                         if (item.parentNode.parentNode.classList.contains('feed_row')){
-                            drop(item.parentNode.parentNode);
+                            mod.drop(item.parentNode.parentNode);
                         }
                     }
                 }
@@ -110,21 +106,7 @@ function init(items){
 
 }
 
-if (document.readyState === 'complete'){
-    chrome.storage.sync.get(default_options, function(items){
-        init(items);
-    });
-} else (function(){
-    function on_load(){
-        document.removeEventListener('DOMContentLoaded', on_load);
-        window.removeEventListener('load', on_load);
-        chrome.storage.sync.get(default_options, function(items){
-            init(items);
-        });
-    }
+// Включение модуля
+kzvk.modules[mod.name] = mod;
 
-    document.addEventListener('DOMContentLoaded', on_load, false );
-    window.addEventListener('load', on_load, false );
-})();
-
-})();
+})(kzvk);
