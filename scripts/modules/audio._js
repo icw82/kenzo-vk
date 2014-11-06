@@ -555,35 +555,6 @@ function process__simple(element, info, options){
     }, options.audio__vbr);
 }
 
-function get_vk_info(element){
-    var info = {
-        'dom': element,
-        'available': true,
-        'vk' : {}
-    }
-
-    info.id = element.querySelector('a:first-child').getAttribute('name');
-
-    if (element.querySelector('.area.deleted')){
-        info.available = false;
-        return info;
-    }
-
-    var audio_info = element.querySelector('#audio_info' + info.id).value.split(',');
-
-    info.vk.url = audio_info[0];
-    info.vk.duration = audio_info[1];
-
-    if (!info.vk.url || info.vk.url == '')
-        info.available = false;
-
-    var DOM_tw = element.querySelector('.area .info .title_wrap');
-    info.vk.artist = DOM_tw.querySelector('b > a').textContent.replace(/^s+|\s+$/g, '');
-    info.vk.title = DOM_tw.querySelector('.title').textContent.replace(/^s+|\s+$/g, '');
-
-    return info;
-}
-
 // Обработка элемента
 function process(element){
     if (element.getAttribute('id') === 'audio_global') return false;

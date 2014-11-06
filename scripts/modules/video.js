@@ -59,14 +59,7 @@ mod.init = function(){
         body: document.querySelector('body')
     };
 
-    mod.dom.body.classList.add('kz-vk-video');
-
-    var DOM_body_observer = new MutationObserver(function(mutations){
-        mutations.forEach(function(mutation){
-            if (!mod.dom.body.classList.contains('kz-vk-video'))
-                mod.dom.body.classList.add('kz-vk-video');
-        });
-    });
+    kzvk.class_forever('kz-vk-video', mod.dom.body);
 
     each (document.querySelectorAll('#video_player'), function(item){
         mod.get_video_info(item);
