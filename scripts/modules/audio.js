@@ -29,7 +29,7 @@ mod.document_listner = function(event){
             }
         }
 
-        console.log('mutate', event.target);
+        //console.log('mutate', event.target);
 
 //        var audio = event.target.querySelectorAll('.audio');
 //
