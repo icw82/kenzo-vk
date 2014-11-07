@@ -4,8 +4,62 @@
 
 var mod = {
     name: 'audio',
-    version: '1.0.0'
+    version: '1.0.0',
+    list: [] // временно здесь
 };
+
+// Должен работать как filter
+function sift(array, callback){
+    //var filtered = array.filter(callback);
+    //array.splice(0);
+
+//    each (filtered, function(item){
+//        //array.push(item);
+//    });
+
+}
+
+// Отлов изменений списка аудиозаписей
+mod.list_observer = function(changes){
+    console.info('list_observer');
+    var added = 0;
+
+    each (changes, function(ch){
+        if (ch.type == 'add'){
+            added++
+            //console.log('**', ch.object[ch.name]);
+        } else if (ch.type == 'update'){
+            if (ch.name != 'length')
+                console.log('** update:', ch);
+        } else {
+            deleted++
+            //console.log('**** delete:', ch);
+        }
+    });
+
+    if (added)
+        console.log('added:', added);
+
+    if (deleted)
+        console.log('deleted:', deleted);
+
+    console.log('*************** 1 ************');
+    sift (mod.list, function(item){
+        return document.body.contains(item.dom);
+    });
+    console.log('*************** 2 ************');
+
+    each (mod.list, function(item, i){
+        if (i < 5)
+            console.log(item.dom);
+    });
+
+    //console.log('list', mod.list);
+
+//    oldValue: только для типов "update" и "delete".
+}
+
+Object.observe(mod.list, mod.list_observer);
 
 // Отлов вставки элементов DOM
 mod.document_listner = function(element){
@@ -98,12 +152,14 @@ mod.get_audio_element_info = function(element){
 
 // Добавляет элемент в список обновляет уже имеющийся элемент.
 mod.add_audio_element = function(element){
-    if (element.getAttribute('id') === 'audio_global'){
-        console.warn('ага, попался', element);
+    // Плеер не нужен
+    if (element.getAttribute('id') === 'audio_global')
         return false;
-    }
 
-    //console.log('→→', mod.get_audio_element_info(element));
+    var info = mod.get_audio_element_info(element);
+    info.dom = element;
+
+    mod.list.push(info);
 }
 
 mod.init = function(){

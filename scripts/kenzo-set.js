@@ -41,22 +41,42 @@ Element.prototype.getOffset = function(){
 var kenzo = {}
 
 // Перебор массива
-// если обратная функция возвращает true, перебор прерывается.
-kenzo.each = function(array, callback, def){
+// Если обратная функция возвращает true, перебор прерывается.
+// Если третий аргумент функция — то она выполяется последней,
+//     если обратная функция ниразу не возвращала true
+// Если последний элемент === true, перебор производится в обратном порядке.
+kenzo.each = function(array, callback){
     if (typeof array === 'string')
         array = document.querySelectorAll(array);
     else if (typeof array === 'number')
         array = Array(array);
+
+    if (typeof arguments[2] === 'function'){
+        var def = arguments[2];
+        if (arguments[3] === true)
+            var reverse = true;
+    } else if (arguments[2] === true){
+        var reverse = true;
+    }
 
     if (
         (typeof array === 'object') && (array !== null) && ('length' in array) &&
         (typeof callback === 'function')
     ){
         var nothing = true;
-        for (var i = 0; i < array.length; i++){
-            if (callback(array[i], i) === true){
-                nothing = false;
-                break;
+        if (reverse) {
+            for (var i = array.length - 1; i >= 0; i--){
+                if (callback(array[i], i) === true){
+                    nothing = false;
+                    break;
+                }
+            }
+        } else {
+            for (var i = 0; i < array.length; i++){
+                if (callback(array[i], i) === true){
+                    nothing = false;
+                    break;
+                }
             }
         }
 
