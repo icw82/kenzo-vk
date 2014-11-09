@@ -1,5 +1,5 @@
 //  – — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —|
-'use strict';
+//'use strict';
 
 if (!String.prototype.trim){
     String.prototype.trim = function(){
@@ -187,24 +187,7 @@ kenzo.plural = function(){
             return plural;
 }
 
-
-var kzCurrentlyPressedKeys = [];
-
-window.addEventListener('keydown', function(event){
-    var pos = kzCurrentlyPressedKeys.indexOf(event.keyCode);
-
-    if (pos === -1)
-        kzCurrentlyPressedKeys.push(event.keyCode);
-});
-
-window.addEventListener('keyup', function(event){
-    var pos = kzCurrentlyPressedKeys.indexOf(event.keyCode);
-
-    if (pos > -1)
-        kzCurrentlyPressedKeys.splice(pos, 1);
-});
-
-function toggle_class(element, classes, classlist, toggle_exist){
+kenzo.toggle_class = function(element, classes, classlist, toggle_exist){
     if (!(element instanceof Element)) return false;
 
     if (typeof classes === 'string') classes = [classes];
@@ -235,3 +218,20 @@ function toggle_class(element, classes, classlist, toggle_exist){
         }
     });
 }
+
+var kzCurrentlyPressedKeys = [];
+
+window.addEventListener('keydown', function(event){
+    var pos = kzCurrentlyPressedKeys.indexOf(event.keyCode);
+
+    if (pos === -1)
+        kzCurrentlyPressedKeys.push(event.keyCode);
+});
+
+window.addEventListener('keyup', function(event){
+    var pos = kzCurrentlyPressedKeys.indexOf(event.keyCode);
+
+    if (pos > -1)
+        kzCurrentlyPressedKeys.splice(pos, 1);
+});
+

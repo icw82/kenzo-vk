@@ -27,7 +27,6 @@ gulp.task('scripts', function(){
 
     var paths = [
         './scripts/kenzo-set.js',
-        './scripts/kenzo-get-buffer.js',
         './scripts/base.js',
         './scripts/*.js',
         './scripts/modules/*.js',

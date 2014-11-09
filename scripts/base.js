@@ -1,7 +1,7 @@
+var kzvk = (function(){
 'use strict';
 //  – — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —|
 
-var kzvk = (function(){
     var manifest = chrome.runtime.getManifest();
 
     var _ = {

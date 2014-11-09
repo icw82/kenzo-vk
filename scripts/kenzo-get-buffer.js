@@ -1,9 +1,8 @@
-(function(window){
-
-//  – — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —|
+(function(kzvk){
 'use strict';
+//  – — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —|
 
-window.kzGetBuffer = function(/* String url [, Array range], Function callback */){
+kzvk.get_buffer = function(/* String url [, Array range], Function callback */){
     // Проверка
     if (typeof arguments[0] !== 'string'){
         console.warn('KZ: url не передан');
@@ -174,6 +173,6 @@ while (cur < response.byteLength){
 
     xhr.responseType = 'arraybuffer';
     xhr.send(null);
-}
+};
 
-})(window);
+})(kzvk);
