@@ -69,23 +69,9 @@ mod.create_button = function(item){
     item.dom_unavailable = item.dom_wrapper
         .querySelector('.kz-vk-audio__carousel__item.kz-unavailable');
 
-    item.dom_unavailable.addEventListener('click', kenzo.stop_event, false);
-
-//        DOM_kz__bitrate.addEventListener('click', function(event){
-//            kenzo.stop_event(event);
-//
-//            chrome.runtime.sendMessage({
-//                action: 'save-vk-audio',
-//                url: item.vk.url,
-//                name: item.vk.artist + ' ' + options.audio__separator + ' '
-//                    + item.vk.title + '.mp3',
-//                vk: item.vk
-//            });
-//
-//            console.log('Отправлено в загрузки');
-//
-//        }, false);
-
+    item.dom_carousel.addEventListener('click', function(event){
+        mod.button_event(item, event);
+    }, false);
 }
 
 })(kzvk);

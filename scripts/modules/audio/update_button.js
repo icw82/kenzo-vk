@@ -4,14 +4,7 @@
 
 var mod = kzvk.modules.audio;
 
-mod.update_button = function(item, changes){
-    //console.log(item);
-
-    if (!item.available){
-        kenzo.toggle_class(item.dom_element, 'kz-unavailable', mod.audio_item_classes, false);
-        return false;
-    }
-
+mod.update_button__basic = function(item){
     var message = ' ';
 
     if ((typeof item.vbr !== 'undefined') && (item.vbr !== false)){
@@ -65,6 +58,35 @@ mod.update_button = function(item, changes){
     else
         kenzo.toggle_class(item.dom_carousel,
             'kz-vk-audio__bitrate--crap', bitrate_classes, false);
+
+}
+
+mod.update_button__download_progress = function(item){
+
+}
+
+mod.update_button = function(item, changes){
+    //console.log(item, changes);
+
+    if (!item.available){
+        kenzo.toggle_class(item.dom_element, 'kz-unavailable', mod.audio_item_classes, false);
+        return false;
+    }
+
+    if (
+        (changes.indexOf('dom_wrapper') > -1) ||
+        (changes.indexOf('dom_carousel') > -1) ||
+        (changes.indexOf('vbr') > -1) ||
+        (changes.indexOf('bitrate') > -1) ||
+        (changes.indexOf('tag_version') > -1) ||
+        (changes.indexOf('error') > -1)
+    ){
+        mod.update_button__basic(item);
+    }
+
+    if (changes.indexOf('download') > -1){
+        mod.update_button__download_progress();
+    }
 
 };
 
