@@ -13,6 +13,15 @@ gulp.task('static', function(){
         .pipe(gulp.dest('build'))
 });
 
+var scripts_paths = [
+    './scripts/kenzo-set.js',
+    './scripts/base.js',
+    './scripts/*.js',
+    './scripts/modules/*/main.js',
+    './scripts/modules/*/*.js',
+    './scripts/init.js'];
+
+
 gulp.task('scripts', function(){
     var angular = gulp.src([
         './bower_components/angular/angular.min.js',
@@ -25,20 +34,12 @@ gulp.task('scripts', function(){
     ])
         .pipe(gulp.dest('build/scripts'));
 
-    var paths = [
-        './scripts/kenzo-set.js',
-        './scripts/base.js',
-        './scripts/*.js',
-        './scripts/modules/*.js',
-        './scripts/init.js'
-    ];
-
-    var scripts = gulp.src(paths)
-        .pipe(sourcemaps.init())
+    var scripts = gulp.src(scripts_paths)
+        //.pipe(sourcemaps.init())
         .pipe(concat('scripts.js'))
         .pipe(rename({suffix: '.min'}))
-        .pipe(uglify().on("error", gutil.log))
-        .pipe(sourcemaps.write('../scripts/'))
+        //.pipe(uglify().on("error", gutil.log))
+        //.pipe(sourcemaps.write('../scripts/'))
         .pipe(gulp.dest('build/scripts'));
 
     return es.merge(angular, defaults, scripts)
@@ -46,7 +47,7 @@ gulp.task('scripts', function(){
 
 gulp.task('watch', function(){
     gulp.watch(['./static/**/*.*'], ['static']);
-    gulp.watch(['./scripts/*.js', './scripts/*/*.js'], ['scripts']);
+    gulp.watch(scripts_paths, ['scripts']);
 });
 
 gulp.task('clean', function(callback){

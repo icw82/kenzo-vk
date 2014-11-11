@@ -15,3 +15,16 @@ mod.init = function(){
 kzvk.modules[mod.name] = mod;
 
 })(kzvk);
+
+
+(function(kzvk){
+'use strict';
+//  – — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —|
+
+var mod = kzvk.modules.audio;
+
+mod.foo = function(){
+
+}
+
+})(kzvk);
