@@ -15,9 +15,11 @@ mod.db_connect = function(config, callback){
     var request = indexedDB.open(config.name, config.version);
 
     request.onupgradeneeded = function(event){
-        if (event.target.result.objectstore_names.contains(config.store_name)){
-            event.target.result.deleteObjectStore(config.store_name);
-            console.config('db_connect — Объект удалён');
+//        console.log(event);
+//        console.log(request.result);
+        if (request.result.objectStoreNames.contains(config.store_name)){
+            request.result.deleteObjectStore(config.store_name);
+            console.log('db_connect — Объект удалён');
         }
 
         config.store = event.target.result.createObjectStore(config.store_name, {keyPath: 'id'});
