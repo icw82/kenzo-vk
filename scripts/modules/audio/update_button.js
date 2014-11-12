@@ -30,7 +30,7 @@ mod.update_button__basic = function(item){
             }
         }
 
-        message = item.bitrate || '—';
+        message = item.bitrate || '…';
     }
 
     kenzo.toggle_class(item.dom_element, 'kz-bitrate', mod.audio_item_classes, false);

@@ -79,8 +79,6 @@ function get_parts(response, separator){
             headers += String.fromCharCode(headers_array[j]);
         }
 
-        //console.log(ranges[i].begin, ranges[i].end);
-
         _.push({
             'headers': headers,
             'getHeader': function(header){
@@ -93,7 +91,7 @@ function get_parts(response, separator){
         });
     }
 
-    console.log(_);
+    //console.log(_);
 
     return _;
 };

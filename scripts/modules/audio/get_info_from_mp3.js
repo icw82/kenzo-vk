@@ -1,6 +1,7 @@
 (function(kzvk){
 'use strict';
 //  – — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —|
+// FUTURE: (more → base) or (base)
 
 var mod = kzvk.modules.audio;
 
@@ -53,8 +54,9 @@ mod.get_more_info_from_mp3 = function(url, _, callback){
 
     }
 
-    function check_vbr(view){
-        var header = kenzo.i8ArrayToString(view);
+    function check_vbr(response){
+        var view = new Uint8Array(response[0].content, 36, 4),
+            header = kenzo.i8ArrayToString(view);
 
         if (header === 'VBRI' || header === 'Xing'){
             _.vbr = header;
@@ -64,16 +66,9 @@ mod.get_more_info_from_mp3 = function(url, _, callback){
             if (header === 'Xing')
                 _.vbr = header;
         }
-
-//        var view = new Uint8Array(response[0].content, 155, 15);
-//        console.log(header, view , kenzo.i8ArrayToString(view));
-
     }
 
-
     kzvk.get_buffer(url, ranges, function(response){
-
-        // VBR по умолчанию false;
         _.vbr = false;
 
         read_frame_header(new Uint8Array(response[0].content, 0, 4));
@@ -84,7 +79,10 @@ mod.get_more_info_from_mp3 = function(url, _, callback){
             return false;
         }
 
-        check_vbr(new Uint8Array(response[0].content, 36, 4));
+        check_vbr(response);
+
+//        var view = new Uint8Array(response[0].content, 155, 15);
+//        console.log(header, view , kenzo.i8ArrayToString(view));
 
         callback(_);
     });
