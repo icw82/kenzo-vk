@@ -1,7 +1,7 @@
 var kzvk = (function(){
 'use strict';
 //  – — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —|
-// element — обяхательно DOM Element
+// element, node — обязательно DOM Element
 // item — элемент списка.
 
     var manifest = chrome.runtime.getManifest();

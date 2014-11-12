@@ -13,7 +13,6 @@ var mod = {
     ]
 };
 
-
 // Отлов изменений плеера (?)
 //mod.global_player_event_listener = function(){
 //    mod.dom_element.global_player.addEventListener('DOMNodeInserted', function(event){

@@ -25,7 +25,7 @@ mod.list_observer = function(changes){
             mod.create_button(ch.object[ch.name]);
 
             // Расширенная информация о файле
-            mod.get_advanced_info(ch.object[ch.name]);
+            mod.enrich_item(ch.object[ch.name]);
 
             added++;
         } else if (ch.type == 'update'){

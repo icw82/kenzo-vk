@@ -219,6 +219,53 @@ kenzo.toggle_class = function(element, classes, classlist, toggle_exist){
     });
 }
 
+// Локальное хранилище
+kenzo.ls = {
+    'create': function(){
+        each (arguments, function(item){
+            if ((typeof item == 'string') && (!localStorage.getItem(item))){
+                localStorage.setItem(item, JSON.stringify([]));
+                localStorage.setItem('@' + item, getTimestump());
+            }
+        })
+    },
+    'get': function(address){
+        return JSON.parse(localStorage.getItem(address));
+    },
+    'ts': function(address){
+        return localStorage.getItem('@' + address);
+    },
+    'update': function(address, data){
+        localStorage.setItem(address, JSON.stringify(data));
+        localStorage.setItem('@' + address, getTimestump());
+        return true;
+    }
+}
+
+kenzo.i8ArrayTo2 = function(array){
+    var _ = '';
+    each (array, function(item){
+        _ += kenzo.i8to2(item);
+    });
+    return _;
+}
+
+kenzo.i8to2 = function(int8){
+    var _ = int8.toString(2);
+    while (_.length < 8){
+        _ = '0' + _;
+    }
+    return _;
+}
+
+kenzo.i8ArrayToString = function(array){
+    var _ = '';
+    each (array, function(item){
+        _ += String.fromCharCode(item);
+    });
+    return _;
+}
+
 var kzCurrentlyPressedKeys = [];
 
 window.addEventListener('keydown', function(event){

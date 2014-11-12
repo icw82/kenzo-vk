@@ -35,11 +35,11 @@ gulp.task('scripts', function(){
         .pipe(gulp.dest('build/scripts'));
 
     var scripts = gulp.src(scripts_paths)
-        .pipe(sourcemaps.init())
+        //.pipe(sourcemaps.init())
         .pipe(concat('scripts.js'))
         .pipe(rename({suffix: '.min'}))
-        .pipe(uglify().on("error", gutil.log))
-        .pipe(sourcemaps.write('../scripts/'))
+        //.pipe(uglify().on("error", gutil.log))
+        //.pipe(sourcemaps.write('../scripts/'))
         .pipe(gulp.dest('build/scripts'));
 
     return es.merge(angular, defaults, scripts)
