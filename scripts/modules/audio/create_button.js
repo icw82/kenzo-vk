@@ -9,10 +9,17 @@ mod.create_button = function(item){
         console.warn('create_button: не передан объект');
         return false;
     }
+
     if (!(item.dom_element instanceof Element)){
         console.warn('create_button: не найден DOM-элемент');
         return false;
     }
+
+    // Удалять ненужные кнопки
+    // TODO: Почему происходит дублирование?
+    each (item.dom_element.querySelectorAll('.kz-vk-audio__wrapper'), function(item){
+        item.parentNode.removeChild(item);
+    });
 
     var element = item.dom_element;
 
