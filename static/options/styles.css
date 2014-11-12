@@ -84,7 +84,7 @@ p{margin-bottom: 5px}
 
 .b-footer{text-align:center}
 .b-footer__sign{display:inline-block; width:29px; height:29px; opacity:.8;
-    background-repeat: no-repeat; background-image: url('icw82.png');
+    background-repeat: no-repeat; background-image: url('../images/icw82.png');
     transition: opacity .7s ease, color .7s ease;}
 .b-footer__sign:hover{opacity: 1;
     transition: opacity .2s ease, color .2s ease;}

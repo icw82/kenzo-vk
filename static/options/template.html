@@ -4,8 +4,8 @@
     <title>Настройки Kenzo VK</title>
     <meta charset="UTF-8" />
 
-    <link type="image/png" rel="icon" href="../icons/favicon.png" />
-    <link rel="stylesheet" href="../commons/reset.css" />
+    <link type="image/png" rel="icon" href="../images/icons/favicon.png" />
+    <link rel="stylesheet" href="../styles/reset.css" />
     <link rel="stylesheet" href="styles.css" />
 </head>
 
@@ -59,6 +59,7 @@
                 [[ i18n.audio.options.separator ]]
                 <select ng-model="Options.audio__separator">
                     <option value="—">— (тире)</option>
+                    <option value="–">– (среднее тире)</option>
                     <option value="-">- (дефис)</option>
                 </select>
             </label>
@@ -133,8 +134,8 @@
         </div>
     </div>
 
-    <script src="../libs/angular.min.js"></script>
-    <script src="../commons/default_options.js"></script>
+    <script src="../scripts/angular.min.js"></script>
+    <script src="../scripts/defaults.js"></script>
     <script src="script.js"></script>
     <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 </body>

@@ -1,5 +1,4 @@
 (function(){
-
 //  – — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —|
 'use strict';
 
@@ -9,7 +8,7 @@ var options = {};
 
 function ids_add(download_id, vk_audio_id){
     chrome.storage.local.get(default_globals, function(storage){
-        storage.audio.ids.push({
+        storage.downloads.ids.push({
             vk: vk_audio_id, // идентификатор аудиозаписи
             download: download_id // идентификатор загрузки
         });
@@ -76,7 +75,7 @@ var watch_downloads = (function(){
             var progress_list = [];
 
             each (downloads, function(d_item){
-                each (storage.audio.ids, function(rels){
+                each (storage.downloads.ids, function(rels){
                     if (rels.download === d_item.id){
                         progress_list.push({
                             id: rels.vk,
@@ -86,7 +85,7 @@ var watch_downloads = (function(){
                 });
             });
 
-            storage.audio.progress = progress_list;
+            storage.downloads.progress = progress_list;
             chrome.storage.local.set(storage);
 
             console.log('update_2')
@@ -112,7 +111,7 @@ var watch_downloads = (function(){
 
     function stop(){
         chrome.storage.local.get(function(storage){
-            storage.audio.progress = [];
+            storage.downloads.progress = [];
             chrome.storage.local.set(storage);
         });
 

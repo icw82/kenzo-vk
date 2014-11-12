@@ -94,13 +94,13 @@
     /*transition: opacity .2s*/}
 .kz-vk-audio__carousel__item.kz-bitrate:after{display:block; width:11px; height:13px;
     position:absolute; left:8px; top:-4px; opacity:0; content:"";
-    background-image:url(chrome-extension://__MSG_@@extension_id__/audio/download.png);
+    background-image:url(chrome-extension://__MSG_@@extension_id__/images/download.png);
     /*transition: opacity .1s*/}
 #audio.new .audio.current
 .kz-vk-audio__carousel__item.kz-bitrate:after,
 #pad_playlist .audio.current
 .kz-vk-audio__carousel__item.kz-bitrate:after{
-    background-image:url(chrome-extension://__MSG_@@extension_id__/audio/download-c.png)}
+    background-image:url(chrome-extension://__MSG_@@extension_id__/images/download-c.png)}
 .kz-vk-audio__carousel__item.kz-bitrate:hover:before{opacity:0;
     /*transition: opacity .1s*/}
 .kz-vk-audio__carousel__item.kz-bitrate:hover:after{opacity:1;
@@ -108,7 +108,7 @@
 
 .im_new_msg
 .kz-vk-audio__carousel__item.kz-bitrate:after{
-    background-image:url(chrome-extension://__MSG_@@extension_id__/audio/download-u.png)}
+    background-image:url(chrome-extension://__MSG_@@extension_id__/images/download-u.png)}
 
 
 /* Progress bar */
@@ -118,12 +118,12 @@
 .kz-vk-audio__carousel__item.kz-progress:after{display:block; width:100%; height:100%;
     position:absolute; top:0; left:0; z-index:3; content:""; opacity:0;
     background-position: center center; background-repeat: no-repeat;
-    background-image: url(chrome-extension://__MSG_@@extension_id__/audio/abort.png)}
+    background-image: url(chrome-extension://__MSG_@@extension_id__/images/abort.png)}
 #audio.new .audio.current
 .kz-vk-audio__carousel__item.kz-progress:after,
 #pad_playlist .audio.current
 .kz-vk-audio__carousel__item.kz-progress:after{
-    background-image: url(chrome-extension://__MSG_@@extension_id__/audio/abort-c.png)}
+    background-image: url(chrome-extension://__MSG_@@extension_id__/images/abort-c.png)}
 .kz-vk-audio__carousel__item.kz-progress:hover:before{opacity:0}
 .kz-vk-audio__carousel__item.kz-progress:hover:after{opacity:1}
 
@@ -180,3 +180,14 @@
 .kz-vk-audio .im_fwd_log_row .audio .title_wrap,
 .kz-vk-audio .im_fwd_log_row .post_media .audio .title_wrap{width:calc(220px - 35px)!important}
 
+
+.kz-vk-trash__bin{overflow:hidden; height:0}
+
+
+.kz-vk-video{}
+
+.kz-vk-video__wrapper{color: rgb(119,119,119)}
+.kz-vk-video #mv_controls_line  .kz-vk-video__link{text-decoration:underline;
+    transition: color .5s ease}
+.kz-vk-video #mv_controls_line  .kz-vk-video__link:hover{text-decoration:underline; color:white;
+    transition: color .1s ease}

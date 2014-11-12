@@ -1,5 +1,5 @@
 //  – — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —|
-'use strict';
+//'use strict';
 
 if (!String.prototype.trim){
     String.prototype.trim = function(){
@@ -41,22 +41,42 @@ Element.prototype.getOffset = function(){
 var kenzo = {}
 
 // Перебор массива
-// если обратная функция возвращает true, перебор прерывается.
-kenzo.each = function(array, callback, def){
+// Если обратная функция возвращает true, перебор прерывается.
+// Если третий аргумент функция — то она выполяется последней,
+//     если обратная функция ниразу не возвращала true
+// Если последний элемент === true, перебор производится в обратном порядке.
+kenzo.each = function(array, callback){
     if (typeof array === 'string')
         array = document.querySelectorAll(array);
     else if (typeof array === 'number')
         array = Array(array);
+
+    if (typeof arguments[2] === 'function'){
+        var def = arguments[2];
+        if (arguments[3] === true)
+            var reverse = true;
+    } else if (arguments[2] === true){
+        var reverse = true;
+    }
 
     if (
         (typeof array === 'object') && (array !== null) && ('length' in array) &&
         (typeof callback === 'function')
     ){
         var nothing = true;
-        for (var i = 0; i < array.length; i++){
-            if (callback(array[i], i) === true){
-                nothing = false;
-                break;
+        if (reverse) {
+            for (var i = array.length - 1; i >= 0; i--){
+                if (callback(array[i], i) === true){
+                    nothing = false;
+                    break;
+                }
+            }
+        } else {
+            for (var i = 0; i < array.length; i++){
+                if (callback(array[i], i) === true){
+                    nothing = false;
+                    break;
+                }
             }
         }
 
@@ -167,24 +187,7 @@ kenzo.plural = function(){
             return plural;
 }
 
-
-var kzCurrentlyPressedKeys = [];
-
-window.addEventListener('keydown', function(event){
-    var pos = kzCurrentlyPressedKeys.indexOf(event.keyCode);
-
-    if (pos === -1)
-        kzCurrentlyPressedKeys.push(event.keyCode);
-});
-
-window.addEventListener('keyup', function(event){
-    var pos = kzCurrentlyPressedKeys.indexOf(event.keyCode);
-
-    if (pos > -1)
-        kzCurrentlyPressedKeys.splice(pos, 1);
-});
-
-function toggle_class(element, classes, classlist, toggle_exist){
+kenzo.toggle_class = function(element, classes, classlist, toggle_exist){
     if (!(element instanceof Element)) return false;
 
     if (typeof classes === 'string') classes = [classes];
@@ -215,3 +218,67 @@ function toggle_class(element, classes, classlist, toggle_exist){
         }
     });
 }
+
+// Локальное хранилище
+kenzo.ls = {
+    'create': function(){
+        each (arguments, function(item){
+            if ((typeof item == 'string') && (!localStorage.getItem(item))){
+                localStorage.setItem(item, JSON.stringify([]));
+                localStorage.setItem('@' + item, getTimestump());
+            }
+        })
+    },
+    'get': function(address){
+        return JSON.parse(localStorage.getItem(address));
+    },
+    'ts': function(address){
+        return localStorage.getItem('@' + address);
+    },
+    'update': function(address, data){
+        localStorage.setItem(address, JSON.stringify(data));
+        localStorage.setItem('@' + address, getTimestump());
+        return true;
+    }
+}
+
+kenzo.i8ArrayTo2 = function(array){
+    var _ = '';
+    each (array, function(item){
+        _ += kenzo.i8to2(item);
+    });
+    return _;
+}
+
+kenzo.i8to2 = function(int8){
+    var _ = int8.toString(2);
+    while (_.length < 8){
+        _ = '0' + _;
+    }
+    return _;
+}
+
+kenzo.i8ArrayToString = function(array){
+    var _ = '';
+    each (array, function(item){
+        _ += String.fromCharCode(item);
+    });
+    return _;
+}
+
+var kzCurrentlyPressedKeys = [];
+
+window.addEventListener('keydown', function(event){
+    var pos = kzCurrentlyPressedKeys.indexOf(event.keyCode);
+
+    if (pos === -1)
+        kzCurrentlyPressedKeys.push(event.keyCode);
+});
+
+window.addEventListener('keyup', function(event){
+    var pos = kzCurrentlyPressedKeys.indexOf(event.keyCode);
+
+    if (pos > -1)
+        kzCurrentlyPressedKeys.splice(pos, 1);
+});
+
