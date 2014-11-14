@@ -29,6 +29,14 @@ gulp.task('scripts', function(){
     ])
         .pipe(gulp.dest('build/scripts'));
 
+    var background = gulp.src([
+        './scripts/kenzo-set.js',
+        './scripts/background/base.js',
+        './scripts/background/*.js'
+    ])
+        .pipe(concat('background.js'))
+        .pipe(gulp.dest('build/scripts'));
+
     var defaults = gulp.src([
         './scripts/defaults.js'
     ])
@@ -42,12 +50,12 @@ gulp.task('scripts', function(){
         //.pipe(sourcemaps.write('../scripts/'))
         .pipe(gulp.dest('build/scripts'));
 
-    return es.merge(angular, defaults, scripts)
+    return es.merge(angular, defaults, background, scripts)
 });
 
 gulp.task('watch', function(){
     gulp.watch(['./static/**/*.*'], ['static']);
-    gulp.watch(scripts_paths, ['scripts']);
+    gulp.watch('./scripts/**/*.js', ['scripts']);
 });
 
 gulp.task('clean', function(callback){

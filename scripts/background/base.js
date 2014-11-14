@@ -21,7 +21,7 @@ function message_listner(request, sender, sendResponse){
     if (sender.id !== chrome.runtime.id) return false;
 
     if (request.action === 'save-vk-audio'){
-        request.name = request.name.replace(/[\\\/:\*\?<>\|]*/g, '');
+        request.name = request.name.replace(/[\\\/:\*\?<>\|\"]*/g, '');
 
         chrome.downloads.download({
             url: request.url,
@@ -110,7 +110,7 @@ var watch_downloads = (function(){
     }
 
     function stop(){
-        chrome.storage.local.get(function(storage){
+        chrome.storage.local.get(default_globals, function(storage){
             storage.downloads.progress = [];
             chrome.storage.local.set(storage);
         });
@@ -128,7 +128,6 @@ var watch_downloads = (function(){
         return true;
     }
 
-
     return _;
 })();
 
@@ -137,7 +136,7 @@ chrome.storage.sync.get(function(items){
     options = items;
 });
 
-chrome.storage.local.get(function(items){
+chrome.storage.local.get(default_globals, function(items){
     console.log('> Storage:', items);
 });
 
@@ -149,20 +148,8 @@ chrome.storage.onChanged.addListener(storage_listner);
 
 chrome.downloads.onChanged.addListener(downloads_listner);
 
-
 // TODO: удаление связки ids при окончании закачки файла
 // TODO: очередь закачки
 // TODO: история закачек
-
-//(function(){
-//
-//    var xhr = new XMLHttpRequest();
-//    xhr.open('GET', 'https://api.vk.com/method/groups.get?user_id=170344789', true);
-//    xhr.onload = function(){
-//        console.log(xhr);
-//    }
-//
-//    xhr.send(null);
-//})();
 
 })();

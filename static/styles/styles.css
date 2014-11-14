@@ -148,8 +148,8 @@
 .kz-vk-audio #audio.new .audio .play_btn + .kz-vk-audio__wrapper{margin-left:-38px}
 
 .kz-vk-audio #pad_playlist_panel .audio .info{width:calc(390px - 38px)}
-.kz-vk-audio #pad_playlist_panel .audio .title_wrap{width:calc(336px - 38px)}
-.font_medium.kz-vk-audio #pad_playlist_panel .audio .title_wrap{width:calc(331px - 38px)}
+.kz-vk-audio #pad_playlist_panel .audio .title_wrap{width:295px!important}
+.kz-vk-audio.font_medium #pad_playlist_panel .audio .title_wrap{width:290px!important}
 
 .kz-vk-audio .wall_module .play_btn_wrap,
 .kz-vk-audio .choose_box .play_btn_wrap{float:left; margin-right:35px}
@@ -163,22 +163,36 @@
 .kz-vk-audio .wall_module .audio .reply_table .title_wrap{
     width:calc(200px - 35px)!important}
 .kz-vk-audio .wide_wall_module .audio .title_wrap{
-    width:calc(430px - 35px)!important}
+    width:calc(460px - 35px)!important}
 .kz-vk-audio .wide_wall_module .reply_table .audio .title_wrap{
     width:calc(400px - 35px)!important}
 
+.kz-vk-audio #wl_post_body_wrap .audio .title_wrap{
+    width:495px!important}
+.kz-vk-audio #wl_replies_wrap .reply_table .audio .title_wrap{
+    width:435px!important}
+
+.kz-vk-audio .im_log_body .wall_module .audio .title_wrap{
+    width:235px!important}
+.kz-vk-audio .im_fwd_log_row .audio .title_wrap,
+.kz-vk-audio .im_fwd_log_row .post_media .audio .title_wrap{
+    width:calc(220px - 35px)!important}
+
+.kz-vk-audio .audio .title_wrap b{max-width:55%!important}
+
 .kz-vk-audio .audio_results .play_btn_wrap{float:left; margin-right:35px}
-.kz-vk-audio .audio_results .play_btn_wrap + .kz-vk-audio__wrapper{width:35px; margin-left:-35px;
-    margin-top:6px; padding-right:6px}
+.kz-vk-audio .audio_results .play_btn_wrap + .kz-vk-audio__wrapper{
+    width:35px; margin-left:-35px; margin-top:6px; padding-right:6px}
 .kz-vk-audio .results .audio .title_wrap{width:calc(360px - 35px)}
 
 .kz-vk-audio .show_media .audio .play_btn_wrap{float:left; margin-right:35px}
-.kz-vk-audio .show_media .audio .play_btn_wrap + .kz-vk-audio__wrapper{width:35px; margin-left:-35px;
-    margin-top:6px; padding-right:6px}
-.kz-vk-audio .show_media .audio .title_wrap{width:calc(510px - 35px)!important}
+.kz-vk-audio .show_media .audio .play_btn_wrap + .kz-vk-audio__wrapper{
+    width:35px; margin-left:-35px;  margin-top:6px; padding-right:6px}
+.kz-vk-audio .show_media .audio .title_wrap{
+    width:480px!important}
 
-.kz-vk-audio .im_fwd_log_row .audio .title_wrap,
-.kz-vk-audio .im_fwd_log_row .post_media .audio .title_wrap{width:calc(220px - 35px)!important}
+.kz-vk-audio .choose_audio_row .audio .title_wrap{
+    width:345px}
 
 
 .kz-vk-trash__bin{overflow:hidden; height:0}
@@ -191,3 +205,14 @@
     transition: color .5s ease}
 .kz-vk-video #mv_controls_line  .kz-vk-video__link:hover{text-decoration:underline; color:white;
     transition: color .1s ease}
+
+/* DEBUGGING */
+
+/*
+.kz-vk-audio .audio .area{background-color: rgba(167, 158, 173, .8)}
+.kz-vk-audio .audio .title_wrap{background-color: rgba(255, 222, 44, 0.9)}
+.kz-vk-audio .audio .duration{overflow: hidden; background-color: rgba(78, 199, 195, .8)}
+.kz-vk-audio .audio .duration:after{display:block; width:200px; height:1px;
+    content:""; margin-top:-3px}
+*/
+
