@@ -4,7 +4,7 @@
 body{background-color:rgb(81, 130, 188); color: white; line-height:1.4;
     font-family: "PT Sans"}
 
-a{opacity:1; transition: opacity .7s ease, color .7s ease;}
+a{opacity:1; transition: opacity .7s ease, color .7s ease}
 /*
 a:hover,
 a.hover{color:rgb(245, 25, 43); transition-duration:.1s}
@@ -17,7 +17,7 @@ p{margin-bottom: 5px}
 /**
  *  Разметка (layout)
  */
-.layout-global-wrapper{width:100%; min-width:800px; height:100%; position:relative;}
+.layout-global-wrapper{width:100%; min-width:800px; height:100%; position:relative}
 .layout-wrapper{width:600px; margin:0 auto; position:relative; min-height:1px;
     padding: 10px 0}
 
@@ -64,27 +64,28 @@ p{margin-bottom: 5px}
 .grid-12 > .margin-10{margin-left:83.33%}
 .grid-12 > .margin-11{margin-left:91.66%}
 
-.mb-page-header{text-align: center; font-size: 42px; font-weight:bold;}
+.mb-page-header{text-align: center; font-size: 42px; font-weight:bold}
 .mb-ext-name{text-align: center}
 
 .mb-delimiter{height: 0px; border-bottom:1px solid rgba(0,0,0,.1);
-    margin-top:10px; margin-bottom:10px;}
+    margin-top:10px; margin-bottom:10px}
 
-.mb-block-header{font-size:18px; font-weight:bold;}
+.mb-block-header{font-size:18px; font-weight:bold}
 .mb-block-header__description{font-size:14px; font-weight: normal; font-style: italic;
     color: rgba(0,0,0,.6)}
 .mb-block-header__description:before{content: '— '}
 
-.mb-label__checkbox{display:inline-block; position:relative;
-     margin-right:-5px; padding:0 5px 1px 23px; cursor: pointer}
-.mb-label__checkbox > input[type="checkbox"]{position:absolute; left:1px; top:.15em;}
+.mb-label__checkbox{display:inline-block; width:100%; position:relative; box-sizing:border-box;
+     margin-right:-5px; padding:0 5px 1px 23px; border-radius:3px; cursor: pointer;}
+.mb-label__checkbox > input[type="checkbox"]{position:absolute; left:1px; top:.15em;
+    cursor:pointer}
 .mb-label__checkbox:hover{background-color: rgba(0,0,0,.05)}
 
-.mb-label__select{margin-left:23px;}
+.mb-label__select{margin-left:23px}
 
 .b-footer{text-align:center}
 .b-footer__sign{display:inline-block; width:29px; height:29px; opacity:.8;
     background-repeat: no-repeat; background-image: url('../images/icw82.png');
-    transition: opacity .7s ease, color .7s ease;}
+    transition: opacity .7s ease, color .7s ease}
 .b-footer__sign:hover{opacity: 1;
-    transition: opacity .2s ease, color .2s ease;}
+    transition: opacity .2s ease, color .2s ease}

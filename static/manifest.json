@@ -2,12 +2,13 @@
     "default_locale": "ru",
     "name": "Kenzo VK",
     "short_name": "Kenzo VK",
-    "version": "1.0.2",
+    "version": "1.1.0",
     "description": "__MSG_ext_description__",
     "author": "icw82",
     "icons": {
         "16": "images/icons/16.png",
         "48": "images/icons/48.png",
+        "64": "images/icons/64.png",
         "128": "images/icons/128.png"
     },
     "permissions": [
@@ -30,8 +31,9 @@
     "background": {
         "persistent": false,
         "scripts": [
-            "scripts/defaults.js",
-            "scripts/background.js"
+            "scripts/kenzo-set.js",
+            "scripts/core.min.js",
+            "scripts/init-background.js"
         ]
     },
     "options_page": "options/template.html",
@@ -46,8 +48,9 @@
                 "styles/styles.css"
             ],
             "js": [
-                "scripts/defaults.js",
-                "scripts/scripts.min.js"
+                "scripts/kenzo-set.js",
+                "scripts/core.min.js",
+                "scripts/init-vk.js"
             ],
             "run_at": "document_end"
         }
@@ -55,7 +58,7 @@
     "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
     "web_accessible_resources": [
         "scripts/angular.min.js.map",
-        "scripts/scripts.min.js.map",
+        "scripts/core.min.js.map",
         "images/download.png",
         "images/download-c.png",
         "images/download-u.png",

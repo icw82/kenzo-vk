@@ -13,44 +13,42 @@ gulp.task('static', function(){
         .pipe(gulp.dest('build'))
 });
 
-var scripts_paths = [
-    './scripts/kenzo-set.js',
-    './scripts/base.js',
-    './scripts/*.js',
-    './scripts/modules/*/main.js',
-    './scripts/modules/*/*.js',
-    './scripts/init.js'];
-
-
-gulp.task('scripts', function(){
-    var angular = gulp.src([
+var paths = {
+    'angular': [
         './bower_components/angular/angular.min.js',
         './bower_components/angular/angular.min.js.map'
-    ])
+    ],
+    'set': [
+        './scripts/kenzo-set.js'
+    ],
+    'core': [
+        './scripts/core/defaults.js',
+        './scripts/core/base.js',
+        './scripts/core/*.js',
+        './scripts/core/modules/*/main.js',
+        './scripts/core/modules/*/*.js'
+    ]
+};
+
+gulp.task('scripts', function(){
+    var angular = gulp
+        .src(paths.angular)
         .pipe(gulp.dest('build/scripts'));
 
-    var background = gulp.src([
-        './scripts/kenzo-set.js',
-        './scripts/background/base.js',
-        './scripts/background/*.js'
-    ])
-        .pipe(concat('background.js'))
+    var set = gulp
+        .src(paths.set)
         .pipe(gulp.dest('build/scripts'));
 
-    var defaults = gulp.src([
-        './scripts/defaults.js'
-    ])
-        .pipe(gulp.dest('build/scripts'));
-
-    var scripts = gulp.src(scripts_paths)
+    var core = gulp
+        .src(paths.core)
         //.pipe(sourcemaps.init())
-        .pipe(concat('scripts.js'))
+        .pipe(concat('core.js'))
         .pipe(rename({suffix: '.min'}))
         //.pipe(uglify().on("error", gutil.log))
         //.pipe(sourcemaps.write('../scripts/'))
         .pipe(gulp.dest('build/scripts'));
 
-    return es.merge(angular, defaults, background, scripts)
+    return es.merge(angular, set, core);
 });
 
 gulp.task('watch', function(){

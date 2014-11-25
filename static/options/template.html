@@ -14,8 +14,11 @@
         <div class="layout-wrapper">
             <div class="grid-12">
                 <div class="col-12">
-                    <div class="mb-page-header">[[ i18n.header ]]</div>
-                    <div class="mb-ext-name">[[ Manifest.name ]] [[ Manifest.version ]]</div>
+                    <div class="mb-page-header" ng-bind="i18n.header"></div>
+                    <div class="mb-ext-name">
+                        <span ng-bind="Manifest.name"></span>
+                        <span ng-bind="Manifest.version"></span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -23,40 +26,46 @@
 <!-- --------------------------- -->
 <div class="grid-12">
     <div class="col-12">
-        <div class="mb-annotation">[[ i18n.annotation ]]</div>
+        <div class="mb-annotation" ng-bind="i18n.annotation"></div>
     </div>
 </div>
 <div class="mb-delimiter"></div>
-<!-- --------------------------- -->
+<!-- --------------------------- ng-bind="" -->
 <div class="grid-12">
     <div class="col-12">
-        <div class="mb-block-header">[[ i18n.audio.header ]]
-            <span class="mb-block-header__description">[[ i18n.audio.description ]]</span>
+        <div class="mb-block-header" ng-bind="i18n.audio.header">
+            <span class="mb-block-header__description" ng-bind="i18n.audio.description"></span>
         </div>
     </div>
     <div class="col-6">
         <p>
             <label class="mb-label__checkbox">
                 <input type="checkbox" ng-model="Options.audio__cache">
-                [[ i18n.audio.options.cache ]]
+                <span ng-bind="i18n.audio.options.cache"></span>
             </label>
         </p>
         <p>
             <label class="mb-label__checkbox">
                 <input type="checkbox" ng-model="Options.audio__vbr">
-                [[ i18n.audio.options.vbr ]]
+                <span ng-bind="i18n.audio.options.vbr"></span>
+            </label>
+        </p>
+        <p>
+            <label class="mb-label__checkbox">
+                <input type="checkbox" ng-model="Options.audio__progress_bars">
+                <span ng-bind="i18n.audio.options.progress_bars"></span>
             </label>
         </p>
         <p>
             <label class="mb-label__checkbox">
                 <input type="checkbox" ng-model="Options.audio__simplified">
-                [[ i18n.audio.options.simplified ]]
+                <span ng-bind="i18n.audio.options.simplified"></span>
             </label>
         </p>
     </div><div class="col-6">
         <p>
             <label class="mb-label__select">
-                [[ i18n.audio.options.separator ]]
+                <span ng-bind="i18n.audio.options.separator"></span>
                 <select ng-model="Options.audio__separator">
                     <option value="—">— (тире)</option>
                     <option value="–">– (среднее тире)</option>
@@ -70,53 +79,53 @@
 <!-- --------------------------- -->
 <div class="grid-12">
     <div class="col-12">
-        <div class="mb-block-header">[[ i18n.video.header ]]
-            <span class="mb-block-header__description">[[ i18n.video.description ]]</span>
+        <div class="mb-block-header">
+            <span ng-bind="i18n.video.header"></span>
+            <span class="mb-block-header__description" ng-bind="i18n.video.description"></span>
         </div>
     </div>
-    <div class="col-6">
+    <div class="col-12">
         <p>
             <label class="mb-label__checkbox">
                 <input type="checkbox" ng-model="Options.video__direct_links">
-                [[ i18n.video.options.direct_links ]]
+                <span ng-bind="i18n.video.options.direct_links"></span>
             </label>
         </p>
-    </div><div class="col-6">
-
     </div>
 </div>
 <div class="mb-delimiter"></div>
 <!-- --------------------------- -->
 <div class="grid-12">
     <div class="col-12">
-        <div class="mb-block-header">[[ i18n.trash.header ]]
-            <span class="mb-block-header__description">[[ i18n.trash.description ]]</span>
+        <div class="mb-block-header">
+            <span ng-bind="i18n.trash.header"></span>
+            <span class="mb-block-header__description" ng-bind="i18n.trash.description"></span>
         </div>
     </div>
     <div class="col-6">
         <p>
             <label class="mb-label__checkbox">
                 <input type="checkbox" ng-model="Options.trash__lsb__ad">
-                [[ i18n.trash.options.lsb__ad ]]
+                <span ng-bind="i18n.trash.options.lsb__ad"></span>
             </label>
         </p>
         <p>
             <label class="mb-label__checkbox">
                 <input type="checkbox" ng-model="Options.trash__newsads">
-                [[ i18n.trash.options.newsads ]]
+                <span ng-bind="i18n.trash.options.newsads"></span>
             </label>
         </p>
     </div><div class="col-6">
         <p>
             <label class="mb-label__checkbox">
                 <input type="checkbox" ng-model="Options.trash__lsb__fr">
-                [[ i18n.trash.options.lsb__fr ]]
+                <span ng-bind="i18n.trash.options.lsb__fr"></span>
             </label>
         </p>
         <p>
             <label class="mb-label__checkbox">
                 <input type="checkbox" ng-model="Options.trash__group_recom">
-                [[ i18n.trash.options.group_recom ]]
+                <span ng-bind="i18n.trash.options.group_recom"></span>
             </label>
         </p>
     </div>
@@ -127,7 +136,7 @@
             <div class="grid-12">
                 <div class="col-12">
                     <div class="b-footer">
-                        <a class="b-footer__sign" href="http://github.com/icw82"></a>
+                        <a class="b-footer__sign" href="http://icw82.ru"></a>
                     </div>
                 </div>
             </div>
@@ -135,7 +144,7 @@
     </div>
 
     <script src="../scripts/angular.min.js"></script>
-    <script src="../scripts/defaults.js"></script>
+    <script src="../scripts/core.min.js"></script>
     <script src="script.js"></script>
     <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 </body>

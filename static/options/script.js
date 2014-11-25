@@ -20,7 +20,8 @@ $scope.i18n = {
             'cache': chrome.i18n.getMessage('o__audio__cache'),
             'vbr': chrome.i18n.getMessage('o__audio__vbr'),
             'separator': chrome.i18n.getMessage('o__audio__separator'),
-            'simplified': chrome.i18n.getMessage('o__audio__simplified')
+            'simplified': chrome.i18n.getMessage('o__audio__simplified'),
+            'progress_bars': chrome.i18n.getMessage('o__audio__progress_bars')
         }
     },
     'video': {

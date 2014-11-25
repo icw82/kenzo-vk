@@ -73,6 +73,10 @@ mod.create_button = function(item){
         .querySelector('.kz-vk-audio__carousel');
     item.dom_bitrate = item.dom_wrapper
         .querySelector('.kz-vk-audio__carousel__item.kz-bitrate');
+    item.dom_progress = item.dom_wrapper
+        .querySelector('.kz-vk-audio__carousel__item.kz-progress');
+    item.dom_progress__filling = item.dom_wrapper
+        .querySelector('.kz-vk-audio__progress-filling');
     item.dom_unavailable = item.dom_wrapper
         .querySelector('.kz-vk-audio__carousel__item.kz-unavailable');
 

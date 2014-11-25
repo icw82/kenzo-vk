@@ -26,6 +26,9 @@
     "o__audio__simplified": {
         "message": "Упрощённый вид кнопки"
     },
+    "o__audio__progress_bars": {
+        "message": "Прогресс-бары"
+    },
     "o__video__header": {
         "message": "Video"
     },
