@@ -63,13 +63,13 @@ mod.update_button__basic = function(item){
 
 mod.update_button__download_progress = function(item){
     if (item.progress === null){
-        kenzo.toggle_class(item.dom_element, 'kz-bitrate', mod.audio_item_classes);
+        kenzo.toggle_class(item.dom_element, 'kz-bitrate', mod.audio_item_classes, false);
     } else {
         item.dom_progress__filling.style.left = -100 + item.progress + '%';
         //item.dom_progress.setAttribute('data-progress', item.progress + '%');
 
         if (!item.dom_element.classList.contains('kz-progress'))
-            kenzo.toggle_class(item.dom_element, 'kz-progress', mod.audio_item_classes);
+            kenzo.toggle_class(item.dom_element, 'kz-progress', mod.audio_item_classes, false);
     }
 }
 

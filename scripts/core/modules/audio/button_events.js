@@ -7,25 +7,38 @@ var mod = kzvk.modules.audio;
 mod.button_event = function(item, event){
     kenzo.stop_event(event);
 
+
+    function start(){
+        console.log('**ушло в закачки');
+        chrome.runtime.sendMessage({
+            action: 'vk-audio__save',
+            url: item.url,
+            name: item.vk_artist + ' ' + kzvk.options.audio__separator + ' '
+                + item.vk_title + '.mp3',
+            id: item.id
+        });
+    }
+
+    function stop(){
+        console.log('**остановка в закачки');
+        chrome.runtime.sendMessage({
+            action: 'vk-audio__stop-download',
+            id: item.id
+        });
+    }
+
     if (event.type === 'click'){
         if (item.available){
-
-            if (item.progress === null){
-                chrome.runtime.sendMessage({
-                    action: 'vk-audio__save',
-                    url: item.url,
-                    name: item.vk_artist + ' ' + kzvk.options.audio__separator + ' '
-                        + item.vk_title + '.mp3',
-                    id: item.id
-                });
+            if ('progress' in item){
+                if (item.progress === null)
+                    start();
+                else
+                    stop();
             } else {
-                chrome.runtime.sendMessage({
-                    action: 'vk-audio__stop-download',
-                    id: item.id
-                });
+                start();
             }
         } else {
-            //console.log('Запись недоступна');
+            console.log('Запись недоступна');
         }
     }
 }
