@@ -51,6 +51,7 @@ mod.create_button = function(item){
     if (kzvk.options.audio__simplified)
         carousel_classes += ' kz-simplified-view';
 
+    //  title="' + item.id + '"
     DOM_kz__wrapper.innerHTML =
         '<div class="' + carousel_classes + '">' +
             '<div class="kz-vk-audio__carousel__item kz-bitrate"></div>' +

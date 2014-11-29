@@ -21,6 +21,8 @@ mod.get_audio_element_type = function(element){
         _ = 'default';
     else if (element.parentElement.getAttribute('id') === 'search_list')
         _ = 'default';
+    else if (element.parentElement.getAttribute('id') === 'pad_search_list')
+        _ = 'default';
     else if (element.parentElement.classList.contains('audio_results'))
         _ = 'search_audio';
     else if (
@@ -76,12 +78,17 @@ mod.get_info_from_audio_element = function(element){
         return _;
     }
 
-    var audio_info = element.querySelector('#audio_info' + _.id).value.split(',');
-    _.url = audio_info[0];
-    _.vk_duration = audio_info[1];
+    var audio_info = element.querySelector('#audio_info' + _.id);
+    if (audio_info){
+        audio_info = audio_info.value.split(',');
+        _.url = audio_info[0];
+        _.vk_duration = parseInt(audio_info[1]);
+    }
 
     if (!_.url || _.url == '')
         _.available = false;
+
+    _.id = _.id.replace(/(.?)_pad$/, '$1');
 
     return _;
 }
@@ -120,6 +127,7 @@ mod.remove_element_from_list = function(element, list){
 // Отлов вставки элементов DOM
 mod.new_nodes_listner = function(element){
     if (element instanceof Element){
+        //console.log('**element', element);
         if (element.classList.contains('audio')){
             mod.add_audio_element(element, mod.list);
             return false;

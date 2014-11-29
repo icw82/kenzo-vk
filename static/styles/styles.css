@@ -154,18 +154,21 @@
 .kz-vk-audio .wall_module .play_btn_wrap,
 .kz-vk-audio .choose_box .play_btn_wrap{float:left; margin-right:35px}
 .kz-vk-audio .wall_module .play_btn_wrap + .kz-vk-audio__wrapper,
-.kz-vk-audio .choose_box .play_btn_wrap + .kz-vk-audio__wrapper{width:35px; margin-left:-35px;
-    margin-top:6px; padding-right:6px}
+.kz-vk-audio .choose_box .play_btn_wrap + .kz-vk-audio__wrapper{
+    width:35px; margin-left:-35px; margin-top:6px; padding-right:6px}
 .kz-vk-audio .wall_module .audio .title_wrap{
-    width:calc(260px - 35px)!important}
+    width:225px!important}
 .kz-vk-audio .wall_module .reply_text .audio .title_wrap{
-    width:calc(220px - 35px)!important}
+    width:185px!important}
 .kz-vk-audio .wall_module .audio .reply_table .title_wrap{
-    width:calc(200px - 35px)!important}
+    width:165px!important}
 .kz-vk-audio .wide_wall_module .audio .title_wrap{
-    width:calc(460px - 35px)!important}
+    width:425px!important}
 .kz-vk-audio .wide_wall_module .reply_table .audio .title_wrap{
-    width:calc(400px - 35px)!important}
+    width:365px!important}
+
+.kz-vk-audio #search_content .wall_text .audio .title_wrap{
+    width:390px!important}
 
 .kz-vk-audio #wl_post_body_wrap .audio .title_wrap{
     width:495px!important}
@@ -176,7 +179,7 @@
     width:235px!important}
 .kz-vk-audio .im_fwd_log_row .audio .title_wrap,
 .kz-vk-audio .im_fwd_log_row .post_media .audio .title_wrap{
-    width:calc(220px - 35px)!important}
+    width:185px!important}
 
 .kz-vk-audio .audio .title_wrap b{max-width:55%!important}
 
@@ -208,11 +211,11 @@
 
 /* DEBUGGING */
 
-/*
+
 .kz-vk-audio .audio .area{background-color: rgba(167, 158, 173, .8)}
 .kz-vk-audio .audio .title_wrap{background-color: rgba(255, 222, 44, 0.9)}
 .kz-vk-audio .audio .duration{overflow: hidden; background-color: rgba(78, 199, 195, .8)}
 .kz-vk-audio .audio .duration:after{display:block; width:200px; height:1px;
     content:""; margin-top:-3px}
-*/
+
 
