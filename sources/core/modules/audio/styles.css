@@ -1,5 +1,3 @@
-.kz-vk-audio{}
-
 .kz-vk-audio__wrapper{width:38px; height:16px; position:relative; float:left;
     box-sizing:border-box; margin-top:9px; padding-right:9px;
     -webkit-perspective:50px;
@@ -196,26 +194,3 @@
 
 .kz-vk-audio .choose_audio_row .audio .title_wrap{
     width:345px}
-
-
-.kz-vk-trash__bin{overflow:hidden; height:0}
-
-
-.kz-vk-video{}
-
-.kz-vk-video__wrapper{color: rgb(119,119,119)}
-.kz-vk-video #mv_controls_line  .kz-vk-video__link{text-decoration:underline;
-    transition: color .5s ease}
-.kz-vk-video #mv_controls_line  .kz-vk-video__link:hover{text-decoration:underline; color:white;
-    transition: color .1s ease}
-
-/* DEBUGGING */
-
-
-.kz-vk-audio .audio .area{background-color: rgba(167, 158, 173, .8)}
-.kz-vk-audio .audio .title_wrap{background-color: rgba(255, 222, 44, 0.9)}
-.kz-vk-audio .audio .duration{overflow: hidden; background-color: rgba(78, 199, 195, .8)}
-.kz-vk-audio .audio .duration:after{display:block; width:200px; height:1px;
-    content:""; margin-top:-3px}
-
-

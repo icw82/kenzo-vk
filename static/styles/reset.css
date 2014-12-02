@@ -2,35 +2,27 @@
  *  Сброс стилей
  *  Автор: icw82 aka Айсик Бендер
  *  Почта: icw82@yandex.ru
+ *  2014.12.02
  */
-html, body{padding:0; margin:0; font-family: Arial, Helvetica, sans-serif;
-    font-size:100%; font-size-adjust:inherit; font-style:normal; font-weight:normal;
-    font-variant:normal; line-height:1.4}
-
-body *{font:inherit}
-
+body{padding:0; margin:0; font-size:100%; line-height:1.4; font-size-adjust:none;
+    font-style:normal; font-weight:normal; font-variant:normal}
+body *{font:inherit; line-height:inherit}
 h1, h2, h3, h4, h5, h6, p, dl, dt, dd, ol, ul, li, address, blockquote, div, pre, hr, form,
 article, aside, figure, figcaption, footer, header, hgroup, nav, section,details, summary{
-    display:block; padding:0; margin:0; border:none; line-height:inherit; float:none;
-    -moz-box-sizing:border-box; box-sizing:border-box}
-
+    display:block; padding:0; margin:0; border:none; float:none; box-sizing:border-box}
 a, span, del, ins, abbr, acronym, dfn, em, strong,
 code, samp, kbd, var, b, i, small, sub, sup, bdo, cite, q,
 legend, label, canvas, mark, output, time{
-    display:inline; padding:0; margin:0; text-decoration:inherit; background: none;
-    color:inherit; vertical-align:inherit; border:none; line-height:inherit}
-
+    display:inline; padding:0; margin:0; background:none; border:none; vertical-align:inherit;
+    color:inherit; text-decoration:inherit}
+table, caption, colgroup, col, thead, tbody, tfoot, tr, th, td{
+    padding:0; margin:0; border:none; border-spacing:0; border-collapse:collapse;
+    vertical-align:top; text-align:left; caption-side:top}
 hr{color:inherit; background:none; height:auto}
 img{display:inline; width:auto; height:auto; border:none}
 li{display:list-item; list-style:none none}
 select{font:inherit}
-
 q::before, q::after{content:''}
-
-table, caption, colgroup, col, thead, tbody, tfoot, tr, th, td{
-    text-align:left; caption-side:top; padding:0; margin:0; vertical-align:top;
-    border:none; border-spacing:0; border-collapse:collapse}
-
 a, button{cursor:pointer; outline:none}
 button:disabled,
 button.disabled{cursor:default; opacity:.7}

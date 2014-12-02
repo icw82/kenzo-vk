@@ -8,6 +8,9 @@
     "o__header": {
         "message": "Настройки"
     },
+    "o__debug": {
+        "message": "Режим отладки"
+    },
     "o__audio__header": {
         "message": "Audio"
     },

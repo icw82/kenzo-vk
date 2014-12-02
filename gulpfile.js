@@ -7,37 +7,47 @@ var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     sourcemaps = require('gulp-sourcemaps');
 
-
-gulp.task('static', function(){
-    return gulp.src('./static/**/*.*')
-        .pipe(gulp.dest('build'))
-});
-
 var paths = {
     'angular': [
         './bower_components/angular/angular.min.js',
         './bower_components/angular/angular.min.js.map'
     ],
     'set': [
-        './scripts/kenzo-set.js'
+        './sources/kenzo-set.js'
     ],
     'core': [
-        './scripts/core/defaults.js',
-        './scripts/core/base.js',
-        './scripts/core/*.js',
-        './scripts/core/modules/*/main.js',
-        './scripts/core/modules/*/*.js'
+        './sources/core/defaults.js',
+        './sources/core/base.js',
+        './sources/core/*.js',
+        './sources/core/modules/*/main.js',
+        './sources/core/modules/*/*.js'
     ]
 };
 
+gulp.task('static', function(){
+    return gulp
+        .src('./static/**/*.*')
+        .pipe(gulp.dest('build'))
+});
+
+gulp.task('styles', function(){
+    var norm = gulp
+        .src('./bower_components/normalize.css/normalize.css');
+
+    var styles = gulp
+        .src('./sources/**/*.css')
+        .pipe(concat('styles.css'));
+
+    return es.merge(norm, styles)
+        .pipe(gulp.dest('build/styles'));
+});
+
 gulp.task('scripts', function(){
     var angular = gulp
-        .src(paths.angular)
-        .pipe(gulp.dest('build/scripts'));
+        .src(paths.angular);
 
     var set = gulp
-        .src(paths.set)
-        .pipe(gulp.dest('build/scripts'));
+        .src(paths.set);
 
     var core = gulp
         .src(paths.core)
@@ -46,19 +56,19 @@ gulp.task('scripts', function(){
         .pipe(rename({suffix: '.min'}))
         //.pipe(uglify().on("error", gutil.log))
         //.pipe(sourcemaps.write('../scripts/'))
-        .pipe(gulp.dest('build/scripts'));
 
-    return es.merge(angular, set, core);
+    return es.merge(angular, set, core)
+        .pipe(gulp.dest('build/scripts'));
 });
 
 gulp.task('watch', function(){
     gulp.watch(['./static/**/*.*'], ['static']);
-    gulp.watch('./scripts/**/*.js', ['scripts']);
+    gulp.watch('./sources/**/*', ['scripts', 'styles']);
 });
 
 gulp.task('clean', function(callback){
     del(['build'], callback);
 });
 
-gulp.task('build', ['static', 'scripts']);
+gulp.task('build', ['static', 'scripts', 'styles']);
 gulp.task('default', ['build', 'watch']);

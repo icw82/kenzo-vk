@@ -12,6 +12,7 @@ APP.controller('settings', function($scope){
 // Текст
 $scope.i18n = {
     'header': chrome.i18n.getMessage('o__header'),
+    'debug': chrome.i18n.getMessage('o__debug'),
     'annotation': chrome.i18n.getMessage('o__annotation'),
     'audio': {
         'header': chrome.i18n.getMessage('o__audio__header'),

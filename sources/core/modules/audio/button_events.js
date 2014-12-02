@@ -9,7 +9,6 @@ mod.button_event = function(item, event){
 
 
     function start(){
-        console.log('**ушло в закачки');
         chrome.runtime.sendMessage({
             action: 'vk-audio__save',
             url: item.url,
@@ -17,14 +16,17 @@ mod.button_event = function(item, event){
                 + item.vk_title + '.mp3',
             id: item.id
         });
+
+        console.log('** vk-audio__save');
     }
 
     function stop(){
-        console.log('**остановка в закачки');
         chrome.runtime.sendMessage({
             action: 'vk-audio__stop-download',
             id: item.id
         });
+
+        console.log('** vk-audio__stop-download');
     }
 
     if (event.type === 'click'){

@@ -1,4 +1,6 @@
 var default_options = {
+    'debug': false,
+
     'audio': true,
     'audio__cache': true,
     'audio__simplified': false,

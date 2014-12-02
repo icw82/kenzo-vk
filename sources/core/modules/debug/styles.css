@@ -1,0 +1,5 @@
+.kz-vk-debug .audio .area{background-color: rgba(167, 158, 173, .8)}
+.kz-vk-debug .audio .title_wrap{background-color: rgba(255, 222, 44, 0.9)}
+.kz-vk-debug .audio .duration{overflow: hidden; background-color: rgba(78, 199, 195, .8)}
+.kz-vk-debug .audio .duration:after{display:block; width:200px; height:1px;
+    content:""; margin-top:-3px}
