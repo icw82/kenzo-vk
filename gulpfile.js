@@ -32,7 +32,7 @@ gulp.task('static', function(){
 
 gulp.task('styles', function(){
     var norm = gulp
-        .src('./bower_components/normalize.css/normalize.css');
+        .src('./bower_components/kenzo-kit/kk.reset.css');
 
     var styles = gulp
         .src('./sources/**/*.css')
