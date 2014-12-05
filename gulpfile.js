@@ -31,14 +31,14 @@ gulp.task('static', function(){
 });
 
 gulp.task('styles', function(){
-    var norm = gulp
-        .src('./bower_components/kenzo-kit/kk.reset.css');
+    var reset = gulp
+        .src('./bower_components/kenzo-kit/kk-reset.css');
 
     var styles = gulp
         .src('./sources/**/*.css')
         .pipe(concat('styles.css'));
 
-    return es.merge(norm, styles)
+    return es.merge(reset, styles)
         .pipe(gulp.dest('build/styles'));
 });
 
