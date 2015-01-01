@@ -28,6 +28,8 @@ mod.get_video_info = function(element){
 
     })
 
+    console.log(urls);
+
     var DOM_host = document.querySelector('#mv_controls_line');
     if (!(DOM_host instanceof Element)) return false;
 

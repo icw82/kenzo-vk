@@ -6,7 +6,7 @@ function init(){
     var modules = [
         'trash',
         'audio',
-        'video',
+//        'video',
         'debug'
     ];
 

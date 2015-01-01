@@ -24,7 +24,7 @@ var _ = {
 };
 
 
-var goals = ['options'/*, 'globals'*/];
+var goals = ['options', 'globals'];
 
 function goal(item){
     var index = goals.indexOf(item);
@@ -41,10 +41,12 @@ chrome.storage.sync.get(default_options, function(options){
     goal('options');
 });
 
-//chrome.storage.local.get(default_globals, function(globals){
-//    _.globals = globals;
-//    goal('globals');
-//});
+chrome.storage.local.get(default_globals, function(globals){
+    chrome.storage.local.set(globals, function(){
+//        _.globals = globals;
+        goal('globals');
+    });
+});
 
 // Прослушивание изменений настроек и глобальных переменных
 chrome.storage.onChanged.addListener(function(changes, areaName){
@@ -53,7 +55,7 @@ chrome.storage.onChanged.addListener(function(changes, areaName){
             _.options = options;
         });
     } else if (areaName == 'local'){
-        //console.log('**changes', changes);
+//        console.log('**changes', changes);
 //        chrome.storage.local.get(default_globals, function(globals){
 //            _.globals = globals;
 ////            _.globals.now_playing = storage.audio.now_playing;

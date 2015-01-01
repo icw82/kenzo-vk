@@ -12,8 +12,8 @@ var paths = {
         './bower_components/angular/angular.min.js',
         './bower_components/angular/angular.min.js.map'
     ],
-    'set': [
-        './sources/kenzo-set.js'
+    'kk': [
+        './bower_components/kenzo-kit/kk.js'
     ],
     'core': [
         './sources/core/defaults.js',
@@ -46,8 +46,8 @@ gulp.task('scripts', function(){
     var angular = gulp
         .src(paths.angular);
 
-    var set = gulp
-        .src(paths.set);
+    var kk = gulp
+        .src(paths.kk);
 
     var core = gulp
         .src(paths.core)
@@ -57,7 +57,7 @@ gulp.task('scripts', function(){
         //.pipe(uglify().on("error", gutil.log))
         //.pipe(sourcemaps.write('../scripts/'))
 
-    return es.merge(angular, set, core)
+    return es.merge(angular, kk, core)
         .pipe(gulp.dest('build/scripts'));
 });
 
