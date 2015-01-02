@@ -33,10 +33,21 @@
 <!-- --------------------------- ng-bind="" -->
 <div class="grid-12">
     <div class="col-12">
+        <div class="mb-block-header">
+            <label class="mb-label__checkbox">
+                <input type="checkbox" ng-model="Options.audio">
+                <span ng-bind="i18n.audio.header"></span>
+                <span class="mb-block-header__description" ng-bind="i18n.audio.description"></span>
+            </label>
+        </div>
+<!--
         <div class="mb-block-header" ng-bind="i18n.audio.header">
             <span class="mb-block-header__description" ng-bind="i18n.audio.description"></span>
         </div>
+-->
     </div>
+</div>
+<div class="grid-12 mb-module-options" ng-class="{off: !Options.audio}">
     <div class="col-6">
         <p>
             <label class="mb-label__checkbox">
@@ -77,33 +88,47 @@
 </div>
 <div class="mb-delimiter"></div>
 <!-- --------------------------- -->
-<!--
 <div class="grid-12">
     <div class="col-12">
         <div class="mb-block-header">
-            <span ng-bind="i18n.video.header"></span>
-            <span class="mb-block-header__description" ng-bind="i18n.video.description"></span>
+            <label class="mb-label__checkbox">
+                <input type="checkbox" ng-model="Options.video">
+                <span ng-bind="i18n.video.header"></span>
+                <span class="mb-block-header__description" ng-bind="i18n.video.description"></span>
+            </label>
         </div>
     </div>
+</div>
+<div class="grid-12 mb-module-options" ng-class="{off: !Options.audio}">
     <div class="col-12">
         <p>
             <label class="mb-label__checkbox">
-                <input type="checkbox" ng-model="Options.video__direct_links">
-                <span ng-bind="i18n.video.options.direct_links"></span>
+                <input type="checkbox" ng-model="Options.video__progress_bars">
+                <span ng-bind="i18n.video.options.progress_bars"></span>
+            </label>
+        </p>
+        <p>
+            <label class="mb-label__checkbox">
+                <input type="checkbox" ng-model="Options.video__simplified">
+                <span ng-bind="i18n.video.options.simplified"></span>
             </label>
         </p>
     </div>
 </div>
 <div class="mb-delimiter"></div>
--->
 <!-- --------------------------- -->
 <div class="grid-12">
     <div class="col-12">
         <div class="mb-block-header">
-            <span ng-bind="i18n.trash.header"></span>
-            <span class="mb-block-header__description" ng-bind="i18n.trash.description"></span>
+            <label class="mb-label__checkbox">
+                <input type="checkbox" ng-model="Options.trash">
+                <span ng-bind="i18n.trash.header"></span>
+                <span class="mb-block-header__description" ng-bind="i18n.trash.description"></span>
+            </label>
         </div>
     </div>
+</div>
+<div class="grid-12 mb-module-options" ng-class="{off: !Options.trash}">
     <div class="col-6">
         <p>
             <label class="mb-label__checkbox">

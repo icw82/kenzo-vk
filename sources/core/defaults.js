@@ -3,13 +3,14 @@ var default_options = {
 
     'audio': true,
     'audio__cache': true,
-    'audio__simplified': false,
     'audio__vbr': true,
     'audio__separator': '—',
     'audio__progress_bars': true,
+    'audio__simplified': false,
 
     'video': true,
-    'video__direct_links': true,
+    'video__progress_bars': true,
+    'video__simplified': false,
 
     'trash': true,
     'trash__lsb__ad': true,

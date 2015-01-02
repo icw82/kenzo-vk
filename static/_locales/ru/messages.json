@@ -1,6 +1,6 @@
 {
     "ext_description": {
-        "message": "Дополнительные функции для vk.com (вКонтакте): битрейт аудио- и видеозаписей, VBR, антиреклама и т. д."
+        "message": "Доп. функции для VK (вКонтакте): ск. аудио- и видеозаписей, определение переменного битрейта, антиреклама и пр."
     },
     "o__annotation": {
         "message": "Некоторые изменения вступают в силу после перезагрузки страницы VK"
@@ -26,11 +26,11 @@
     "o__audio__separator": {
         "message": "Разделитель:"
     },
-    "o__audio__simplified": {
-        "message": "Упрощённый вид кнопки"
-    },
     "o__audio__progress_bars": {
         "message": "Прогресс-бары"
+    },
+    "o__audio__simplified": {
+        "message": "Упрощённый вид кнопки"
     },
     "o__video__header": {
         "message": "Video"
@@ -38,8 +38,11 @@
     "o__video__description": {
         "message": "расширение для видеозаписей"
     },
-    "o__video__direct_links": {
-        "message": "Ссылки для скачивания видеозаписей (βeta)"
+    "o__video__progress_bars": {
+        "message": "Прогресс-бары"
+    },
+    "o__video__simplified": {
+        "message": "Упрощённый вид кнопок"
     },
     "o__trash__header": {
         "message": "Trash"

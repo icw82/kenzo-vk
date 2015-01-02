@@ -67,6 +67,9 @@ p{margin-bottom: 5px}
 .mb-page-header{text-align: center; font-size: 42px; font-weight:bold}
 .mb-ext-name{text-align: center}
 
+.mb-module-options{transition: opacity .3s ease}
+.mb-module-options.off{opacity: .2; pointer-events:none; cursor: default}
+
 .mb-delimiter{height: 0px; border-bottom:1px solid rgba(0,0,0,.1);
     margin-top:10px; margin-bottom:10px}
 

@@ -7,12 +7,13 @@ var mod = {
     version: '1.0.0'
 };
 
-mod.add_to_current = function(download_id, type, id){
+mod.add_to_current = function(download_id, type, id, format){
     chrome.storage.local.get('downloads', function(data){
         data.downloads.current.push({
             download_id: download_id, // идентификатор загрузки
             type: type, // тип загружаемого файла
             id: id, // идентификатор vk
+            format: format, // формат (видеозаписи)
             progress: 0
         });
 
@@ -47,7 +48,7 @@ mod.message_listner = function(request, sender, sendResponse){
         request.name = request.name.replace(/[\\\/:\*\?<>\|\"]*/g, '');
     }
 
-    if (request.action === 'vk-audio__save'){
+    if (request.action === 'vk-audio__save'){ // AUDIO
         chrome.downloads.download({
             url: request.url,
             filename: request.name,
@@ -58,13 +59,39 @@ mod.message_listner = function(request, sender, sendResponse){
     } else if (request.action === 'vk-audio__stop-download'){
         chrome.storage.local.get('downloads', function(data){
             each (data.downloads.current, function(item){
-                if (request.id === item.id){
+                if (request.id === item.id&& item.type === 'vk-audio'){
+                    chrome.downloads.cancel(item.download_id);
+                    return true;
+                }
+            });
+        });
+    } else if (request.action === 'vk-video__save'){ // VIDEO
+        chrome.downloads.download({
+            url: request.url,
+            filename: request.name,
+            conflictAction: 'prompt'
+        }, function(download_id){
+            mod.add_to_current(download_id, 'vk-video', request.id, request.format);
+        });
+    } else if (request.action === 'vk-video__stop-download'){
+
+
+        chrome.storage.local.get('downloads', function(data){
+            each (data.downloads.current, function(item){
+                if (
+                    request.id === item.id &&
+                    request.format === item.format &&
+                    item.type === 'vk-video'
+                ){
                     chrome.downloads.cancel(item.download_id);
                     return true;
                 }
             });
         });
     }
+
+    console.log(request);
+
 }
 
 mod.init = function(){
@@ -83,9 +110,6 @@ mod.init = function(){
     chrome.runtime.onMessage.addListener(mod.message_listner);
 
 }
-
-// TODO: очередь закачки
-// TODO: история закачек
 
 // Включение модуля
 kzvk.modules[mod.name] = mod;

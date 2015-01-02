@@ -21,6 +21,8 @@ mod.drop = function(input){
 }
 
 mod.init = function(){
+    if (kzvk.options.trash !== true) return false;
+
     mod.dom = {
         body: document.querySelector('body'),
         trash_bin: document.createElement('div')

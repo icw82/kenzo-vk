@@ -21,15 +21,16 @@ $scope.i18n = {
             'cache': chrome.i18n.getMessage('o__audio__cache'),
             'vbr': chrome.i18n.getMessage('o__audio__vbr'),
             'separator': chrome.i18n.getMessage('o__audio__separator'),
-            'simplified': chrome.i18n.getMessage('o__audio__simplified'),
-            'progress_bars': chrome.i18n.getMessage('o__audio__progress_bars')
+            'progress_bars': chrome.i18n.getMessage('o__audio__progress_bars'),
+            'simplified': chrome.i18n.getMessage('o__audio__simplified')
         }
     },
     'video': {
         'header': chrome.i18n.getMessage('o__video__header'),
         'description': chrome.i18n.getMessage('o__video__description'),
         'options': {
-            'direct_links' :chrome.i18n.getMessage('o__video__direct_links')
+            'progress_bars': chrome.i18n.getMessage('o__video__progress_bars'),
+            'simplified': chrome.i18n.getMessage('o__video__simplified')
         }
     },
     'trash': {

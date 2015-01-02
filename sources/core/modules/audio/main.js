@@ -14,6 +14,8 @@ var mod = {
 };
 
 mod.init = function(){
+    if (kzvk.options.audio !== true) return false;
+
     mod.dom = {
         body: document.querySelector('body'),
         global_player: document.querySelector('#gp')

@@ -1,15 +1,133 @@
-/*
 .kz-vk-video .mv_info_panel{}
-.kz-vk-video .mv_info_block{}
-.kz-vk-video .mv_title_panel{}
-.kz-vk-video .mv_title{}
-.kz-vk-video .mv_author_name{}
-*/
+.kz-vk-video .mv_info_block .fl_l,
+.kz-vk-video .mv_info_block .fl_r,
+.kz-vk-video .mv_info_block,
+.kz-vk-video .mv_info_block div{float: none; box-sizing: border-box}
+
+.kz-vk-video .mv_info_block,
+.kz-vk-video__buttons{width: auto; max-width: 744px; padding-left: 53px;}
+
+.kz-vk-video .mv_info_block{min-height:48px; position: relative;
+    margin-top:-3px; padding-bottom: 7px; line-height: 1.35}
+.kz-vk-video .mv_info_block > a:first-child{position: absolute; left: 0; top: 3px}
+.kz-vk-video .mv_author_img{}
+.kz-vk-video .mv_title_panel{margin-top: -2px; padding: 0}
+.kz-vk-video .mv_title{width: auto; max-width: none; overflow: visible;
+    margin-bottom: 3px; white-space: normal}
+.kz-vk-video .mv_author_name{width: auto; max-width:none; position:relative; bottom:auto;
+    overflow: visible;
+    white-space: normal}
+
+/* Кнопки */
+.kz-vk-video__buttons{overflow: hidden; margin-bottom: 16px}
+
+.kz-vk-video__wrapper{height: 16px; position: relative; float: left;
+    box-sizing:border-box; margin-right: 7px;
+    -webkit-perspective: 50px;
+            perspective: 50px
+}
+.kz-vk-video__wrapper.kz-s3{width: 29px}
+.kz-vk-video__wrapper.kz-s4{width: 35px}
+
+.kz-vk-video__wrapper:last-child{margin-right: 0}
+
+.kz-vk-video__carousel{width: 100%; height: 100%; position: relative}
+
+.kz-vk-video__format--normal{opacity: 1}
+.kz-vk-video__format--crap{opacity: .7}
+
+.kz-vk-video__carousel__item{display:block; width:100%; height:100%; box-sizing: border-box;
+    position: absolute; left: 0; top: 0; opacity: 0; pointer-events:none;
+    border: 1px solid; border-radius:3px; color:rgb(95,127,162);
+    text-align: center; font-size: 11px; line-height: 14px;
+    transition: all .25s ease}
 
 /*
-.kz-vk-video__wrapper{color: rgb(119,119,119)}
-.kz-vk-video #mv_controls_line .kz-vk-video__link{text-decoration:underline;
-    transition: color .5s ease}
-.kz-vk-video #mv_controls_line .kz-vk-video__link:hover{text-decoration:underline; color:white;
-    transition: color .1s ease}
-*/
+ *  Трансформации
+ */
+.kz-vk-video__carousel{
+    -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+    transition: -webkit-transform .25s ease;
+    transition:         transform .25s ease}
+
+.kz-format .kz-vk-video__carousel{
+    -webkit-transform: translateZ(-14.5px) rotateY(0deg);
+            transform: translateZ(-14.5px) rotateY(0deg)}
+.kz-vk-video__carousel__item.kz-format{
+    -webkit-transform: translateZ(14.5px) rotateY(0deg);
+            transform: translateZ(14.5px) rotateY(0deg)}
+.kz-format
+    .kz-vk-video__carousel__item.kz-format{opacity:1; pointer-events:auto; cursor: pointer}
+
+
+.kz-progress .kz-vk-video__carousel{
+    -webkit-transform: translateZ(-14.5px) rotateY(-90deg);
+            transform: translateZ(-14.5px) rotateY(-90deg)}
+.kz-vk-video__carousel__item.kz-progress{
+    -webkit-transform: translateX(14.5px) rotateY(90deg);
+            transform: translateX(14.5px) rotateY(90deg)}
+.kz-progress
+    .kz-vk-video__carousel__item.kz-progress{opacity:1; pointer-events:auto; cursor: pointer}
+
+
+.kz-unavailable .kz-vk-video__carousel{opacity:.4;
+    -webkit-transform: translateZ(-14.5px) rotateY(180deg);
+            transform: translateZ(-14.5px) rotateY(180deg)}
+.kz-vk-video__carousel__item.kz-unavailable{
+    -webkit-transform: translateZ(-14.5px) rotateY(180deg);
+            transform: translateZ(-14.5px) rotateY(180deg)}
+.kz-unavailable
+    .kz-vk-video__carousel__item.kz-unavailable{opacity: 1 !important; pointer-events: auto}
+
+
+/*
+ *  Упращённая версия
+ */
+.kz-vk-video__carousel.kz-simplified-view{
+    -webkit-transform-style: flat;
+            transform-style: flat;
+    transition: none;
+    -webkit-transform: none;
+            transform: none;
+}
+.kz-simplified-view > .kz-vk-video__carousel__item{
+    -webkit-transform: none;
+            transform: none;
+}
+
+
+.kz-vk-video__carousel__item.kz-format:before{content:attr(data-message); opacity: 1}
+.kz-vk-video__carousel__item.kz-format:after{display: block; width: 11px; height: 13px;
+    position: absolute; top: -4px; opacity: 0; content: '';
+    background-image: url(chrome-extension://__MSG_@@extension_id__/images/download.png)}
+.kz-vk-video__wrapper.kz-s3
+    .kz-vk-video__carousel__item.kz-format:after{left: 8px}
+.kz-vk-video__wrapper.kz-s4
+    .kz-vk-video__carousel__item.kz-format:after{left: 11px}
+
+.kz-vk-video__carousel__item.kz-format:hover:before{opacity: 0}
+.kz-vk-video__carousel__item.kz-format:hover:after{opacity: 1}
+
+/* Progress bar */
+.kz-vk-video__carousel__item.kz-progress{overflow: hidden;
+    background-position:center center; background-repeat: no-repeat}
+.kz-vk-video__carousel__item.kz-progress:before{content: attr(data-progress);
+    position: relative; z-index: 2}
+.kz-vk-video__carousel__item.kz-progress:after{display:block; width: 100%; height: 100%;
+    position: absolute; top:0; left:0; z-index: 3; content: ''; opacity: 0;
+    background-position: center center; background-repeat: no-repeat;
+    background-image: url(chrome-extension://__MSG_@@extension_id__/images/abort.png)}
+.kz-vk-video__carousel__item.kz-progress:hover:before{opacity:0}
+.kz-vk-video__carousel__item.kz-progress:hover:after{opacity:1}
+
+.kz-vk-video__progress-filling{width:100%; height:100%;
+    position:absolute; left:-100%; top:0; z-index:1;
+    background-color:rgba(95,127,162,.4);
+    transition: left .5s ease}
+
+.kz-vk-video__carousel__item.kz-unavailable{line-height: 12px; font-size: 12px}
+.kz-vk-video__wrapper.kz-s3
+    .kz-vk-video__carousel__item.kz-unavailable:before{content: '×_×'}
+.kz-vk-video__wrapper.kz-s4
+    .kz-vk-video__carousel__item.kz-unavailable:before{content: '×__×'}
