@@ -2,7 +2,7 @@
     "default_locale": "ru",
     "name": "Kenzo VK",
     "short_name": "Kenzo VK",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "description": "__MSG_ext_description__",
     "author": "icw82",
     "icons": {
@@ -57,6 +57,7 @@
     ],
     "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
     "web_accessible_resources": [
+        "scripts/provider-audio.js",
         "scripts/angular.min.js.map",
         "scripts/core.min.js.map",
         "images/download.png",

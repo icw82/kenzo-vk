@@ -130,13 +130,16 @@
     background-color:rgba(95,127,162,.4);
     transition: left .5s ease}
 
+.audio.current
+.kz-vk-audio__progress-filling{background-color:rgba(255,255,255,.4)}
+
 
 .kz-vk-audio__carousel__item.kz-unavailable{line-height:12px; font-size: 12px}
 .kz-vk-audio__carousel__item.kz-unavailable:before{content: '×_×'}
 
 .kz-vk-audio__unavailable .play_btn_wrap,
 .kz-vk-audio__unavailable .title_wrap,
-.kz-vk-audio__unavailable .duration{opacity: .4}
+.kz-vk-audio__unavailable .duration{opacity: .6}
 
 
 /* Sizes */

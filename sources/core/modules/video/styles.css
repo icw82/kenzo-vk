@@ -19,7 +19,7 @@
     white-space: normal}
 
 /* Кнопки */
-.kz-vk-video__buttons{overflow: hidden; margin-bottom: 16px}
+.kz-vk-video__buttons{overflow: hidden; margin-top:-5px; margin-bottom: 16px; padding-top: 5px}
 
 .kz-vk-video__wrapper{height: 16px; position: relative; float: left;
     box-sizing:border-box; margin-right: 7px;

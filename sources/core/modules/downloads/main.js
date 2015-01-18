@@ -46,6 +46,19 @@ mod.message_listner = function(request, sender, sendResponse){
 
     if (typeof request.name === 'string'){
         request.name = request.name.replace(/[\\\/:\*\?<>\|\"]*/g, '');
+
+        if (kzvk.options.filters__square_brackets === true)
+            request.name = request.name.replace(/\[.+?\]/g, '');
+        if (kzvk.options.filters__curly_brackets === true)
+            request.name = request.name.replace(/\{.+?\}/g, '');
+
+        request.name = request.name.trim()
+        request.name = request.name.replace(/\s+/g, ' ');
+        request.name = request.name.replace(/\s(\.\w+?)$/g, '.');
+
+        if (request.name.length === 0){
+            request.name = chrome.i18n.getMessage('mistake');
+        }
     }
 
     if (request.action === 'vk-audio__save'){ // AUDIO
@@ -74,8 +87,6 @@ mod.message_listner = function(request, sender, sendResponse){
             mod.add_to_current(download_id, 'vk-video', request.id, request.format);
         });
     } else if (request.action === 'vk-video__stop-download'){
-
-
         chrome.storage.local.get('downloads', function(data){
             each (data.downloads.current, function(item){
                 if (
@@ -90,8 +101,7 @@ mod.message_listner = function(request, sender, sendResponse){
         });
     }
 
-    console.log(request);
-
+    //console.log(request);
 }
 
 mod.init = function(){
@@ -108,6 +118,10 @@ mod.init = function(){
     chrome.downloads.onChanged.addListener(mod.downloads_listner);
 
     chrome.runtime.onMessage.addListener(mod.message_listner);
+
+//    chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
+//        console.log('request', request);
+//    });
 
 }
 

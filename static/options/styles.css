@@ -19,7 +19,7 @@ p{margin-bottom: 5px}
  */
 .layout-global-wrapper{width:100%; min-width:800px; height:100%; position:relative}
 .layout-wrapper{width:600px; margin:0 auto; position:relative; min-height:1px;
-    padding: 10px 0}
+    padding: 10px 15px}
 
 .layout-top-layer{width:100%; height:0; position:absolute; left:0; top:0; z-index:99999;
     transition:top 0 ease .7s; overflow:hidden}
@@ -35,10 +35,11 @@ p{margin-bottom: 5px}
 .layout-lead-40{height:40px}
 .layout-lead-60{height:60px}
 
-.dec-page{background-color: white; color:rgba(0,0,0,.8); box-shadow:0 20px 50px -20px rgba(0,0,0,.2)}
+.dec-page{background-color: white; color:rgba(0,0,0,.8);
+    box-shadow:0 20px 50px -20px rgba(0,0,0,.2)}
 
-[class^="grid-"]{display:block}
-[class^="col-"]{display:inline-block; vertical-align:top; min-height:1px; padding:5px 15px}
+[class^="grid-"]{display:block; margin:0 -15px; padding:0 5px}
+[class^="col-"]{display:inline-block; vertical-align:top; min-height:1px; padding:5px 10px}
 
 .grid-12 > .col-1{width:8.33%}
 .grid-12 > .col-2{width:16.66%}
@@ -71,6 +72,7 @@ p{margin-bottom: 5px}
 .mb-module-options.off{opacity: .2; pointer-events:none; cursor: default}
 
 .mb-delimiter{height: 0px; border-bottom:1px solid rgba(0,0,0,.1);
+    margin-left: -15px; margin-right: -15px;
     margin-top:10px; margin-bottom:10px}
 
 .mb-block-header{font-size:18px; font-weight:bold}
@@ -79,12 +81,14 @@ p{margin-bottom: 5px}
 .mb-block-header__description:before{content: '— '}
 
 .mb-label__checkbox{display:inline-block; width:100%; position:relative; box-sizing:border-box;
-     margin-right:-5px; padding:0 5px 1px 23px; border-radius:3px; cursor: pointer;}
+     margin-right:-5px; padding:0 5px 1px 23px; border-radius:3px; cursor: pointer}
 .mb-label__checkbox > input[type="checkbox"]{position:absolute; left:1px; top:.15em;
     cursor:pointer}
 .mb-label__checkbox:hover{background-color: rgba(0,0,0,.05)}
 
-.mb-label__select{margin-left:23px}
+.mb-label__select{display:inline-block; width:100%; position:relative; box-sizing:border-box;
+    margin-right: -5px; padding: 5px; border-radius: 3px}
+.mb-label__select:hover{background-color: rgba(0,0,0,.05)}
 
 .b-footer{text-align:center}
 .b-footer__sign{display:inline-block; width:29px; height:29px; opacity:.8;

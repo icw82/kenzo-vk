@@ -41,6 +41,15 @@ $scope.i18n = {
             'lsb__fr': chrome.i18n.getMessage('o__trash__lsb__fr'),
             'newsads': chrome.i18n.getMessage('o__trash__newsads'),
             'group_recom': chrome.i18n.getMessage('o__trash__group_recom')
+        },
+    },
+    'filters': {
+        //'header': chrome.i18n.getMessage('o__trash__header'),
+        //'description': chrome.i18n.getMessage('o__trash__description'),
+        'options': {
+            'brackets': chrome.i18n.getMessage('o__filters__brackets'),
+            'square_brackets': chrome.i18n.getMessage('o__filters__square_brackets'),
+            'curly_brackets': chrome.i18n.getMessage('o__filters__curly_brackets')
         }
     }
 }
@@ -51,22 +60,29 @@ $scope.Manifest = chrome.runtime.getManifest();
 var watch_flag = false;
 $scope.Options = {};
 
-chrome.storage.sync.get(default_options, function(items){
-    watch_flag = false;
-    $scope.Options = items;
-    $scope.$apply();
-    watch_flag = true;
-});
+function sync_model(){
+    chrome.storage.sync.get(default_options, function(items){
+        watch_flag = false;
+        $scope.Options = items;
+        $scope.$apply();
+        watch_flag = true;
+    });
+}
+
+sync_model();
 
 $scope.$watch('Options', function(){
     (watch_flag) && chrome.storage.sync.set($scope.Options);
 }, true);
 
-/*
+$scope.defaults = function(){
+    chrome.storage.sync.set(default_options);
+}
+
 chrome.storage.onChanged.addListener(function(changes, areaName){
-    console.log(changes);
-    console.log(areaName);
-})
-*/
+    if (areaName === 'sync'){
+        sync_model();
+    }
+});
 
 });

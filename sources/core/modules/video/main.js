@@ -24,7 +24,7 @@ mod.init = function(){
 
     mod.observe_list();
     mod.observe_dom();
-    mod.observe_progress();
+    mod.observe_downloads();
 }
 
 // Включение модуля

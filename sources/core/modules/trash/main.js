@@ -10,7 +10,7 @@ var mod = {
 mod.drop = function(input){
     var _ = function(node){
         mod.dom.trash_bin.appendChild(node);
-        console.info(kzvk.name, '—', mod.name, ':', node);
+        console.info(kzvk.name + ' — ' + mod.name + ':', node);
     };
 
     if (input instanceof NodeList){

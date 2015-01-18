@@ -2,14 +2,14 @@
     "ext_description": {
         "message": "Доп. функции для VK (вКонтакте): ск. аудио- и видеозаписей, определение переменного битрейта, антиреклама и пр."
     },
+    "mistake": {
+        "message": "Недоразумение"
+    },
     "o__annotation": {
         "message": "Некоторые изменения вступают в силу после перезагрузки страницы VK"
     },
     "o__header": {
         "message": "Настройки"
-    },
-    "o__debug": {
-        "message": "Режим отладки"
     },
     "o__audio__header": {
         "message": "Audio"
@@ -61,5 +61,17 @@
     },
     "o__trash__group_recom": {
         "message": "Популярные сообщества"
+    },
+    "o__debug": {
+        "message": "Режим отладки"
+    },
+    "o__filters__brackets": {
+        "message": "Удалять из названий сохраняемых файлов скобки и их содержимое:"
+    },
+    "o__filters__square_brackets": {
+        "message": "Квадратные"
+    },
+    "o__filters__curly_brackets": {
+        "message": "Фигурные"
     }
 }

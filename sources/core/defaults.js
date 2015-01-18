@@ -16,7 +16,11 @@ var default_options = {
     'trash__lsb__ad': true,
     'trash__lsb__fr': true,
     'trash__newsads': true,
-    'trash__group_recom': true
+    'trash__group_recom': true,
+
+    'filters': true,
+    'filters__square_brackets': true,
+    'filters__curly_brackets': true
 };
 
 var default_globals = {
