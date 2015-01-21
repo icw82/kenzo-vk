@@ -35,6 +35,7 @@ mod.update_button__basic = function(item){
 
     kenzo.toggle_class(item.dom_element, 'kz-bitrate', mod.audio_item_classes, false);
     item.dom_bitrate.setAttribute('data-message', message);
+    item.dom_carousel.setAttribute('href', item.url);
 
     var bitrate_classes = [
         'kz-vk-audio__bitrate--320',

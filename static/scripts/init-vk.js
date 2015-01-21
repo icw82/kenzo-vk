@@ -2,6 +2,11 @@
 'use strict';
 //  – — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —|
 
+// Тестирование безопасности
+//var eve = document.createElement('script');
+//eve.setAttribute('src', chrome.extension.getURL('scripts/eve.js'));
+//document.body.appendChild(eve);
+
 function init(){
     var modules = [
         'trash',

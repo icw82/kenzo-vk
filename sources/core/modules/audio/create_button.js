@@ -53,14 +53,14 @@ mod.create_button = function(item){
 
     //  title="' + item.id + '"
     DOM_kz__wrapper.innerHTML =
-        '<div class="' + carousel_classes + '">' +
+        '<a class="' + carousel_classes + '">' +
             '<div class="kz-vk-audio__carousel__item kz-bitrate"></div>' +
             '<div class="kz-vk-audio__carousel__item kz-progress">' +
                 '<div class="kz-vk-audio__progress-filling"></div>' +
             '</div>' +
             '<div class="kz-vk-audio__carousel__item kz-unavailable"></div>' +
             '<div class="kz-vk-audio__carousel__item kz-direct"></div>' +
-        '</div>';
+        '</a>';
 
     if (DOM_play.nextSibling){
         DOM_play.parentElement.insertBefore(DOM_kz__wrapper, DOM_play.nextSibling);

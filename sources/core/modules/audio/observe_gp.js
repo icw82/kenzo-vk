@@ -9,6 +9,8 @@ var gp = {
     complete: false
 };
 
+var public_key = kenzo.rand(10);
+
 // Регистрация и Отлов изменений глобального плеера
 mod.observe_gp = function(element){
     //console.log('--observe_gp!');
@@ -24,7 +26,8 @@ mod.observe_gp = function(element){
     var provider = document.createElement('script');
     provider.setAttribute('src', chrome.extension.getURL('scripts/provider-audio.js'));
     provider.setAttribute('id', 'kenzo-vk__provider-audio');
-    //provider.setAttribute('data-ext-id', chrome.runtime.id);
+    provider.setAttribute('data-ext-id', chrome.runtime.id);
+    provider.setAttribute('data-pub-key', public_key);
     mod.dom.body.appendChild(provider);
 
     var observer = new MutationObserver(function(mutations){

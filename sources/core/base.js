@@ -18,11 +18,9 @@ var _ = {
     name: manifest.name,
     version: manifest.version,
     options: null,
-    //globals: {},
     modules: {},
     loaded: false
 };
-
 
 var goals = ['options', 'globals'];
 
@@ -54,13 +52,6 @@ chrome.storage.onChanged.addListener(function(changes, areaName){
         chrome.storage.sync.get(default_options, function(options){
             _.options = options;
         });
-    } else if (areaName == 'local'){
-//        console.log('**changes', changes);
-//        chrome.storage.local.get(default_globals, function(globals){
-//            _.globals = globals;
-////            _.globals.now_playing = storage.audio.now_playing;
-////            console.log('now_playing', _.globals.now_playing);
-//        });
     }
 });
 

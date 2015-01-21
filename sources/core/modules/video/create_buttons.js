@@ -35,13 +35,13 @@ mod.create_buttons = function(item){
         item.dom_element = document.createElement('div');
         item.dom_element.classList.add('kz-vk-video__wrapper');
         item.dom_element.innerHTML =
-            '<div class="' + carousel_classes + '">' +
+            '<a class="' + carousel_classes + '">' +
                 '<div class="kz-vk-video__carousel__item kz-format"></div>' +
                 '<div class="kz-vk-video__carousel__item kz-progress">' +
                     '<div class="kz-vk-video__progress-filling"></div>' +
                 '</div>' +
                 '<div class="kz-vk-video__carousel__item kz-unavailable"></div>' +
-            '</div>';
+            '</a>';
 
         DOM_kz__buttons.appendChild(item.dom_element);
     });

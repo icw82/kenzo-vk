@@ -31,7 +31,8 @@
 
 .kz-vk-video__wrapper:last-child{margin-right: 0}
 
-.kz-vk-video__carousel{width: 100%; height: 100%; position: relative}
+.kz-vk-video__carousel{display: block; width: 100%; height: 100%; position: relative;
+    text-decoration: none}
 
 .kz-vk-video__format--normal{opacity: 1}
 .kz-vk-video__format--crap{opacity: .7}

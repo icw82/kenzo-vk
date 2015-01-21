@@ -5,7 +5,19 @@
 var mod = kzvk.modules.audio;
 
 mod.button_event = function(item, event){
+
     kenzo.stop_event(event);
+
+    if (event.which === 2){
+//        console.log(chrome);
+//
+//        chrome.downloads.download({
+//            url: item.url,
+//            conflictAction: 'prompt'
+//        });
+
+        return false;
+    }
 
     function start(){
         chrome.runtime.sendMessage({

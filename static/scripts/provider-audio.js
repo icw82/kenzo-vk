@@ -2,7 +2,7 @@
 
 var tag = document.body.querySelector('#kenzo-vk__provider-audio');
 if (!tag) return false;
-//var id = tag.getAttribute('data-ext-id');
+var id = tag.getAttribute('data-ext-id');
 document.body.removeChild(tag);
 
 return false; // NOTE: отключено

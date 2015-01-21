@@ -9,6 +9,7 @@ mod.update_button__basic = function(item){
 
     kenzo.toggle_class(item.dom_element, 'kz-format', mod.button_classes, false);
     item.dom_format.setAttribute('data-message', message);
+    item.dom_carousel.setAttribute('href', item.url);
 
     var format_classes = [
         'kz-vk-video__format--normal',
