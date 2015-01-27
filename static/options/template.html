@@ -12,207 +12,193 @@
 <body ng-controller="settings">
     <div class="layout-global-wrapper">
         <div class="layout-wrapper">
-            <div class="grid-12">
-                <div class="col-12">
-                    <div class="mb-page-header" ng-bind="i18n.header"></div>
-                    <div class="mb-ext-name">
-                        <span ng-bind="Manifest.name"></span>
-                        <span ng-bind="Manifest.version"></span>
-                    </div>
+            <div class="b-header">
+                <div class="b-header__header" ng-bind="i18n.header"></div>
+                <div class="b-header__extention">
+                    <span class="b-header__name" ng-bind="Manifest.name"></span>
+                    <span class="b-header__version" ng-bind="Manifest.version"></span>
                 </div>
             </div>
         </div>
         <div class="layout-wrapper dec-page">
-<!-- --------------------------- -->
-<div class="grid-12">
-    <div class="col-12">
-        <div class="mb-annotation" ng-bind="i18n.annotation"></div>
-    </div>
-</div>
-<div class="mb-delimiter"></div>
-<!-- --------------------------- ng-bind="" -->
-<div class="grid-12">
-    <div class="col-12">
-        <div class="mb-block-header">
-            <label class="mb-label__checkbox">
-                <input type="checkbox" ng-model="Options.audio">
-                <span ng-bind="i18n.audio.header"></span>
-                <span class="mb-block-header__description" ng-bind="i18n.audio.description"></span>
-            </label>
-        </div>
-<!--
-        <div class="mb-block-header" ng-bind="i18n.audio.header">
-            <span class="mb-block-header__description" ng-bind="i18n.audio.description"></span>
-        </div>
--->
-    </div>
-</div>
-<div class="grid-12 mb-module-options" ng-class="{off: !Options.audio}">
-    <div class="col-6">
-        <p>
-            <label class="mb-label__checkbox">
-                <input type="checkbox" ng-model="Options.audio__cache">
-                <span ng-bind="i18n.audio.options.cache"></span>
-            </label>
-        </p>
-        <p>
-            <label class="mb-label__checkbox">
-                <input type="checkbox" ng-model="Options.audio__vbr">
-                <span ng-bind="i18n.audio.options.vbr"></span>
-            </label>
-        </p>
-    </div><div class="col-6">
-        <p>
-            <label class="mb-label__checkbox">
-                <input type="checkbox" ng-model="Options.audio__progress_bars">
-                <span ng-bind="i18n.audio.options.progress_bars"></span>
-            </label>
-        </p>
-        <p>
-            <label class="mb-label__checkbox">
-                <input type="checkbox" ng-model="Options.audio__simplified">
-                <span ng-bind="i18n.audio.options.simplified"></span>
-            </label>
-        </p>
-    </div><div class="col-6">
-        <p>
-            <label class="mb-label__select">
-                <span ng-bind="i18n.audio.options.separator"></span>
-                <select ng-model="Options.audio__separator">
-                    <option value="—">— (тире)</option>
-                    <option value="–">– (среднее тире)</option>
-                    <option value="-">- (дефис)</option>
-                </select>
-            </label>
-        </p>
-    </div>
-</div>
-<div class="mb-delimiter"></div>
-<!-- --------------------------- -->
-<div class="grid-12">
-    <div class="col-12">
-        <div class="mb-block-header">
-            <label class="mb-label__checkbox">
-                <input type="checkbox" ng-model="Options.video">
-                <span ng-bind="i18n.video.header"></span>
-                <span class="mb-block-header__description" ng-bind="i18n.video.description"></span>
-            </label>
-        </div>
-    </div>
-</div>
-<div class="grid-12 mb-module-options" ng-class="{off: !Options.video}">
-    <div class="col-6">
-        <p>
-            <label class="mb-label__checkbox">
-                <input type="checkbox" ng-model="Options.video__progress_bars">
-                <span ng-bind="i18n.video.options.progress_bars"></span>
-            </label>
-        </p>
-        <p>
-            <label class="mb-label__checkbox">
-                <input type="checkbox" ng-model="Options.video__simplified">
-                <span ng-bind="i18n.video.options.simplified"></span>
-            </label>
-        </p>
-    </div>
-</div>
-<div class="mb-delimiter"></div>
-<!-- --------------------------- -->
-<div class="grid-12">
-    <div class="col-12">
-        <div class="mb-block-header">
-            <label class="mb-label__checkbox">
-                <input type="checkbox" ng-model="Options.trash">
-                <span ng-bind="i18n.trash.header"></span>
-                <span class="mb-block-header__description" ng-bind="i18n.trash.description"></span>
-            </label>
-        </div>
-    </div>
-</div>
-<div class="grid-12 mb-module-options" ng-class="{off: !Options.trash}">
-    <div class="col-6">
-        <p>
-            <label class="mb-label__checkbox">
-                <input type="checkbox" ng-model="Options.trash__lsb__ad">
-                <span ng-bind="i18n.trash.options.lsb__ad"></span>
-            </label>
-        </p>
-        <p>
-            <label class="mb-label__checkbox">
-                <input type="checkbox" ng-model="Options.trash__newsads">
-                <span ng-bind="i18n.trash.options.newsads"></span>
-            </label>
-        </p>
-    </div><div class="col-6">
-        <p>
-            <label class="mb-label__checkbox">
-                <input type="checkbox" ng-model="Options.trash__lsb__fr">
-                <span ng-bind="i18n.trash.options.lsb__fr"></span>
-            </label>
-        </p>
-        <p>
-            <label class="mb-label__checkbox">
-                <input type="checkbox" ng-model="Options.trash__group_recom">
-                <span ng-bind="i18n.trash.options.group_recom"></span>
-            </label>
-        </p>
-    </div>
-</div>
-<div class="mb-delimiter"></div>
-<!-- --------------------------- -->
-<div class="grid-12">
-    <div class="col-6">
-        <p ng-bind="i18n.filters.options.brackets"></p>
-
-        <div class="grid-12">
-            <div class="col-6">
-                <p>
-                    <label class="mb-label__checkbox">
-                        <input type="checkbox" ng-model="Options.filters__square_brackets">
-                        <span ng-bind="i18n.filters.options.square_brackets"></span>
-                    </label>
-                </p>
-            </div><div class="col-6">
-                <p>
-                    <label class="mb-label__checkbox">
-                        <input type="checkbox" ng-model="Options.filters__curly_brackets">
-                        <span ng-bind="i18n.filters.options.curly_brackets"></span>
-                    </label>
-                </p>
-            </div>
-        </div>
-    </div><div class="col-6">
-        <p>
-            <label class="mb-label__checkbox">
-                <input type="checkbox" ng-model="Options.debug">
-                <span ng-bind="i18n.debug"></span>
-            </label>
-        </p>
-    </div>
-</div>
-<div class="mb-delimiter"></div>
-<!-- --------------------------- -->
-<div class="grid-12">
-    <div class="col-12">
-        <p style="text-align:center">
-            <button ng-click="defaults()">Сбросить настройки</button>
-        </p>
-    </div>
-</div>
-<!-- --------------------------- -->
-        </div>
-        <div class="layout-wrapper">
-            <div class="grid-12">
-                <div class="col-12">
-                    <div class="b-footer">
-                        <a class="b-footer__sign" href="http://icw82.ru#kenzovk"></a>
+            <div class="compensator">
+                <div class="grid-8">
+                    <div class="col-4">
+                        <p class="a-info" ng-bind="i18n.annotation"></p>
                     </div>
                 </div>
+
+                <div class="mb-lead"></div>
+
+                <div class="grid-8 delimited">
+                    <div class="col-4">
+<!-- --------------------------- -->
+<p>
+    <label class="f-label checkbox level-1 outside">
+        <input type="checkbox" ng-model="Options.audio">
+        <span class="a-h1" ng-bind="i18n.audio.header"></span>
+        <span class="a-description" ng-bind="i18n.audio.description"></span>
+    </label>
+</p>
+<div class="f-group" ng-class="{off: !Options.audio}">
+    <p>
+        <label class="f-label checkbox">
+            <input type="checkbox" ng-model="Options.audio__cache">
+            <span ng-bind="i18n.audio.options.cache"></span>
+        </label>
+    </p>
+    <p>
+        <label class="f-label checkbox">
+            <input type="checkbox" ng-model="Options.audio__vbr">
+            <span ng-bind="i18n.audio.options.vbr"></span>
+        </label>
+    </p>
+    <p>
+        <label class="f-label checkbox">
+            <input type="checkbox" ng-model="Options.audio__progress_bars">
+            <span ng-bind="i18n.audio.options.progress_bars"></span>
+        </label>
+    </p>
+    <p>
+        <label class="f-label checkbox">
+            <input type="checkbox" ng-model="Options.audio__simplified">
+            <span ng-bind="i18n.audio.options.simplified"></span>
+        </label>
+    </p>
+
+    <p>
+        <label class="f-label select">
+            <span ng-bind="i18n.audio.options.separator"></span>
+            <select
+               ng-model="Options.audio__separator"
+               ng-options="item.char as item.desc for item in i18n.audio.options.separators">
+            </select>
+        </label>
+    </p>
+</div>
+
+<div class="mb-lead"></div>
+<div class="mb-lead"></div>
+
+<p>
+    <label class="f-label checkbox level-1 outside">
+        <input type="checkbox" ng-model="Options.video">
+        <span class="a-h1" ng-bind="i18n.video.header"></span>
+        <span class="a-description" ng-bind="i18n.video.description"></span>
+    </label>
+</p>
+<div class="f-group" ng-class="{off: !Options.video}">
+    <p>
+        <label class="f-label checkbox">
+            <input type="checkbox" ng-model="Options.video__progress_bars">
+            <span ng-bind="i18n.video.options.progress_bars"></span>
+        </label>
+    </p>
+    <p>
+        <label class="f-label checkbox">
+            <input type="checkbox" ng-model="Options.video__simplified">
+            <span ng-bind="i18n.video.options.simplified"></span>
+        </label>
+    </p>
+</div>
+<!--
+        <p>
+            <a href="last.fm/api/auth?api_key=">
+                Авторизировать скробблер
+            </a>
+        </p>
+-->
+
+<!-- --------------------------- -->
+                </div><div class="col-4">
+<!-- --------------------------- -->
+
+<p>
+    <label class="f-label checkbox level-1 outside">
+        <input type="checkbox" ng-model="Options.trash">
+        <span class="a-h1" ng-bind="i18n.trash.header"></span>
+        <span class="a-description" ng-bind="i18n.trash.description"></span>
+    </label>
+</p>
+<div class="f-group" ng-class="{off: !Options.trash}">
+    <p>
+        <label class="f-label checkbox">
+            <input type="checkbox" ng-model="Options.trash__lsb__ad">
+            <span ng-bind="i18n.trash.options.lsb__ad"></span>
+        </label>
+    </p>
+    <p>
+        <label class="f-label checkbox">
+            <input type="checkbox" ng-model="Options.trash__newsads">
+            <span ng-bind="i18n.trash.options.newsads"></span>
+        </label>
+    </p>
+    <p>
+        <label class="f-label checkbox">
+            <input type="checkbox" ng-model="Options.trash__lsb__fr">
+            <span ng-bind="i18n.trash.options.lsb__fr"></span>
+        </label>
+    </p>
+    <p>
+        <label class="f-label checkbox">
+            <input type="checkbox" ng-model="Options.trash__group_recom">
+            <span ng-bind="i18n.trash.options.group_recom"></span>
+        </label>
+    </p>
+</div>
+
+<div class="mb-lead"></div>
+<div class="mb-lead"></div>
+
+<p>
+    <span class="a-h1">Дополнительные настройки</span>
+</p>
+<p ng-bind="i18n.filters.options.brackets"></p>
+
+<div class="grid-8">
+    <div class="col-2">
+        <p>
+            <label class="f-label checkbox">
+                <input type="checkbox" ng-model="Options.filters__square_brackets">
+                <span ng-bind="i18n.filters.options.square_brackets"></span>
+            </label>
+        </p>
+    </div><div class="col-2">
+        <p>
+            <label class="f-label checkbox outside">
+                <input type="checkbox" ng-model="Options.filters__curly_brackets">
+                <span ng-bind="i18n.filters.options.curly_brackets"></span>
+            </label>
+        </p>
+    </div>
+</div>
+<div class="mb-lead"></div>
+<p>
+    <label class="f-label checkbox">
+        <input type="checkbox" ng-model="Options.debug">
+        <span ng-bind="i18n.debug"></span>
+    </label>
+</p>
+<!-- --------------------------- -->
+                    </div>
+                </div>
+            </div>
+            <div class="mb-lead"></div>
+            <div class="mb-lead"></div>
+
+            <p style="text-align:center">
+                <button ng-click="defaults()">Сбросить настройки</button>
+            </p>
+        </div>
+        <div class="layout-wrapper">
+            <div class="b-footer">
+                <a class="b-footer__sign" href="http://icw82.ru#kenzovk"></a>
             </div>
         </div>
     </div>
 
     <script src="../scripts/angular.min.js"></script>
+    <script src="../scripts/kk.js"></script>
     <script src="../scripts/core.min.js"></script>
     <script src="script.js"></script>
     <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic&subset=latin,cyrillic' rel='stylesheet' type='text/css'>

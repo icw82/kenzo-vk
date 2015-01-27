@@ -5,7 +5,8 @@
 
 function init(){
     var modules = [
-        'downloads'
+        'downloads',
+        'scrobbler'
     ];
 
     kzvk.init(modules);

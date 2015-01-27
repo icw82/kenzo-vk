@@ -9,8 +9,6 @@ var gp = {
     complete: false
 };
 
-var public_key = kenzo.rand(10);
-
 // Регистрация и Отлов изменений глобального плеера
 mod.observe_gp = function(element){
     //console.log('--observe_gp!');
@@ -23,72 +21,29 @@ mod.observe_gp = function(element){
 
     gp.dom.self = element;
 
-    var provider = document.createElement('script');
-    provider.setAttribute('src', chrome.extension.getURL('scripts/provider-audio.js'));
-    provider.setAttribute('id', 'kenzo-vk__provider-audio');
-    provider.setAttribute('data-ext-id', chrome.runtime.id);
-    provider.setAttribute('data-pub-key', public_key);
-    mod.dom.body.appendChild(provider);
+    mod.make_provider(mod.provider_key);
 
+    // FIX: не очень красиво сие
     var observer = new MutationObserver(function(mutations){
         each (mutations, function(mr){
             // Если плеер ещё не создан полностью
-//            if (!gp.complete){
-                if (mr.target.getAttribute('id') === 'gp_play_btn'){
-                    gp.dom.button = mr.target;
-                } else if (mr.target.getAttribute('id') === 'gp_performer'){
-                    gp.dom.performer = mr.target;
-                } else if (mr.target.getAttribute('id') === 'gp_title'){
-                    gp.dom.title = mr.target;
-                }
-//            } else {
-//                //console.log('---mr', mr.type, mr);
-//
-//                if (mr.type === 'attributes'){
-//                    //console.log('---mr', mr);
-//                    //attributeName: "class"
-//                } else {
-//                    //console.log('---mr***', mr);
-//
-//                };
-//
-//                //console.log('---doms', gp.dom);
-//            }
-
+            if (mr.target.getAttribute('id') === 'gp_play_btn'){
+                gp.dom.button = mr.target;
+            } else if (mr.target.getAttribute('id') === 'gp_performer'){
+                gp.dom.performer = mr.target;
+            } else if (mr.target.getAttribute('id') === 'gp_title'){
+                gp.dom.title = mr.target;
+            }
         });
 
         if (
-//            !gp.complete &&
             (gp.dom.button instanceof Element) &&
             (gp.dom.performer instanceof Element) &&
             (gp.dom.title instanceof Element)
         ){
-            //gp.complete = true;
             observer.disconnect();
-
-            //mod.observe_gb_button();
         }
 
-//        each (changes, function(ch){
-//            each (goals, function(goal){
-//                if (goal.item === ch.object){
-//                    if (goal.changes.indexOf(ch.name) === -1)
-//                        goal.changes.push(ch.name);
-//                    return true;
-//                }
-//            }, function(){
-//                goals.push({
-//                    item: ch.object,
-//                    changes: [ch.name]
-//                });
-//            }, true);
-//        });
-//
-//        if (goals.length > 0){
-//            each (goals, function(goal){
-//                mod.update_button(goal.item, goal.changes);
-//            });
-//        }
     });
 
     observer.observe(gp.dom.self, {childList: true, subtree: true, attributes: true});
@@ -104,44 +59,74 @@ mod.observe_gb_button = function(){
                 console.log('-- ATTR', mr);
 
             }
-        })
-
+        });
     });
 
     observer.observe(gp.dom.button, {childList: true, subtree: true, attributes: true});
 }
 
-//<div id="gp" class="fixed reverse"
-//    style="display: block; top: auto; width: 154px; bottom: 20px; left: 67px;">
-//    <div class="wrap"
-//        onmouseover="addClass(this, 'over');"
-//        onmouseout="removeClass(this, 'over');">
-//        <div id="gp_back" style="width: 154px;">
-//            <div><!-- --></div>
-//        </div>
-//        <div id="gp_wrap">
-//            <div class="audio" id="audio_global">
-//                <div id="gp_small">
-//                    <div id="gp_play_btn" class="fl_l">
-//                        <a onmousedown="cancelEvent(event)"
-//                            onclick="playAudioNew('170344789_335649331', false)">
-//                            <div class="gp_play_wrap">
-//                                <div id="gp_play" class=""></div>
-//                            </div>
-//                        </a>
-//                    </div>
-//                    <div id="gp_info" class="fl_l"
-//                        onmouseover="if (!vk.id) return; Pads.preload('mus')"
-//                        onclick="if (!vk.id) return; window._pads.gpClicked = true; Pads.show('mus', event)">
-//                        <div id="gp_performer">dZihan &amp; Kamien</div>
-//                        <div id="gp_title">Homebase</div>
-//                    </div>
-//                </div>
-//            </div>
-//        </div>
-//    </div>
-//</div>
+mod.make_provider = function(key) {
+    var provider = document.createElement('script');
 
+    // Объект, передаваемый в формате JSON изолированной функции
+    var _ = {
+        id: chrome.runtime.id,
+        message: {
+            action: 'register provider',
+            key: key
+        }
+    }
+
+    // Функция-провайдер, передаваемая во внешний скрипт в форме текста
+    // Работает только в контексте страницы.
+    var isolated_function = function(_){
+        var secret_key = null;
+
+        var ap_observer = function(changes){
+            //console.log('** changes:', changes);
+            var track = audioPlayer.lastSong;
+
+            var info = {
+                current_time: audioPlayer.curTime,
+                id: track.aid,
+                duration: track[3],
+                performer: track[5],
+                title: track[6]
+            }
+
+            chrome.runtime.sendMessage(_.id, {
+                action: 'audio status update',
+                key: secret_key,
+                info: info
+            });
+        }
+
+        chrome.runtime.sendMessage(_.id, _.message, function(){
+            if (typeof arguments[0] === 'string'){
+                secret_key = arguments[0];
+                if (typeof audioPlayer === 'object'){
+//                    console.log('audioPlayer', audioPlayer);
+
+                    Object.observe(audioPlayer, function(changes){
+                        try { // FIXME: временно для отлова ошибок внутри Object.observe();
+                            ap_observer(changes);
+                        } catch (error) {
+                            console.error(error);
+                        }
+                    });
+                }
+            }
+        });
+    };
+
+    provider.innerHTML = '(' + isolated_function + ')(' + JSON.stringify(_) + ')'
+
+    mod.dom.body.appendChild(provider);
+    // Сразу после создания DOM-объекта, функция выполняется.
+    // Проверка показала, что скрипт-провайдер выполняется в первую очередь
+    // и маловероятно, что чужеродный скрипт (eve.js) может сымитировать поведение
+    // провайдера, прежде, чем последний будет выполнен (обменяется ключами с расширением).
+}
 
 //mod.global_player_event_listener = function(){
 //    mod.dom_element.global_player.addEventListener('DOMNodeInserted', function(event){

@@ -26,6 +26,24 @@
     "o__audio__separator": {
         "message": "Разделитель:"
     },
+    "o__audio__separator__1": {
+        "message": "—"
+    },
+    "o__audio__separator__1__desc": {
+        "message": "тире"
+    },
+    "o__audio__separator__2": {
+        "message": "–"
+    },
+    "o__audio__separator__2__desc": {
+        "message": "среднее тире"
+    },
+    "o__audio__separator__3": {
+        "message": "-"
+    },
+    "o__audio__separator__3__desc": {
+        "message": "дефис"
+    },
     "o__audio__progress_bars": {
         "message": "Прогресс-бары"
     },
@@ -69,9 +87,9 @@
         "message": "Удалять из названий сохраняемых файлов скобки и их содержимое:"
     },
     "o__filters__square_brackets": {
-        "message": "Квадратные"
+        "message": "[квадратные]"
     },
     "o__filters__curly_brackets": {
-        "message": "Фигурные"
+        "message": "{фигурные}"
     }
 }

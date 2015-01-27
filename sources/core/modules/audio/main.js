@@ -10,7 +10,8 @@ var mod = {
         'kz-bitrate',
         'kz-progress',
         'kz-unavailable'
-    ]
+    ],
+    provider_key: kzvk.make_key()
 };
 
 mod.init = function(){
@@ -19,6 +20,11 @@ mod.init = function(){
     mod.dom = {
         body: document.querySelector('body')
     }
+
+    chrome.runtime.sendMessage({
+        action: 'set audio provider key',
+        key: mod.provider_key
+    });
 
     kzvk.class_forever('kz-vk-audio', mod.dom.body);
 

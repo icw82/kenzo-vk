@@ -11,18 +11,33 @@ APP.controller('settings', function($scope){
 
 // Текст
 $scope.i18n = {
-    'header': chrome.i18n.getMessage('o__header'),
-    'debug': chrome.i18n.getMessage('o__debug'),
-    'annotation': chrome.i18n.getMessage('o__annotation'),
-    'audio': {
-        'header': chrome.i18n.getMessage('o__audio__header'),
-        'description': chrome.i18n.getMessage('o__audio__description'),
-        'options': {
-            'cache': chrome.i18n.getMessage('o__audio__cache'),
-            'vbr': chrome.i18n.getMessage('o__audio__vbr'),
-            'separator': chrome.i18n.getMessage('o__audio__separator'),
-            'progress_bars': chrome.i18n.getMessage('o__audio__progress_bars'),
-            'simplified': chrome.i18n.getMessage('o__audio__simplified')
+    header: chrome.i18n.getMessage('o__header'),
+    debug: chrome.i18n.getMessage('o__debug'),
+    annotation: chrome.i18n.getMessage('o__annotation'),
+    audio: {
+        header: chrome.i18n.getMessage('o__audio__header'),
+        description: chrome.i18n.getMessage('o__audio__description'),
+        options: {
+            cache: chrome.i18n.getMessage('o__audio__cache'),
+            vbr: chrome.i18n.getMessage('o__audio__vbr'),
+            separator: chrome.i18n.getMessage('o__audio__separator'),
+            separators: [
+                {
+                    char: chrome.i18n.getMessage('o__audio__separator__1'),
+                    desc: chrome.i18n.getMessage('o__audio__separator__1') + ' (' +
+                        chrome.i18n.getMessage('o__audio__separator__1__desc') + ')'
+                },{
+                    char: chrome.i18n.getMessage('o__audio__separator__2'),
+                    desc: chrome.i18n.getMessage('o__audio__separator__2') + ' (' +
+                        chrome.i18n.getMessage('o__audio__separator__2__desc') + ')'
+                },{
+                    char: chrome.i18n.getMessage('o__audio__separator__3'),
+                    desc: chrome.i18n.getMessage('o__audio__separator__3') + ' (' +
+                        chrome.i18n.getMessage('o__audio__separator__3__desc') + ')'
+                }
+            ],
+            progress_bars: chrome.i18n.getMessage('o__audio__progress_bars'),
+            simplified: chrome.i18n.getMessage('o__audio__simplified')
         }
     },
     'video': {

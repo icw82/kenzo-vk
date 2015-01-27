@@ -22,6 +22,16 @@ var _ = {
     loaded: false
 };
 
+_.make_key = function(){
+    var _ = '';
+
+    each (15, function(){
+        _ += String.fromCharCode(kenzo.rand(19968, 40869));
+    });
+
+    return _;
+}
+
 var goals = ['options', 'globals'];
 
 function goal(item){

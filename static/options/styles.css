@@ -1,98 +1,90 @@
-/**
- *    Базовые стили
- */
-body{background-color:rgb(81, 130, 188); color: white; line-height:1.4;
+body{background-color: rgb(81, 130, 188); color: white; line-height:1.4;
     font-family: "PT Sans"}
 
-a{opacity:1; transition: opacity .7s ease, color .7s ease}
+.layout-global-wrapper{width: 100%; min-width: 800px; height: 100%; position: relative}
+.layout-wrapper{width: 680px; min-height: 1px; position: relative;
+    margin: 0 auto; padding: 25px 55px 20px 55px}
+
+.dec-page{background-color: white; color: rgba(0,0,0,.8);
+    box-shadow: 0 20px 50px -20px rgba(0,0,0,.2)}
+
+.compensator{margin-right:-44px}
+
+[class^="grid-"]{display:block; position: relative; margin: 0 -11px 0 -30px}
+[class^="col-"]{display:inline-block; position: relative;
+    vertical-align:top; min-height:1px; padding: 0 10px 0 30px}
+
+[class^="grid-"].delimited:after{display: block; width: 1px; height: 100%; position: absolute;
+    top: 0; left:50%; margin-left: -10px;
+    content: ""; background-color: rgba(0,0,0,.08)}
 /*
+[class^="col-"]:before{width: 100%; height: 5px; position: absolute; left: 0; top: 0;
+    background-color: red; content: ""}
+*/
+
+.grid-8 > .col-1{width: 80px}
+.grid-8 > .col-2{width: 160px}
+.grid-8 > .col-3{width: 240px}
+.grid-8 > .col-4{width: 320px}
+.grid-8 > .col-5{width: 400px}
+.grid-8 > .col-6{width: 480px}
+.grid-8 > .col-6{width: 560px}
+.grid-8 > .col-8{width: 640px}
+.grid-8 > .margin-1{margin-left: 80px}
+.grid-8 > .margin-2{margin-left: 160px}
+.grid-8 > .margin-3{margin-left: 240px}
+.grid-8 > .margin-4{margin-left: 320px}
+.grid-8 > .margin-5{margin-left: 400px}
+.grid-8 > .margin-6{margin-left: 480px}
+.grid-8 > .margin-7{margin-left: 560px}
+
+.mb-lead{width: 100%; height: 18px}
+
+a{opacity:1; transition: opacity .7s ease, color .7s ease}
+
 a:hover,
 a.hover{color:rgb(245, 25, 43); transition-duration:.1s}
-*/
 a:active,
 a.pressed{opacity:.6; transition: opacity .1s ease, color .1s ease}
 
-p{margin-bottom: 5px}
+p{margin-bottom: 7px}
 
-/**
- *  Разметка (layout)
- */
-.layout-global-wrapper{width:100%; min-width:800px; height:100%; position:relative}
-.layout-wrapper{width:600px; margin:0 auto; position:relative; min-height:1px;
-    padding: 10px 15px}
+.a-h1{font-size:18px; font-weight:bold}
 
-.layout-top-layer{width:100%; height:0; position:absolute; left:0; top:0; z-index:99999;
-    transition:top 0 ease .7s; overflow:hidden}
-.layout-top-layer.visible{height:100%; transition:top 0 ease 0}
-.layout-top-layer__shadow{width:100%; height:100%; position:absolute; left:0; top:0; z-index:0;
-    background-color:rgba(0,0,0,0); box-shadow:inset 0 0 300px rgba(0,0,0,0);
-    transition:background-color .7s ease, box-shadow .7s ease}
-.layout-top-layer__shadow.visible{background-color:rgba(0,0,0,.5);
-     box-shadow:inset 0 0 300px rgba(0,0,0,.35)}
+.a-info,
+.a-description{position: relative; font-size:14px; font-style: italic; color: rgba(0,0,0,.6)}
 
-.layout-lead-10{height:10px}
-.layout-lead-20{height:20px}
-.layout-lead-40{height:40px}
-.layout-lead-60{height:60px}
+.a-info:before{display: block; width: 14px; height: 14px;
+    position: absolute; top: 2px; right:100%; margin-right: 5px;
+    content: ''; background-image: url('../images/info.png')}
+.a-description:before{content: '— '}
 
-.dec-page{background-color: white; color:rgba(0,0,0,.8);
-    box-shadow:0 20px 50px -20px rgba(0,0,0,.2)}
+.f-label{display:block; position: relative; box-sizing:border-box; border-radius: 3px;
+    margin-left: -8px; cursor: pointer; vertical-align: baseline}
+.f-label:hover{background-color: rgba(0,0,0,.05)}
+.f-label.pad{margin-left:19px}
 
-[class^="grid-"]{display:block; margin:0 -15px; padding:0 5px}
-[class^="col-"]{display:inline-block; vertical-align:top; min-height:1px; padding:5px 10px}
-
-.grid-12 > .col-1{width:8.33%}
-.grid-12 > .col-2{width:16.66%}
-.grid-12 > .col-3{width:25%}
-.grid-12 > .col-4{width:33.33%}
-.grid-12 > .col-5{width:41.66%}
-.grid-12 > .col-6{width:50%}
-.grid-12 > .col-7{width:58.33%}
-.grid-12 > .col-8{width:66.66%}
-.grid-12 > .col-9{width:75%}
-.grid-12 > .col-10{width:83.33%}
-.grid-12 > .col-11{width:91.66%}
-.grid-12 > .col-12{width:100%}
-.grid-12 > .margin-1{margin-left:8.33%}
-.grid-12 > .margin-2{margin-left:16.66%}
-.grid-12 > .margin-3{margin-left:25%}
-.grid-12 > .margin-4{margin-left:33.33%}
-.grid-12 > .margin-5{margin-left:41.66%}
-.grid-12 > .margin-6{margin-left:50%}
-.grid-12 > .margin-7{margin-left:58.33%}
-.grid-12 > .margin-8{margin-left:66.66%}
-.grid-12 > .margin-9{margin-left:75%}
-.grid-12 > .margin-10{margin-left:83.33%}
-.grid-12 > .margin-11{margin-left:91.66%}
-
-.mb-page-header{text-align: center; font-size: 42px; font-weight:bold}
-.mb-ext-name{text-align: center}
-
-.mb-module-options{transition: opacity .3s ease}
-.mb-module-options.off{opacity: .2; pointer-events:none; cursor: default}
-
-.mb-delimiter{height: 0px; border-bottom:1px solid rgba(0,0,0,.1);
-    margin-left: -15px; margin-right: -15px;
-    margin-top:10px; margin-bottom:10px}
-
-.mb-block-header{font-size:18px; font-weight:bold}
-.mb-block-header__description{font-size:14px; font-weight: normal; font-style: italic;
-    color: rgba(0,0,0,.6)}
-.mb-block-header__description:before{content: '— '}
-
-.mb-label__checkbox{display:inline-block; width:100%; position:relative; box-sizing:border-box;
-     margin-right:-5px; padding:0 5px 1px 23px; border-radius:3px; cursor: pointer}
-.mb-label__checkbox > input[type="checkbox"]{position:absolute; left:1px; top:.15em;
+.f-label.checkbox{padding: 0 5px 1px 25px}
+.f-label.checkbox > input[type="checkbox"]{position: absolute; left:3px; top: 3px;
     cursor:pointer}
-.mb-label__checkbox:hover{background-color: rgba(0,0,0,.05)}
+.f-label.checkbox.outside{margin-left: -25px}
+.f-label.checkbox.level-1 > input[type="checkbox"]{top:4px}
+.f-label.checkbox.level-2{}
 
-.mb-label__select{display:inline-block; width:100%; position:relative; box-sizing:border-box;
-    margin-right: -5px; padding: 5px; border-radius: 3px}
-.mb-label__select:hover{background-color: rgba(0,0,0,.05)}
+.f-label.select{padding: 5px 5px 5px 6px}
+
+.f-group{transition: opacity .3s ease}
+.f-group.off{opacity: .2; pointer-events:none; cursor: default}
+
+.b-header{text-align: center;}
+.b-header__header{font-size: 42px; font-weight:bold}
+.b-header__extention{}
+.b-header__name{}
+.b-header__version{}
 
 .b-footer{text-align:center}
 .b-footer__sign{display:inline-block; width:29px; height:29px; opacity:.8;
     background-repeat: no-repeat; background-image: url('../images/icw82.png');
     transition: opacity .7s ease, color .7s ease}
 .b-footer__sign:hover{opacity: 1;
-    transition: opacity .2s ease, color .2s ease}
+    transition: opacity .2s ease, color .2s ease

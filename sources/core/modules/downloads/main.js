@@ -44,22 +44,29 @@ mod.message_listner = function(request, sender, sendResponse){
     if (sender.id !== chrome.runtime.id)
         return false;
 
+    kzvk.options.debug && request.name && console.log('source:', request.name);
+
     if (typeof request.name === 'string'){
         request.name = request.name.replace(/[\\\/:\*\?<>\|\"]*/g, '');
 
-        if (kzvk.options.filters__square_brackets === true)
+        if (kzvk.options.filters__square_brackets === true){
             request.name = request.name.replace(/\[.+?\]/g, '');
-        if (kzvk.options.filters__curly_brackets === true)
-            request.name = request.name.replace(/\{.+?\}/g, '');
+        }
 
-        request.name = request.name.trim()
+        if (kzvk.options.filters__curly_brackets === true){
+            request.name = request.name.replace(/\{.+?\}/g, '');
+        }
+
+        request.name = request.name.trim();
         request.name = request.name.replace(/\s+/g, ' ');
-        request.name = request.name.replace(/\s(\.\w+?)$/g, '.');
+        request.name = request.name.replace(/\s(\.\w+?)$/g, '$1');
 
         if (request.name.length === 0){
             request.name = chrome.i18n.getMessage('mistake');
         }
     }
+
+    kzvk.options.debug && request.name && console.log('filtered:', request.name);
 
     if (request.action === 'vk-audio__save'){ // AUDIO
         chrome.downloads.download({
@@ -100,8 +107,6 @@ mod.message_listner = function(request, sender, sendResponse){
             });
         });
     }
-
-    //console.log(request);
 }
 
 mod.init = function(){
@@ -118,10 +123,6 @@ mod.init = function(){
     chrome.downloads.onChanged.addListener(mod.downloads_listner);
 
     chrome.runtime.onMessage.addListener(mod.message_listner);
-
-//    chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
-//        console.log('request', request);
-//    });
 
 }
 

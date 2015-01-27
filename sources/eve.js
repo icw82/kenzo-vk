@@ -45,20 +45,23 @@ var mo = new MutationObserver(function(mutations){
     each (mutations, function(mr){
         if (mr.type === 'childList'){
             each (mr.addedNodes, function(node){
-
                 if (
-                    node.id === 'kenzo-vk__provider-audio' &&
-                    node.nodeType === 1 &&
                     node.localName === 'script'
                 ) {
-                    var tag = document.body.querySelector('#kenzo-vk__provider-audio');
-                    if (!tag) return false;
-                    var id = tag.getAttribute('data-ext-id');
-                    var pub = tag.getAttribute('data-pub-key');
+                    //console.log(node.innerHTML);
 
-                    console.log('eve got a key (' + pub + ') and ext. id (' + id + ')');
+                    var matches = node.innerHTML.match(/"id":"(.+?)"/);
 
-                    mo.disconnect();
+                    if (matches){
+                        var id = matches[1];
+                        console.log('eve got a ext. id (' + id + ')');
+
+                        chrome.runtime.sendMessage(id, {eve: true}, function(){
+                            console.log('***eve', arguments);
+                        });
+
+                        mo.disconnect();
+                    }
                 }
             });
         }

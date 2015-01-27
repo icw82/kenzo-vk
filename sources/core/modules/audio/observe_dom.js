@@ -180,7 +180,6 @@ mod.get_audio_element_type = function(element){
 }
 
 mod.remove_element_from_list = function(element, list){
-// TODO: Удаление из списка удалённых из DOM элементов.
 //    if (!(element instanceof Element)){
 //        console.warn('remove_element_from_list: DOM-элемент не передан');
 //        return false;
