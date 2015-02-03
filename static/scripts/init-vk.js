@@ -7,6 +7,22 @@
 //eve.setAttribute('src', chrome.extension.getURL('scripts/eve.js'));
 //document.body.appendChild(eve);
 
+// Встраивание векторной графики
+var xhr = new XMLHttpRequest();
+xhr.open('GET', chrome.extension.getURL('images/graphics.svg'), true);
+xhr.onreadystatechange = function(){
+    if (xhr.readyState !== 4) return false;
+    if (xhr.status === 200){
+        var self = this;
+
+        var container = document.createElement('div');
+        container.innerHTML = self.response;
+        document.body.appendChild(container);
+    }
+}
+
+xhr.send(null);
+
 function init(){
     var modules = [
         'trash',

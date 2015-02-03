@@ -5,7 +5,6 @@
 var mod = kzvk.modules.audio;
 
 mod.button_event = function(item, event){
-
     kenzo.stop_event(event);
 
     if (event.which === 2){

@@ -128,22 +128,4 @@ mod.make_provider = function(key) {
     // провайдера, прежде, чем последний будет выполнен (обменяется ключами с расширением).
 }
 
-//mod.global_player_event_listener = function(){
-//    mod.dom_element.global_player.addEventListener('DOMNodeInserted', function(event){
-//        if (
-//            (event.target instanceof Element) &&
-//            (event.target.localName == 'a') &&
-//            (event.target.querySelector('#gp_play'))
-//        ){
-//            var onclick_instructions = event.target.getAttribute('onclick'),
-//                matches = onclick_instructions.match(/playAudioNew\('(.+?)'/);
-//
-//            if (matches[1] && (matches[1] != kzvk.globals.now_playing)){
-//                chrome.storage.local.set({'audio':{'now_playing': matches[1]}});
-//            }
-//
-//        }
-//    });
-//}
-
 })(kzvk);

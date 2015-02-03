@@ -33,7 +33,7 @@ mod.update_button__basic = function(item){
         message = item.bitrate || '…';
     }
 
-    kenzo.toggle_class(item.dom_element, 'kz-bitrate', mod.audio_item_classes, false);
+    kenzo.class(item.dom_element, 'kz-bitrate', mod.audio_item_classes);
     item.dom_bitrate.setAttribute('data-message', message);
     item.dom_carousel.setAttribute('href', item.url);
 
@@ -45,32 +45,26 @@ mod.update_button__basic = function(item){
         'kz-vk-audio__bitrate--crap'];
 
     if (item.bitrate >= 288)
-        kenzo.toggle_class(item.dom_carousel,
-            'kz-vk-audio__bitrate--320', bitrate_classes, false);
+        kenzo.class(item.dom_carousel, 'kz-vk-audio__bitrate--320', bitrate_classes);
     else if (item.bitrate >= 224)
-        kenzo.toggle_class(item.dom_carousel,
-            'kz-vk-audio__bitrate--256', bitrate_classes, false);
+        kenzo.class(item.dom_carousel, 'kz-vk-audio__bitrate--256', bitrate_classes);
     else if (item.bitrate >= 176)
-        kenzo.toggle_class(item.dom_carousel,
-            'kz-vk-audio__bitrate--196', bitrate_classes, false);
+        kenzo.class(item.dom_carousel, 'kz-vk-audio__bitrate--196', bitrate_classes);
     else if (item.bitrate >= 112)
-        kenzo.toggle_class(item.dom_carousel,
-            'kz-vk-audio__bitrate--128', bitrate_classes, false);
+        kenzo.class(item.dom_carousel, 'kz-vk-audio__bitrate--128', bitrate_classes);
     else
-        kenzo.toggle_class(item.dom_carousel,
-            'kz-vk-audio__bitrate--crap', bitrate_classes, false);
-
+        kenzo.class(item.dom_carousel, 'kz-vk-audio__bitrate--crap', bitrate_classes);
 }
 
 mod.update_button__download_progress = function(item){
     if (item.progress === null){
-        kenzo.toggle_class(item.dom_element, 'kz-bitrate', mod.audio_item_classes, false);
+        kenzo.class(item.dom_element, 'kz-bitrate', mod.audio_item_classes);
     } else {
         item.dom_progress__filling.style.left = -100 + item.progress + '%';
         //item.dom_progress.setAttribute('data-progress', item.progress + '%');
 
         if (!item.dom_element.classList.contains('kz-progress'))
-            kenzo.toggle_class(item.dom_element, 'kz-progress', mod.audio_item_classes, false);
+            kenzo.class(item.dom_element, 'kz-progress', mod.audio_item_classes);
     }
 }
 
@@ -78,7 +72,7 @@ mod.update_button = function(item, changes){
     //console.log(item, changes);
 
     if (!item.available){
-        kenzo.toggle_class(item.dom_element, 'kz-unavailable', mod.audio_item_classes, false);
+        kenzo.class(item.dom_element, 'kz-unavailable', mod.audio_item_classes);
         return false;
     }
 

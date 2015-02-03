@@ -57,6 +57,9 @@ mod.create_button = function(item){
             '<div class="kz-vk-audio__carousel__item kz-bitrate"></div>' +
             '<div class="kz-vk-audio__carousel__item kz-progress">' +
                 '<div class="kz-vk-audio__progress-filling"></div>' +
+                '<svg class="kz-vk-audio__cross">' +
+                    '<use xlink:href="#kzvk-cross" />' +
+                '</svg>' +
             '</div>' +
             '<div class="kz-vk-audio__carousel__item kz-unavailable"></div>' +
             '<div class="kz-vk-audio__carousel__item kz-direct"></div>' +
