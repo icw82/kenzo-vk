@@ -16,7 +16,6 @@ $scope.i18n = {
     annotation: chrome.i18n.getMessage('o__annotation'),
     audio: {
         header: chrome.i18n.getMessage('o__audio__header'),
-        description: chrome.i18n.getMessage('o__audio__description'),
         options: {
             cache: chrome.i18n.getMessage('o__audio__cache'),
             vbr: chrome.i18n.getMessage('o__audio__vbr'),
@@ -42,15 +41,16 @@ $scope.i18n = {
     },
     'video': {
         'header': chrome.i18n.getMessage('o__video__header'),
-        'description': chrome.i18n.getMessage('o__video__description'),
         'options': {
             'progress_bars': chrome.i18n.getMessage('o__video__progress_bars'),
             'simplified': chrome.i18n.getMessage('o__video__simplified')
         }
     },
+    'scrobbler': {
+        'header': chrome.i18n.getMessage('o__scrobbler__header'),
+    },
     'trash': {
         'header': chrome.i18n.getMessage('o__trash__header'),
-        'description': chrome.i18n.getMessage('o__trash__description'),
         'options': {
             'lsb__ad': chrome.i18n.getMessage('o__trash__lsb__ad'),
             'lsb__fr': chrome.i18n.getMessage('o__trash__lsb__fr'),
@@ -60,7 +60,6 @@ $scope.i18n = {
     },
     'filters': {
         //'header': chrome.i18n.getMessage('o__trash__header'),
-        //'description': chrome.i18n.getMessage('o__trash__description'),
         'options': {
             'brackets': chrome.i18n.getMessage('o__filters__brackets'),
             'square_brackets': chrome.i18n.getMessage('o__filters__square_brackets'),
@@ -74,6 +73,13 @@ $scope.Manifest = chrome.runtime.getManifest();
 // Настройки
 var watch_flag = false;
 $scope.Options = {};
+$scope.scrobbler = {
+    auth_url: kzvk.modules.scrobbler.auth_url
+}
+
+var token = window.location.href.match(/token=([\w\d]+)/) || false;
+if (token)
+    token = token[1];
 
 function sync_model(){
     chrome.storage.sync.get(default_options, function(items){

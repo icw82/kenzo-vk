@@ -8,6 +8,7 @@
 //document.body.appendChild(eve);
 
 // Встраивание векторной графики
+
 var xhr = new XMLHttpRequest();
 xhr.open('GET', chrome.extension.getURL('images/graphics.svg'), true);
 xhr.onreadystatechange = function(){
@@ -16,6 +17,7 @@ xhr.onreadystatechange = function(){
         var self = this;
 
         var container = document.createElement('div');
+        container.style.display = 'none';
         container.innerHTML = self.response;
         document.body.appendChild(container);
     }

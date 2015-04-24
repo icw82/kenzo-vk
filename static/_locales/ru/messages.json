@@ -1,6 +1,6 @@
 {
     "ext_description": {
-        "message": "Доп. функции для VK (вКонтакте): ск. аудио- и видеозаписей, определение переменного битрейта, антиреклама и пр."
+        "message": "Дополнительный функционал для VK"
     },
     "mistake": {
         "message": "Недоразумение"
@@ -12,10 +12,7 @@
         "message": "Настройки"
     },
     "o__audio__header": {
-        "message": "Audio"
-    },
-    "o__audio__description": {
-        "message": "расширение для аудиозаписей"
+        "message": "Аудио"
     },
     "o__audio__cache": {
         "message": "Кэширование информации об аудиозаписях"
@@ -51,10 +48,7 @@
         "message": "Упрощённый вид кнопки"
     },
     "o__video__header": {
-        "message": "Video"
-    },
-    "o__video__description": {
-        "message": "расширение для видеозаписей"
+        "message": "Видео"
     },
     "o__video__progress_bars": {
         "message": "Прогресс-бары"
@@ -62,11 +56,11 @@
     "o__video__simplified": {
         "message": "Упрощённый вид кнопок"
     },
-    "o__trash__header": {
-        "message": "Trash"
+    "o__scrobbler__header": {
+        "message": "Скробблер"
     },
-    "o__trash__description": {
-        "message": "скрытие навязчивых блоков"
+    "o__trash__header": {
+        "message": "Мусор"
     },
     "o__trash__lsb__ad": {
         "message": "Реклама в сайдбаре"

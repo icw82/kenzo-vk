@@ -5,7 +5,7 @@
 var mod = kzvk.modules.video;
 
 mod.button_event = function(item, event){
-    kenzo.stop_event(event);
+    kenzo.event.stop(event);
 
     function start(){
         chrome.runtime.sendMessage({

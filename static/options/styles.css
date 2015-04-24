@@ -57,11 +57,17 @@ p{margin-bottom: 7px}
 .a-info:before{display: block; width: 14px; height: 14px;
     position: absolute; top: 2px; right:100%; margin-right: 5px;
     content: ''; background-image: url('../images/info.png')}
-.a-description:before{content: '— '}
 
-.f-label{display:block; position: relative; box-sizing:border-box; border-radius: 3px;
+.f-button{display: inline-block; padding:1px 10px 2px 10px;
+    border: 1px solid rgba(0,0,0,.1); border-radius: 4px;
+    background-color: rgba(0,0,0,.05)}
+.f-button:hover{border-color: rgba(0,0,0,.2); background-color: rgba(0,0,0,.08);
+    color: rgba(0,0,0,.8)}
+
+.f-label{display: block; position: relative; box-sizing:border-box; border-radius: 3px;
     margin-left: -8px; cursor: pointer; vertical-align: baseline}
 .f-label:hover{background-color: rgba(0,0,0,.05)}
+.f-label.short{display: inline-block}
 .f-label.pad{margin-left:19px}
 
 .f-label.checkbox{padding: 0 5px 1px 25px}

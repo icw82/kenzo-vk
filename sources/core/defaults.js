@@ -31,6 +31,10 @@ var default_options = {
     video__progress_bars: true,
     video__simplified: false,
 
+    scrobbler: false,
+    scrobbler__proportion: 50,
+    scrobbler__4m: true,
+
     trash: true,
     trash__lsb__ad: true,
     trash__lsb__fr: true,

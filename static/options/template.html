@@ -37,7 +37,6 @@
     <label class="f-label checkbox level-1 outside">
         <input type="checkbox" ng-model="Options.audio">
         <span class="a-h1" ng-bind="i18n.audio.header"></span>
-        <span class="a-description" ng-bind="i18n.audio.description"></span>
     </label>
 </p>
 <div class="f-group" ng-class="{off: !Options.audio}">
@@ -80,11 +79,38 @@
 <div class="mb-lead"></div>
 <div class="mb-lead"></div>
 
+<!--
+<p>
+    <label class="f-label checkbox level-1 outside short">
+        <input type="checkbox" ng-model="Options.scrobbler">
+        <span class="a-h1" ng-bind="i18n.scrobbler.header"></span>
+    </label>
+    <a class="a-description" ng-href="[[scrobbler.auth_url]]">
+        Авторизировать
+    </a>
+</p>
+<div class="f-group" ng-class="{off: !Options.scrobbler}">
+    <p>
+        На <input type="range" min="50" max="100" step="5"
+            style="vertical-align: top; width:100px"
+            ng-model="Options.scrobbler__proportion" />
+        <span
+            ng-bind="Options.scrobbler__proportion"></span>% композиции
+        </label>
+    </p>
+    <p>
+        <label class="f-label checkbox">
+            <input type="checkbox" ng-model="Options.scrobbler__4m">
+            <span>… или через 4 минуты </span>
+        </label>
+        <span class="a-description ">(в зависимости от того, какое событие наступит раньше)</span>
+    </p>
+</div>
+-->
 <p>
     <label class="f-label checkbox level-1 outside">
         <input type="checkbox" ng-model="Options.video">
         <span class="a-h1" ng-bind="i18n.video.header"></span>
-        <span class="a-description" ng-bind="i18n.video.description"></span>
     </label>
 </p>
 <div class="f-group" ng-class="{off: !Options.video}">
@@ -101,23 +127,19 @@
         </label>
     </p>
 </div>
-<!--
-        <p>
-            <a href="last.fm/api/auth?api_key=">
-                Авторизировать скробблер
-            </a>
-        </p>
--->
 
 <!-- --------------------------- -->
                 </div><div class="col-4">
 <!-- --------------------------- -->
 
+
+<div class="mb-lead"></div>
+<div class="mb-lead"></div>
+
 <p>
     <label class="f-label checkbox level-1 outside">
         <input type="checkbox" ng-model="Options.trash">
         <span class="a-h1" ng-bind="i18n.trash.header"></span>
-        <span class="a-description" ng-bind="i18n.trash.description"></span>
     </label>
 </p>
 <div class="f-group" ng-class="{off: !Options.trash}">
@@ -187,7 +209,7 @@
             <div class="mb-lead"></div>
 
             <p style="text-align:center">
-                <button ng-click="defaults()">Сбросить настройки</button>
+                <button class="f-button" ng-click="defaults()">Сбросить настройки</button>
             </p>
         </div>
         <div class="layout-wrapper">

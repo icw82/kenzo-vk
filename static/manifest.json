@@ -64,7 +64,8 @@
         "images/download-c.png",
         "images/download-u.png",
         "images/abort.png",
-        "images/abort-c.png"
+        "images/abort-c.png",
+        "options/template.html"
     ],
     "minimum_chrome_version": "38",
     "manifest_version": 2

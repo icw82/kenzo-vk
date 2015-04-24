@@ -5,6 +5,13 @@
 var mod = {
     name: 'scrobbler',
     version: '1.0.0',
+    api_key: 'dc20a585f46d025a75b0efdce8c9957a',
+    secret: '110ce7f7a6cec742c6433507428ebfc7',
+    get auth_url(){
+        return 'http://last.fm/api/auth?api_key=' +
+            this.api_key + '&cb=' +
+            chrome.runtime.getURL('options/template.html');
+    },
     keys: []
 };
 
@@ -33,7 +40,7 @@ mod.init = function(){
         } else if (request.action === 'audio status update'){
             each (mod.keys, function(key, i){
                if (key === request.key){
-                   //console.log('** info:', request.info);
+                   // console.log('** info:', request.info);
 
                }
             });
