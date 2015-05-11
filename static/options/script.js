@@ -1,7 +1,7 @@
 //  – — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —|
 'use strict'
 
-var APP = angular.module('kenzo-vk', []);
+var APP = angular.module('kenzo-vk', ['ngSanitize']);
 APP.config(function($interpolateProvider) {
     $interpolateProvider.startSymbol('[[');
     $interpolateProvider.endSymbol(']]');
@@ -9,11 +9,26 @@ APP.config(function($interpolateProvider) {
 
 APP.controller('settings', function($scope){
 
+function replace_links(text, link){
+    if (typeof text == 'string')
+        return text.replace(/\*(.+?)\*/g, '<a class="a-link" href="' + link + '">$1</a>');
+    else
+        return text;
+}
+
 // Текст
 $scope.i18n = {
     header: chrome.i18n.getMessage('o__header'),
     debug: chrome.i18n.getMessage('o__debug'),
-    annotation: chrome.i18n.getMessage('o__annotation'),
+    reset: chrome.i18n.getMessage('o__reset'),
+    others: chrome.i18n.getMessage('o__others'),
+    info: {
+        changes: chrome.i18n.getMessage('o__i__changes'),
+        beta: replace_links(
+            chrome.i18n.getMessage('o__i__beta'),
+            'https://vk.com/kenzovk'
+        )
+    },
     audio: {
         header: chrome.i18n.getMessage('o__audio__header'),
         options: {
@@ -36,7 +51,8 @@ $scope.i18n = {
                 }
             ],
             progress_bars: chrome.i18n.getMessage('o__audio__progress_bars'),
-            simplified: chrome.i18n.getMessage('o__audio__simplified')
+            simplified: chrome.i18n.getMessage('o__audio__simplified'),
+            simplified__desc: chrome.i18n.getMessage('o__audio__simplified__desc')
         }
     },
     'video': {
@@ -77,10 +93,6 @@ $scope.scrobbler = {
     auth_url: kzvk.modules.scrobbler.auth_url
 }
 
-var token = window.location.href.match(/token=([\w\d]+)/) || false;
-if (token)
-    token = token[1];
-
 function sync_model(){
     chrome.storage.sync.get(default_options, function(items){
         watch_flag = false;
@@ -106,4 +118,14 @@ chrome.storage.onChanged.addListener(function(changes, areaName){
     }
 });
 
+// Токен
+var token = window.location.href.match(/token=([\w\d]+)/) || false;
+if (token)
+    kzvk.modules.scrobbler.methods.auth.getSession(token[1]);
+
 });
+
+// title
+//Настройки Kenzo VK
+document.title = chrome.runtime.getManifest().name + ': ' + chrome.i18n.getMessage('o__header');
+

@@ -25,9 +25,8 @@ mod.update_button__basic = function(item){
                             item.vk_duration);
                 } else
                     item.bitrate = mod.calc_bitrate_classic(item.size, item.vk_duration);
-            } else {
+            } else
                 item.bitrate = false;
-            }
         }
 
         message = item.bitrate || '…';
@@ -36,6 +35,7 @@ mod.update_button__basic = function(item){
     kenzo.class(item.dom_element, 'kz-bitrate', mod.audio_item_classes);
     item.dom_bitrate.setAttribute('data-message', message);
     item.dom_carousel.setAttribute('href', item.url);
+    item.dom_carousel.setAttribute('download', item.vk_name + '.mp3');
 
     var bitrate_classes = [
         'kz-vk-audio__bitrate--320',

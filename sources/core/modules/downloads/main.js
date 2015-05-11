@@ -44,29 +44,7 @@ mod.message_listner = function(request, sender, sendResponse){
     if (sender.id !== chrome.runtime.id)
         return false;
 
-    kzvk.options.debug && request.name && console.log('source:', request.name);
-
-    if (typeof request.name === 'string'){
-        request.name = request.name.replace(/[\\\/:\*\?<>\|\"]*/g, '');
-
-        if (kzvk.options.filters__square_brackets === true){
-            request.name = request.name.replace(/\[.+?\]/g, '');
-        }
-
-        if (kzvk.options.filters__curly_brackets === true){
-            request.name = request.name.replace(/\{.+?\}/g, '');
-        }
-
-        request.name = request.name.trim();
-        request.name = request.name.replace(/\s+/g, ' ');
-        request.name = request.name.replace(/\s(\.\w+?)$/g, '$1');
-
-        if (request.name.length === 0){
-            request.name = chrome.i18n.getMessage('mistake');
-        }
-    }
-
-    kzvk.options.debug && request.name && console.log('filtered:', request.name);
+    request.name = kzvk.name_filter(request.name);
 
     if (request.action === 'vk-audio__save'){ // AUDIO
         chrome.downloads.download({

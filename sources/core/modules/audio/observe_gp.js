@@ -21,7 +21,9 @@ mod.observe_gp = function(element){
 
     gp.dom.self = element;
 
-    mod.make_provider(mod.provider_key);
+    // Пока нужно только для скробблинга
+    if (kzvk.options.scrobbler)
+        mod.make_provider(mod.provider_key);
 
     // FIX: не очень красиво сие
     var observer = new MutationObserver(function(mutations){

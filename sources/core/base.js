@@ -51,14 +51,14 @@ chrome.storage.sync.get(default_options, function(options){
 
 chrome.storage.local.get(default_globals, function(globals){
     chrome.storage.local.set(globals, function(){
-//        _.globals = globals;
+        // _.globals = globals;
         goal('globals');
     });
 });
 
 // Прослушивание изменений настроек и глобальных переменных
 chrome.storage.onChanged.addListener(function(changes, areaName){
-    if (areaName == 'sync'){
+    if (areaName == 'sync') {
         chrome.storage.sync.get(default_options, function(options){
             _.options = options;
         });

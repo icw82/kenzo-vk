@@ -92,7 +92,7 @@ mod.init = function(){
 
             var newsads = event.target.querySelectorAll('.ads_ads_news_wrap');
             //FIXME: говнокод
-            each(newsads, function(item){
+            each (newsads, function(item){
                 if ('parentNode' in item){
                     if (item.parentNode.classList.contains('feed_row')){
                         mod.drop(item.parentNode);

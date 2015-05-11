@@ -40,19 +40,27 @@ body{background-color: rgb(81, 130, 188); color: white; line-height:1.4;
 
 .mb-lead{width: 100%; height: 18px}
 
-a{opacity:1; transition: opacity .7s ease, color .7s ease}
+a,
+.a-link{opacity:1; transition: opacity .7s ease, color .7s ease}
 
 a:hover,
-a.hover{color:rgb(245, 25, 43); transition-duration:.1s}
+a.hover,
+.a-link:hover,
+.a-link.hover{color:rgb(245, 25, 43); transition-duration:.1s}
 a:active,
-a.pressed{opacity:.6; transition: opacity .1s ease, color .1s ease}
+a.pressed,
+.a-link:active,
+.a-link.pressed{opacity:.6; transition: opacity .1s ease, color .1s ease}
 
 p{margin-bottom: 7px}
 
 .a-h1{font-size:18px; font-weight:bold}
 
 .a-info,
-.a-description{position: relative; font-size:14px; font-style: italic; color: rgba(0,0,0,.6)}
+.a-description{position: relative; font-size: 14px; font-style: italic; color: rgba(0,0,0,.6)}
+
+.a-info > a,
+.a-description > a{text-decoration: underline}
 
 .a-info:before{display: block; width: 14px; height: 14px;
     position: absolute; top: 2px; right:100%; margin-right: 5px;
@@ -93,4 +101,4 @@ p{margin-bottom: 7px}
     background-repeat: no-repeat; background-image: url('../images/icw82.png');
     transition: opacity .7s ease, color .7s ease}
 .b-footer__sign:hover{opacity: 1;
-    transition: opacity .2s ease, color .2s ease
+    transition: opacity .2s ease, color .2s ease}

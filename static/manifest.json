@@ -2,7 +2,7 @@
     "default_locale": "ru",
     "name": "Kenzo VK",
     "short_name": "Kenzo VK",
-    "version": "1.2.4",
+    "version": "1.3",
     "description": "__MSG_ext_description__",
     "author": "icw82",
     "icons": {
@@ -25,13 +25,16 @@
             "*://vk.com/*",
             "*://*.vk.com/*",
             "*://*.vk.me/*",
-            "*://*.vk-cdn.net/*"
+            "*://*.vk-cdn.net/*",
+            "*://ws.audioscrobbler.com/*"
         ]
     },
     "background": {
         "persistent": true,
         "scripts": [
             "scripts/kk.js",
+            "scripts/md5.min.js",
+            "scripts/he.js",
             "scripts/core.min.js",
             "scripts/init-background.js"
         ]
@@ -49,6 +52,7 @@
             ],
             "js": [
                 "scripts/kk.js",
+                "scripts/md5.min.js",
                 "scripts/core.min.js",
                 "scripts/init-vk.js"
             ],
@@ -67,6 +71,6 @@
         "images/abort-c.png",
         "options/template.html"
     ],
-    "minimum_chrome_version": "38",
+    "minimum_chrome_version": "41",
     "manifest_version": 2
 }

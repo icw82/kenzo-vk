@@ -22,8 +22,7 @@ mod.button_event = function(item, event){
         chrome.runtime.sendMessage({
             action: 'vk-audio__save',
             url: item.url,
-            name: item.vk_artist + ' ' + kzvk.options.audio__separator + ' '
-                + item.vk_title + '.mp3',
+            name: item.vk_name + '.mp3',
             id: item.id
         });
 

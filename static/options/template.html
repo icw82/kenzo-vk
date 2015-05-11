@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html ng-app="kenzo-vk">
 <head>
-    <title>Настройки Kenzo VK</title>
+    <title></title>
     <meta charset="UTF-8" />
 
-    <link type="image/png" rel="icon" href="../images/icons/favicon.png" />
+    <link type="image/png" rel="icon" href="../images/icons/16.png" />
     <link rel="stylesheet" href="../styles/kk-reset.css" />
     <link rel="stylesheet" href="styles.css" />
 </head>
@@ -24,7 +24,10 @@
             <div class="compensator">
                 <div class="grid-8">
                     <div class="col-4">
-                        <p class="a-info" ng-bind="i18n.annotation"></p>
+                        <p class="a-info" ng-bind="i18n.info.changes"></p>
+                    </div>
+                    <div class="col-4">
+                        <p class="a-info" ng-bind-html="i18n.info.beta"></p>
                     </div>
                 </div>
 
@@ -61,7 +64,8 @@
     <p>
         <label class="f-label checkbox">
             <input type="checkbox" ng-model="Options.audio__simplified">
-            <span ng-bind="i18n.audio.options.simplified"></span>
+            <span ng-bind="i18n.audio.options.simplified"></span><br />
+            <span ng-bind="i18n.audio.options.simplified__desc" class="a-description"></span>
         </label>
     </p>
 
@@ -79,13 +83,13 @@
 <div class="mb-lead"></div>
 <div class="mb-lead"></div>
 
-<!--
+<!-- scrobbler -->
 <p>
     <label class="f-label checkbox level-1 outside short">
         <input type="checkbox" ng-model="Options.scrobbler">
         <span class="a-h1" ng-bind="i18n.scrobbler.header"></span>
     </label>
-    <a class="a-description" ng-href="[[scrobbler.auth_url]]">
+    <a class="f-button" ng-href="[[scrobbler.auth_url]]">
         Авторизировать
     </a>
 </p>
@@ -103,10 +107,16 @@
             <input type="checkbox" ng-model="Options.scrobbler__4m">
             <span>… или через 4 минуты </span>
         </label>
-        <span class="a-description ">(в зависимости от того, какое событие наступит раньше)</span>
+        <span class="a-description ">
+            (в зависимости от того, какое событие наступит раньше)</span>
     </p>
 </div>
--->
+
+<!-- --------------------------- -->
+                </div><div class="col-4">
+<!-- --------------------------- -->
+
+<!-- video -->
 <p>
     <label class="f-label checkbox level-1 outside">
         <input type="checkbox" ng-model="Options.video">
@@ -128,14 +138,10 @@
     </p>
 </div>
 
-<!-- --------------------------- -->
-                </div><div class="col-4">
-<!-- --------------------------- -->
-
-
 <div class="mb-lead"></div>
 <div class="mb-lead"></div>
 
+<!-- trash -->
 <p>
     <label class="f-label checkbox level-1 outside">
         <input type="checkbox" ng-model="Options.trash">
@@ -173,7 +179,7 @@
 <div class="mb-lead"></div>
 
 <p>
-    <span class="a-h1">Дополнительные настройки</span>
+    <span class="a-h1" ng-bind="i18n.others"></span>
 </p>
 <p ng-bind="i18n.filters.options.brackets"></p>
 
@@ -209,7 +215,7 @@
             <div class="mb-lead"></div>
 
             <p style="text-align:center">
-                <button class="f-button" ng-click="defaults()">Сбросить настройки</button>
+                <button class="f-button" ng-click="defaults()" ng-bind="i18n.reset"></button>
             </p>
         </div>
         <div class="layout-wrapper">
@@ -220,7 +226,10 @@
     </div>
 
     <script src="../scripts/angular.min.js"></script>
+    <script src="../scripts/angular-sanitize.min.js"></script>
     <script src="../scripts/kk.js"></script>
+    <script src="../scripts/md5.min.js"></script>
+    <script src="../scripts/he.js"></script>
     <script src="../scripts/core.min.js"></script>
     <script src="script.js"></script>
     <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic&subset=latin,cyrillic' rel='stylesheet' type='text/css'>

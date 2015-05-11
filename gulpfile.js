@@ -12,8 +12,18 @@ var paths = {
         './bower_components/angular/angular.min.js',
         './bower_components/angular/angular.min.js.map'
     ],
+    'angular_sanitize': [
+        './bower_components/angular-sanitize/angular-sanitize.min.js',
+        './bower_components/angular-sanitize/angular-sanitize.min.js.map'
+    ],
     'kk': [
         './bower_components/kenzo-kit/kk.js'
+    ],
+    'md5': [
+        './bower_components/blueimp-md5/js/md5.min.js'
+    ],
+    'he': [
+        './bower_components/he/he.js'
     ],
     'core': [
         './sources/core/defaults.js',
@@ -46,8 +56,17 @@ gulp.task('scripts', function(){
     var angular = gulp
         .src(paths.angular);
 
+    var angular_sanitize = gulp
+        .src(paths.angular_sanitize);
+
     var kk = gulp
         .src(paths.kk);
+
+    var md5 = gulp
+        .src(paths.md5);
+
+    var he = gulp
+        .src(paths.he);
 
     var core = gulp
         .src(paths.core)
@@ -57,7 +76,7 @@ gulp.task('scripts', function(){
         //.pipe(uglify().on("error", gutil.log))
         //.pipe(sourcemaps.write('../scripts/'))
 
-    return es.merge(angular, kk, core)
+    return es.merge(angular, angular_sanitize, kk, md5, he, core)
         .pipe(gulp.dest('build/scripts'));
 });
 

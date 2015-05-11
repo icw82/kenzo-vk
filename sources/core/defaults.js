@@ -47,11 +47,15 @@ var default_options = {
 };
 
 var default_globals = {
-    'audio': {
-        'now_playing': null
+    audio: {
+        now_playing: null
     },
-    'downloads': {
-        'history': [],
-        'current': []
+    downloads: {
+        history: [],
+        current: []
+    },
+    scrobbler: {
+        session: null,
+        buffer: []
     }
 };
