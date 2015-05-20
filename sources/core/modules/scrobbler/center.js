@@ -98,7 +98,7 @@ mod.center = function(info){
                         if (info.current_time < item.last_position) {
                             item.scrobbled = false;
                             item.state = 0;
-                            item.irst_update = Math.floor(kenzo.ts() / 1000);
+                            item.first_update = Math.floor(kenzo.ts() / 1000);
                         }
                     }
                 } else {
