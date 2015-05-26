@@ -34,9 +34,9 @@ var paths = {
     ]
 };
 
-gulp.task('static', function(){
+gulp.task('immutable', function(){
     return gulp
-        .src('./static/**/*.*')
+        .src('./immutable/**/*.*')
         .pipe(gulp.dest('build'))
 });
 
@@ -82,11 +82,11 @@ gulp.task('scripts', function(){
 
 gulp.task('watch', function(){
     gulp.watch([
-        './static/**/*.*',
+        './immutable/**/*.*',
         './sources/**/*'
-    ], ['clean', 'static', 'scripts', 'styles']);
+    ], ['clean', 'immutable', 'scripts', 'styles']);
 
-//    gulp.watch(['./static/**/*.*'], ['static']);
+//    gulp.watch(['./immutable/**/*.*'], ['immutable']);
 //    gulp.watch('./sources/**/*', ['scripts', 'styles']);
 });
 
@@ -100,5 +100,5 @@ gulp.task('clean', function(callback){
 });
 
 
-gulp.task('build', ['static', 'scripts', 'styles']);
+gulp.task('build', ['immutable', 'scripts', 'styles']);
 gulp.task('default', ['clean', 'build', 'watch']);
