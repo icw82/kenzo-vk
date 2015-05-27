@@ -139,7 +139,6 @@
 </div>
 
 <div class="mb-lead"></div>
-<div class="mb-lead"></div>
 
 <!-- trash -->
 <p>
@@ -157,12 +156,6 @@
     </p>
     <p>
         <label class="f-label checkbox">
-            <input type="checkbox" ng-model="Options.trash__newsads">
-            <span ng-bind="i18n.trash.options.newsads"></span>
-        </label>
-    </p>
-    <p>
-        <label class="f-label checkbox">
             <input type="checkbox" ng-model="Options.trash__lsb__fr">
             <span ng-bind="i18n.trash.options.lsb__fr"></span>
         </label>
@@ -173,9 +166,20 @@
             <span ng-bind="i18n.trash.options.group_recom"></span>
         </label>
     </p>
+    <p>
+        <label class="f-label checkbox">
+            <input type="checkbox" ng-model="Options.trash__newsads">
+            <span ng-bind="i18n.trash.options.newsads"></span>
+        </label>
+    </p>
+    <p>
+        <label class="f-label checkbox">
+            <input type="checkbox" ng-model="Options.trash__promoted_posts">
+            <span ng-bind="i18n.trash.options.promoted_posts"></span>
+        </label>
+    </p>
 </div>
 
-<div class="mb-lead"></div>
 <div class="mb-lead"></div>
 
 <p>

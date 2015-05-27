@@ -107,6 +107,32 @@ mod.init = function(){
         });
     }
 
+    // Реклама между постами (promoted posts)
+    if (kzvk.options.trash__promoted_posts === true){
+        var pp = document.querySelectorAll('.post[data-ad]');
+
+        each (pp, function(item){
+            mod.drop(item);
+        });
+
+        document.addEventListener('DOMNodeInserted', function(event){
+            if (!(event.target instanceof Element)) return false;
+            if (!event.target.classList.contains('post')) return false;
+
+            if (event.target.getAttribute('data-ad') !== null)
+                mod.drop(event.target);
+        });
+
+// Ужасы. Верстальщик из ада.
+//feed_row >
+//    post_table >
+//        post_info >
+//            wall_text >
+//                wall_text_name >
+//                    explain >
+//                        wall_text_name_explain_promoted_post
+
+    }
 }
 
 // Включение модуля

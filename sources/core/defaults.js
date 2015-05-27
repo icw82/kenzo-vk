@@ -38,8 +38,9 @@ var default_options = {
     trash: true,
     trash__lsb__ad: true,
     trash__lsb__fr: true,
-    trash__newsads: true,
     trash__group_recom: true,
+    trash__newsads: true,
+    trash__promoted_posts: false,
 
     filters: true,
     filters__square_brackets: true,

@@ -43,6 +43,31 @@ mod.observe_gp = function(element){
             (gp.dom.performer instanceof Element) &&
             (gp.dom.title instanceof Element)
         ){
+//            var DOM_kz__wrapper = document.createElement('div');
+//                DOM_kz__wrapper.classList.add('kz-vk-audio__wrapper');
+//
+//            var carousel_classes = 'kz-vk-audio__carousel';
+//            if (kzvk.options.audio__simplified)
+//                carousel_classes += ' kz-simplified-view';
+//
+//            //  title="' + item.id + '"
+//            DOM_kz__wrapper.innerHTML =
+//                '<a class="' + carousel_classes + '">' +
+//                    '<div class="kz-vk-audio__carousel__item kz-bitrate"></div>' +
+//                    '<div class="kz-vk-audio__carousel__item kz-progress">' +
+//                        '<div class="kz-vk-audio__progress-filling"></div>' +
+//                        '<svg class="kz-vk-audio__cross">' +
+//                            '<use xlink:href="#kzvk-cross" />' +
+//                        '</svg>' +
+//                    '</div>' +
+//                    '<div class="kz-vk-audio__carousel__item kz-unavailable"></div>' +
+//                    '<div class="kz-vk-audio__carousel__item kz-direct"></div>' +
+//                '</a>';
+//
+//            element.appendChild(DOM_kz__wrapper);
+//
+//            console.log('*******', DOM_kz__wrapper);
+
             observer.disconnect();
         }
 

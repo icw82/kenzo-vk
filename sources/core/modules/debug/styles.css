@@ -10,3 +10,5 @@
 .kz-vk-debug .mv_title{background-color:rgb(255, 96, 11); color: white}
 .kz-vk-debug .mv_author_name{background-color:rgb(226, 88, 46)}
 .kz-vk-debug .mv_info_panel a{color:white}
+
+.kz-vk-debug .wall_text_name_explain_promoted_post{background-color: red !important}
