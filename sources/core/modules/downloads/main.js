@@ -8,6 +8,9 @@ var mod = {
 };
 
 mod.add_to_current = function(download_id, type, id, format){
+
+    //console.log('**add_to_current:', arguments);
+
     chrome.storage.local.get('downloads', function(data){
         data.downloads.current.push({
             download_id: download_id, // идентификатор загрузки
@@ -26,12 +29,14 @@ mod.add_to_current = function(download_id, type, id, format){
 }
 
 mod.downloads_listner = function(delta){
+    var id = delta.id;
+
     //console.log('downloads_listner:', delta);
 
     if (delta.filename){
         mod.watch.start();
     } else if (delta.endTime){
-        console.log('Download complete', delta.id);
+        console.log('Download complete', id);
     } else if (delta.paused){
         if (delta.paused.current)
             console.log('Paused');
@@ -88,11 +93,13 @@ mod.message_listner = function(request, sender, sendResponse){
 }
 
 mod.init = function(){
-//    chrome.downloads.onCreated.addListener(function(item){
-//        console.log('onCreated', item);
-//    })
-//
+    chrome.downloads.onCreated.addListener(function(item){
+        var id = item.id;
+        console.log('onCreated', item);
+    })
+
 //    chrome.downloads.onErased.addListener(function(item){
+//        var id = item.id;
 //        console.log('onErased', item);
 //    })
 

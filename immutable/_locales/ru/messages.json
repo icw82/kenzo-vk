@@ -83,6 +83,12 @@
     "o__trash__group_recom": {
         "message": "Популярные сообщества"
     },
+    "o__trash__profile_rate": {
+        "message": "Заполненность профиля"
+    },
+    "o__trash__big_like": {
+        "message": "Кнопка ♥ на изображении"
+    },
     "o__debug": {
         "message": "Режим отладки"
     },

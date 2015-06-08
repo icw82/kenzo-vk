@@ -4,6 +4,36 @@
 
 var mod = kzvk.modules.downloads;
 
+mod.big_watch = (function(){
+
+    var interval_id = null,
+        interval = 1000,
+        _ = {};
+
+    function update(){
+
+    }
+
+    function stop(){
+//        clearInterval(interval_id);
+//        interval_id = null;
+//        console.log('BIG Watch complete');
+    }
+
+    _.start = function(){
+        if (interval_id !== null)
+            return false;
+
+        update();
+
+        interval_id = setInterval(update, interval);
+    }
+
+    return _;
+
+})();
+
+
 mod.watch = (function(){
 
     var interval_id = null,
@@ -36,7 +66,7 @@ mod.watch = (function(){
                     });
                 });
 
-                //console.log('**list', list);
+                console.log('**после обновления:', list);
 
                 if (list.length === 0){
                     stop();

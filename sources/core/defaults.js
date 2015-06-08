@@ -41,6 +41,8 @@ var default_options = {
     trash__group_recom: true,
     trash__newsads: true,
     trash__promoted_posts: false,
+    trash__profile_rate: true,
+    trash__big_like: false,
 
     filters: true,
     filters__square_brackets: true,

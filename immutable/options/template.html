@@ -81,64 +81,6 @@
 </div>
 
 <div class="mb-lead"></div>
-<div class="mb-lead"></div>
-
-<!-- scrobbler -->
-<p>
-    <label class="f-label checkbox level-1 outside short">
-        <input type="checkbox" ng-model="Options.scrobbler">
-        <span class="a-h1" ng-bind="i18n.scrobbler.header"></span>
-    </label>
-    <a class="f-button" ng-href="[[scrobbler.auth_url]]">
-        Авторизировать
-    </a>
-</p>
-<div class="f-group" ng-class="{off: !Options.scrobbler}">
-    <p>
-        На <input type="range" min="50" max="100" step="5"
-            style="vertical-align: top; width:100px"
-            ng-model="Options.scrobbler__proportion" />
-        <span
-            ng-bind="Options.scrobbler__proportion"></span>% композиции
-        </label>
-    </p>
-    <p>
-        <label class="f-label checkbox">
-            <input type="checkbox" ng-model="Options.scrobbler__4m">
-            <span>… или через 4 минуты </span>
-        </label>
-        <span class="a-description ">
-            (в зависимости от того, какое событие наступит раньше)</span>
-    </p>
-</div>
-
-<!-- --------------------------- -->
-                </div><div class="col-4">
-<!-- --------------------------- -->
-
-<!-- video -->
-<p>
-    <label class="f-label checkbox level-1 outside">
-        <input type="checkbox" ng-model="Options.video">
-        <span class="a-h1" ng-bind="i18n.video.header"></span>
-    </label>
-</p>
-<div class="f-group" ng-class="{off: !Options.video}">
-    <p>
-        <label class="f-label checkbox">
-            <input type="checkbox" ng-model="Options.video__progress_bars">
-            <span ng-bind="i18n.video.options.progress_bars"></span>
-        </label>
-    </p>
-    <p>
-        <label class="f-label checkbox">
-            <input type="checkbox" ng-model="Options.video__simplified">
-            <span ng-bind="i18n.video.options.simplified"></span>
-        </label>
-    </p>
-</div>
-
-<div class="mb-lead"></div>
 
 <!-- trash -->
 <p>
@@ -178,8 +120,80 @@
             <span ng-bind="i18n.trash.options.promoted_posts"></span>
         </label>
     </p>
+    <p>
+        <label class="f-label checkbox">
+            <input type="checkbox" ng-model="Options.trash__profile_rate">
+            <span ng-bind="i18n.trash.options.profile_rate"></span>
+        </label>
+    </p>
+    <p>
+        <label class="f-label checkbox">
+            <input type="checkbox" ng-model="Options.trash__big_like">
+            <span ng-bind="i18n.trash.options.big_like"></span>
+        </label>
+    </p>
 </div>
 
+
+<!-- --------------------------- -->
+                </div><div class="col-4">
+<!-- --------------------------- -->
+
+<!-- video -->
+<p>
+    <label class="f-label checkbox level-1 outside">
+        <input type="checkbox" ng-model="Options.video">
+        <span class="a-h1" ng-bind="i18n.video.header"></span>
+    </label>
+</p>
+<div class="f-group" ng-class="{off: !Options.video}">
+    <p>
+        <label class="f-label checkbox">
+            <input type="checkbox" ng-model="Options.video__progress_bars">
+            <span ng-bind="i18n.video.options.progress_bars"></span>
+        </label>
+    </p>
+    <p>
+        <label class="f-label checkbox">
+            <input type="checkbox" ng-model="Options.video__simplified">
+            <span ng-bind="i18n.video.options.simplified"></span>
+        </label>
+    </p>
+</div>
+
+<div class="mb-lead"></div>
+<div class="mb-lead"></div>
+
+<!-- scrobbler -->
+<p>
+    <label class="f-label checkbox level-1 outside short">
+        <input type="checkbox" ng-model="Options.scrobbler">
+        <span class="a-h1" ng-bind="i18n.scrobbler.header"></span>
+    </label>
+    <a class="f-button" ng-href="[[scrobbler.auth_url]]">
+        Авторизировать
+    </a>
+</p>
+<div class="f-group" ng-class="{off: !Options.scrobbler}">
+    <p>
+        На <input type="range" min="50" max="100" step="5"
+            style="vertical-align: top; width:100px"
+            ng-model="Options.scrobbler__proportion" />
+        <span
+            ng-bind="Options.scrobbler__proportion"></span>% композиции
+        </label>
+    </p>
+    <p>
+        <label class="f-label checkbox">
+            <input type="checkbox" ng-model="Options.scrobbler__4m">
+            <span>… или через 4 минуты </span>
+        </label>
+        <span class="a-description ">
+            (в зависимости от того, какое событие наступит раньше)</span>
+    </p>
+</div>
+
+<div class="mb-lead"></div>
 <div class="mb-lead"></div>
 
 <p>

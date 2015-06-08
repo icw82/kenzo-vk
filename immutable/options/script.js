@@ -72,7 +72,9 @@ $scope.i18n = {
             'lsb__fr': chrome.i18n.getMessage('o__trash__lsb__fr'),
             'newsads': chrome.i18n.getMessage('o__trash__newsads'),
             'promoted_posts': chrome.i18n.getMessage('o__trash__promoted_posts'),
-            'group_recom': chrome.i18n.getMessage('o__trash__group_recom')
+            'group_recom': chrome.i18n.getMessage('o__trash__group_recom'),
+            'profile_rate': chrome.i18n.getMessage('o__trash__profile_rate'),
+            'big_like': chrome.i18n.getMessage('o__trash__big_like')
         },
     },
     'filters': {

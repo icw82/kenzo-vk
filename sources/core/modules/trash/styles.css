@@ -1,1 +1,4 @@
 .kz-vk-trash__bin{overflow: hidden; height: 0}
+.kz-vk-trash__profile_rate #profile_counts{margin-bottom: 10px}
+.kz-vk-trash__profile_rate .rate_line{display: none}
+.kz-vk-trash__profile_rate .profile_rate_warning{display: none}
