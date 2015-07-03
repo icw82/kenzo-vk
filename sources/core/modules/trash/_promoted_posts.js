@@ -14,10 +14,16 @@ trash.primary = function(){
 }
 
 trash.for_observer = function(element){
-    if (!element.classList.contains('post')) return false;
+    var post = null;
 
-    if (element.getAttribute('data-ad') !== null)
+    if (element.classList.contains('post'))
+        post = element;
+    else if (element.classList.contains('feed_row'))
+        post = element.querySelector('.post');
+
+    if (post && post.getAttribute('data-ad') !== null)
         mod.drop(element);
+
 }
 
 mod.observers.push(trash);
