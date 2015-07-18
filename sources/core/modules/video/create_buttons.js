@@ -31,6 +31,10 @@ mod.create_buttons = function(item){
     if (kzvk.options.video__simplified)
         carousel_classes += ' kz-simplified-view';
 
+    item.formats.sort(function(a, b){
+        return a.format > b.format
+    });
+
     each (item.formats, function(item){
         item.dom_element = document.createElement('div');
         item.dom_element.classList.add('kz-vk-video__wrapper');
@@ -61,6 +65,10 @@ mod.create_buttons = function(item){
             .querySelector('.kz-vk-video__carousel__item.kz-unavailable');
 
         item.dom_carousel.addEventListener('click', function(event){
+            mod.button_event(item, event);
+        }, false);
+
+        item.dom_carousel.addEventListener('dragstart', function(event){
             mod.button_event(item, event);
         }, false);
     });

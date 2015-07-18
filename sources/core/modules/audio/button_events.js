@@ -4,10 +4,23 @@
 
 var mod = kzvk.modules.audio;
 
-mod.button_event = function(item, event){
+mod.button_event = function(item, event) {
+    if (event.type === 'dragstart') {
+        var dt = event.dataTransfer;
+        var data = 'audio/mpeg:' + item.vk_name  + '.mp3:' + item.url_clean;
+
+        dt.setData('DownloadURL', data);
+//        dt.addElement(item);
+//        dt.setDragImage();
+
+//        console.log('dt', dt);
+//
+        return false;
+    }
+
     kenzo.event.stop(event);
 
-    if (event.which === 2){
+    if (event.which === 2) {
 //        console.log(chrome);
 //
 //        chrome.downloads.download({
@@ -18,7 +31,7 @@ mod.button_event = function(item, event){
         return false;
     }
 
-    function start(){
+    function start() {
         chrome.runtime.sendMessage({
             action: 'vk-audio__save',
             url: item.url,
@@ -29,7 +42,7 @@ mod.button_event = function(item, event){
         //console.log('** vk-audio__save');
     }
 
-    function stop(){
+    function stop() {
         chrome.runtime.sendMessage({
             action: 'vk-audio__stop-download',
             id: item.id
@@ -38,9 +51,9 @@ mod.button_event = function(item, event){
         //console.log('** vk-audio__stop-download');
     }
 
-    if (event.type === 'click'){
-        if (item.available){
-            if ('progress' in item){
+    if (event.type === 'click') {
+        if (item.available) {
+            if ('progress' in item) {
                 if (item.progress === null)
                     start();
                 else
@@ -52,6 +65,7 @@ mod.button_event = function(item, event){
             console.log('Запись недоступна');
         }
     }
+
 }
 
 })(kzvk);

@@ -5,7 +5,7 @@
 .kz-vk-video .mv_info_block div{float: none; box-sizing: border-box}
 
 .kz-vk-video .mv_info_block,
-.kz-vk-video__buttons{width: auto; max-width: 744px; padding-left: 53px;}
+.kz-vk-video__buttons{width: auto; max-width: 744px; /*padding-left: 53px*/}
 
 .kz-vk-video .mv_info_block{min-height:48px; position: relative;
     margin-top:-3px; padding-bottom: 7px; line-height: 1.35}
@@ -101,7 +101,7 @@
 .kz-vk-video__carousel__item.kz-format:before{content:attr(data-message); opacity: 1}
 .kz-vk-video__carousel__item.kz-format:after{display: block; width: 11px; height: 13px;
     position: absolute; top: -4px; opacity: 0; content: '';
-    background-image: url(chrome-extension://__MSG_@@extension_id__/images/download.png)}
+    background-image: url(chrome-extension://__MSG_@@extension_id__/images/download-w.png)}
 .kz-vk-video__wrapper.kz-s3
     .kz-vk-video__carousel__item.kz-format:after{left: 8px}
 .kz-vk-video__wrapper.kz-s4

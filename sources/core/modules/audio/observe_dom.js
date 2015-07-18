@@ -103,7 +103,7 @@ mod.get_info_from_audio_element = function(element){
         available: true,
         dom_element: element,
         element_type: mod.get_audio_element_type(element),
-        get vk_name(){
+        get vk_name() {
             if (
                 (typeof this.vk_artist == 'string') &&
                 (typeof this.vk_title == 'string')
@@ -111,6 +111,11 @@ mod.get_info_from_audio_element = function(element){
                 return this.vk_artist + ' '
                     + kzvk.options.audio__separator + ' '
                     + this.vk_title;
+            }
+        },
+        get url_clean() {
+            if (typeof this.url == 'string') {
+                return this.url.replace('(^.+?)\?', '$');
             }
         }
     };

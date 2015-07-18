@@ -5,6 +5,21 @@
 var mod = kzvk.modules.video;
 
 mod.button_event = function(item, event){
+    if (event.type === 'dragstart') {
+        var dt = event.dataTransfer;
+
+        if (item.ext === 'mp4')
+            var mime = 'video/mp4';
+        else
+            return false;
+
+        var data = mime + ':' + item.host.title + '.' + item.ext + ':' + item.url;
+
+        dt.setData('DownloadURL', data);
+
+        return false;
+    }
+
     kenzo.event.stop(event);
 
     function start(){

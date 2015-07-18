@@ -53,7 +53,7 @@ mod.create_button = function(item){
 
     //  title="' + item.id + '"
     DOM_kz__wrapper.innerHTML =
-        '<a class="' + carousel_classes + '">' +
+        '<a class="' + carousel_classes + '">' + // draggable="true"
             '<div class="kz-vk-audio__carousel__item kz-bitrate"></div>' +
             '<div class="kz-vk-audio__carousel__item kz-progress">' +
                 '<div class="kz-vk-audio__progress-filling"></div>' +
@@ -85,6 +85,10 @@ mod.create_button = function(item){
         .querySelector('.kz-vk-audio__carousel__item.kz-unavailable');
 
     item.dom_carousel.addEventListener('click', function(event){
+        mod.button_event(item, event);
+    }, false);
+
+    item.dom_carousel.addEventListener('dragstart', function(event){
         mod.button_event(item, event);
     }, false);
 }
