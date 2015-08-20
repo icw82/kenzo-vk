@@ -1,11 +1,13 @@
 (function(kzvk){
 'use strict';
-//  – — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —|
 
 var mod = kzvk.modules.audio;
 
 mod.update_button__basic = function(item){
     var message = ' ';
+
+    item.bitrate__classic = mod.calc_bitrate_classic(item.size, item.vk_duration);
+    item.bitrate__average = Math.floor(item.size * 8 / item.vk_duration / 1000);
 
     if ((typeof item.vbr !== 'undefined') && (item.vbr !== false)){
         message = 'VBR';
@@ -24,7 +26,7 @@ mod.update_button__basic = function(item){
                         mod.calc_bitrate_classic(item.size - item.tag_length - 10,
                             item.vk_duration);
                 } else
-                    item.bitrate = mod.calc_bitrate_classic(item.size, item.vk_duration);
+                    item.bitrate = item.bitrate__classic;
             } else
                 item.bitrate = false;
         }
@@ -34,7 +36,7 @@ mod.update_button__basic = function(item){
 
     kenzo.class(item.dom_element, 'kz-bitrate', mod.audio_item_classes);
     item.dom_bitrate.setAttribute('data-message', message);
-    item.dom_carousel.setAttribute('href', item.url);
+    item.dom_carousel.setAttribute('href', item.url_clean);
     item.dom_carousel.setAttribute('download', item.vk_name + '.mp3');
 
     var bitrate_classes = [

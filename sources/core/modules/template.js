@@ -1,6 +1,5 @@
 (function(kzvk){
 'use strict';
-//  – — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —|
 
 var mod = {
     name: 'noname',
@@ -19,7 +18,6 @@ kzvk.modules[mod.name] = mod;
 
 (function(kzvk){
 'use strict';
-//  – — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —|
 
 var mod = kzvk.modules.audio;
 

@@ -1,6 +1,8 @@
+// TODO: вынести в KK
+
 (function(kzvk){
 'use strict';
-//  – — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —|
+
 kzvk.class_forever = function(class_name, element){
     element.classList.add(class_name);
 

@@ -1,6 +1,5 @@
 var kzvk = (function(){
 'use strict';
-//  – — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —|
 
 // element, node — обязательно DOM Element
 // item — элемент списка.

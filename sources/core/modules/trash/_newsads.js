@@ -1,6 +1,5 @@
 (function(kzvk){
 'use strict';
-//  – — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —|
 
 var mod = kzvk.modules.trash;
 
@@ -9,37 +8,19 @@ var trash = {}
 // Реклама между постами
 trash.option_name = 'trash__newsads';
 
-trash.primary = function(){
-    var newsads = document.querySelectorAll('.ads_ads_news_wrap');
-    //FIXME: говнокод
-    each (newsads, function(item){
-        if ('parentNode' in item){
-            if (item.parentNode.classList.contains('feed_row')){
-                mod.drop(item.parentNode);
-            } else if ('parentNode' in item.parentNode){
-                if (item.parentNode.parentNode.classList.contains('feed_row')){
-                    mod.drop(item.parentNode.parentNode);
-                }
-            }
-        }
+trash.primary = function() {
+    each ('.ads_ads_news_wrap', function(item) {
+        var ancestor = kzvk.ancestor_search(item, 'feed_row', 2);
+        if (ancestor) mod.hide(ancestor)
     });
 }
 
-trash.for_observer = function(element){
+trash.for_observer = function(element) {
     if (element.getAttribute('id') !== 'wrap2') return false;
 
-    var newsads = element.querySelectorAll('.ads_ads_news_wrap');
-    //FIXME: говнокод
-    each (newsads, function(item){
-        if ('parentNode' in item){
-            if (item.parentNode.classList.contains('feed_row')){
-                mod.drop(item.parentNode);
-            } else if ('parentNode' in item.parentNode){
-                if (item.parentNode.parentNode.classList.contains('feed_row')){
-                    mod.drop(item.parentNode.parentNode);
-                }
-            }
-        }
+    each (element.querySelectorAll('.ads_ads_news_wrap'), function(item) {
+        var ancestor = kzvk.ancestor_search(item, 'feed_row', 2);
+        if (ancestor) mod.hide(ancestor)
     });
 }
 

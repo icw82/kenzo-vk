@@ -1,6 +1,5 @@
 (function(){
 'use strict';
-//  – — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —|
 
 // Тестирование безопасности
 //var eve = document.createElement('script');

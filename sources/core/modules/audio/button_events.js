@@ -1,6 +1,5 @@
 (function(kzvk){
 'use strict';
-//  – — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —|
 
 var mod = kzvk.modules.audio;
 
@@ -52,6 +51,16 @@ mod.button_event = function(item, event) {
     }
 
     if (event.type === 'click') {
+//        console.log(event);
+//        altKey
+//        ctrlKey
+//        metaKey
+//        shiftKey
+        if (event.altKey) {
+            console.log('this item:', item);
+            return false;
+        }
+
         if (item.available) {
             if ('progress' in item) {
                 if (item.progress === null)

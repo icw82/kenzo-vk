@@ -1,12 +1,12 @@
 (function(kzvk){
 'use strict';
-//  – — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —|
+
 kzvk.name_filter = function(name){
 
     kzvk.options.debug && name && console.log('source:', name);
 
     if (typeof name === 'string'){
-        name = name.replace(/[\\\/:\*\?<>\|\"]*/g, '');
+        name = name.replace(/[\\\/:\*\?<>\|\"~]/g, ' ');
 
         if (kzvk.options.filters__square_brackets === true){
             name = name.replace(/\[.+?\]/g, '');

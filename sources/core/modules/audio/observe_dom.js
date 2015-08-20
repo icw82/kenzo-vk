@@ -1,6 +1,5 @@
 (function(kzvk){
 'use strict';
-//  – — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —|
 
 var mod = kzvk.modules.audio;
 
@@ -115,7 +114,7 @@ mod.get_info_from_audio_element = function(element){
         },
         get url_clean() {
             if (typeof this.url == 'string') {
-                return this.url.replace('(^.+?)\?', '$');
+                return this.url.replace(/^(.+?)\?.*/, '$1');
             }
         }
     };

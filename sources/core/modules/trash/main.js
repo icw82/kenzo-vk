@@ -1,6 +1,5 @@
 (function(kzvk){
 'use strict';
-//  – — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —|
 
 var mod = {
     name: 'trash',
@@ -16,6 +15,8 @@ mod.init = function(){
         body: document.querySelector('body'),
         trash_bin: document.createElement('div')
     };
+
+    kzvk.class_forever('kz-vk-trash', mod.dom.body);
 
     mod.dom.trash_bin.classList.add('kz-vk-trash__bin');
     mod.dom.body.insertBefore(mod.dom.trash_bin, mod.dom.body.firstChild);

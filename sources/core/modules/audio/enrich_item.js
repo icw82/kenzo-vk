@@ -1,12 +1,11 @@
 (function(kzvk){
 'use strict';
-//  – — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —|
 
 var mod = kzvk.modules.audio;
 
 mod.db_config = {
     name: 'audio',
-    version: 4,
+    version: 5,
     store: null,
     store_name: 'bitrate'
 };
@@ -53,7 +52,8 @@ mod.enrich_item = function(item){
                         'size': item.size,
                         'vbr': item.vbr,
                         'bitrate': item.bitrate,
-                        'tag_version': item.tag_version
+                        'tag_version': item.tag_version,
+                        'hash': item.hash
                     }
 
                     var request = db.transaction([mod.db_config.store_name], 'readwrite')
@@ -88,19 +88,10 @@ mod.enrich_item = function(item){
                         item.size = event.target.result.size;
                         item.tag_version = event.target.result.tag_version;
 
-                        if (kzvk.options.audio__vbr === false){
-                            // чтобы битрейт определялся классическим методом
-                            // иначе цифра далека от действительности
-                            item.bitrate = false;
-                            return false;
-                        }
-
                         if (typeof event.target.result.vbr !== 'undefined'){
                             item.vbr = event.target.result.vbr;
                             return false;
                         }
-
-
                     }
 
                     // если результата нет, достать новую информацию

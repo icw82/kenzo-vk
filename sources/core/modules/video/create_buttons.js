@@ -1,6 +1,5 @@
 (function(kzvk){
 'use strict';
-//  – — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —|
 
 var mod = kzvk.modules.video;
 
@@ -17,7 +16,7 @@ mod.create_buttons = function(item){
 
     var DOM_box = document.querySelector('#mv_box');
 
-    if (!DOM_box.contains(item.dom_element)){
+    if (!DOM_box || !DOM_box.contains(item.dom_element)){
         console.warn('Оу, похоже, что-то пошло не так.');
         return false;
     }

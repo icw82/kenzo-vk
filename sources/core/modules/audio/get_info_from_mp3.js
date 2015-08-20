@@ -1,18 +1,28 @@
 (function(kzvk){
 'use strict';
-//  – — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —|
 // FUTURE: (more → base) or (base)
 
 var mod = kzvk.modules.audio;
 
 mod.get_more_info_from_mp3 = function(url, _, callback){
+    var slice;
 
     if (!_.tag_length)
         _.tag_length = 0;
 
-    var offset = _.tag_length,
-        ranges = [
-            [offset, offset + 40] //170
+    _.content_length = _.size - _.tag_length;
+
+
+    // вырезка
+    if (_.content_length > 128){
+        let center = _.tag_length + Math.round(_.content_length/2)
+        slice = [center - 64, center + 64];
+    } else
+        slice = [offset, _.content_length];
+
+    var ranges = [
+            [_.tag_length, _.tag_length + 40], //170
+            slice
         ];
 
     // Чтение заголовка mp3 фрейма
@@ -72,6 +82,17 @@ mod.get_more_info_from_mp3 = function(url, _, callback){
         _.vbr = false;
 
         read_frame_header(new Uint8Array(response[0].content, 0, 4));
+
+        _.hash = (function(){
+            var slice_of_content = [
+                new Uint8Array(response[1].content, 0, 64),
+                new Uint8Array(response[1].content, 63, 64)
+            ];
+
+            return md5(slice_of_content[0]) + md5(slice_of_content[1]);
+
+        })();
+
 
         if ('error' in _){
             //console.warn(_.error);
@@ -169,13 +190,9 @@ mod.get_info_from_mp3 = function(url, callback){
             }
 
             // VBR
-            if (kzvk.options.audio__vbr){
-                mod.get_more_info_from_mp3(url, _, function(_){
-                    callback(_);
-                });
-            } else {
+            mod.get_more_info_from_mp3(url, _, function(_){
                 callback(_);
-            }
+            });
 
         } else {
             callback(_);

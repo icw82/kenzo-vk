@@ -19,7 +19,6 @@ var default_options = {
 
     audio: true,
     audio__cache: true,
-    audio__vbr: true,
     audio__separator: choose_a_locale({
         en: '–',
         ru: '—'
@@ -43,6 +42,8 @@ var default_options = {
     trash__promoted_posts: false,
     trash__profile_rate: true,
     trash__big_like: false,
+    trash__user_reposts: false,
+    trash__group_reposts: false,
 
     filters: true,
     filters__square_brackets: true,

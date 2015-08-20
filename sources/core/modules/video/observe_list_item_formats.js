@@ -1,6 +1,5 @@
 (function(kzvk){
 'use strict';
-//  – — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —|
 
 var mod = kzvk.modules.video;
 
@@ -31,13 +30,7 @@ mod.item_formats_observer = function(changes){
 }
 
 mod.observe_list_item_formats = function(item){
-    Object.observe(item, function(changes){
-        try { // FIXME: временно для отлова ошибок внутри Object.observe();
-            mod.item_formats_observer(changes);
-        } catch (error) {
-            console.error(error);
-        }
-    });
+    Object.observe(item, mod.item_formats_observer);
 };
 
 })(kzvk);

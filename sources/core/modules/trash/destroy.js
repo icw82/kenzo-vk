@@ -3,11 +3,10 @@
 
 var mod = kzvk.modules.trash;
 
-mod.drop = function(input, option){
+mod.destroy = function(input, option){
     var _ = function(node) {
-        mod.dom.trash_bin.appendChild(node);
-        node.style.height = '0px';
-        console.info(kzvk.name + ' — ' + mod.name + ' (drop):', node);
+        node.parentElement.removeChild(node);
+        console.info(kzvk.name + ' — ' + mod.name + ' (destroy):', node);
     }
 
     if (typeof input == 'string'){

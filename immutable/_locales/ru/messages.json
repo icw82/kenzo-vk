@@ -20,9 +20,6 @@
     "o__audio__cache": {
         "message": "Кэширование информации об аудиозаписях"
     },
-    "o__audio__vbr": {
-        "message": "Определение VBR"
-    },
     "o__audio__separator": {
         "message": "Разделитель:"
     },
@@ -88,6 +85,12 @@
     },
     "o__trash__big_like": {
         "message": "Кнопка ♥ на изображении"
+    },
+    "o__trash__user_reposts": {
+        "message": "Репосты пользователей"
+    },
+    "o__trash__group_reposts": {
+        "message": "Репосты групп"
     },
     "o__debug": {
         "message": "Режим отладки"

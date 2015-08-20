@@ -1,7 +1,6 @@
 (function(){
 
 'use strict';
-//  – — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —|
 
 function init(){
     var modules = [

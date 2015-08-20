@@ -1,6 +1,7 @@
+// TODO: вынести в KK
+
 (function(kzvk){
 'use strict';
-//  – — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —|
 
 function get_ranges(response, separator){
     var view = new Uint8Array(response),

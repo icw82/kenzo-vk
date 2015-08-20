@@ -1,4 +1,3 @@
-//  – — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —|
 'use strict'
 
 var APP = angular.module('kenzo-vk', ['ngSanitize']);
@@ -33,7 +32,6 @@ $scope.i18n = {
         header: chrome.i18n.getMessage('o__audio__header'),
         options: {
             cache: chrome.i18n.getMessage('o__audio__cache'),
-            vbr: chrome.i18n.getMessage('o__audio__vbr'),
             separator: chrome.i18n.getMessage('o__audio__separator'),
             separators: [
                 {
@@ -74,7 +72,9 @@ $scope.i18n = {
             'promoted_posts': chrome.i18n.getMessage('o__trash__promoted_posts'),
             'group_recom': chrome.i18n.getMessage('o__trash__group_recom'),
             'profile_rate': chrome.i18n.getMessage('o__trash__profile_rate'),
-            'big_like': chrome.i18n.getMessage('o__trash__big_like')
+            'big_like': chrome.i18n.getMessage('o__trash__big_like'),
+            'user_reposts': chrome.i18n.getMessage('o__trash__user_reposts'),
+            'group_reposts': chrome.i18n.getMessage('o__trash__group_reposts')
         },
     },
     'filters': {
