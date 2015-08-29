@@ -6,7 +6,7 @@ APP.config(function($interpolateProvider) {
     $interpolateProvider.endSymbol(']]');
 });
 
-APP.controller('settings', function($scope){
+APP.controller('settings', function($scope) {
 
 function replace_links(text, link){
     if (typeof text == 'string')
@@ -18,7 +18,6 @@ function replace_links(text, link){
 // Текст
 $scope.i18n = {
     header: chrome.i18n.getMessage('o__header'),
-    debug: chrome.i18n.getMessage('o__debug'),
     reset: chrome.i18n.getMessage('o__reset'),
     others: chrome.i18n.getMessage('o__others'),
     info: {
@@ -84,6 +83,12 @@ $scope.i18n = {
             'square_brackets': chrome.i18n.getMessage('o__filters__square_brackets'),
             'curly_brackets': chrome.i18n.getMessage('o__filters__curly_brackets')
         }
+    },
+    'debug': {
+        'header': chrome.i18n.getMessage('o__debug'),
+        'options': {
+            'mode': chrome.i18n.getMessage('o__debug__mode'),
+        }
     }
 }
 
@@ -95,6 +100,7 @@ $scope.Options = {};
 $scope.scrobbler = {
     auth_url: kzvk.modules.scrobbler.auth_url
 }
+$scope.ctrl = false;
 
 function sync_model(){
     chrome.storage.sync.get(default_options, function(items){
@@ -115,6 +121,16 @@ $scope.defaults = function(){
     chrome.storage.sync.set(default_options);
 }
 
+$scope.clear_db = function() {
+    chrome.storage.local.clear(function() {
+        chrome.storage.local.get(function(){
+            console.log(arguments);
+        });
+
+        alert('Очищено');
+    });
+}
+
 chrome.storage.onChanged.addListener(function(changes, areaName){
     if (areaName === 'sync'){
         sync_model();
@@ -126,9 +142,26 @@ var token = window.location.href.match(/token=([\w\d]+)/) || false;
 if (token)
     kzvk.modules.scrobbler.methods.auth.getSession(token[1]);
 
+// Скрытые опции
+document.addEventListener('keydown', function(event) {
+    if (!$scope.ctrl && event.keyCode == 17) {
+        $scope.ctrl = true;
+        $scope.$apply();
+
+        console.log($scope.ctrl)
+    }
+});
+document.addEventListener('keyup', function(event) {
+    if ($scope.ctrl && event.keyCode == 17) {
+        $scope.ctrl = false;
+        $scope.$apply();
+
+        console.log($scope.ctrl)
+    }
 });
 
 // title
 //Настройки Kenzo VK
 document.title = chrome.runtime.getManifest().name + ': ' + chrome.i18n.getMessage('o__header');
 
+});

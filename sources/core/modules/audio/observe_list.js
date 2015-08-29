@@ -52,13 +52,7 @@ mod.list_observer = function(changes){
 }
 
 mod.observe_list = function(){
-    Object.observe(mod.list, function(changes){
-        try { // FIXME: временно для отлова ошибок внутри Object.observe();
-            mod.list_observer(changes);
-        } catch (error) {
-            console.error(error);
-        }
-    });
+    Object.observe(mod.list, mod.list_observer);
 };
 
 })(kzvk);

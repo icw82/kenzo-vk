@@ -58,10 +58,10 @@ mod.message_listner = function(request, sender, sendResponse){
         }, function(download_id){
             mod.add_to_current(download_id, 'vk-audio', request.id);
         });
-    } else if (request.action === 'vk-audio__stop-download'){
-        chrome.storage.local.get('downloads', function(data){
+    } else if (request.action === 'vk-audio__stop-download') {
+        chrome.storage.local.get('downloads', function(data) {
             each (data.downloads.current, function(item){
-                if (request.id === item.id&& item.type === 'vk-audio'){
+                if (request.id === item.id && item.type === 'vk-audio'){
                     chrome.downloads.cancel(item.download_id);
                     return true;
                 }
@@ -91,23 +91,28 @@ mod.message_listner = function(request, sender, sendResponse){
     }
 }
 
-mod.init = function(){
-    chrome.downloads.onCreated.addListener(function(item){
-        var id = item.id;
-        console.log('onCreated', item);
-    })
+mod.init = function(scope) {
+    if (typeof scope !== 'string') return;
 
-//    chrome.downloads.onErased.addListener(function(item){
-//        var id = item.id;
-//        console.log('onErased', item);
-//    })
+    if (scope === 'background') {
+        chrome.downloads.onCreated.addListener(function(item){
+            //var id = item.id;
+            console.log('downloads.onCreated', item);
+        })
 
-    mod.watch.start();
+    //    chrome.downloads.onErased.addListener(function(item){
+    //        var id = item.id;
+    //        console.log('onErased', item);
+    //    })
 
-    chrome.downloads.onChanged.addListener(mod.downloads_listner);
+        mod.watch.start();
 
-    chrome.runtime.onMessage.addListener(mod.message_listner);
+        chrome.downloads.onChanged.addListener(mod.downloads_listner);
 
+        chrome.runtime.onMessage.addListener(mod.message_listner);
+
+        return true;
+    }
 }
 
 // Включение модуля

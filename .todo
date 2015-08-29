@@ -14,9 +14,9 @@
     "search": {
         "scope": "project",
         "excludeFolders": [
-            "/build",
-            "/bower_components",
-            "/node_modules"
+            "build",
+            "bower_components",
+            "node_modules"
         ],
         "excludeFiles": []
     },

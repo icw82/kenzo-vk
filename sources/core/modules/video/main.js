@@ -12,18 +12,24 @@ var mod = {
     ]
 };
 
-mod.init = function(){
-    if (kzvk.options.video !== true) return false;
+mod.init = function(scope) {
+    if (typeof scope !== 'string') return;
 
-    mod.dom = {
-        body: document.querySelector('body')
-    };
+    if (scope === 'content') {
+        if (kzvk.options.video !== true) return false;
 
-    kzvk.class_forever('kz-vk-video', mod.dom.body);
+        mod.dom = {
+            body: document.querySelector('body')
+        };
 
-    mod.observe_list();
-    mod.observe_dom();
-    mod.observe_downloads();
+        kzvk.class_forever('kz-vk-video', mod.dom.body);
+
+        mod.observe_list();
+        mod.observe_dom();
+        mod.observe_downloads();
+
+        return true;
+    }
 }
 
 // Включение модуля

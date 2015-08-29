@@ -3,7 +3,7 @@
 
 kzvk.name_filter = function(name){
 
-    kzvk.options.debug && name && console.log('source:', name);
+    kzvk.options.debug__mode && name && console.log('source:', name);
 
     if (typeof name === 'string'){
         name = name.replace(/[\\\/:\*\?<>\|\"~]/g, ' ');
@@ -27,7 +27,7 @@ kzvk.name_filter = function(name){
         name = he.decode(name);
     }
 
-    kzvk.options.debug && name && console.log('filtered:', name);
+    kzvk.options.debug__mode && name && console.log('filtered:', name);
 
     return name;
 }

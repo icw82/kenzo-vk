@@ -7,21 +7,27 @@ var mod = {
     observers: []
 };
 
-mod.init = function(){
-    if (kzvk.options.trash !== true)
-        return false;
+mod.init = function(scope) {
+    if (typeof scope !== 'string') return;
 
-    mod.dom = {
-        body: document.querySelector('body'),
-        trash_bin: document.createElement('div')
-    };
+    if (scope === 'content') {
+        if (kzvk.options.trash !== true)
+            return false;
 
-    kzvk.class_forever('kz-vk-trash', mod.dom.body);
+        mod.dom = {
+            body: document.querySelector('body'),
+            trash_bin: document.createElement('div')
+        };
 
-    mod.dom.trash_bin.classList.add('kz-vk-trash__bin');
-    mod.dom.body.insertBefore(mod.dom.trash_bin, mod.dom.body.firstChild);
+        kzvk.class_forever('kz-vk-trash', mod.dom.body);
 
-    mod.observe_dom();
+        mod.dom.trash_bin.classList.add('kz-vk-trash__bin');
+        mod.dom.body.insertBefore(mod.dom.trash_bin, mod.dom.body.firstChild);
+
+        mod.observe_dom();
+
+        return true;
+    }
 }
 
 // Включение модуля

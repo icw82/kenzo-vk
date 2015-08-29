@@ -225,14 +225,28 @@
         </p>
     </div>
 </div>
-<div class="mb-lead"></div>
-<p>
-    <label class="f-label checkbox">
-        <input type="checkbox" ng-model="Options.debug">
-        <span ng-bind="i18n.debug"></span>
-    </label>
-</p>
 <!-- /other -->
+
+<div class="mb-lead"></div>
+
+<!-- debug -->
+<div class="f-for-dev" ng-class="{visible: ctrl}">
+    <p>
+        <span class="a-h1" ng-bind="i18n.debug.header"></span>
+    </p>
+    <p>
+        <label class="f-label checkbox">
+            <input type="checkbox" ng-model="Options.debug__mode">
+            <span ng-bind="i18n.debug.options.mode"></span>
+        </label>
+    </p>
+    <p>
+        <button class="f-button" ng-click="clear_db()">
+            Очистить локальную базу данных
+        </button>
+    </p>
+</div>
+<!-- /debug -->
 
 <!-- --------------------------- -->
                     </div>

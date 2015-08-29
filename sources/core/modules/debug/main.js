@@ -6,13 +6,19 @@ var mod = {
     version: '1.0.0'
 };
 
-mod.init = function(){
-    mod.dom = {
-        body: document.querySelector('body')
-    }
+mod.init = function(scope) {
+    if (typeof scope !== 'string') return;
 
-    if (kzvk.options.debug){
-        kzvk.class_forever('kz-vk-debug', mod.dom.body);
+    if (scope === 'content') {
+        mod.dom = {
+            body: document.querySelector('body')
+        }
+
+        if (kzvk.options.debug__mode) {
+            kzvk.class_forever('kz-vk-debug', mod.dom.body);
+        }
+
+        return true;
     }
 }
 

@@ -3,6 +3,6 @@
 'use strict';
 
 // Scope
-kzvk.init('background');
+kzvk.init('content');
 
 })();

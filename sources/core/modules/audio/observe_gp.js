@@ -98,17 +98,17 @@ mod.make_provider = function(key) {
     var _ = {
         id: chrome.runtime.id,
         message: {
-            action: 'register provider',
+            action: 'register audio provider',
             key: key
         }
     }
 
     // Функция-провайдер, передаваемая во внешний скрипт в форме текста
     // Работает только в контексте страницы.
-    var isolated_function = function(_){
+    var isolated_function = function(_) {
         var secret_key = null;
 
-        var ap_observer = function(changes){
+        var ap_observer = function(changes) {
             //console.log('** changes:', changes);
             var track = audioPlayer.lastSong;
 
@@ -127,19 +127,13 @@ mod.make_provider = function(key) {
             });
         }
 
-        chrome.runtime.sendMessage(_.id, _.message, function(){
-            if (typeof arguments[0] === 'string'){
+        // Регистрация провайдера и получение секретного ключа
+        chrome.runtime.sendMessage(_.id, _.message, function() {
+            if (typeof arguments[0] === 'string') {
                 secret_key = arguments[0];
-                if (typeof audioPlayer === 'object'){
+                if (typeof audioPlayer === 'object') {
 //                    console.log('audioPlayer', audioPlayer);
-
-                    Object.observe(audioPlayer, function(changes){
-                        try { // FIXME: временно для отлова ошибок внутри Object.observe();
-                            ap_observer(changes);
-                        } catch (error) {
-                            console.error(error);
-                        }
-                    });
+                    Object.observe(audioPlayer, ap_observer);
                 }
             }
         });

@@ -1,13 +1,13 @@
-function choose_a_locale(options){
+function choose_a_locale(options) {
     var ui_lanuage = chrome.i18n.getUILanguage();
 
-    if (typeof options == 'object'){
-        if (options[ui_lanuage]){
+    if (typeof options == 'object') {
+        if (options[ui_lanuage]) {
             return options[ui_lanuage];
-        } else if (options.ru){
+        } else if (options.ru) {
             return options.ru;
         } else {
-            for (key in options){
+            for (key in options) {
                 return options[key];
             }
         }
@@ -15,8 +15,6 @@ function choose_a_locale(options){
 }
 
 var default_options = {
-    debug: false,
-
     audio: true,
     audio__cache: true,
     audio__separator: choose_a_locale({
@@ -47,10 +45,19 @@ var default_options = {
 
     filters: true,
     filters__square_brackets: true,
-    filters__curly_brackets: true
-};
+    filters__curly_brackets: true,
+
+    ui: true,
+    ui__kzvk_button: true,
+
+    debug: false,
+    debug__mode: false
+}
 
 var default_globals = {
+    base: {
+        keys: []
+    },
     audio: {
         now_playing: null
     },
@@ -62,4 +69,4 @@ var default_globals = {
         session: null,
         buffer: []
     }
-};
+}

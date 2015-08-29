@@ -13,23 +13,29 @@ var mod = {
     provider_key: kzvk.make_key()
 };
 
-mod.init = function(){
-    if (kzvk.options.audio !== true) return false;
+mod.init = function(scope) {
+    if (typeof scope !== 'string') return;
 
-    mod.dom = {
-        body: document.querySelector('body')
+    if (scope === 'content') {
+        if (kzvk.options.audio !== true) return false;
+
+        mod.dom = {
+            body: document.querySelector('body')
+        }
+
+        chrome.runtime.sendMessage({
+            action: 'set audio provider key',
+            key: mod.provider_key
+        });
+
+        kzvk.class_forever('kz-vk-audio', mod.dom.body);
+
+        mod.observe_list();
+        mod.observe_dom();
+        mod.observe_downloads();
+
+        return true;
     }
-
-    chrome.runtime.sendMessage({
-        action: 'set audio provider key',
-        key: mod.provider_key
-    });
-
-    kzvk.class_forever('kz-vk-audio', mod.dom.body);
-
-    mod.observe_list();
-    mod.observe_dom();
-    mod.observe_downloads();
 
 }
 
