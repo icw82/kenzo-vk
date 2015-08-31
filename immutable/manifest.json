@@ -35,7 +35,7 @@
             "scripts/kk.js",
             "scripts/md5.min.js",
             "scripts/he.js",
-            "scripts/core.min.js",
+            "scripts/main.min.js",
             "scripts/init-background.js"
         ]
     },
@@ -53,7 +53,7 @@
             "js": [
                 "scripts/kk.js",
                 "scripts/md5.min.js",
-                "scripts/core.min.js",
+                "scripts/main.min.js",
                 "scripts/init-content.js"
             ],
             "run_at": "document_end"
@@ -62,7 +62,7 @@
     "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
     "web_accessible_resources": [
         "scripts/angular.min.js.map",
-        "scripts/core.min.js.map",
+        "scripts/main.min.js.map",
         "images/graphics.svg",
         "images/download.png",
         "images/download-c.png",

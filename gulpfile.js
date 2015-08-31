@@ -1,11 +1,11 @@
-var gulp = require('gulp'),
-    gutil = require('gulp-util'),
-    es = require('event-stream'),
-    del = require('del'),
-    concat = require('gulp-concat'),
-    rename = require('gulp-rename'),
-    uglify = require('gulp-uglify'),
-    sourcemaps = require('gulp-sourcemaps');
+var gulp = require('gulp');
+var es = require('event-stream');
+var del = require('del');
+var concat = require('gulp-concat');
+var rename = require('gulp-rename');
+//var gutil = require('gulp-util');
+//var uglify = require('gulp-uglify');
+//var sourcemaps = require('gulp-sourcemaps');
 
 var paths = {
     'angular': [
@@ -25,12 +25,12 @@ var paths = {
     'he': [
         './bower_components/he/he.js'
     ],
-    'core': [
-        './sources/core/defaults.js',
-        './sources/core/base.js',
-        './sources/core/*.js',
-        './sources/core/modules/*/main.js',
-        './sources/core/modules/*/*.js'
+    'sources': [
+        './sources/defaults.js',
+        './sources/base.js',
+        './sources/*.js',
+        './sources/modules/*/main.js',
+        './sources/modules/*/*.js'
     ]
 };
 
@@ -68,15 +68,15 @@ gulp.task('scripts', function(){
     var he = gulp
         .src(paths.he);
 
-    var core = gulp
-        .src(paths.core)
+    var main = gulp
+        .src(paths.sources)
         //.pipe(sourcemaps.init())
-        .pipe(concat('core.js'))
+        .pipe(concat('main.js'))
         .pipe(rename({suffix: '.min'}))
         //.pipe(uglify().on("error", gutil.log))
         //.pipe(sourcemaps.write('../scripts/'))
 
-    return es.merge(angular, angular_sanitize, kk, md5, he, core)
+    return es.merge(angular, angular_sanitize, kk, md5, he, main)
         .pipe(gulp.dest('build/scripts'));
 });
 
