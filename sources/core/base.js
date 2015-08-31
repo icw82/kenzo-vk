@@ -1,16 +1,6 @@
 var kzvk = (function() {
 'use strict';
 
-// element, node — обязательно DOM Element
-// item — элемент списка.
-
-//    "browser_action": {
-//        "default_icon": {
-//            "19": "icons/19.png",
-//            "38": "icons/38.png"
-//        }
-//    },
-
 var manifest = chrome.runtime.getManifest();
 
 var _ = {
@@ -34,6 +24,8 @@ _.make_key = function () {
 
 var goals = ['options', 'globals'];
 
+
+// TODO: зaменить на промисы
 function goal(item) {
     var index = goals.indexOf(item);
     if (index > -1) {
@@ -68,11 +60,9 @@ chrome.storage.onChanged.addListener(function(changes, areaName) {
 });
 
 _.init = function(scope) {
-    // TODO: Заменить все mod.dom на kzvk.dom
     _.dom = {
         body: document.querySelector('body')
     }
-
 
     // 1. Ожидание загрузки контента DOM
     if (document.readyState === 'complete') {
@@ -117,13 +107,7 @@ _.init = function(scope) {
 }
 
 function init__content() {
-    // Тестирование безопасности
-    //var eve = document.createElement('script');
-    //eve.setAttribute('src', chrome.extension.getURL('scripts/eve.js'));
-    //document.body.appendChild(eve);
-
     // Встраивание векторной графики
-
     var xhr = new XMLHttpRequest();
     xhr.open('GET', chrome.extension.getURL('images/graphics.svg'), true);
     xhr.onreadystatechange = function(){
@@ -145,16 +129,46 @@ function init__background() {
 
 }
 
-// Инициация модулей
+var promise = new Promise(function(resolve, reject) {
+  // здесь вытворяй что угодно, если хочешь асинхронно, потом…
+
+  if (/* ..если всё закончилось успехом */) {
+    resolve("Работает!");
+  }
+  else {
+    reject(Error("Сломалось"));
+  }
+});
+
+
+// Класс модуля
+_.Module = function(name) {
+    this.name = name;
+    this.full_name = kzvk.name + ': ' + this.name,
+    //this.version: '1.0.0',
+    //this.dependencies = [] // Пока без версий
+
+    this.init = {
+        content: null,
+        background: null
+    }
+}
+
+// Инициирование модулей
 function init__modules(scope) {
     if (typeof scope !== 'string') return;
 
-    for (var mod in _.modules) {
-        if (typeof _.modules[mod].init == 'function') {
-            if (_.modules[mod].init(scope) === true)
-                console.info('Инициация модуля', mod);
+    // TODO: Порядок запуска модулей
+    for (var key in _.modules) {
+        if (!(_.modules[key] instanceof _.Module)) return;
+
+        var mod = _.modules[key];
+
+        if ((scope in mod.init) && (typeof mod.init[scope] == 'function')) {
+            console.info('Инициирование модуля', mod.name, '(' + scope + ')');
+            mod.init[scope]();
         }
-    };
+    }
 }
 
 return _;

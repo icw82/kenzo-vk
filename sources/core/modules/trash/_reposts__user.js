@@ -8,7 +8,7 @@ var trash = {}
 // Репосты пользователей
 trash.option_name = 'trash__user_reposts';
 
-trash.primary = function(){
+trash.primary = function() {
     each ('.post_copy', hide);
 }
 

@@ -141,7 +141,7 @@ mod.make_provider = function(key) {
 
     provider.innerHTML = '(' + isolated_function + ')(' + JSON.stringify(_) + ')'
 
-    mod.dom.body.appendChild(provider);
+    kzvk.dom.body.appendChild(provider);
     // Сразу после создания DOM-объекта, функция выполняется.
     // Проверка показала, что скрипт-провайдер выполняется в первую очередь
     // и маловероятно, что чужеродный скрипт (eve.js) может сымитировать поведение
