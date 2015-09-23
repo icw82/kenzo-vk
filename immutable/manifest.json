@@ -35,8 +35,7 @@
             "scripts/kk.js",
             "scripts/md5.min.js",
             "scripts/he.js",
-            "scripts/main.min.js",
-            "scripts/init-background.js"
+            "scripts/main.min.js"
         ]
     },
     "options_page": "options/template.html",
@@ -53,8 +52,8 @@
             "js": [
                 "scripts/kk.js",
                 "scripts/md5.min.js",
-                "scripts/main.min.js",
-                "scripts/init-content.js"
+                "scripts/he.js",
+                "scripts/main.min.js"
             ],
             "run_at": "document_end"
         }

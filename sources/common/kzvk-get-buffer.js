@@ -1,4 +1,4 @@
-// TODO: вынести в KK
+// FUTURE: вынести в KK
 
 (function(kzvk){
 'use strict';
@@ -91,8 +91,6 @@ function get_parts(response, separator){
             'content': response.slice(ranges[i].begin, ranges[i].end)
         });
     }
-
-    //console.log(_);
 
     return _;
 };

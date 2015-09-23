@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="styles.css" />
 </head>
 
+<!-- FUTURE: опробовать GRID -->
+
 <body ng-controller="settings">
     <div class="layout-global-wrapper">
         <div class="layout-wrapper">
@@ -232,12 +234,19 @@
 <!-- debug -->
 <div class="f-for-dev" ng-class="{visible: ctrl}">
     <p>
-        <span class="a-h1" ng-bind="i18n.debug.header"></span>
+        <label class="f-label checkbox level-1 outside">
+            <input type="checkbox" ng-model="Options.debug">
+            <span class="a-h1" ng-bind="i18n.debug.header"></span>
+        </label>
     </p>
     <p>
         <label class="f-label checkbox">
-            <input type="checkbox" ng-model="Options.debug__mode">
-            <span ng-bind="i18n.debug.options.mode"></span>
+            <input type="checkbox" ng-model="Options.debug__styles">
+            <span ng-bind="i18n.debug.options.styles"></span>
+        </label>
+        <label class="f-label checkbox">
+            <input type="checkbox" ng-model="Options.debug__log">
+            <span ng-bind="i18n.debug.options.log"></span>
         </label>
     </p>
     <p>
@@ -271,7 +280,7 @@
     <script src="../scripts/kk.js"></script>
     <script src="../scripts/md5.min.js"></script>
     <script src="../scripts/he.js"></script>
-    <script src="../scripts/core.min.js"></script>
+    <script src="../scripts/main.min.js"></script>
     <script src="script.js"></script>
     <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 </body>

@@ -17,6 +17,8 @@ Object.defineProperty(mod, 'auth_url', {
     }
 });
 
+// FUTURE: Разделить файл
+
 mod.get_signature = function(params){
     var keys = [],
         string = '';
@@ -51,14 +53,14 @@ mod.request = function(params, callback, post){
         params = {}
 
     if (typeof params.method != 'string'){
-        console.warn('Метод не задан');
+        mod.warn('Метод не задан');
         return false;
     }
 
     params.api_key = mod.api_key;
     if (mod.session !== null) {
         if (!mod.session)
-            console.warn('//mod.session', mod.session);
+            mod.warn('//mod.session', mod.session);
         else
             params.sk = mod.session.key;
     }
@@ -76,7 +78,7 @@ mod.request = function(params, callback, post){
 mod.xhr = function(url, params, callback, post){
     var xhr = new XMLHttpRequest();
 
-    //console.log('— params:', params);
+    //mod.log('— params:', params);
 
     if (post)
         xhr.open('POST', url, true);
@@ -88,18 +90,18 @@ mod.xhr = function(url, params, callback, post){
         if (xhr.status === 200){
             var self = this;
 
-            //console.log('— self.response:', self.response);
+            //mod.log('self.response:', self.response);
 
             if (typeof callback == 'function') {
                 if (self.response.error){
                     if (self.response.error == 9) {
                         if (mod.session !== null) {
                             mod.reset_session();
-                            console.log(mod.session);
+                            mod.log('session', mod.session);
                         }
                     } else {
-                        console.log('— error:', self.response);
-                        console.log('— request:', params);
+                        mod.warn('error:', self.response);
+                        mod.log('request:', params);
                         // 14 This token has not been authorized
                     }
                 }
@@ -124,7 +126,7 @@ mod.reset_session = function(){
         storage.scrobbler.session = null;
 
         chrome.storage.local.set(storage, function(){
-            console.log('сессия сброшена');
+            mod.log('сессия сброшена');
         });
     });
 }
@@ -148,17 +150,17 @@ mod.reset_session = function(){
 mod.observe = function(){
     function observer(changes, areaName){
         if ((areaName == 'local') && ('scrobbler' in changes)){
-            //console.log('**changes', changes);
+            //mod.log('changes', changes);
 
             if (changes.scrobbler.newValue.session !== mod.session)
                 mod.session = changes.scrobbler.newValue.session;
 
-            //console.log('observe - scrobbler.session', mod.session);
+            //mod.log('observe - scrobbler.session', mod.session);
         }
     }
 
     chrome.storage.local.get('scrobbler', function(storage) {
-//        console.log('***', storage)
+        //mod.log('storage', storage);
         mod.session = storage.scrobbler.session;
         chrome.storage.onChanged.addListener(observer);
     });
@@ -167,5 +169,9 @@ mod.observe = function(){
 
 // Включение модуля
 kzvk.modules[mod.name] = mod;
+
+//FUTURE: (скробблинг) Индикация прогресса.
+//FUTURE: (скробблинг) Кнопка в избранное.
+//FUTURE: (скробблинг) История скроблинга для неавторизированных;
 
 })(kzvk);

@@ -7,7 +7,7 @@ mod.list_update__downloads = function(updates){
     each (mod.list, function(item){
         each (updates, function(update){
             if ((item.id === update.id) && (update.type === 'vk-audio')){
-                //console.log('**', item);
+                // mod.log('item', item);
                 item.progress = update.progress;
                 return true;
             }
@@ -20,7 +20,7 @@ mod.list_update__downloads = function(updates){
 mod.observe_downloads = function(){
     function observer(changes, areaName){
 //        if (areaName == 'local')
-//            console.log('changes', changes)
+//            mod.log('changes', changes)
 
         if ((areaName == 'local') && ('downloads' in changes)){
             var updates = changes.downloads.newValue.current;

@@ -1,4 +1,4 @@
-// TODO: вынести в KK
+// FUTURE: вынести в KK
 
 (function(kzvk){
 'use strict';

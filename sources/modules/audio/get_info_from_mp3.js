@@ -27,7 +27,7 @@ mod.get_more_info_from_mp3 = function(url, _, callback){
 
     // Чтение заголовка mp3 фрейма
     function read_frame_header(view){
-        var view_binary = kenzo.i8ArrayTo2(view);
+        var view_binary = kk.i8ArrayTo2(view);
 
         // AAAAAAAAAAA BB CC D EEEE FF G H II JJ K L MM
         // 11111111111 11 01 1 1001 00 0 0 01 10 0 1 00
@@ -66,13 +66,13 @@ mod.get_more_info_from_mp3 = function(url, _, callback){
 
     function check_vbr(response){
         var view = new Uint8Array(response[0].content, 36, 4),
-            header = kenzo.i8ArrayToString(view);
+            header = kk.i8ArrayToString(view);
 
         if (header === 'VBRI' || header === 'Xing'){
             _.vbr = header;
         } else if (_.channelmode === 3){
             view = new Uint8Array(response[0].content, 21, 4);
-            header = kenzo.i8ArrayToString(view);
+            header = kk.i8ArrayToString(view);
             if (header === 'Xing')
                 _.vbr = header;
         }
@@ -94,8 +94,9 @@ mod.get_more_info_from_mp3 = function(url, _, callback){
         })();
 
 
-        if ('error' in _){
-            //console.warn(_.error);
+        if ('error' in _) {
+            kzvk.options.debug__log &&
+                mod.warn(_.error);
             callback(_);
             return false;
         }
@@ -103,7 +104,7 @@ mod.get_more_info_from_mp3 = function(url, _, callback){
         check_vbr(response);
 
 //        var view = new Uint8Array(response[0].content, 155, 15);
-//        console.log(header, view , kenzo.i8ArrayToString(view));
+//        mod.log('i8toStr', kk.i8ArrayToString(view));
 
         callback(_);
     });
@@ -122,7 +123,7 @@ mod.get_file_size_from_range = function(range){
 
 mod.get_info_from_mp3 = function(url, callback){
     if (typeof callback != 'function'){
-        console.warn('get_info_from_mp3: callback не функция');
+        mod.warn('get_info_from_mp3: callback не функция');
         return false;
     }
 
@@ -139,7 +140,7 @@ mod.get_info_from_mp3 = function(url, callback){
                 range = first_part.getHeader('Content-Range');
 
             if (type != 'audio/mpeg'){
-                console.log('get_info_from_mp3: не «audio/mpeg»');
+                mod.warn('get_info_from_mp3: не «audio/mpeg»');
                 callback(_);
                 return false;
             }
@@ -157,18 +158,18 @@ mod.get_info_from_mp3 = function(url, callback){
             // Версия тега
             _.tag_version = (function(first_part, last_part){
                 var tag = new Uint8Array(first_part.content, 0, 3);
-                tag = kenzo.i8ArrayToString(tag);
+                tag = kk.i8ArrayToString(tag);
 
                 if (tag == 'ID3'){
                     var version = new Uint8Array(first_part.content, 3, 1);
                     return 'ID3v2.' + version[0];
                 } else {
                     tag = new Uint8Array(last_part.content, 0, 3);
-                    tag = kenzo.i8ArrayToString(tag);
+                    tag = kk.i8ArrayToString(tag);
                     if (tag == 'TAG'){
-                        return 'ID3v1'; // TODO ID3v1.1
+                        return 'ID3v1'; // FUTURE: ID3v1.1
                     } else {
-                        //console.log('get_info_from_mp3: тег не обнаружен', tag);
+                        //mod.warn('get_info_from_mp3: тег не обнаружен', tag);
                         return false;
                     }
                 }

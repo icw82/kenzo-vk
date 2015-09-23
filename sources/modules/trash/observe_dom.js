@@ -24,7 +24,7 @@ mod.observe_dom = function(){
 mod.new_nodes_listner = function(element){
     if (!(element instanceof Element)) return false;
 
-    //console.log('Trash observer:', element);
+    //mod.log('Trash observer:', element);
 
     // For observer
     each (mod.observers, function(item){

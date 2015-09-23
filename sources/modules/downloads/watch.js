@@ -16,7 +16,7 @@ mod.big_watch = (function(){
     function stop(){
 //        clearInterval(interval_id);
 //        interval_id = null;
-//        console.log('BIG Watch complete');
+//        mod.log('BIG Watch complete');
     }
 
     _.start = function(){
@@ -65,7 +65,8 @@ mod.watch = (function(){
                     });
                 });
 
-                console.log('**после обновления:', list);
+                kzvk.options.debug__log &&
+                    mod.log('Список загрузок после обновления:', list);
 
                 if (list.length === 0){
                     stop();
@@ -89,7 +90,7 @@ mod.watch = (function(){
 
         clearInterval(interval_id);
         interval_id = null;
-        console.log('Watch complete');
+        mod.log('Watch complete');
     }
 
     _.start = function(){

@@ -12,12 +12,12 @@ mod.hide = function(input, hard) {
             node.style.border = 'none';
             node.style.overflow = 'hidden';
 
-            console.info(kzvk.name + ' — ' + mod.name + ' (hard hide):', node);
+            mod.log('hard hide', node);
         }
     } else {
         var _ = function(node) {
             node.classList.add('kz-vk-trash__hidden-shit');
-            console.info(kzvk.name + ' — ' + mod.name + ' (hide):', node);
+            mod.log('hide', node);
         }
     }
 

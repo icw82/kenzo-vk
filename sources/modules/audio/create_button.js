@@ -5,17 +5,17 @@ var mod = kzvk.modules.audio;
 
 mod.create_button = function(item){
     if (typeof item !== 'object'){
-        console.warn('create_button: не передан объект');
+        mod.warn('create_button: не передан объект');
         return false;
     }
 
     if (!(item.dom_element instanceof Element)){
-        console.warn('create_button: не найден DOM-элемент');
+        mod.warn('create_button: не найден DOM-элемент');
         return false;
     }
 
     // Удалять ненужные кнопки
-    // TODO: Почему происходит дублирование?
+    // NOTE: Почему происходит дублирование?
     each (item.dom_element.querySelectorAll('.kz-vk-audio__wrapper'), function(item){
         item.parentNode.removeChild(item);
     });
@@ -23,7 +23,7 @@ mod.create_button = function(item){
     var element = item.dom_element;
 
     if (!element.parentElement){
-        console.warn('?:', element);
+        mod.warn('?:', element);
         return false;
     }
 
@@ -61,7 +61,6 @@ mod.create_button = function(item){
                 '</svg>' +
             '</div>' +
             '<div class="kz-vk-audio__carousel__item kz-unavailable"></div>' +
-            '<div class="kz-vk-audio__carousel__item kz-direct"></div>' +
         '</a>';
 
     if (DOM_play.nextSibling){

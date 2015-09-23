@@ -19,7 +19,7 @@ mod.button_event = function(item, event){
         return false;
     }
 
-    kenzo.event.stop(event);
+    kk.event.stop(event);
 
     function start(){
         chrome.runtime.sendMessage({
@@ -52,7 +52,7 @@ mod.button_event = function(item, event){
                 start();
             }
 //        } else {
-//            console.log('Запись недоступна');
+//            mod.log('Запись недоступна');
 //        }
     }
 }

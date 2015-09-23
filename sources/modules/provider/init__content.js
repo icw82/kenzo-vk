@@ -3,10 +3,15 @@
 
 var mod = kzvk.modules.provider;
 
-mod.init.content = function() {
+mod.init__content = function() {
+
     var port = chrome.runtime.connect({
         name: mod.full_name
     });
+
+    mod.current_tab = {
+        port_of_background: port
+    }
 
     // Ожидание подтверждения
     port.onMessage.addListener(awaiting_confirmation);
@@ -14,7 +19,7 @@ mod.init.content = function() {
     function awaiting_confirmation(message, port) {
         if (message.action != 'confirm the registration') return;
 
-        console.log(mod.full_name, '(cs) confirm the registration');
+        //mod.log('confirm the registration');
 
         // Остановка слушателя
         port.onMessage.removeListener(awaiting_confirmation);
@@ -22,18 +27,33 @@ mod.init.content = function() {
         // Новый слушатель
         port.onMessage.addListener(after_confirmation);
 
+        mod.current_tab.id = message.tab_id;
+
         // Инъекция скрипта в страницу
         mod.inject(message.tab_id, message.key);
 
     }
 
-    function after_confirmation() {
-        console.log(mod.full_name, '(cs) incoming message', message);
+    var ignore_actions = [
+        'get:response',
+        'get:response-from-page'
+    ]
+
+    function after_confirmation(message, port) {
+        if (message.action === 'page is connected') {
+            mod.dispatch_load_event();
+        } else
+            each (ignore_actions, function(item) {
+                if (message.action === item)
+                    return true;
+            }, function() {
+                mod.log('incoming message from BG', message);
+            });
     }
 
     port.onDisconnect.addListener(function() {
         // TODO: попытка перезапуска
-        console.log('Content: onDisconnect', arguments);
+        mod.log('onDisconnect', arguments);
     });
 
     // Запрос регистрации экземпляра (вкладки)

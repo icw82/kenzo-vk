@@ -14,6 +14,9 @@ function choose_a_locale(options) {
     }
 }
 
+//TODO: привести в порядок Разделитель (сейчас он относится только к аудио
+//      и только к русскому языку);
+
 var default_options = {
     audio: true,
     audio__cache: true,
@@ -51,7 +54,8 @@ var default_options = {
     ui__kzvk_button: true,
 
     debug: false,
-    debug__mode: false
+    debug__styles: false,
+    debug__log: false
 }
 
 var default_globals = {
@@ -70,3 +74,5 @@ var default_globals = {
         buffer: []
     }
 }
+
+;

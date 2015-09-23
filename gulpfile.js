@@ -26,11 +26,12 @@ var paths = {
         './bower_components/he/he.js'
     ],
     'sources': [
-        './sources/defaults.js',
+        './sources/common/defaults.js',
         './sources/base.js',
-        './sources/*.js',
+        './sources/common/*.js',
         './sources/modules/*/main.js',
-        './sources/modules/*/*.js'
+        './sources/modules/*/*.js', // FUTURE: можно сденать покрасивше
+        './sources/init.js'
     ]
 };
 
@@ -72,11 +73,11 @@ gulp.task('scripts', function(){
         .src(paths.sources)
         //.pipe(sourcemaps.init())
         .pipe(concat('main.js'))
+//        .pipe(uglify().on("error", gutil.log))
         .pipe(rename({suffix: '.min'}))
-        //.pipe(uglify().on("error", gutil.log))
         //.pipe(sourcemaps.write('../scripts/'))
 
-    return es.merge(angular, angular_sanitize, kk, md5, he, main)
+    return es.merge(angular, angular_sanitize, he, md5, kk, main)
         .pipe(gulp.dest('build/scripts'));
 });
 

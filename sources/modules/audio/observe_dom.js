@@ -25,7 +25,7 @@ mod.observe_dom = function(){
 // Отлов вставки элементов DOM
 mod.new_nodes_listner = function(element){
     if (element instanceof Element){
-//        console.log('**element', element);
+//        mod.log('new element', element);
 
         // Появление глобального плеера
         if (element.getAttribute('id') === 'gp'){
@@ -39,7 +39,7 @@ mod.new_nodes_listner = function(element){
 
         if (element.classList.contains('area')){
             if (element.parentElement.classList.contains('audio')){
-                //console.log('----area', element.parentElement);
+                //mod.log('area', element.parentElement);
                 mod.add_audio_element(element.parentElement, mod.list);
                 return false;
             }
@@ -55,7 +55,7 @@ mod.new_nodes_listner = function(element){
         }
 
 
-//        console.log('**element', element);
+//        mod.log('');
 
 //    // Индикатор загрузки играющего трека
 //    kzvk.globals.vk_load = null;
@@ -68,18 +68,18 @@ mod.new_nodes_listner = function(element){
 }
 
 // Добавляет элемент в список
-mod.add_audio_element = function(element, list){
-    if (!(element instanceof Element)){
-        console.warn('add_audio_element: DOM-элемент не передан');
+mod.add_audio_element = function (element, list) {
+    if (!(element instanceof Element)) {
+        mod.warn('add_audio_element: DOM-элемент не передан');
         return false;
     }
 
-    each (list, function(item){
-        if (item.dom_element === element){
-            console.info('Отлов дублей, йоу')
+    each (list, function (item) {
+        if (item.dom_element === element) {
+            mod.log('Отлов дублей, йоу');
             //return true;
         }
-    }, function(){
+    }, function () {
         var info = mod.get_info_from_audio_element(element);
 
         if (!info.element_type)
@@ -119,16 +119,16 @@ mod.get_info_from_audio_element = function(element){
         }
     };
 
-    if (!_.element_type){
-        //console.warn('Тип элемента не определён', _);
+    if (!_.element_type) {
+        mod.warn('Тип элемента не определён', _);
         return _;
     }
 
     _.id = element.querySelector('a:first-child').getAttribute('name');
 
     var DOM_tw = element.querySelector('.area .info .title_wrap');
-    _.vk_artist = DOM_tw.querySelector('b').textContent.trim();
-    _.vk_title = DOM_tw.querySelector('.title').textContent.trim();
+    _.vk_artist = kzvk.name_filter(DOM_tw.querySelector('b').textContent.trim());
+    _.vk_title = kzvk.name_filter(DOM_tw.querySelector('.title').textContent.trim());
 
     if (element.querySelector('.area.deleted')){
         _.available = false;
@@ -153,8 +153,9 @@ mod.get_info_from_audio_element = function(element){
 mod.get_audio_element_type = function(element){
     var _ = false;
 
-    if (!element.classList.contains('audio')){
-        console.info('Не .audio');
+    if (!element.classList.contains('audio')) {
+
+        mod.log('Не .audio');
         return _;
     }
 
@@ -195,7 +196,7 @@ mod.get_audio_element_type = function(element){
 
 mod.remove_element_from_list = function(element, list){
 //    if (!(element instanceof Element)){
-//        console.warn('remove_element_from_list: DOM-элемент не передан');
+//        mod.warn('remove_element_from_list: DOM-элемент не передан');
 //        return false;
 //    }
 }

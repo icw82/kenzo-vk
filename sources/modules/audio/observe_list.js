@@ -29,22 +29,22 @@ mod.list_observer = function(changes){
             added++;
         } else if (ch.type == 'update'){
             if (ch.name != 'length')
-                console.log('** update:', ch);
+                mod.log('update:', ch);
         } else {
             //deleted++
-            //console.log('**** delete:', ch);
+            //mod.log('delete:', ch);
         }
     });
 
     if (added){
-//        console.log('added:', added);
-//        console.log('total:', mod.list.length);
+//        mod.log('added:', added);
+//        mod.log('total:', mod.list.length);
         mod.list_clean();
     }
 
 //    if (deleted){
-//        console.log('deleted:', deleted);
-//        console.log('total:', mod.list.length);
+//        mod.log('deleted:', deleted);
+//        mod.log('total:', mod.list.length);
 //    }
 
 //    oldValue: только для типов "update" и "delete".

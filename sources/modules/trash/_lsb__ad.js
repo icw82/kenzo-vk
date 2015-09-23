@@ -10,6 +10,8 @@ trash.option_name = 'trash__lsb__ad';
 
 trash.primary = function(){
     mod.drop('#left_ads');
+
+    //FUTURE: #left_box #left_holiday
 }
 
 trash.for_observer = function(element){

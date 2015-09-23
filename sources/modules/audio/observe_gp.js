@@ -10,8 +10,6 @@ var gp = {
 
 // Регистрация и Отлов изменений глобального плеера
 mod.observe_gp = function(element){
-    //console.log('--observe_gp!');
-
     if (!(element instanceof Element))
         return false;
 
@@ -65,7 +63,7 @@ mod.observe_gp = function(element){
 //
 //            element.appendChild(DOM_kz__wrapper);
 //
-//            console.log('*******', DOM_kz__wrapper);
+//            mod.log('wrapper', DOM_kz__wrapper);
 
             observer.disconnect();
         }
@@ -79,11 +77,9 @@ mod.observe_gb_button = function(){
     var observer = new MutationObserver(function(mutations){
         each (mutations, function(mr){
             if (mr.type === 'childList'){
-                console.log('-- ADD', mr);
-
+                mod.log('-- ADD', mr);
             } else if (mr.type === 'attributes'){
-                console.log('-- ATTR', mr);
-
+                mod.log('-- ATTR', mr);
             }
         });
     });
@@ -109,7 +105,7 @@ mod.make_provider = function(key) {
         var secret_key = null;
 
         var ap_observer = function(changes) {
-            //console.log('** changes:', changes);
+            // mod.log('changes', changes);
             var track = audioPlayer.lastSong;
 
             var info = {
@@ -132,7 +128,6 @@ mod.make_provider = function(key) {
             if (typeof arguments[0] === 'string') {
                 secret_key = arguments[0];
                 if (typeof audioPlayer === 'object') {
-//                    console.log('audioPlayer', audioPlayer);
                     Object.observe(audioPlayer, ap_observer);
                 }
             }

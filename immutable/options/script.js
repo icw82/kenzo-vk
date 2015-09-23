@@ -87,7 +87,8 @@ $scope.i18n = {
     'debug': {
         'header': chrome.i18n.getMessage('o__debug'),
         'options': {
-            'mode': chrome.i18n.getMessage('o__debug__mode'),
+            'styles': chrome.i18n.getMessage('o__debug__styles'),
+            'log': chrome.i18n.getMessage('o__debug__log')
         }
     }
 }
@@ -124,7 +125,7 @@ $scope.defaults = function(){
 $scope.clear_db = function() {
     chrome.storage.local.clear(function() {
         chrome.storage.local.get(function(){
-            console.log(arguments);
+            //mod.log(arguments);
         });
 
         alert('Очищено');

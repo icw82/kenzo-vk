@@ -3,7 +3,7 @@
 
 var mod = kzvk.modules.audio;
 
-mod.init.content = function() {
+mod.init__content = function() {
     if (kzvk.options.audio !== true) return;
 
     chrome.runtime.sendMessage({
@@ -16,6 +16,8 @@ mod.init.content = function() {
     mod.observe_list();
     mod.observe_dom();
     mod.observe_downloads();
+
+    mod.dispatch_load_event();
 }
 
 })(kzvk);

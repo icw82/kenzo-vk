@@ -3,7 +3,7 @@
 
 var mod = kzvk.modules.ui;
 
-mod.init.content = function() {
+mod.init__content = function() {
     if (kzvk.options.ui !== true) return;
 
     kzvk.dom.side_bar = document.querySelector('#side_bar');
@@ -29,6 +29,7 @@ mod.init.content = function() {
         menu.appendChild(item);
     }
 
+    mod.dispatch_load_event();
 }
 
 })(kzvk);

@@ -16,7 +16,7 @@ mod.db_connect = function(config, callback){
     request.onupgradeneeded = function(event){
         if (request.result.objectStoreNames.contains(config.store_name)){
             request.result.deleteObjectStore(config.store_name);
-            console.log('db_connect — Объект удалён');
+            mod.log('db_connect — Объект удалён');
         }
 
         config.store = event.target.result.createObjectStore(config.store_name, {keyPath: 'id'});
@@ -27,7 +27,7 @@ mod.db_connect = function(config, callback){
     }
 
     request.onerror = function(){
-        console.warn('db_connect — error:', event);
+        mod.warn('db_connect — error:', event);
     }
 }
 
@@ -41,7 +41,7 @@ mod.enrich_item = function(item){
     function get_and_update(){
         mod.get_info_from_mp3(item.url, function(update){
             mod.update_item(item, update);
-            //console.log(item);
+            //mod.log(item);
 
             if (kzvk.options.audio__cache){
                 // Занести информацию в кэш
@@ -65,7 +65,7 @@ mod.enrich_item = function(item){
                     }
 
                     request.onerror = function(){
-                        console.warn('get_and_update:', event);
+                        mod.warn('get_and_update:', event);
                         db.close();
                     }
                 });
@@ -82,7 +82,7 @@ mod.enrich_item = function(item){
                     .get(item.id);
 
                 request.onsuccess = function(event){
-                    //console.log(event.target.result);
+                    //mod.log(event.target.result);
                     if (event.target.result){
                         item.bitrate = event.target.result.bitrate;
                         item.size = event.target.result.size;
@@ -99,7 +99,7 @@ mod.enrich_item = function(item){
                 }
 
                 request.onerror = function(){
-                    console.log('enrich_item — db connect error:', event);
+                    mod.log('db connect error:', event);
                     get_and_update();
                 }
 

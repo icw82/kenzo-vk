@@ -13,27 +13,41 @@ mod.inject = function(tab_id, key) {
         ext_id: chrome.runtime.id,
         full_name: mod.full_name,
         key: key,
-        tab_id: tab_id
+        tab_id: tab_id,
+        debug__log: kzvk.options.debug__log
     }
 
     // Функция-провайдер, передаваемая во внешний скрипт в форме текста.
     // Работает только в контексте страницы.
     var isolated_function = function(_) {
         var port = chrome.runtime.connect(_.ext_id, {name: _.full_name});
-        //var is_connected = false;
 
-        function listener(message, port) {
-            if (message.action == 'confirm the registration') {
-                console.log('+++ Page is connected');
-            } else {
-                console.log('Page: onMessage .message', message);
-            }
+        port.onMessage.addListener(awaiting_confirmation);
+
+        function awaiting_confirmation(message, port) {
+            if (message.action != 'confirm the registration') return;
+
+            // Остановка слушателя
+            port.onMessage.removeListener(awaiting_confirmation);
+
+            // Новый слушатель
+            port.onMessage.addListener(after_confirmation);
+
+            _.debug__log &&
+                console.log(_.full_name, '— Page is connected');
         }
 
-        port.onMessage.addListener(listener);
+        function after_confirmation(message, port) {
+            if (message.action === 'get')
+                methods.get(message, port);
+            else
+                _.debug__log &&
+                    console.log(_.full_name, '(page) incoming message', message);
+        }
 
         port.onDisconnect.addListener(function() {
-            console.log('Page: onDisconnect', arguments);
+            _.debug__log &&
+                console.log('Page: onDisconnect', arguments);
         });
 
         port.postMessage({
@@ -41,6 +55,27 @@ mod.inject = function(tab_id, key) {
             tab_id: _.tab_id,
             key: _.key
         });
+
+        var methods = {};
+
+        methods.get = function(message, port) {
+            if (typeof message.key !== 'string') return;
+            if (typeof message.value !== 'string') return;
+
+            var response = {
+                action: 'get:response-from-page',
+                key: message.key
+            }
+
+            try {
+                response.value = window.eval(message.value);
+            } catch (error) {
+                // FUTURE: Как передать весь стек?
+                response.error = error.toString();
+            }
+
+            port.postMessage(response);
+        }
     }
 
     provider.innerHTML = '(' + isolated_function + ')(' + JSON.stringify(_) + ')';

@@ -98,8 +98,11 @@
     "o__debug": {
         "message": "Отладка"
     },
-    "o__debug__mode": {
-        "message": "Режим отладки"
+    "o__debug__styles": {
+        "message": "Стили"
+    },
+    "o__debug__log": {
+        "message": "Сообщения в консоли"
     },
     "o__filters__brackets": {
         "message": "Удалять из названий сохраняемых файлов скобки и их содержимое:"

@@ -7,7 +7,7 @@ mod.drop = function(input, option){
     var _ = function(node) {
         kzvk.dom.trash_bin.appendChild(node);
         node.style.height = '0px';
-        console.info(kzvk.name + ' — ' + mod.name + ' (drop):', node);
+        mod.log('drop', node);
     }
 
     if (typeof input == 'string'){

@@ -3,9 +3,10 @@
 
 var mod = kzvk.modules.video;
 
+// NOTE: Обязателен ли список?
 mod.add_element_to_list = function(element, list) {
     if (!(element instanceof Element)) {
-        console.warn('add_element_to_list: DOM-элемент не передан');
+        mod.warn('add_element_to_list: DOM-элемент не передан');
         return false;
     }
 
@@ -15,9 +16,27 @@ mod.add_element_to_list = function(element, list) {
             return true;
         }
     }, function() {
-        var info = mod.get_info_from_html(element);
+        kzvk.modules.provider.get('videoview.getPlayerObject()').then(function(object) {
+            if (typeof object !== 'object') {
+                mod.log('Видеоплеер не обнаружен');
+                return;
+            }
 
-        list.push(info);
+            var info;
+
+            if (object.type === 'application/x-shockwave-flash') {
+                //var element = kzvk.dom.body.querySelector();
+                info = mod.get_info_from_element(element);
+            }
+
+            else if (typeof object.vars === 'object')
+                info = mod.get_info_from_object(object.vars, element);
+
+            if (info) list.push(info);
+
+        }, function(response) {
+            mod.warn('add_element_to_list error', response);
+        });
     });
 }
 

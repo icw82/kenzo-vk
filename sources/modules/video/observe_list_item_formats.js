@@ -3,7 +3,7 @@
 
 var mod = kzvk.modules.video;
 
-// Отлов изменений объекта аудизаписи в списке
+// Отлов изменений объекта (для одной кнопки) в списке
 mod.item_formats_observer = function(changes){
     var goals = []; // Изменённые объекты [{item, changes}, {…}]
 

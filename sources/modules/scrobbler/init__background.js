@@ -3,7 +3,7 @@
 
 var mod = kzvk.modules.scrobbler;
 
-mod.init.background = function() {
+mod.init__background = function() {
     if (kzvk.options.scrobbler !== true)
         return false;
 
@@ -43,10 +43,10 @@ mod.init.background = function() {
 
                         request.info.name = kzvk.name_filter(request.info.name);
                     } else {
-                        console.warn('#audio status update');
+                        mod.warn('#audio status update');
                     }
 
-                    //console.log('request.info', request.info);
+                    //mod.log('request.info', request.info);
                     mod.center(request.info);
                }
             });
@@ -54,6 +54,8 @@ mod.init.background = function() {
     });
 
     mod.observe();
+
+    mod.dispatch_load_event();
 }
 
 })(kzvk);

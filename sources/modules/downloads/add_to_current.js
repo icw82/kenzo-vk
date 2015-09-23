@@ -5,7 +5,7 @@ var mod = kzvk.modules.downloads;
 
 mod.add_to_current = function(download_id, type, id, format){
 
-    //console.log('**add_to_current:', arguments);
+    //mod.log('add_to_current:', arguments);
 
     chrome.storage.local.get('downloads', function(data){
         data.downloads.current.push({

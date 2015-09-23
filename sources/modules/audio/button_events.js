@@ -12,15 +12,14 @@ mod.button_event = function(item, event) {
 //        dt.addElement(item);
 //        dt.setDragImage();
 
-//        console.log('dt', dt);
+//        mod.log('dt', dt);
 //
         return false;
     }
 
-    kenzo.event.stop(event);
+    kk.event.stop(event);
 
     if (event.which === 2) {
-//        console.log(chrome);
 //
 //        chrome.downloads.download({
 //            url: item.url,
@@ -38,7 +37,7 @@ mod.button_event = function(item, event) {
             id: item.id
         });
 
-        //console.log('** vk-audio__save');
+        mod.log('save');
     }
 
     function stop() {
@@ -47,17 +46,17 @@ mod.button_event = function(item, event) {
             id: item.id
         });
 
-        //console.log('** vk-audio__stop-download');
+        mod.log('stop-download');
     }
 
     if (event.type === 'click') {
-//        console.log(event);
+//        mod.log(event);
 //        altKey
 //        ctrlKey
 //        metaKey
 //        shiftKey
         if (event.altKey) {
-            console.log('this item:', item);
+            mod.log('this item:', item);
             return false;
         }
 
@@ -71,7 +70,7 @@ mod.button_event = function(item, event) {
                 start();
             }
         } else {
-            console.log('Запись недоступна');
+            mod.log('Запись недоступна');
         }
     }
 

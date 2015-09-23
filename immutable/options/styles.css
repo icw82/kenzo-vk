@@ -103,6 +103,6 @@ p{margin-bottom: 7px}
 .b-footer__sign:hover{opacity: 1;
     transition: opacity .2s ease, color .2s ease}
 
-.f-for-dev{overflow: hidden; opacity: 0; height: 0; margin: 0 -5px; padding: 0 5px;
+.f-for-dev{height: 0; overflow: hidden; opacity: 0; margin: 0 -5px; padding: 0 5px;
     transition: opacity .2s ease}
-.f-for-dev.visible{opacity: 1; height: auto}
+.f-for-dev.visible{opacity: 1; height: auto; overflow: visible}

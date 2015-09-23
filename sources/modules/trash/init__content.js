@@ -3,7 +3,7 @@
 
 var mod = kzvk.modules.trash;
 
-mod.init.content = function() {
+mod.init__content = function() {
     if (kzvk.options.trash !== true) return;
 
     kzvk.dom.trash_bin = document.createElement('div');
@@ -14,6 +14,8 @@ mod.init.content = function() {
     kzvk.dom.body.insertBefore(kzvk.dom.trash_bin, kzvk.dom.body.firstChild);
 
     mod.observe_dom();
+
+    mod.dispatch_load_event();
 }
 
 })(kzvk);
