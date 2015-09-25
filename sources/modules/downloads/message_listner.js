@@ -26,17 +26,18 @@ mod.message_listner = function(request, sender, sendResponse){
                 }
             });
         });
-    } else if (request.action === 'vk-video__save'){ // VIDEO
+    } else if (request.action === 'vk-video__save') { // VIDEO
         chrome.downloads.download({
             url: request.url,
             filename: request.name,
             conflictAction: 'prompt'
-        }, function(download_id){
+        }, function(download_id) {
+            // Note: формат тут нужен для того, чтобы не возникло путаницы.
             mod.add_to_current(download_id, 'vk-video', request.id, request.format);
         });
-    } else if (request.action === 'vk-video__stop-download'){
-        chrome.storage.local.get('downloads', function(data){
-            each (data.downloads.current, function(item){
+    } else if (request.action === 'vk-video__stop-download') {
+        chrome.storage.local.get('downloads', function(data) {
+            each (data.downloads.current, function(item) {
                 if (
                     request.id === item.id &&
                     request.format === item.format &&

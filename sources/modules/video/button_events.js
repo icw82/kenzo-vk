@@ -25,7 +25,7 @@ mod.button_event = function(item, event){
         chrome.runtime.sendMessage({
             action: 'vk-video__save',
             url: item.url,
-            name: item.host.title + '.' + item.ext,
+            name: item.host.title + '.' + item.format +  '.' + item.ext,
             id: item.host.id,
             format: item.format
         });

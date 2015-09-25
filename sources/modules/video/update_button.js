@@ -5,16 +5,12 @@ var mod = kzvk.modules.video;
 
 mod.update_button__basic = function(item){
     var message = item.format || '…';
+    var filename = item.host.title + '.' + item.format +'.' + item.ext;
 
     kk.class(item.dom_element, 'kz-format', mod.button_classes);
     item.dom_format.setAttribute('data-message', message);
     item.dom_carousel.setAttribute('href', item.url);
-    item.dom_carousel.setAttribute('download', item.host.title + '.' + item.ext);
-
-    var format_classes = [
-        'kz-vk-video__format--normal',
-        'kz-vk-video__format--crap'
-    ];
+    item.dom_carousel.setAttribute('download', filename);
 
     var button_sizes = [
         'kz-s3',
@@ -26,6 +22,11 @@ mod.update_button__basic = function(item){
     } else {
         kk.class(item.dom_element, 'kz-s3', button_sizes);
     }
+
+    var format_classes = [
+        'kz-vk-video__format--normal',
+        'kz-vk-video__format--crap'
+    ];
 
     if (item.format >= 720){
         kk.class(item.dom_carousel, 'kz-vk-video__format--normal', format_classes);
