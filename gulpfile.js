@@ -26,7 +26,6 @@ var paths = {
         './bower_components/he/he.js'
     ],
     'sources': [
-        './sources/common/defaults.js',
         './sources/base.js',
         './sources/common/*.js',
         './sources/modules/*/main.js',

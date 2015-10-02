@@ -3,6 +3,20 @@
 
 var mod = new kzvk.Module('trash');
 
+mod.default_options = {
+    _: true,
+    self: true,
+    lsb__ad: true,
+    lsb__fr: true,
+    group_recom: true,
+    newsads: true,
+    promoted_posts: false,
+    profile_rate: true,
+    big_like: false,
+    user_reposts: false,
+    group_reposts: false
+}
+
 mod.observers = []; // FUTURE: В правильно ли место определения свойства?
 
 // Включение модуля

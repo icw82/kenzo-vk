@@ -3,12 +3,33 @@
 
 var mod = kzvk.modules.ui;
 
-mod.init__content = function() {
-//    if (kzvk.options.ui !== true) return;
-//
-//    kzvk.dom.side_bar = document.querySelector('#side_bar');
-//
-//    if (kzvk.options.ui__kzvk_button) {
+//TODO: Возраст, если известна дата.
+
+mod.user_id = function() {
+    //TODO: id в шапке профиля.
+
+    if (mod.options.ids !== true) return;
+
+//https://api.vk.com/method/users.get?user_ids=
+
+//    <div id="header_wrap2">
+//        <div id="header_wrap1">
+//          <div id="header">
+//            <h1 id="title"> ** </h1>
+//          </div>
+//        </div>
+//      </div>
+
+}
+
+//TODO: у постов, открыть в новой вкладке.
+mod.post_in_a_new_tab = function() {
+    if (kzvk.options.ui__new_tab_buttons !== true) return;
+
+}
+
+mod.kzvk_button = function() {
+    if (kzvk.options.ui__kzvk_button !== true) return;
 //        var menu = kzvk.dom.side_bar.querySelector('ol');
 //
 //        // Разделитель
@@ -27,7 +48,15 @@ mod.init__content = function() {
 //            '</a>';
 //
 //        menu.appendChild(item);
-//    }
+}
+
+mod.init__content = function() {
+    if (mod.options._ !== true) return;
+
+    kzvk.dom.side_bar = document.querySelector('#side_bar');
+
+    mod.user_id();
+    mod.kzvk_button();
 
     mod.dispatch_load_event();
 }

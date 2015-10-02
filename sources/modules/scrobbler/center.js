@@ -76,7 +76,7 @@ mod.center = function(info){
                     // условия скробблинга
                     if (!item.scrobbled){
                         // Если проиграно 4 минуты
-                        if (kzvk.options.scrobbler__4m && (item.state >= 240000)){
+                        if (mod.options.m4m && (item.state >= 240000)){
                             item.scrobbled = true; // FIX: а если ошибка? А если задержка?
                             send_scrobble_request(item.first_update);
                         } else {
@@ -85,7 +85,7 @@ mod.center = function(info){
 //                            mod.log('proportion:', proportion);
 //                            mod.log('state:', Math.round(item.state / 1000));
 
-                            if (proportion >= kzvk.options.scrobbler__proportion){
+                            if (proportion >= mod.options.proportion){
                                 item.scrobbled = true;
                                 send_scrobble_request(item.first_update);
                             }

@@ -3,45 +3,42 @@
 
 var mod = kzvk.modules.video;
 
-
 mod.get_info_from_object = function(object, element) {
+    var info = new mod.Video;
+
     if (typeof object.vid !== 'number')
-        return {
-            available: false
-        };
+        return info;
+    else
+        info.available = true;
 
-    var _ = {
-        available: true,
-        formats: [],
-        vid: object.vid,
-        owner: object.md_author,
-        owner_id: object.oid,
-        uid: object.uid, // В чём отличие от OID?
-        title: kzvk.name_filter(object.md_title),
+    info.vid = object.vid,
+    info.owner = object.md_author,
+    info.owner_id = object.oid,
+    info.uid = object.uid,
+    info.title = object.md_title,
 
-        hash: object.hash,
-        hash2: object.hash2,
+    info.hash = object.hash,
+    info.hash2 = object.hash2,
 
-        dom_element: element, // NOTE: Нужен ли передаваемый элемент?
-    }
-
-     _.id = _.owner_id + '_' + _.vid;
+    info.dom_element = element;
 
     // Форматы
     for (var key in object) {
         let matches = key.match(/^url(\d{3,4})$/);
 
         if (matches) {
-            _.formats.push({
-                'host': _,
-                'format': matches[1],
-                'url': object[key],
-                'ext': object[key].match(/\.(\w+?)\?/)[1]
-            });
+            var format = new mod.Format(info);
+
+            format.format = matches[1];
+            format.url = object[key];
+
+            info.formats.push(format);
         }
     }
 
-    return _;
+    mod.log(info);
+
+    return info;
 }
 
 })(kzvk);

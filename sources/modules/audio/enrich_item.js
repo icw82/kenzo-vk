@@ -43,7 +43,7 @@ mod.enrich_item = function(item){
             mod.update_item(item, update);
             //mod.log(item);
 
-            if (kzvk.options.audio__cache){
+            if (mod.options.cache){
                 // Занести информацию в кэш
 
                 mod.db_connect(mod.db_config, function(db){
@@ -75,7 +75,7 @@ mod.enrich_item = function(item){
     }
 
     if (item.available){
-        if (kzvk.options.audio__cache){
+        if (mod.options.cache){
             mod.db_connect(mod.db_config, function(db){
                 var request = db.transaction([mod.db_config.store_name], 'readonly')
                     .objectStore(mod.db_config.store_name)

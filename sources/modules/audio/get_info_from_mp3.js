@@ -95,10 +95,9 @@ mod.get_more_info_from_mp3 = function(url, _, callback){
 
 
         if ('error' in _) {
-            kzvk.options.debug__log &&
-                mod.warn(_.error);
+            mod.warn(_.error);
             callback(_);
-            return false;
+            return;
         }
 
         check_vbr(response);

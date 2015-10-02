@@ -3,6 +3,12 @@
 
 var mod = new kzvk.Module('scrobbler');
 
+mod.default_options = {
+    _: false,
+    proportion: 50,
+    m4m: true
+}
+
 mod.api_url = 'http://ws.audioscrobbler.com/2.0/';
 mod.api_key = 'dc20a585f46d025a75b0efdce8c9957a';
 mod.secret = '110ce7f7a6cec742c6433507428ebfc7';
@@ -137,19 +143,19 @@ mod.reset_session = function(){
 Не целесообразно хранить данные в больших объектах, их нужно дробить.
 Например:
     scrobbler {
-        buffer: […],
+        buffer: […], ← Нельзя повесить слушателя на этот подобъект
         session: {…}
     }
 нужно заменить на:
-    scrobbler__buffer = [];
+    scrobbler__buffer = []; ← Можно повесить отдельный слушатель на этот объект
     scrobbler__session = {};
 
 Минус в том, что прослушку нужно вешать на несколько объектов, вместо одного.
 
 */
-mod.observe = function(){
-    function observer(changes, areaName){
-        if ((areaName == 'local') && ('scrobbler' in changes)){
+mod.observe = function() {
+    function observer(changes, areaName) {
+        if ((areaName == 'local') && ('scrobbler' in changes)) {
             //mod.log('changes', changes);
 
             if (changes.scrobbler.newValue.session !== mod.session)

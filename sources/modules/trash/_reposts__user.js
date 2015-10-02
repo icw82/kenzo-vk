@@ -9,33 +9,16 @@ var trash = {}
 trash.option_name = 'trash__user_reposts';
 
 trash.primary = function() {
-    each ('.post_copy', hide);
+    each ('.post_copy', mod.hide_user_repost);
 }
 
 trash.for_observer = function(element){
     if (!(element instanceof Element)) return false;
 
     if (element.classList.contains('post_copy'))
-        hide(element);
+        mod.hide_user_repost(element);
     else
-        each (element.querySelectorAll('.post_copy'), hide);
-}
-
-// FIXME: дублирование кода
-function hide(element){
-    var post_info = mod.get_post_info(element);
-    if (!post_info || !post_info.repost) return false;
-
-    if (post_info.is_group) return false;
-
-    var ancestor = kzvk.ancestor_search(element, 'feed_row');
-
-    if (ancestor)
-        mod.hide(ancestor);
-    else
-        mod.hide(post_info.element, true);
-
-    //published_sec_quote published_a_quote — второй уровень репоста?
+        each (element.querySelectorAll('.post_copy'), mod.hide_user_repost);
 }
 
 mod.observers.push(trash);

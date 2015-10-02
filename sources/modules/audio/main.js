@@ -3,6 +3,17 @@
 
 var mod = new kzvk.Module('audio');
 
+mod.default_options = {
+    _: true,
+    cache: true,
+    separator: kzvk.choose_a_locale({
+        en: '–',
+        ru: '—'
+    }),
+    progress_bars: true,
+    simplified: false
+}
+
 mod.list = [] // временно здесь?
 mod.audio_item_classes = [
     'kz-bitrate',
@@ -14,7 +25,6 @@ mod.provider_key = kzvk.make_key();
 // Включение модуля
 kzvk.modules[mod.name] = mod;
 
-// TODO: Размер файла;
 // TODO: Унифицировать кнопку (код, стили и пр.)
 // TODO: Опробовать веб-компоненты;
 

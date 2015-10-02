@@ -39,6 +39,31 @@ mod.update_button__basic = function(item){
     item.dom_carousel.setAttribute('href', item.url_clean);
     item.dom_carousel.setAttribute('download', item.vk_name + '.mp3');
 
+    function filesize(size) {
+        var output;
+        var units = ['Б', 'КБ', 'МБ', 'ГБ', 'ТБ', 'ПБ', 'ЭБ']; // FUTURE: i18n
+
+        each (units, function(unit, index) {
+            var limit = Math.pow(10, 3 * (index + 1));
+
+            if (size < limit * 0.8) {
+                if (size < limit * 0.02)
+                    output = Math.round(size / limit * 10000) / 10
+                else
+                    output = Math.round(size / limit * 1000);
+
+                output = output.toLocaleString();
+                output += ' ' + unit;
+                return true;
+            }
+        });
+
+        return output;
+    }
+
+    if (typeof item.size === 'number')
+        item.dom_carousel.setAttribute('title', filesize(item.size));
+
     var bitrate_classes = [
         'kz-vk-audio__bitrate--320',
         'kz-vk-audio__bitrate--256',

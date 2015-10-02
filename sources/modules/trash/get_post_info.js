@@ -22,8 +22,7 @@ function parse(matches) {
 mod.get_post_info = function(element){
 
     if (!(element instanceof Element) || !element.classList.contains('post')) {
-        kzvk.options.debug__log &&
-            mod.warn('Не пост', element);
+        mod.warn('Не пост', element);
         return false;
     }
 

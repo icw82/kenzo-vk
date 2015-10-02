@@ -8,90 +8,134 @@ APP.config(function($interpolateProvider) {
 
 APP.controller('settings', function($scope) {
 
+//console.log(chrome.runtime.getURL('_locales/' + chrome.i18n.getUILanguage() + '/messages.json'));
+
+function get_messages() {
+    var i18n = {};
+
+    each (arguments, function (item) {
+        var root = item[0];
+        var branch = item[1];
+
+        if (typeof root !== 'string')
+            throw new Error('get_messages error 1');
+
+        if (root in i18n)
+            console.warn('переопределение');
+        i18n[root] = {};
+
+        if (branch instanceof Array) {
+            each (branch, function(item) {
+                if (typeof item !== 'string')
+                    throw new Error('get_messages error 2');
+
+                i18n[root][item] = chrome.i18n.getMessage('o__' + root + '__' + item);
+            });
+        } else if (item.length === 1) {
+            i18n[root] = chrome.i18n.getMessage('o__' + root);
+        } else
+            throw new Error('get_messages error 3');
+    });
+
+    return i18n;
+}
+
+// Текст
+var pre_i18n = get_messages(
+    [
+        'audio', [
+            'header',
+            'cache',
+            'separator',
+            'progress_bars',
+            'simplified',
+            'simplified__desc'
+        ]
+    ], [
+        'debug', [
+            'header',
+            'styles',
+            'log'
+        ]
+    ], [
+        'filters', [
+            'brackets',
+            'square_brackets',
+            'curly_brackets'
+        ]
+    ],
+    [
+        'info', [
+            'changes',
+            'beta'
+        ]
+    ],
+    ['header'],
+    ['others'],
+    ['reset'],
+    [
+        'scrobbler', [
+            'header'
+        ]
+    ], [
+        'trash', [
+            'header',
+            'lsb__ad',
+            'lsb__fr',
+            'newsads',
+            'promoted_posts',
+            'group_recom',
+            'profile_rate',
+            'big_like',
+            'user_reposts',
+            'group_reposts'
+        ]
+    ], [
+        'ui', [
+            'header',
+            'kzvk_button',
+            'ids'
+        ]
+    ], [
+        'video', [
+            'header',
+            'progress_bars',
+            'simplified',
+            'format_before_ext',
+            'format_before_ext__desc'
+        ]
+    ]
+);
+
 function replace_links(text, link){
     if (typeof text == 'string')
         return text.replace(/\*(.+?)\*/g, '<a class="a-link" href="' + link + '">$1</a>');
     else
         return text;
 }
+pre_i18n.info.beta = replace_links(pre_i18n.info.beta, 'https://vk.com/kenzovk');
 
-// Текст
-$scope.i18n = {
-    header: chrome.i18n.getMessage('o__header'),
-    reset: chrome.i18n.getMessage('o__reset'),
-    others: chrome.i18n.getMessage('o__others'),
-    info: {
-        changes: chrome.i18n.getMessage('o__i__changes'),
-        beta: replace_links(
-            chrome.i18n.getMessage('o__i__beta'),
-            'https://vk.com/kenzovk'
-        )
-    },
-    audio: {
-        header: chrome.i18n.getMessage('o__audio__header'),
-        options: {
-            cache: chrome.i18n.getMessage('o__audio__cache'),
-            separator: chrome.i18n.getMessage('o__audio__separator'),
-            separators: [
-                {
-                    char: chrome.i18n.getMessage('o__audio__separator__1'),
-                    desc: chrome.i18n.getMessage('o__audio__separator__1') + ' (' +
-                        chrome.i18n.getMessage('o__audio__separator__1__desc') + ')'
-                },{
-                    char: chrome.i18n.getMessage('o__audio__separator__2'),
-                    desc: chrome.i18n.getMessage('o__audio__separator__2') + ' (' +
-                        chrome.i18n.getMessage('o__audio__separator__2__desc') + ')'
-                },{
-                    char: chrome.i18n.getMessage('o__audio__separator__3'),
-                    desc: chrome.i18n.getMessage('o__audio__separator__3') + ' (' +
-                        chrome.i18n.getMessage('o__audio__separator__3__desc') + ')'
-                }
-            ],
-            progress_bars: chrome.i18n.getMessage('o__audio__progress_bars'),
-            simplified: chrome.i18n.getMessage('o__audio__simplified'),
-            simplified__desc: chrome.i18n.getMessage('o__audio__simplified__desc')
-        }
-    },
-    'video': {
-        'header': chrome.i18n.getMessage('o__video__header'),
-        'options': {
-            'progress_bars': chrome.i18n.getMessage('o__video__progress_bars'),
-            'simplified': chrome.i18n.getMessage('o__video__simplified')
-        }
-    },
-    'scrobbler': {
-        'header': chrome.i18n.getMessage('o__scrobbler__header'),
-    },
-    'trash': {
-        'header': chrome.i18n.getMessage('o__trash__header'),
-        'options': {
-            'lsb__ad': chrome.i18n.getMessage('o__trash__lsb__ad'),
-            'lsb__fr': chrome.i18n.getMessage('o__trash__lsb__fr'),
-            'newsads': chrome.i18n.getMessage('o__trash__newsads'),
-            'promoted_posts': chrome.i18n.getMessage('o__trash__promoted_posts'),
-            'group_recom': chrome.i18n.getMessage('o__trash__group_recom'),
-            'profile_rate': chrome.i18n.getMessage('o__trash__profile_rate'),
-            'big_like': chrome.i18n.getMessage('o__trash__big_like'),
-            'user_reposts': chrome.i18n.getMessage('o__trash__user_reposts'),
-            'group_reposts': chrome.i18n.getMessage('o__trash__group_reposts')
-        },
-    },
-    'filters': {
-        //'header': chrome.i18n.getMessage('o__trash__header'),
-        'options': {
-            'brackets': chrome.i18n.getMessage('o__filters__brackets'),
-            'square_brackets': chrome.i18n.getMessage('o__filters__square_brackets'),
-            'curly_brackets': chrome.i18n.getMessage('o__filters__curly_brackets')
-        }
-    },
-    'debug': {
-        'header': chrome.i18n.getMessage('o__debug'),
-        'options': {
-            'styles': chrome.i18n.getMessage('o__debug__styles'),
-            'log': chrome.i18n.getMessage('o__debug__log')
-        }
+// FIX: Убрать этот бред отсюда
+function get_msg(name) { return chrome.i18n.getMessage('o__' + name) }
+pre_i18n.audio.separators = [
+    {
+        char: get_msg('audio__separator__1'),
+        desc: get_msg('audio__separator__1') + ' (' +
+            get_msg('audio__separator__1__desc') + ')'
+    },{
+        char: get_msg('audio__separator__2'),
+        desc: get_msg('audio__separator__2') + ' (' +
+            get_msg('audio__separator__2__desc') + ')'
+    },{
+        char: get_msg('audio__separator__3'),
+        desc: get_msg('audio__separator__3') + ' (' +
+            get_msg('audio__separator__3__desc') + ')'
     }
-}
+]
+
+
+$scope.i18n = pre_i18n;
+//console.log(kzvk.default_options);
 
 $scope.Manifest = chrome.runtime.getManifest();
 
@@ -104,7 +148,7 @@ $scope.scrobbler = {
 $scope.ctrl = false;
 
 function sync_model(){
-    chrome.storage.sync.get(default_options, function(items){
+    chrome.storage.sync.get(kzvk.default_options, function(items){
         watch_flag = false;
         $scope.Options = items;
         $scope.$apply();
@@ -119,7 +163,7 @@ $scope.$watch('Options', function(){
 }, true);
 
 $scope.defaults = function(){
-    chrome.storage.sync.set(default_options);
+    chrome.storage.sync.set(kzvk.default_options);
 }
 
 $scope.clear_db = function() {
@@ -149,7 +193,7 @@ document.addEventListener('keydown', function(event) {
         $scope.ctrl = true;
         $scope.$apply();
 
-        console.log($scope.ctrl)
+//        console.log($scope.ctrl)
     }
 });
 document.addEventListener('keyup', function(event) {
@@ -157,12 +201,12 @@ document.addEventListener('keyup', function(event) {
         $scope.ctrl = false;
         $scope.$apply();
 
-        console.log($scope.ctrl)
+//        console.log($scope.ctrl)
     }
 });
 
 // title
 //Настройки Kenzo VK
-document.title = chrome.runtime.getManifest().name + ': ' + chrome.i18n.getMessage('o__header');
+document.title = chrome.runtime.getManifest().name + ': ' + get_msg('header');
 
 });

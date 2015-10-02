@@ -3,20 +3,21 @@
 
 var mod = kzvk.modules.video;
 
-mod.button_event = function(item, event){
+mod.button_event = function(item, event) {
+
     if (event.type === 'dragstart') {
         var dt = event.dataTransfer;
 
         if (item.ext === 'mp4')
             var mime = 'video/mp4';
         else
-            return false;
+            return;
 
-        var data = mime + ':' + item.host.title + '.' + item.ext + ':' + item.url;
+        var data = mime + ':' + item.filename + ':' + item.url;
 
         dt.setData('DownloadURL', data);
 
-        return false;
+        return;
     }
 
     kk.event.stop(event);
@@ -25,7 +26,7 @@ mod.button_event = function(item, event){
         chrome.runtime.sendMessage({
             action: 'vk-video__save',
             url: item.url,
-            name: item.host.title + '.' + item.format +  '.' + item.ext,
+            name: item.filename,
             id: item.host.id,
             format: item.format
         });

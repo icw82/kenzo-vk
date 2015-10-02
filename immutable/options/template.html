@@ -48,29 +48,29 @@
     <p>
         <label class="f-label checkbox">
             <input type="checkbox" ng-model="Options.audio__cache">
-            <span ng-bind="i18n.audio.options.cache"></span>
+            <span ng-bind="i18n.audio.cache"></span>
         </label>
     </p>
     <p>
         <label class="f-label checkbox">
             <input type="checkbox" ng-model="Options.audio__progress_bars">
-            <span ng-bind="i18n.audio.options.progress_bars"></span>
+            <span ng-bind="i18n.audio.progress_bars"></span>
         </label>
     </p>
     <p>
         <label class="f-label checkbox">
             <input type="checkbox" ng-model="Options.audio__simplified">
-            <span ng-bind="i18n.audio.options.simplified"></span><br />
-            <span ng-bind="i18n.audio.options.simplified__desc" class="a-description"></span>
+            <span ng-bind="i18n.audio.simplified"></span><br />
+            <span ng-bind="i18n.audio.simplified__desc" class="a-description"></span>
         </label>
     </p>
 
     <p>
         <label class="f-label select">
-            <span ng-bind="i18n.audio.options.separator"></span>
+            <span ng-bind="i18n.audio.separator"></span>
             <select
                ng-model="Options.audio__separator"
-               ng-options="item.char as item.desc for item in i18n.audio.options.separators">
+               ng-options="item.char as item.desc for item in i18n.audio.separators">
             </select>
         </label>
     </p>
@@ -100,7 +100,7 @@
     </p>
     <p>
         <label class="f-label checkbox">
-            <input type="checkbox" ng-model="Options.scrobbler__4m">
+            <input type="checkbox" ng-model="Options.scrobbler__m4m">
             <span>… или через 4 минуты </span>
         </label>
         <span class="a-description ">
@@ -122,13 +122,21 @@
     <p>
         <label class="f-label checkbox">
             <input type="checkbox" ng-model="Options.video__progress_bars">
-            <span ng-bind="i18n.video.options.progress_bars"></span>
+            <span ng-bind="i18n.video.progress_bars"></span>
         </label>
     </p>
     <p>
         <label class="f-label checkbox">
             <input type="checkbox" ng-model="Options.video__simplified">
-            <span ng-bind="i18n.video.options.simplified"></span>
+            <span ng-bind="i18n.video.simplified"></span>
+        </label>
+    </p>
+    <p>
+        <label class="f-label checkbox">
+            <input type="checkbox" ng-model="Options.video__format_before_ext">
+            <span ng-bind="i18n.video.format_before_ext"></span><br />
+            <span ng-bind="i18n.video.format_before_ext__desc"
+                class="a-description"></span>
         </label>
     </p>
 </div>
@@ -149,55 +157,55 @@
     <p>
         <label class="f-label checkbox">
             <input type="checkbox" ng-model="Options.trash__lsb__ad">
-            <span ng-bind="i18n.trash.options.lsb__ad"></span>
+            <span ng-bind="i18n.trash.lsb__ad"></span>
         </label>
     </p>
     <p>
         <label class="f-label checkbox">
             <input type="checkbox" ng-model="Options.trash__lsb__fr">
-            <span ng-bind="i18n.trash.options.lsb__fr"></span>
+            <span ng-bind="i18n.trash.lsb__fr"></span>
         </label>
     </p>
     <p>
         <label class="f-label checkbox">
             <input type="checkbox" ng-model="Options.trash__group_recom">
-            <span ng-bind="i18n.trash.options.group_recom"></span>
+            <span ng-bind="i18n.trash.group_recom"></span>
         </label>
     </p>
     <p>
         <label class="f-label checkbox">
             <input type="checkbox" ng-model="Options.trash__newsads">
-            <span ng-bind="i18n.trash.options.newsads"></span>
+            <span ng-bind="i18n.trash.newsads"></span>
         </label>
     </p>
     <p>
         <label class="f-label checkbox">
             <input type="checkbox" ng-model="Options.trash__promoted_posts">
-            <span ng-bind="i18n.trash.options.promoted_posts"></span>
+            <span ng-bind="i18n.trash.promoted_posts"></span>
         </label>
     </p>
     <p>
         <label class="f-label checkbox">
             <input type="checkbox" ng-model="Options.trash__profile_rate">
-            <span ng-bind="i18n.trash.options.profile_rate"></span>
+            <span ng-bind="i18n.trash.profile_rate"></span>
         </label>
     </p>
     <p>
         <label class="f-label checkbox">
             <input type="checkbox" ng-model="Options.trash__big_like">
-            <span ng-bind="i18n.trash.options.big_like"></span>
+            <span ng-bind="i18n.trash.big_like"></span>
         </label>
     </p>
     <p>
         <label class="f-label checkbox">
             <input type="checkbox" ng-model="Options.trash__user_reposts">
-            <span ng-bind="i18n.trash.options.user_reposts"></span>
+            <span ng-bind="i18n.trash.user_reposts"></span>
         </label>
     </p>
     <p>
         <label class="f-label checkbox">
             <input type="checkbox" ng-model="Options.trash__group_reposts">
-            <span ng-bind="i18n.trash.options.group_reposts"></span>
+            <span ng-bind="i18n.trash.group_reposts"></span>
         </label>
     </p>
 </div>
@@ -208,21 +216,21 @@
 <p>
     <span class="a-h1" ng-bind="i18n.others"></span>
 </p>
-<p ng-bind="i18n.filters.options.brackets"></p>
+<p ng-bind="i18n.filters.brackets"></p>
 
 <div class="grid-8">
     <div class="col-2">
         <p>
             <label class="f-label checkbox">
                 <input type="checkbox" ng-model="Options.filters__square_brackets">
-                <span ng-bind="i18n.filters.options.square_brackets"></span>
+                <span ng-bind="i18n.filters.square_brackets"></span>
             </label>
         </p>
     </div><div class="col-2">
         <p>
             <label class="f-label checkbox outside">
                 <input type="checkbox" ng-model="Options.filters__curly_brackets">
-                <span ng-bind="i18n.filters.options.curly_brackets"></span>
+                <span ng-bind="i18n.filters.curly_brackets"></span>
             </label>
         </p>
     </div>
@@ -242,11 +250,11 @@
     <p>
         <label class="f-label checkbox">
             <input type="checkbox" ng-model="Options.debug__styles">
-            <span ng-bind="i18n.debug.options.styles"></span>
+            <span ng-bind="i18n.debug.styles"></span>
         </label>
         <label class="f-label checkbox">
             <input type="checkbox" ng-model="Options.debug__log">
-            <span ng-bind="i18n.debug.options.log"></span>
+            <span ng-bind="i18n.debug.log"></span>
         </label>
     </p>
     <p>
@@ -256,6 +264,8 @@
     </p>
 </div>
 <!-- /debug -->
+
+<!-- FUTURE: UI -->
 
 <!-- --------------------------- -->
                     </div>

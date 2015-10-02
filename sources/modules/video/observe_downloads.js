@@ -30,7 +30,7 @@ mod.observe_downloads = function(){
         }
     }
 
-    if (kzvk.options.video__progress_bars){
+    if (mod.options.progress_bars){
         chrome.storage.local.get('downloads', function(storage){
             mod.list_update__downloads(storage.downloads.current);
         });

@@ -108,7 +108,7 @@ mod.get_info_from_audio_element = function(element){
                 (typeof this.vk_title == 'string')
             ){
                 return this.vk_artist + ' '
-                    + kzvk.options.audio__separator + ' '
+                    + mod.options.separator + ' '
                     + this.vk_title;
             }
         },

@@ -32,7 +32,7 @@ mod.create_buttons = function (item) {
     DOM_kz__buttons.classList.add('kz-vk-video__buttons');
 
     var carousel_classes = 'kz-vk-video__carousel';
-    if (kzvk.options.video__simplified)
+    if (mod.options.simplified)
         carousel_classes += ' kz-simplified-view';
 
     item.formats.sort(function (a, b) {

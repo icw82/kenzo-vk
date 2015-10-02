@@ -44,7 +44,7 @@ mod.observe_gp = function(element){
 //                DOM_kz__wrapper.classList.add('kz-vk-audio__wrapper');
 //
 //            var carousel_classes = 'kz-vk-audio__carousel';
-//            if (kzvk.options.audio__simplified)
+//            if (mod.options.simplified)
 //                carousel_classes += ' kz-simplified-view';
 //
 //            //  title="' + item.id + '"

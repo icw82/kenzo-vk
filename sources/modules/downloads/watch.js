@@ -65,8 +65,7 @@ mod.watch = (function(){
                     });
                 });
 
-                kzvk.options.debug__log &&
-                    mod.log('Список загрузок после обновления:', list);
+                mod.log('Список загрузок после обновления:', list);
 
                 if (list.length === 0){
                     stop();

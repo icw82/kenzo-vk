@@ -8,15 +8,8 @@
     "mistake": {
         "message": "Недоразумение"
     },
-    "o__i__changes": {
-        "message": "Некоторые изменения вступают в силу после перезагрузки страницы VK"
-    },
-    "o__i__beta": {
-        "message": "Прежде чем использовать тестируемый функционал (β), прочтите его описание<br />в *официальной группе расширения*"
-    },
-    "o__header": {
-        "message": "Настройки"
-    },
+
+
     "o__audio__header": {
         "message": "Аудио"
     },
@@ -53,20 +46,60 @@
     "o__audio__simplified__desc": {
         "message": "Убирает анимацию, увеличивает производительность страницы с большим количеством кнопок"
     },
-    "o__video__header": {
-        "message": "Видео"
+
+
+    "o__debug__header": {
+        "message": "Отладка"
     },
-    "o__video__progress_bars": {
-        "message": "Прогресс-бары"
+    "o__debug__styles": {
+        "message": "Стили"
     },
-    "o__video__simplified": {
-        "message": "Упрощённый вид кнопок"
+    "o__debug__log": {
+        "message": "Сообщения в консоли"
     },
+
+
+    "o__filters__brackets": {
+        "message": "Удалять из названий сохраняемых файлов скобки и их содержимое:"
+    },
+    "o__filters__square_brackets": {
+        "message": "[квадратные]"
+    },
+    "o__filters__curly_brackets": {
+        "message": "{фигурные}"
+    },
+
+
+    "o__header": {
+        "message": "Настройки"
+    },
+
+
+    "o__info__changes": {
+        "message": "Некоторые изменения вступают в силу после перезагрузки страницы VK"
+    },
+    "o__info__beta": {
+        "message": "Прежде чем использовать тестируемый функционал (β), прочтите его описание<br />в *официальной группе расширения*"
+    },
+
+
+    "o__others": {
+        "message": "Дополнительные настройки"
+    },
+
+
+    "o__reset": {
+        "message": "Сбросить настройки"
+    },
+
+
     "o__scrobbler__header": {
         "message": "Скробблер (β)"
     },
+
+
     "o__trash__header": {
-        "message": "Мусор"
+        "message": "Сбор мусора"
     },
     "o__trash__lsb__ad": {
         "message": "Реклама в сайдбаре"
@@ -95,28 +128,32 @@
     "o__trash__group_reposts": {
         "message": "Репосты групп"
     },
-    "o__debug": {
-        "message": "Отладка"
+
+
+    "o__ui__header": {
+        "message": "Дополнения интерфейса"
     },
-    "o__debug__styles": {
-        "message": "Стили"
+    "o__ui__kzvk_button": {
+        "message": "kzvk_button"
     },
-    "o__debug__log": {
-        "message": "Сообщения в консоли"
+    "o__ui__ids": {
+        "message": "ids"
     },
-    "o__filters__brackets": {
-        "message": "Удалять из названий сохраняемых файлов скобки и их содержимое:"
+
+
+    "o__video__header": {
+        "message": "Видео"
     },
-    "o__filters__square_brackets": {
-        "message": "[квадратные]"
+    "o__video__progress_bars": {
+        "message": "Прогресс-бары"
     },
-    "o__filters__curly_brackets": {
-        "message": "{фигурные}"
+    "o__video__simplified": {
+        "message": "Упрощённый вид кнопок"
     },
-    "o__reset": {
-        "message": "Сбросить настройки"
+    "o__video__format_before_ext": {
+        "message": "Формат видеозаписи перед расширением в названии файла"
     },
-    "o__others": {
-        "message": "Дополнительные настройки"
+    "o__video__format_before_ext__desc": {
+        "message": "Например: «название.720.mp4»"
     }
 }
