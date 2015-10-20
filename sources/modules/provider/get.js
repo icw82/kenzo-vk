@@ -33,14 +33,21 @@ mod.get = function(value, tab) {
 
                 port.onMessage.removeListener(awaiting_to_response);
 
+                var response = {
+                    value: message.value,
+                    meta: message.meta
+                }
+
                 if (message.error)
                     reject(message.error)
                 else
-                    resolve(message.value);
+                    resolve(response);
             }
 
         } else if (kzvk.scope === 'background') {
-            // Если вызывается из BG (proxi)
+            // Если вызывается из BG (proxy)
+            mod.log('proxy', value);
+
             var port = tab.port_of_page;
 
             port.postMessage({
@@ -57,10 +64,16 @@ mod.get = function(value, tab) {
 
                 port.onMessage.removeListener(awaiting_to_response);
 
+                var response = {
+//                    error: message.error,
+                    value: message.value,
+                    meta: message.meta
+                }
+
                 if (message.error)
                     reject(message.error)
                 else
-                    resolve(message.value);
+                    resolve(response);
             }
 
         } else

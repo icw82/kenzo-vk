@@ -27,8 +27,8 @@ mod.Video = function() {
     this.vid = null;
     this._title = null;
     Object.defineProperty(this, 'title', {
-        get: () => {return this._title},
-        set: (new_value) => {this._title = kzvk.name_filter(new_value)}
+        get: function() {return this._title},
+        set: function(new_value) {this._title = kzvk.name_filter(new_value)}
     });
 
     this.owner = null;
@@ -36,7 +36,7 @@ mod.Video = function() {
     this.uid = null; // В чём отличие от OID?
 
     Object.defineProperty(this, 'id', {
-        get: () => {this.owner_id + '_' + this.vid}
+        get: function() {this.owner_id + '_' + this.vid}
     });
 
     this.hash = null;
@@ -60,15 +60,15 @@ mod.Format = function(host) {
     this._url = null;
     this.ext = null;
     Object.defineProperty(this, 'url', {
-        get: () => {return this._url},
-        set: (new_value) => {
+        get: function() {return this._url},
+        set: function(new_value) {
             this._url = new_value;
             this.ext = new_value.match(/\.(\w+?)\?/)[1]
         }
     });
 
     Object.defineProperty(this, 'filename', {
-        get: () => {
+        get: function() {
             var _ = this.host.title;
             if (mod.options.format_before_ext)
                 _ += '.' + this.format;

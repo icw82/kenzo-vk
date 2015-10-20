@@ -69,6 +69,12 @@ mod.inject = function(tab_id, key) {
 
             try {
                 response.value = window.eval(message.value);
+                response.meta = {};
+                if (response.value instanceof Element) {
+                     response.meta.is_element = true;
+                } else if (response.value instanceof NodeList) {
+                     response.meta.is_nodelist = true;
+                }
             } catch (error) {
                 // FUTURE: Как передать весь стек?
                 response.error = error.toString();

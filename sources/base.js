@@ -157,10 +157,11 @@ kzvk.Module = function(name) {
     }
 
     Object.defineProperty(this, 'default_options', {
-        get: () => {
+        // Яндекс пока не понимает стрелочные функции.
+        get: function() {
             return get_options(this.name, kzvk.default_options);
         },
-        set: (new_value) => {
+        set: function(new_value) {
             if (typeof new_value !== 'object') throw new Error('Неправильный тип данных');
             if (new_value instanceof Array) throw new Error('Неправильный тип данных');
 
@@ -175,10 +176,10 @@ kzvk.Module = function(name) {
     });
 
     Object.defineProperty(this, 'options', {
-        get: () => {
+        get: function() {
             return get_options(this.name, kzvk.options);
-        },
-        set: (new_value) => { }
+        }//,
+        //set: funciton(new_value) { }
     });
 
 

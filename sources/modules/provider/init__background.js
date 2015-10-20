@@ -65,7 +65,8 @@ mod.init__background = function() {
                 }
 
                 mod.get(message.value, current_tab).then(function(proxy_response) {
-                    response.value = proxy_response;
+                    response.value = proxy_response.value;
+                    response.meta = proxy_response.meta;
                     port.postMessage(response);
                 }, function(proxy_response) {
                     response.error = proxy_response;

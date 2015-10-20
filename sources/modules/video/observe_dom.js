@@ -16,21 +16,19 @@ mod.add_element_to_list = function(element, list) {
             return true;
         }
     }, function() {
-        kzvk.modules.provider.get('videoview.getPlayerObject()').then(function(object) {
-            if (typeof object !== 'object') {
+        kzvk.modules.provider.get('videoview.getPlayerObject()').then(function(response) {
+            var info;
+
+            if (response.meta.is_element === true)
+                info = mod.get_info_from_element(element);
+
+            else if (typeof response.value.vars === 'object')
+                info = mod.get_info_from_object(response.value.vars, element);
+
+            else {
                 mod.log('Видеоплеер не обнаружен');
                 return;
             }
-
-            var info;
-
-            if (object.type === 'application/x-shockwave-flash') {
-                //var element = kzvk.dom.body.querySelector();
-                info = mod.get_info_from_element(element);
-            }
-
-            else if (typeof object.vars === 'object')
-                info = mod.get_info_from_object(object.vars, element);
 
             if (info) list.push(info);
 
@@ -43,6 +41,7 @@ mod.add_element_to_list = function(element, list) {
 // Отлов вставки элементов DOM
 mod.new_nodes_listner = function(element) {
     if (element instanceof Element) {
+
         var id = element.getAttribute('id');
 
         if (id && (id == 'video_player') || (id == 'html5_player')) {
