@@ -1,8 +1,3 @@
-(function(kzvk){
-'use strict';
-
-var mod = kzvk.modules.video;
-
 // Отлов изменений объекта (для одной кнопки) в списке
 mod.item_formats_observer = function(changes){
     var goals = []; // Изменённые объекты [{item, changes}, {…}]
@@ -32,5 +27,3 @@ mod.item_formats_observer = function(changes){
 mod.observe_list_item_formats = function(item){
     Object.observe(item, mod.item_formats_observer);
 };
-
-})(kzvk);

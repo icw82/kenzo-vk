@@ -1,8 +1,3 @@
-(function(kzvk){
-'use strict';
-
-var mod = kzvk.modules.scrobbler;
-
 mod.last_update_request__ts = 0;
 mod.last_update_request__name = '';
 
@@ -134,5 +129,3 @@ mod.center = function(info){
 
     });
 }
-
-})(kzvk);

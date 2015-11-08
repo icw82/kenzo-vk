@@ -1,8 +1,3 @@
-(function(kzvk){
-'use strict';
-
-var mod = kzvk.modules.video;
-
 mod.update_button__basic = function(item) {
     var message = item.format || '…';
 
@@ -69,5 +64,3 @@ mod.update_button = function(item, changes) {
     }
 
 };
-
-})(kzvk);

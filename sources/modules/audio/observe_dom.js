@@ -1,8 +1,3 @@
-(function(kzvk){
-'use strict';
-
-var mod = kzvk.modules.audio;
-
 mod.observe_dom = function(){
     // Обработка уже имеющихся аудиозаписей на странице
     each (document.querySelectorAll('.audio'), function(element){
@@ -23,7 +18,7 @@ mod.observe_dom = function(){
 }
 
 // Отлов вставки элементов DOM
-mod.new_nodes_listner = function(element){
+mod.new_nodes_listner = function(element) {
     if (element instanceof Element){
 //        mod.log('new element', element);
 
@@ -58,14 +53,14 @@ mod.new_nodes_listner = function(element){
 //        mod.log('');
 
 //    // Индикатор загрузки играющего трека
-//    kzvk.globals.vk_load = null;
+//    ext.globals.vk_load = null;
 //
 //    #pd_load_line
 //    ac_load_line
 //    audio_progress_line
 
     }
-}
+};
 
 // Добавляет элемент в список
 mod.add_audio_element = function (element, list) {
@@ -127,8 +122,8 @@ mod.get_info_from_audio_element = function(element){
     _.id = element.querySelector('a:first-child').getAttribute('name');
 
     var DOM_tw = element.querySelector('.area .info .title_wrap');
-    _.vk_artist = kzvk.name_filter(DOM_tw.querySelector('b').textContent.trim());
-    _.vk_title = kzvk.name_filter(DOM_tw.querySelector('.title').textContent.trim());
+    _.vk_artist = ext.name_filter(DOM_tw.querySelector('b').textContent.trim());
+    _.vk_title = ext.name_filter(DOM_tw.querySelector('.title').textContent.trim());
 
     if (element.querySelector('.area.deleted')){
         _.available = false;
@@ -204,5 +199,3 @@ mod.remove_element_from_list = function(element, list){
 mod.remove_nodes_listner = function(element){
     mod.remove_element_from_list(element, list);
 }
-
-})(kzvk);

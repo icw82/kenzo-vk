@@ -1,7 +1,4 @@
-(function(kzvk){
-'use strict';
-
-var mod = new kzvk.Module('debug');
+var mod = new ext.Module('debug');
 
 mod.default_options = {
     _: false,
@@ -11,6 +8,4 @@ mod.default_options = {
 }
 
 // Включение модуля
-kzvk.modules[mod.name] = mod;
-
-})(kzvk);
+ext.modules[mod.name] = mod;

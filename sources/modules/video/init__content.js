@@ -1,12 +1,7 @@
-(function(kzvk) {
-'use strict';
-
-var mod = kzvk.modules.video;
-
 mod.init__content = function() {
-    if (kzvk.options.video !== true) return;
+    if (ext.options.video !== true) return;
 
-    kzvk.class_forever('kz-vk-video', kzvk.dom.body);
+    kk.class_forever('kz-vk-video', ext.dom.body);
 
     mod.observe_list();
     mod.observe_dom();
@@ -14,5 +9,3 @@ mod.init__content = function() {
 
     mod.dispatch_load_event();
 }
-
-})(kzvk);

@@ -1,8 +1,3 @@
-(function(kzvk){
-'use strict';
-
-var mod = kzvk.modules.video;
-
 // NOTE: Обязателен ли список?
 mod.add_element_to_list = function(element, list) {
     if (!(element instanceof Element)) {
@@ -16,7 +11,7 @@ mod.add_element_to_list = function(element, list) {
             return true;
         }
     }, function() {
-        kzvk.modules.provider.get('videoview.getPlayerObject()').then(function(response) {
+        ext.modules.provider.get('videoview.getPlayerObject()').then(function(response) {
             var info;
 
             if (response.meta.is_element === true)
@@ -65,5 +60,3 @@ mod.observe_dom = function() {
 
     new_nodes_observer.observe(document, {childList:true, subtree:true});
 }
-
-})(kzvk);

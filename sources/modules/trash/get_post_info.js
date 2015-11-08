@@ -1,8 +1,3 @@
-(function(kzvk){
-'use strict';
-
-var mod = kzvk.modules.trash;
-
 function parse(matches) {
     var _ = {};
 
@@ -47,5 +42,3 @@ mod.get_post_info = function(element){
 
     return _;
 }
-
-})(kzvk);

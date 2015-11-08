@@ -1,8 +1,3 @@
-(function(kzvk){
-'use strict';
-
-var mod = kzvk.modules.provider;
-
 mod.init__content = function() {
 
     var port = chrome.runtime.connect({
@@ -59,5 +54,3 @@ mod.init__content = function() {
     // Запрос регистрации экземпляра (вкладки)
     port.postMessage({action: 'register content'});
 }
-
-})(kzvk);

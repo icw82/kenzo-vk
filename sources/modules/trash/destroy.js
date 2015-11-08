@@ -1,8 +1,3 @@
-(function(kzvk){
-'use strict';
-
-var mod = kzvk.modules.trash;
-
 mod.destroy = function(input, option){
     var _ = function(node) {
         node.parentElement.removeChild(node);
@@ -17,5 +12,3 @@ mod.destroy = function(input, option){
         _(input);
     }
 }
-
-})(kzvk);

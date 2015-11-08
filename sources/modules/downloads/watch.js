@@ -1,8 +1,3 @@
-(function(kzvk){
-'use strict';
-
-var mod = kzvk.modules.downloads;
-
 mod.big_watch = (function(){
 
     var interval_id = null,
@@ -104,5 +99,3 @@ mod.watch = (function(){
     return _;
 
 })();
-
-})(kzvk);

@@ -1,8 +1,3 @@
-(function(kzvk){
-'use strict';
-
-var mod = kzvk.modules.provider;
-
 mod.init__background = function() {
     mod.tabs = [];
 
@@ -20,7 +15,7 @@ mod.init__background = function() {
             var match = false;
             var tab = {
                 id: port.sender.tab.id,
-                key: kzvk.make_key(),
+                key: kk.generate_key(),
                 port_of_content: port
             }
 
@@ -148,5 +143,3 @@ mod.init__background = function() {
 
     });
 }
-
-})(kzvk);

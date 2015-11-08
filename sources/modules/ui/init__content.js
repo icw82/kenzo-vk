@@ -1,8 +1,3 @@
-(function(kzvk){
-'use strict';
-
-var mod = kzvk.modules.ui;
-
 //TODO: Возраст, если известна дата.
 
 mod.user_id = function() {
@@ -24,13 +19,13 @@ mod.user_id = function() {
 
 //TODO: у постов, открыть в новой вкладке.
 mod.post_in_a_new_tab = function() {
-    if (kzvk.options.ui__new_tab_buttons !== true) return;
+    if (ext.options.ui__new_tab_buttons !== true) return;
 
 }
 
 mod.kzvk_button = function() {
-    if (kzvk.options.ui__kzvk_button !== true) return;
-//        var menu = kzvk.dom.side_bar.querySelector('ol');
+    if (ext.options.ui__kzvk_button !== true) return;
+//        var menu = ext.dom.side_bar.querySelector('ol');
 //
 //        // Разделитель
 //        var delimiter = document.createElement('div');
@@ -53,12 +48,10 @@ mod.kzvk_button = function() {
 mod.init__content = function() {
     if (mod.options._ !== true) return;
 
-    kzvk.dom.side_bar = document.querySelector('#side_bar');
+    ext.dom.side_bar = document.querySelector('#side_bar');
 
     mod.user_id();
     mod.kzvk_button();
 
     mod.dispatch_load_event();
 }
-
-})(kzvk);

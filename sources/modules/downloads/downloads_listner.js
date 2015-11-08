@@ -1,8 +1,3 @@
-(function(kzvk) {
-'use strict';
-
-var mod = kzvk.modules.downloads;
-
 mod.downloads_listner = function(delta){
     var id = delta.id;
 
@@ -19,5 +14,3 @@ mod.downloads_listner = function(delta){
             mod.log('Resume');
     }
 }
-
-})(kzvk);

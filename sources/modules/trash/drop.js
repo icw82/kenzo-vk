@@ -1,11 +1,6 @@
-(function(kzvk){
-'use strict';
-
-var mod = kzvk.modules.trash;
-
 mod.drop = function(input, option){
     var _ = function(node) {
-        kzvk.dom.trash_bin.appendChild(node);
+        ext.dom.trash_bin.appendChild(node);
         node.style.height = '0px';
         mod.log('drop', node);
     }
@@ -18,5 +13,3 @@ mod.drop = function(input, option){
         _(input);
     }
 }
-
-})(kzvk);

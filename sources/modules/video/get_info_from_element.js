@@ -1,8 +1,3 @@
-(function(kzvk){
-'use strict';
-
-var mod = kzvk.modules.video;
-
 mod.get_info_from_element = function(element) {
     var info = new mod.Video;
 
@@ -51,5 +46,3 @@ mod.get_info_from_element = function(element) {
 
     return info;
 }
-
-})(kzvk);

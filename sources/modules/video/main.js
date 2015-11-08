@@ -1,7 +1,4 @@
-(function(kzvk){
-'use strict';
-
-var mod = new kzvk.Module('video');
+var mod = new ext.Module('video');
 
 mod.dependencies = ['provider'];
 
@@ -28,7 +25,7 @@ mod.Video = function() {
     this._title = null;
     Object.defineProperty(this, 'title', {
         get: function() {return this._title},
-        set: function(new_value) {this._title = kzvk.name_filter(new_value)}
+        set: function(new_value) {this._title = ext.name_filter(new_value)}
     });
 
     this.owner = null;
@@ -82,6 +79,4 @@ mod.Format = function(host) {
 //FUTURE: (видео) Кнопки в мини-плеере;
 
 // Включение модуля
-kzvk.modules[mod.name] = mod;
-
-})(kzvk);
+ext.modules[mod.name] = mod;

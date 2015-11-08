@@ -1,9 +1,3 @@
-(function(kzvk){
-'use strict';
-// FUTURE: (more → base) or (base)
-
-var mod = kzvk.modules.audio;
-
 mod.get_more_info_from_mp3 = function(url, _, callback){
     var slice;
 
@@ -78,7 +72,7 @@ mod.get_more_info_from_mp3 = function(url, _, callback){
         }
     }
 
-    kzvk.get_buffer(url, ranges, function(response){
+    kk.get_buffer(url, ranges, function(response){
         _.vbr = false;
 
         read_frame_header(new Uint8Array(response[0].content, 0, 4));
@@ -131,7 +125,7 @@ mod.get_info_from_mp3 = function(url, callback){
             'available': false
         };
 
-    kzvk.get_buffer(url, range, function(response){
+    kk.get_buffer(url, range, function(response){
         if (response && response[0].headers){
             var first_part = response[0],
                 last_part = response[1],
@@ -199,5 +193,3 @@ mod.get_info_from_mp3 = function(url, callback){
         }
     });
 }
-
-})(kzvk);

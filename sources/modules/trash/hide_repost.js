@@ -1,8 +1,3 @@
-(function(kzvk){
-'use strict';
-
-var mod = kzvk.modules.trash;
-
 // todo проверить
 mod.hide_repost = function(element, for_group) {
     var post_info = mod.get_post_info(element);
@@ -11,7 +6,7 @@ mod.hide_repost = function(element, for_group) {
     if (!for_group && post_info.is_group) return;
     if (for_group && !post_info.is_group) return;
 
-    var ancestor = kzvk.ancestor_search(element, 'feed_row');
+    var ancestor = kk.ancestor_search(element, 'feed_row');
 
     if (ancestor)
         mod.hide(ancestor);
@@ -28,5 +23,3 @@ mod.hide_user_repost = function(element) {
 mod.hide_group_repost = function(element) {
     return mod.hide_repost(element, false);
 }
-
-})(kzvk);

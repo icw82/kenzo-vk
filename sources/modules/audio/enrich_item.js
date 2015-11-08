@@ -1,8 +1,3 @@
-(function(kzvk){
-'use strict';
-
-var mod = kzvk.modules.audio;
-
 mod.db_config = {
     name: 'audio',
     version: 5,
@@ -109,5 +104,3 @@ mod.enrich_item = function(item){
         }
     }
 }
-
-})(kzvk);

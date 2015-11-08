@@ -1,8 +1,3 @@
-(function(kzvk){
-'use strict';
-
-var mod = kzvk.modules.video;
-
 mod.create_buttons = function (item) {
     if (typeof item !== 'object') {
         mod.warn('create_button: не передан объект');
@@ -80,5 +75,3 @@ mod.create_buttons = function (item) {
         }, false);
     });
 }
-
-})(kzvk);

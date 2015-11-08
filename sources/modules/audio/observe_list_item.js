@@ -1,8 +1,3 @@
-(function(kzvk){
-'use strict';
-
-var mod = kzvk.modules.audio;
-
 // Отлов изменений объекта аудизаписи в списке
 mod.item_observer = function(changes){
     var goals = []; // Изменённые объекты [{item, changes}, {…}]
@@ -32,5 +27,3 @@ mod.item_observer = function(changes){
 mod.observe_list_item = function(item){
     Object.observe(item, mod.item_observer);
 };
-
-})(kzvk);

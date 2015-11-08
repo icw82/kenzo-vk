@@ -1,17 +1,12 @@
-(function(kzvk) {
-'use strict';
-
-var mod = kzvk.modules.audio;
-
 mod.init__content = function() {
-    if (kzvk.options.audio !== true) return;
+    if (ext.options.audio !== true) return;
 
     chrome.runtime.sendMessage({
         action: 'set audio provider key',
         key: mod.provider_key
     });
 
-    kzvk.class_forever('kz-vk-audio', kzvk.dom.body);
+    kk.class_forever('kz-vk-audio', ext.dom.body);
 
     mod.observe_list();
     mod.observe_dom();
@@ -19,5 +14,3 @@ mod.init__content = function() {
 
     mod.dispatch_load_event();
 }
-
-})(kzvk);

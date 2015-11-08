@@ -1,8 +1,3 @@
-(function (kzvk) {
-'use strict';
-
-var mod = kzvk.modules.provider;
-
 mod.inject = function(tab_id, key) {
     if ((typeof tab_id != 'number') || (typeof key != 'string')) return;
 
@@ -14,7 +9,7 @@ mod.inject = function(tab_id, key) {
         full_name: mod.full_name,
         key: key,
         tab_id: tab_id,
-        debug__log: kzvk.options.debug__log
+        debug__log: ext.options.debug__log
     }
 
     // Функция-провайдер, передаваемая во внешний скрипт в форме текста.
@@ -86,11 +81,9 @@ mod.inject = function(tab_id, key) {
 
     provider.innerHTML = '(' + isolated_function + ')(' + JSON.stringify(_) + ')';
 
-    kzvk.dom.body.appendChild(provider);
+    ext.dom.body.appendChild(provider);
     // Сразу после создания DOM-объекта, функция выполняется.
     // Проверка показала, что скрипт-провайдер выполняется в первую очередь
     // и маловероятно, что чужеродный скрипт (eve.js) может сымитировать поведение
     // провайдера, прежде, чем последний будет выполнен (будет создана связь).
 }
-
-})(kzvk);

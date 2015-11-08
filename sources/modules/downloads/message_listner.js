@@ -1,13 +1,8 @@
-(function(kzvk) {
-'use strict';
-
-var mod = kzvk.modules.downloads;
-
 mod.message_listner = function(request, sender, sendResponse){
     if (sender.id !== chrome.runtime.id)
         return false;
 
-    request.name = kzvk.name_filter(request.name);
+    request.name = ext.name_filter(request.name);
 
     if (request.action === 'vk-audio__save'){ // AUDIO
         chrome.downloads.download({
@@ -50,5 +45,3 @@ mod.message_listner = function(request, sender, sendResponse){
         });
     }
 }
-
-})(kzvk);

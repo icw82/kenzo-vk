@@ -1,12 +1,7 @@
-(function(kzvk){
-'use strict';
-
-var mod = new kzvk.Module('downloads');
+var mod = new ext.Module('downloads');
 
 // Включение модуля
-kzvk.modules[mod.name] = mod;
+ext.modules[mod.name] = mod;
 
 //TODO: Очередь на скачивание;
 //TODO: История скачиваний;
-
-})(kzvk);

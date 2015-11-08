@@ -1,8 +1,3 @@
-(function(kzvk){
-'use strict';
-
-var mod = kzvk.modules.audio;
-
 mod.calc_bitrate_classic = function(size, duration){
     var kbps = Math.floor(size * 8 / duration / 1000);
 
@@ -17,5 +12,3 @@ mod.calc_bitrate_classic = function(size, duration){
 
     return kbps;
 }
-
-})(kzvk);

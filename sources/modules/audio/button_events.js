@@ -1,8 +1,3 @@
-(function(kzvk){
-'use strict';
-
-var mod = kzvk.modules.audio;
-
 mod.button_event = function(item, event) {
     if (event.type === 'dragstart') {
         var dt = event.dataTransfer;
@@ -75,5 +70,3 @@ mod.button_event = function(item, event) {
     }
 
 }
-
-})(kzvk);

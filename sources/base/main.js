@@ -1,44 +1,34 @@
-var kzvk = (function() {
+var ext = (function() {
 'use strict';
 
 var manifest = chrome.runtime.getManifest();
 
-var kzvk = {
+var ext = {
     name: manifest.name,
     version: manifest.version,
     options: null,
     modules: {}
 };
 
-// Вероятность коллизии примерно 1 к 3*10^64
-kzvk.make_key = function () {
-    var key = '';
-
-    each (15, function () {
-        key += String.fromCharCode(kk.rand(19968, 40869));
-    });
-
-    return key;
-}
-
-kzvk.events = {
+ext.events = {
     on_module_init: new chrome.Event(),
     on_module_load: new chrome.Event()
 }
 
+// Определение контекста
 if (location.protocol === 'chrome-extension:') {
     if (location.pathname === '/_generated_background_page.html') {
-        kzvk.scope = 'background';
-        kzvk.s = 'bg';
+        ext.scope = 'background';
+        ext.s = 'bg';
     } else {
         // для страницы настроек?
     }
 } else {
-    kzvk.scope = 'content';
-    kzvk.s = 'cs';
+    ext.scope = 'content';
+    ext.s = 'cs';
 }
 
-kzvk.choose_a_locale = function(options) {
+ext.choose_a_locale = function(options) {
     var ui_language = chrome.i18n.getUILanguage();
 
     if (typeof options == 'object') {
@@ -54,7 +44,7 @@ kzvk.choose_a_locale = function(options) {
     }
 }
 
-kzvk.default_options = {
+ext.default_options = {
     filters: true,
     filters__square_brackets: true,
     filters__curly_brackets: true
@@ -81,54 +71,43 @@ kzvk.default_options = {
         …
     }
 */
-kzvk.default_globals = {
+ext.default_globals = {
     options: {},
     base: {
         keys: []
-    },
-    audio: {
-        now_playing: null
-    },
-    downloads: {
-        history: [],
-        current: []
-    },
-    scrobbler: {
-        session: null,
-        buffer: []
     }
 }
 
 // FIX: повторяющийся код
-kzvk.log = function(message, value) {
-    if (!kzvk.options || !kzvk.options.debug__log) return;
+ext.log = function(message, value) {
+    if (!ext.options || !ext.options.debug__log) return;
     if (typeof value === 'undefined')
-        console.log(kzvk.name + ' (' + kzvk.s + ') —', message);
+        console.log(ext.name + ' (' + ext.s + ') —', message);
     else
-        console.log(kzvk.name + ' (' + kzvk.s + ') —', message, value);
+        console.log(ext.name + ' (' + ext.s + ') —', message, value);
 }
 
-kzvk.warn = function(message, value) {
-    if (!kzvk.options || !kzvk.options.debug__log) return;
+ext.warn = function(message, value) {
+    if (!ext.options || !ext.options.debug__log) return;
     if (typeof value === 'undefined')
-        console.warn(kzvk.name + ' (' + kzvk.s + ') —', message);
+        console.warn(ext.name + ' (' + ext.s + ') —', message);
     else
-        console.warn(kzvk.name + ' (' + kzvk.s + ') —', message, value);
+        console.warn(ext.name + ' (' + ext.s + ') —', message, value);
 }
 
 // FUTURE: Запилить опцию debug__flood в настройках
-kzvk.flood = function(message, value) {
-    if (!kzvk.options || !kzvk.options.debug__flood) return;
+ext.flood = function(message, value) {
+    if (!ext.options || !ext.options.debug__flood) return;
     if (typeof value === 'undefined')
-        console.log(kzvk.name + ' (' + kzvk.s + ') —', message);
+        console.log(ext.name + ' (' + ext.s + ') —', message);
     else
-        console.log(kzvk.name + ' (' + kzvk.s + ') —', message, value);
+        console.log(ext.name + ' (' + ext.s + ') —', message, value);
 }
 
 // Класс модуля
-kzvk.Module = function(name) {
+ext.Module = function(name) {
     this.name = name;
-    this.full_name = kzvk.name + ': ' + this.name;
+    this.full_name = ext.name + ': ' + this.name;
     this.initiated = false;
     this.loaded = false;
     // FUTURE: версии модулей
@@ -157,11 +136,10 @@ kzvk.Module = function(name) {
     }
 
     Object.defineProperty(this, 'default_options', {
-        // Яндекс пока не понимает стрелочные функции.
-        get: function() {
-            return get_options(this.name, kzvk.default_options);
+        get: () => {
+            return get_options(this.name, ext.default_options);
         },
-        set: function(new_value) {
+        set: (new_value) => {
             if (typeof new_value !== 'object') throw new Error('Неправильный тип данных');
             if (new_value instanceof Array) throw new Error('Неправильный тип данных');
 
@@ -170,28 +148,28 @@ kzvk.Module = function(name) {
                 if (key !== '_')
                     new_key += '__' + key;
 
-                kzvk.default_options[new_key] = new_value[key];
+                ext.default_options[new_key] = new_value[key];
             }
         }
     });
 
     Object.defineProperty(this, 'options', {
-        get: function() {
-            return get_options(this.name, kzvk.options);
-        }//,
-        //set: funciton(new_value) { }
+        get: () => {
+            return get_options(this.name, ext.options);
+        },
+        set: (new_value) => { }
     });
 
 
     this.init = function(as_promise) {
         var self = this;
-        var init_for_scope = self['init__' + kzvk.scope];
+        var init_for_scope = self['init__' + ext.scope];
 
         if (typeof init_for_scope === 'function') {
             try_init();
 
             if (!self.initiated) {
-                kzvk.events.on_module_load.addListener(check);
+                ext.events.on_module_load.addListener(check);
             }
         }
 
@@ -206,7 +184,7 @@ kzvk.Module = function(name) {
 
         function try_init() {
             if (self.dependencies.length > 0) return;
-            kzvk.events.on_module_load.removeListener(check);
+            ext.events.on_module_load.removeListener(check);
 
             init_for_scope();
 
@@ -218,19 +196,19 @@ kzvk.Module = function(name) {
         this.initiated = true;
         if (!this.loaded)
             this.log('Модуль инициирован');
-        kzvk.events.on_module_init.dispatch(this.name);
+        ext.events.on_module_init.dispatch(this.name);
     }
 
     this.dispatch_load_event = function() {
         this.loaded = true;
         this.log('Модуль загружен');
-        kzvk.events.on_module_load.dispatch(this.name);
+        ext.events.on_module_load.dispatch(this.name);
     }
 
-    var prefix = this.full_name + ' (' + kzvk.s + ') —';
+    var prefix = this.full_name + ' (' + ext.s + ') —';
 
     this.log = function(message, value) {
-        if (!kzvk.options || !kzvk.options.debug__log) return;
+        if (!ext.options || !ext.options.debug__log) return;
         if (typeof value === 'undefined')
             console.log(prefix, message);
         else
@@ -238,7 +216,7 @@ kzvk.Module = function(name) {
     }
 
     this.warn = function(message, value) {
-        if (!kzvk.options || !kzvk.options.debug__log) return;
+        if (!ext.options || !ext.options.debug__log) return;
         if (typeof value === 'undefined')
             console.warn(prefix, message);
         else
@@ -262,37 +240,37 @@ var load_content = function(resolve, reject) {
 };
 
 var load_storage__sync = function(resolve, reject) {
-    chrome.storage.sync.get(kzvk.default_options, function(options) {
-        kzvk.options = options;
+    chrome.storage.sync.get(ext.default_options, function(options) {
+        ext.options = options;
 
         // Прослушивание изменений настроек
         chrome.storage.onChanged.addListener(function(changes, areaName) {
             if (areaName == 'sync') {
-                chrome.storage.sync.get(kzvk.default_options, function(options) {
-                    kzvk.options = options;
+                chrome.storage.sync.get(ext.default_options, function(options) {
+                    ext.options = options;
                 });
             }
         });
 
-        console.info(kzvk.name + ' — current options', kzvk.options);
+        console.info(ext.name + ' — current options', ext.options);
         resolve();
     });
 };
 
 var load_storage__local = function(resolve, reject) {
-    chrome.storage.local.get(kzvk.default_globals, function(globals) {
-        // Set нужен, так как kzvk.globals не используется, в отличие от kzvk.options
+    chrome.storage.local.get(ext.default_globals, function(globals) {
+        // Set нужен, так как ext.globals не используется, в отличие от ext.options
         chrome.storage.local.set(globals, function() {
-            console.info(kzvk.name + ' — current globals', globals);
+            console.info(ext.name + ' — current globals', globals);
             resolve();
         });
     });
 };
 
-kzvk.init = function() {
-    console.info(kzvk.name + ' — default options', kzvk.default_options);
+ext.init = function() {
+    console.info(ext.name + ' — default options', ext.default_options);
 
-    kzvk.dom = {
+    ext.dom = {
         body: document.querySelector('body')
     }
 
@@ -301,9 +279,9 @@ kzvk.init = function() {
         new Promise(load_storage__sync),
         new Promise(load_storage__local)
     ]).then(function() {
-        if (kzvk.scope === 'content')
+        if (ext.scope === 'content')
             init__content();
-        else if (kzvk.scope === 'backround')
+        else if (ext.scope === 'backround')
             init__background();
 
         init__modules();
@@ -338,17 +316,13 @@ function init__modules() {
 
     // FUTURE: Проверка на ацикличность графа зависимостей
 
-    for (var key in kzvk.modules) {
-        if (!(kzvk.modules[key] instanceof kzvk.Module)) continue;
+    for (var key in ext.modules) {
+        if (!(ext.modules[key] instanceof ext.Module)) continue;
 
-        kzvk.modules[key].init();
+        ext.modules[key].init();
     }
 
     // FUTURE: Promise.chain([ [*, *], [*, *], * ]);
 }
 
-return kzvk;
-
 // FUTURE: banlist;
-
-})();

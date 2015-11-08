@@ -1,37 +1,3 @@
-(function(kzvk) {
-'use strict';
-
-var mod = new kzvk.Module('noname');
-
-// CONTENT
-mod.init__content = function() {
-
-}
-
-// BACKGROUND
-mod.init__background = function() {
-
-}
-
-// Включение модуля
-kzvk.modules[mod.name] = mod;
-
-})(kzvk);
-
-
-// --------------------------------------
-(function(kzvk) {
-'use strict';
-
-var mod = kzvk.modules.noname;
-
-mod.init__content = function() {
-
-}
-
-})(kzvk);
-
-
 // element, node — обязательно DOM Element
 // item — элемент списка.
 
@@ -66,11 +32,11 @@ mod.init__content = function() {
 //        edges: [] // дуги
 //    }
 //
-//    for (let module_name in kzvk.modules) {
+//    for (let module_name in ext.modules) {
 //        // Классический граф
 //        graph_of_dependencies.vertices.push(module_name)
 //
-//        each (kzvk.modules[module_name].dependencies, function(adjacent) {
+//        each (ext.modules[module_name].dependencies, function(adjacent) {
 //            graph_of_dependencies.edges.push([module_name, adjacent]);
 //        });
 //    }

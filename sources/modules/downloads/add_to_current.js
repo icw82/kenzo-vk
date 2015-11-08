@@ -1,8 +1,3 @@
-(function(kzvk) {
-'use strict';
-
-var mod = kzvk.modules.downloads;
-
 mod.add_to_current = function(download_id, type, id, format){
 
     //mod.log('add_to_current:', arguments);
@@ -23,5 +18,3 @@ mod.add_to_current = function(download_id, type, id, format){
         }, mod.watch.start);
     });
 }
-
-})(kzvk);

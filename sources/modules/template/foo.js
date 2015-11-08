@@ -1,0 +1,3 @@
+mod.foo = function() {
+    // …
+}

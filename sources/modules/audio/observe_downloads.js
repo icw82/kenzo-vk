@@ -1,8 +1,3 @@
-(function(kzvk){
-'use strict';
-
-var mod = kzvk.modules.audio;
-
 mod.list_update__downloads = function(updates){
     each (mod.list, function(item){
         each (updates, function(update){
@@ -36,5 +31,3 @@ mod.observe_downloads = function(){
         chrome.storage.onChanged.addListener(observer);
     }
 }
-
-})(kzvk);

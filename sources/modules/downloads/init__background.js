@@ -1,8 +1,3 @@
-(function(kzvk) {
-'use strict';
-
-var mod = kzvk.modules.downloads;
-
 mod.init__background = function() {
     chrome.downloads.onCreated.addListener(function(item){
         //var id = item.id;
@@ -22,5 +17,3 @@ mod.init__background = function() {
 
     mod.dispatch_load_event(); // FUTURE: Определить зависимости для модулей, использующих загрузки
 }
-
-})(kzvk);

@@ -1,10 +1,5 @@
-(function(kzvk) {
-'use strict';
-
-var mod = kzvk.modules.scrobbler;
-
 mod.init__background = function() {
-    if (kzvk.options.scrobbler !== true)
+    if (ext.options.scrobbler !== true)
         return false;
 
     chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
@@ -22,7 +17,7 @@ mod.init__background = function() {
         if (request.action === 'register audio provider'){
             each (mod.keys, function(key, i){
                if (key === request.key){
-                   mod.keys[i] = kzvk.make_key();
+                   mod.keys[i] = ext.make_key();
                    sendResponse(mod.keys[i]);
                    return true;
                }
@@ -34,14 +29,14 @@ mod.init__background = function() {
                         (typeof request.info.performer == 'string') &&
                         (typeof request.info.title == 'string')
                     ){
-                        request.info.performer = kzvk.name_filter(request.info.performer);
-                        request.info.title = kzvk.name_filter(request.info.title);
+                        request.info.performer = ext.name_filter(request.info.performer);
+                        request.info.title = ext.name_filter(request.info.title);
 
                         request.info.name = request.info.performer + ' '
-                            + kzvk.options.audio__separator + ' '
+                            + ext.options.audio__separator + ' '
                             + request.info.title;
 
-                        request.info.name = kzvk.name_filter(request.info.name);
+                        request.info.name = ext.name_filter(request.info.name);
                     } else {
                         mod.warn('#audio status update');
                     }
@@ -57,5 +52,3 @@ mod.init__background = function() {
 
     mod.dispatch_load_event();
 }
-
-})(kzvk);

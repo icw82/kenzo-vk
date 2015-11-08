@@ -1,1 +1,1 @@
-kzvk.init();
+ext.init();

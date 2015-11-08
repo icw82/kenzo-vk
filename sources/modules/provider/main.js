@@ -1,9 +1,4 @@
-(function(kzvk) {
-'use strict';
-
-var mod = new kzvk.Module('provider');
+var mod = new ext.Module('provider');
 
 // Включение модуля
-kzvk.modules[mod.name] = mod;
-
-})(kzvk);
+ext.modules[mod.name] = mod;

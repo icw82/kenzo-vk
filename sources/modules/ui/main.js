@@ -1,7 +1,4 @@
-(function(kzvk) {
-'use strict';
-
-var mod = new kzvk.Module('ui');
+var mod = new ext.Module('ui');
 
 mod.default_options = {
     _: true,
@@ -10,8 +7,6 @@ mod.default_options = {
 }
 
 // Включение модуля
-kzvk.modules[mod.name] = mod;
+ext.modules[mod.name] = mod;
 
 //TODO: Ссылка на параметры в сайдбаре (опция в настройках);
-
-})(kzvk);

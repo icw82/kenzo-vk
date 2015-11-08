@@ -1,7 +1,4 @@
-(function(kzvk){
-'use strict';
-
-var mod = kzvk.modules.trash;
+(function() {
 
 var trash = {}
 
@@ -27,7 +24,7 @@ trash.for_observer = function(element){
 
 mod.observers.push(trash);
 
-})(kzvk);
+})();
 
 // Ужасы. Верстальщик из ада.
 //feed_row >

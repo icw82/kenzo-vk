@@ -1,8 +1,3 @@
-(function(kzvk){
-'use strict';
-
-var mod = kzvk.modules.trash;
-
 mod.hide = function(input, hard) {
     if (hard) {
         var _ = function(node) {
@@ -28,5 +23,3 @@ mod.hide = function(input, hard) {
     else if (input instanceof Node)
         _(input);
 }
-
-})(kzvk);

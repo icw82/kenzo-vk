@@ -135,7 +135,6 @@ pre_i18n.audio.separators = [
 
 
 $scope.i18n = pre_i18n;
-//console.log(kzvk.default_options);
 
 $scope.Manifest = chrome.runtime.getManifest();
 
@@ -143,12 +142,12 @@ $scope.Manifest = chrome.runtime.getManifest();
 var watch_flag = false;
 $scope.Options = {};
 $scope.scrobbler = {
-    auth_url: kzvk.modules.scrobbler.auth_url
+    auth_url: ext.modules.scrobbler.auth_url
 }
 $scope.ctrl = false;
 
 function sync_model(){
-    chrome.storage.sync.get(kzvk.default_options, function(items){
+    chrome.storage.sync.get(ext.default_options, function(items){
         watch_flag = false;
         $scope.Options = items;
         $scope.$apply();
@@ -163,7 +162,7 @@ $scope.$watch('Options', function(){
 }, true);
 
 $scope.defaults = function(){
-    chrome.storage.sync.set(kzvk.default_options);
+    chrome.storage.sync.set(ext.default_options);
 }
 
 $scope.clear_db = function() {
@@ -185,7 +184,7 @@ chrome.storage.onChanged.addListener(function(changes, areaName){
 // Токен
 var token = window.location.href.match(/token=([\w\d]+)/) || false;
 if (token)
-    kzvk.modules.scrobbler.methods.auth.getSession(token[1]);
+    ext.modules.scrobbler.methods.auth.getSession(token[1]);
 
 // Скрытые опции
 document.addEventListener('keydown', function(event) {

@@ -1,104 +1,14 @@
+require('require-dir')('./core/tasks');
+
 var gulp = require('gulp');
-var es = require('event-stream');
-var del = require('del');
-var concat = require('gulp-concat');
-var rename = require('gulp-rename');
-//var gutil = require('gulp-util');
-//var uglify = require('gulp-uglify');
-//var sourcemaps = require('gulp-sourcemaps');
 
-var paths = {
-    'angular': [
-        './bower_components/angular/angular.min.js',
-        './bower_components/angular/angular.min.js.map'
-    ],
-    'angular_sanitize': [
-        './bower_components/angular-sanitize/angular-sanitize.min.js',
-        './bower_components/angular-sanitize/angular-sanitize.min.js.map'
-    ],
-    'kk': [
-        './bower_components/kenzo-kit/kk.js'
-    ],
-    'md5': [
-        './bower_components/blueimp-md5/js/md5.min.js'
-    ],
-    'he': [
-        './bower_components/he/he.js'
-    ],
-    'sources': [
-        './sources/base.js',
-        './sources/common/*.js',
-        './sources/modules/*/main.js',
-        './sources/modules/*/*.js', // FUTURE: можно сденать покрасивше
-        './sources/init.js'
-    ]
-};
-
-gulp.task('immutable', function(){
-    return gulp
-        .src('./immutable/**/*.*')
-        .pipe(gulp.dest('build'))
-});
-
-gulp.task('styles', function(){
-    var reset = gulp
-        .src('./bower_components/kenzo-kit/kk-reset.css');
-
-    var styles = gulp
-        .src('./sources/**/*.css')
-        .pipe(concat('styles.css'));
-
-    return es.merge(reset, styles)
-        .pipe(gulp.dest('build/styles'));
-});
-
-gulp.task('scripts', function(){
-    var angular = gulp
-        .src(paths.angular);
-
-    var angular_sanitize = gulp
-        .src(paths.angular_sanitize);
-
-    var kk = gulp
-        .src(paths.kk);
-
-    var md5 = gulp
-        .src(paths.md5);
-
-    var he = gulp
-        .src(paths.he);
-
-    var main = gulp
-        .src(paths.sources)
-        //.pipe(sourcemaps.init())
-        .pipe(concat('main.js'))
-//        .pipe(uglify().on("error", gutil.log))
-        .pipe(rename({suffix: '.min'}))
-        //.pipe(sourcemaps.write('../scripts/'))
-
-    return es.merge(angular, angular_sanitize, he, md5, kk, main)
-        .pipe(gulp.dest('build/scripts'));
-});
-
-gulp.task('watch', function(){
-    gulp.watch([
-        './immutable/**/*.*',
-        './sources/**/*'
-    ], ['clean', 'immutable', 'scripts', 'styles']);
-
-//    gulp.watch(['./immutable/**/*.*'], ['immutable']);
-//    gulp.watch('./sources/**/*', ['scripts', 'styles']);
-});
-
-
-gulp.task('clean', function(callback){
-    del.sync([
-        'build/**/*'
-    ]);
-
-    callback();
-});
-
+var observers = [];
+for (var key in gulp.tasks) {
+    if (key.indexOf('watch__') === 0);
+        observers.push(key);
+}
 
 gulp.task('build', ['immutable', 'scripts', 'styles']);
+gulp.task('watch', observers);
+
 gulp.task('default', ['clean', 'build', 'watch']);

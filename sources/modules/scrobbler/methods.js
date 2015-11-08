@@ -1,8 +1,3 @@
-(function(kzvk){
-'use strict';
-
-var mod = kzvk.modules.scrobbler;
-
 mod.methods = {
     auth: {},
     track: {}
@@ -16,7 +11,7 @@ mod.methods.auth.getSession = function(token, callback){
         token: token
     }
 
-    kzvk.modules.scrobbler.request(params, function(response){
+    ext.modules.scrobbler.request(params, function(response){
         if (typeof response.session == 'object'){
             //mod.log('response.session.key', response.session.key);
 
@@ -42,7 +37,7 @@ mod.methods.track.updateNowPlaying = function(params, callback){
 
     params.method = 'track.updateNowPlaying';
 
-    kzvk.modules.scrobbler.request(params, function(response){
+    ext.modules.scrobbler.request(params, function(response){
         // mod.log('updateNowPlaying:', response);
 
         if (typeof callback == 'function')
@@ -59,7 +54,7 @@ mod.methods.track.scrobble = function(params, callback){
 
     params.method = 'track.scrobble';
 
-    kzvk.modules.scrobbler.request(params, function(response){
+    ext.modules.scrobbler.request(params, function(response){
         mod.log('track.scrobble:', response);
 
         if (typeof callback == 'function')
@@ -67,5 +62,3 @@ mod.methods.track.scrobble = function(params, callback){
 
     }, true);
 }
-
-})(kzvk);

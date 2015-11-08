@@ -1,8 +1,3 @@
-(function(kzvk){
-'use strict';
-
-var mod = kzvk.modules.video;
-
 mod.list_clean = function(){
     // Очистка списка
     mod.list = mod.list.filter(function(item){
@@ -47,5 +42,3 @@ mod.list_observer = function(changes){
 mod.observe_list = function(){
     Object.observe(mod.list, mod.list_observer);
 };
-
-})(kzvk);

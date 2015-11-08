@@ -1,20 +1,15 @@
-(function (kzvk) {
-'use strict';
-
-var mod = kzvk.modules.provider;
-
 // How to use
-//kzvk.modules.provider.get('test').then(function(response) {
+//ext.modules.provider.get('test').then(function(response) {
 //
 //}, function(response) {
 //
 //});
 
 mod.get = function(value, tab) {
-    var key = kzvk.make_key();
+    var key = kk.generate_key();
 
     return new Promise(function(resolve, reject){
-        if (kzvk.scope === 'content') {
+        if (ext.scope === 'content') {
             // Если вызывается из CS
             tab = mod.current_tab;
             var port = tab.port_of_background;
@@ -44,7 +39,7 @@ mod.get = function(value, tab) {
                     resolve(response);
             }
 
-        } else if (kzvk.scope === 'background') {
+        } else if (ext.scope === 'background') {
             // Если вызывается из BG (proxy)
             mod.log('proxy', value);
 
@@ -80,5 +75,3 @@ mod.get = function(value, tab) {
             reject('error epta');
     });
 }
-
-})(kzvk);

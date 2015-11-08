@@ -1,8 +1,3 @@
-(function(kzvk){
-'use strict';
-
-var mod = kzvk.modules.video;
-
 mod.button_event = function(item, event) {
 
     if (event.type === 'dragstart') {
@@ -57,5 +52,3 @@ mod.button_event = function(item, event) {
 //        }
     }
 }
-
-})(kzvk);

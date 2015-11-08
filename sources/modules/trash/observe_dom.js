@@ -1,13 +1,8 @@
-(function(kzvk){
-'use strict';
-
-var mod = kzvk.modules.trash;
-
 mod.observe_dom = function(){
 
     // Primary
     each (mod.observers, function(item){
-        if (kzvk.options[item.option_name] === true)
+        if (ext.options[item.option_name] === true)
             item.primary();
     });
 
@@ -21,17 +16,15 @@ mod.observe_dom = function(){
     new_nodes_observer.observe(document, {childList:true, subtree:true});
 }
 
-mod.new_nodes_listner = function(element){
+mod.new_nodes_listner = function(element) {
     if (!(element instanceof Element)) return false;
 
     //mod.log('Trash observer:', element);
 
     // For observer
     each (mod.observers, function(item){
-        if (kzvk.options[item.option_name] === true)
+        if (ext.options[item.option_name] === true)
             item.for_observer(element);
 
     });
-}
-
-})(kzvk);
+};

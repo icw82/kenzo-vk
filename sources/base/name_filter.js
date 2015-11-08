@@ -1,18 +1,15 @@
-(function(kzvk){
-'use strict';
+ext.name_filter = function(name){
 
-kzvk.name_filter = function(name){
-
-//    kzvk.flood('name_filter source:', name);
+//    ext.flood('name_filter source:', name);
 
     if (typeof name === 'string'){
         name = name.replace(/[\\\/:\*\?<>\|\"~]/g, ' ');
 
-        if (kzvk.options.filters__square_brackets === true){
+        if (ext.options.filters__square_brackets === true){
             name = name.replace(/\[.+?\]/g, '');
         }
 
-        if (kzvk.options.filters__curly_brackets === true){
+        if (ext.options.filters__curly_brackets === true){
             name = name.replace(/\{.+?\}/g, '');
         }
 
@@ -27,9 +24,7 @@ kzvk.name_filter = function(name){
         name = he.decode(name);
     }
 
-//    kzvk.flood('name_filter filtered:', name);
+//    ext.flood('name_filter filtered:', name);
 
     return name;
 }
-
-})(kzvk);

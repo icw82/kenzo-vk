@@ -1,8 +1,3 @@
-(function(kzvk){
-'use strict';
-
-var mod = kzvk.modules.audio;
-
 mod.update_button__basic = function(item){
     var message = ' ';
 
@@ -117,5 +112,3 @@ mod.update_button = function(item, changes) {
     }
 
 };
-
-})(kzvk);

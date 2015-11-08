@@ -1,8 +1,3 @@
-(function(kzvk){
-'use strict';
-
-var mod = kzvk.modules.audio;
-
 mod.create_button = function(item){
     if (typeof item !== 'object'){
         mod.warn('create_button: не передан объект');
@@ -90,5 +85,3 @@ mod.create_button = function(item){
         mod.button_event(item, event);
     }, false);
 }
-
-})(kzvk);

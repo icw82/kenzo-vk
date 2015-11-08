@@ -1,8 +1,3 @@
-(function(kzvk){
-'use strict';
-
-var mod = kzvk.modules.audio;
-
 var gp = {
     dom: {},
     complete: false
@@ -19,7 +14,7 @@ mod.observe_gp = function(element){
     gp.dom.self = element;
 
     // Пока нужно только для скробблинга
-    if (kzvk.options.scrobbler)
+    if (ext.options.scrobbler)
         mod.make_provider(mod.provider_key);
 
     // FIX: не очень красиво сие
@@ -136,11 +131,9 @@ mod.make_provider = function(key) {
 
     provider.innerHTML = '(' + isolated_function + ')(' + JSON.stringify(_) + ')'
 
-    kzvk.dom.body.appendChild(provider);
+    ext.dom.body.appendChild(provider);
     // Сразу после создания DOM-объекта, функция выполняется.
     // Проверка показала, что скрипт-провайдер выполняется в первую очередь
     // и маловероятно, что чужеродный скрипт (eve.js) может сымитировать поведение
     // провайдера, прежде, чем последний будет выполнен (обменяется ключами с расширением).
 }
-
-})(kzvk);

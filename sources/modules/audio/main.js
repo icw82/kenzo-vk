@@ -1,12 +1,9 @@
-(function(kzvk){
-'use strict';
-
-var mod = new kzvk.Module('audio');
+var mod = new ext.Module('audio');
 
 mod.default_options = {
     _: true,
     cache: true,
-    separator: kzvk.choose_a_locale({
+    separator: ext.choose_a_locale({
         en: '–',
         ru: '—'
     }),
@@ -20,10 +17,12 @@ mod.audio_item_classes = [
     'kz-progress',
     'kz-unavailable'
 ]
-mod.provider_key = kzvk.make_key();
+mod.provider_key = kk.generate_key();
 
 // Включение модуля
-kzvk.modules[mod.name] = mod;
+ext.modules[mod.name] = mod;
+
+// fix: прогрессбар в проигрываемом треке (репост в ленте).
 
 // TODO: Унифицировать кнопку (код, стили и пр.)
 // TODO: Опробовать веб-компоненты;
@@ -38,5 +37,3 @@ kzvk.modules[mod.name] = mod;
 //FUTURE: Определение URL и продолжительности аудиозаписи без информации в DOM (Как?);
 //FUTURE: Кнопка в аудио-плеере;
 //FUTURE: Пометка уже скачанных аудиозаписей;
-
-})(kzvk);

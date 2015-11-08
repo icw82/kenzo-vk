@@ -1,7 +1,4 @@
-(function(kzvk){
-'use strict';
-
-var mod = new kzvk.Module('scrobbler');
+var mod = new ext.Module('scrobbler');
 
 mod.default_options = {
     _: false,
@@ -174,10 +171,8 @@ mod.observe = function() {
 
 
 // Включение модуля
-kzvk.modules[mod.name] = mod;
+ext.modules[mod.name] = mod;
 
 //FUTURE: (скробблинг) Индикация прогресса.
 //FUTURE: (скробблинг) Кнопка в избранное.
 //FUTURE: (скробблинг) История скроблинга для неавторизированных;
-
-})(kzvk);
