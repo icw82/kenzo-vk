@@ -3,7 +3,6 @@ mod.init__content = function() {
 
     kk.class_forever('kz-vk-video', ext.dom.body);
 
-    mod.observe_list();
     mod.observe_dom();
     mod.observe_downloads();
 

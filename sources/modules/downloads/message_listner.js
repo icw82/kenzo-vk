@@ -1,21 +1,21 @@
-mod.message_listner = function(request, sender, sendResponse){
+mod.message_listner = function(request, sender, sendResponse) {
     if (sender.id !== chrome.runtime.id)
         return false;
 
     request.name = ext.name_filter(request.name);
 
-    if (request.action === 'vk-audio__save'){ // AUDIO
+    if (request.action === 'vk-audio__save') { // AUDIO
         chrome.downloads.download({
             url: request.url,
             filename: request.name,
             conflictAction: 'prompt'
-        }, function(download_id){
+        }, function(download_id) {
             mod.add_to_current(download_id, 'vk-audio', request.id);
         });
     } else if (request.action === 'vk-audio__stop-download') {
         chrome.storage.local.get('downloads', function(data) {
-            each (data.downloads.current, function(item){
-                if (request.id === item.id && item.type === 'vk-audio'){
+            each (data.downloads.current, function(item) {
+                if (request.id === item.id && item.type === 'vk-audio') {
                     chrome.downloads.cancel(item.download_id);
                     return true;
                 }
@@ -37,7 +37,7 @@ mod.message_listner = function(request, sender, sendResponse){
                     request.id === item.id &&
                     request.format === item.format &&
                     item.type === 'vk-video'
-                ){
+                ) {
                     chrome.downloads.cancel(item.download_id);
                     return true;
                 }

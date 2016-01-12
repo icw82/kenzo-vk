@@ -1,0 +1,29 @@
+<section class="module scrobbler">
+    <p>
+        <label class="f-label checkbox level-1 outside short">
+            <input type="checkbox" ng-model="Options.scrobbler">
+            <span class="a-h1" ng-bind="i18n.scrobbler.header"></span>
+        </label>
+        <a class="f-button" ng-href="[[scrobbler.auth_url]]">
+            Авторизировать
+        </a>
+    </p>
+    <div class="f-group" ng-class="{off: !Options.scrobbler}">
+        <p>
+            На <input type="range" min="50" max="100" step="5"
+                style="vertical-align: top; width:100px"
+                ng-model="Options.scrobbler__proportion" />
+            <span
+                ng-bind="Options.scrobbler__proportion"></span>% композиции
+            </label>
+        </p>
+        <p>
+            <label class="f-label checkbox">
+                <input type="checkbox" ng-model="Options.scrobbler__m4m">
+                <span>… или через 4 минуты </span>
+            </label>
+            <span class="a-description ">
+                (в зависимости от того, какое событие наступит раньше)</span>
+        </p>
+    </div>
+</section>

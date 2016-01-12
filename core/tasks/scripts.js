@@ -20,8 +20,8 @@ var parts_path = [
     './bower_components/angular/angular.min.js.map',
     './bower_components/angular-sanitize/angular-sanitize.min.js',
     './bower_components/angular-sanitize/angular-sanitize.min.js.map',
-    './bower_components/kenzo-kit/kk.min.js',
-    './bower_components/kenzo-kit/kk.min.js.map',
+    './bower_components/kk/kk.min.js',
+    './bower_components/kk/kk.min.js.map',
     './bower_components/blueimp-md5/js/md5.min.js',
     './bower_components/he/he.js']
 

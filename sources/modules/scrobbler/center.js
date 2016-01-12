@@ -1,9 +1,9 @@
 mod.last_update_request__ts = 0;
 mod.last_update_request__name = '';
 
-mod.center = function(info){
-    var expiration = 300000, // 1000 * 60 * (5 минут)
-        acceptable_delay = 1500; // 1,5 секунды
+mod.center = function(info) {
+    var expiration = 300000; // 1000 * 60 * (5 минут)
+    var acceptable_delay = 1500; // 1,5 секунды
 
     // Ограничение в 30 сек.
     if (info.duration < 30)
@@ -11,7 +11,7 @@ mod.center = function(info){
 
     //mod.log('mod.center:', info);
 
-    function send_update_request(){
+    function send_update_request() {
         var params = {
             artist: info.performer,
             track: info.title,
@@ -24,7 +24,7 @@ mod.center = function(info){
             info.name != mod.last_update_request__name
         ) {
             // FIX: если ошибка?
-            mod.methods.track.updateNowPlaying(params, function(r){
+            mod.methods.track.updateNowPlaying(params, function(r) {
                 //mod.log('request sended', r);
             });
             mod.last_update_request__ts = kk.ts();
@@ -32,7 +32,7 @@ mod.center = function(info){
         }
     }
 
-    function send_scrobble_request(first_update){
+    function send_scrobble_request(first_update) {
         var params = {
             artist: info.performer,
             track: info.title,
@@ -43,20 +43,20 @@ mod.center = function(info){
         mod.methods.track.scrobble(params);
     }
 
-    chrome.storage.local.get('scrobbler', function(storage){
-        var buffer = storage.scrobbler.buffer,
-            new_buffer = [],
-            match = false;
+    chrome.storage.local.get('scrobbler__buffer', function(storage) {
+        var buffer = storage.scrobbler__buffer;
+        var new_buffer = [];
+        var match = false;
 
-        //mod.log('storage.scrobbler:', storage.scrobbler);
+//        mod.log('storage.scrobbler__buffer:', storage.scrobbler__buffer);
 
         // Актуализация буфера
-        each (buffer, function(item){
+        each (buffer, function(item) {
             // Время с последнего обновления записи, мс
             var diff = kk.ts() - item.last_update;
 
             // Данная запись есть в буфере
-            if (item.name === info.name){
+            if (item.name === info.name) {
 
                 // Если прошло менее 1,5 с
                 if (diff < acceptable_delay) {
@@ -69,9 +69,9 @@ mod.center = function(info){
                     send_update_request();
 
                     // условия скробблинга
-                    if (!item.scrobbled){
+                    if (!item.scrobbled) {
                         // Если проиграно 4 минуты
-                        if (mod.options.m4m && (item.state >= 240000)){
+                        if (mod.options.m4m && (item.state >= 240000)) {
                             item.scrobbled = true; // FIX: а если ошибка? А если задержка?
                             send_scrobble_request(item.first_update);
                         } else {
@@ -80,7 +80,7 @@ mod.center = function(info){
 //                            mod.log('proportion:', proportion);
 //                            mod.log('state:', Math.round(item.state / 1000));
 
-                            if (proportion >= mod.options.proportion){
+                            if (proportion >= mod.options.proportion) {
                                 item.scrobbled = true;
                                 send_scrobble_request(item.first_update);
                             }
@@ -104,7 +104,7 @@ mod.center = function(info){
             }
 
             // Проверка на срок годности
-            if (diff < expiration){
+            if (diff < expiration) {
                 new_buffer.push(item);
             }
         });
@@ -124,7 +124,7 @@ mod.center = function(info){
         }
 
         // Запись буфера в общее хранилище
-        storage.scrobbler.buffer = new_buffer;
+        storage.scrobbler__buffer = new_buffer;
         chrome.storage.local.set(storage);
 
     });

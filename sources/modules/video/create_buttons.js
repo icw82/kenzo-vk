@@ -4,7 +4,7 @@ mod.create_buttons = function (item) {
         return false;
     }
 
-    if (!(item.dom_element instanceof Element)) {
+    if (!(item.dom.element instanceof Element)) {
         mod.warn('create_button: не найден DOM-элемент');
         return false;
     }
@@ -16,7 +16,7 @@ mod.create_buttons = function (item) {
 
     var DOM_box = document.querySelector('#mv_box');
 
-    if (!DOM_box || !DOM_box.contains(item.dom_element)) {
+    if (!DOM_box || !DOM_box.contains(item.dom.element)) {
         mod.warn('Оу, похоже, что-то пошло не так.');
         return false;
     }
@@ -34,10 +34,12 @@ mod.create_buttons = function (item) {
         return a.format > b.format
     });
 
+    mod.log('******', item.formats);
+
     each (item.formats, function (item) {
-        item.dom_element = document.createElement('div');
-        item.dom_element.classList.add('kz-vk-video__wrapper');
-        item.dom_element.innerHTML =
+        item.dom.element = document.createElement('div');
+        item.dom.element.classList.add('kz-vk-video__wrapper');
+        item.dom.element.innerHTML =
             '<a class="' + carousel_classes + '">' +
                 '<div class="kz-vk-video__carousel__item kz-format"></div>' +
                 '<div class="kz-vk-video__carousel__item kz-progress">' +
@@ -49,28 +51,28 @@ mod.create_buttons = function (item) {
                 '<div class="kz-vk-video__carousel__item kz-unavailable"></div>' +
             '</a>';
 
-        DOM_kz__buttons.appendChild(item.dom_element);
+        DOM_kz__buttons.appendChild(item.dom.element);
     });
 
     DOM_host.insertBefore(DOM_kz__buttons, DOM_host.firstChild);
 
     each (item.formats, function (item) {
-        item.dom_carousel = item.dom_element
+        item.dom.carousel = item.dom.element
             .querySelector('.kz-vk-video__carousel');
-        item.dom_format = item.dom_element
+        item.dom.format = item.dom.element
             .querySelector('.kz-vk-video__carousel__item.kz-format');
-        item.dom_progress = item.dom_element
+        item.dom.progress = item.dom.element
             .querySelector('.kz-vk-video__carousel__item.kz-progress');
-        item.dom_progress__filling = item.dom_element
+        item.dom.progress__filling = item.dom.element
             .querySelector('.kz-vk-video__progress-filling');
-        item.dom_unavailable = item.dom_element
+        item.dom.unavailable = item.dom.element
             .querySelector('.kz-vk-video__carousel__item.kz-unavailable');
 
-        item.dom_carousel.addEventListener('click', function (event) {
+        item.dom.carousel.addEventListener('click', function (event) {
             mod.button_event(item, event);
         }, false);
 
-        item.dom_carousel.addEventListener('dragstart', function (event) {
+        item.dom.carousel.addEventListener('dragstart', function (event) {
             mod.button_event(item, event);
         }, false);
     });

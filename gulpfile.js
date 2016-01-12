@@ -8,7 +8,7 @@ for (var key in gulp.tasks) {
         observers.push(key);
 }
 
-gulp.task('build', ['immutable', 'scripts', 'styles']);
+gulp.task('build', ['immutable', 'scripts', 'styles', 'options']);
 gulp.task('watch', observers);
 
 gulp.task('default', ['clean', 'build', 'watch']);

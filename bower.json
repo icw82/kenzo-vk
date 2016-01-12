@@ -14,7 +14,7 @@
   ],
   "devDependencies": {
     "angular": "~1.4.*",
-    "kenzo-kit": "~0.*",
+    "kk": "~0.0.15",
     "blueimp-md5": "~1.1.0",
     "he": "~0.5.0",
     "angular-sanitize": "~1.4.*"

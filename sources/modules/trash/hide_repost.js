@@ -6,7 +6,7 @@ mod.hide_repost = function(element, for_group) {
     if (!for_group && post_info.is_group) return;
     if (for_group && !post_info.is_group) return;
 
-    var ancestor = kk.ancestor_search(element, 'feed_row');
+    var ancestor = kk.find_ancestor(element, 'feed_row');
 
     if (ancestor)
         mod.hide(ancestor);

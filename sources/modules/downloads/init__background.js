@@ -1,10 +1,10 @@
 mod.init__background = function() {
-    chrome.downloads.onCreated.addListener(function(item){
+    chrome.downloads.onCreated.addListener(function(item) {
         //var id = item.id;
         mod.log('downloads.onCreated', item);
     })
 
-//    chrome.downloads.onErased.addListener(function(item){
+//    chrome.downloads.onErased.addListener(function(item) {
 //        var id = item.id;
 //        mod.log('onErased', item);
 //    })

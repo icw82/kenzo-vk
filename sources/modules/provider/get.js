@@ -6,9 +6,9 @@
 //});
 
 mod.get = function(value, tab) {
-    var key = kk.generate_key();
+    var key = kk.generate_key(15);
 
-    return new Promise(function(resolve, reject){
+    return new Promise(function(resolve, reject) {
         if (ext.scope === 'content') {
             // Если вызывается из CS
             tab = mod.current_tab;

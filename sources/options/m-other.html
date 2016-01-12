@@ -1,0 +1,24 @@
+<section class="module other">
+    <p>
+        <span class="a-h1" ng-bind="i18n.others"></span>
+    </p>
+    <p ng-bind="i18n.filters.brackets"></p>
+
+    <div class="grid">
+        <div class="col-2">
+            <p>
+                <label class="f-label checkbox">
+                    <input type="checkbox" ng-model="Options.filters__square_brackets">
+                    <span ng-bind="i18n.filters.square_brackets"></span>
+                </label>
+            </p>
+        </div><div class="col-2">
+            <p>
+                <label class="f-label checkbox outside">
+                    <input type="checkbox" ng-model="Options.filters__curly_brackets">
+                    <span ng-bind="i18n.filters.curly_brackets"></span>
+                </label>
+            </p>
+        </div>
+    </div>
+</section>

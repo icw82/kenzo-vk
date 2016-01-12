@@ -15,7 +15,7 @@ mod.init__background = function() {
             var match = false;
             var tab = {
                 id: port.sender.tab.id,
-                key: kk.generate_key(),
+                key: kk.generate_key(15),
                 port_of_content: port
             }
 

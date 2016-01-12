@@ -1,15 +1,15 @@
-ext.name_filter = function(name){
+ext.name_filter = function(name) {
 
 //    ext.flood('name_filter source:', name);
 
-    if (typeof name === 'string'){
+    if (typeof name === 'string') {
         name = name.replace(/[\\\/:\*\?<>\|\"~]/g, ' ');
 
-        if (ext.options.filters__square_brackets === true){
+        if (ext.options.filters__square_brackets === true) {
             name = name.replace(/\[.+?\]/g, '');
         }
 
-        if (ext.options.filters__curly_brackets === true){
+        if (ext.options.filters__curly_brackets === true) {
             name = name.replace(/\{.+?\}/g, '');
         }
 
@@ -17,7 +17,7 @@ ext.name_filter = function(name){
         name = name.replace(/\s+/g, ' ');
         name = name.replace(/\s(\.\w+?)$/g, '$1');
 
-        if (name.length === 0){
+        if (name.length === 0) {
             name = chrome.i18n.getMessage('mistake');
         }
 

@@ -14,8 +14,6 @@ mod.default_options = {
     group_reposts: false
 }
 
-mod.observers = []; // FUTURE: В правильно ли место определения свойства?
-
 // Включение модуля
 ext.modules[mod.name] = mod;
 

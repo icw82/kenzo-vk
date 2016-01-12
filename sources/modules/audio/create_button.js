@@ -1,40 +1,54 @@
-mod.create_button = function(item){
-    if (typeof item !== 'object'){
+mod.create_button = function(item) {
+    if (typeof item !== 'object') {
         mod.warn('create_button: не передан объект');
         return false;
     }
 
-    if (!(item.dom_element instanceof Element)){
+    if (!(item.dom.element instanceof Element)) {
         mod.warn('create_button: не найден DOM-элемент');
         return false;
     }
 
     // Удалять ненужные кнопки
     // NOTE: Почему происходит дублирование?
-    each (item.dom_element.querySelectorAll('.kz-vk-audio__wrapper'), function(item){
+    each (item.dom.element.querySelectorAll('.kz-vk-audio__wrapper'), function(item) {
         item.parentNode.removeChild(item);
     });
 
-    var element = item.dom_element;
+    var element = item.dom.element;
 
-    if (!element.parentElement){
+    if (!element.parentElement) {
         mod.warn('?:', element);
         return false;
     }
 
     if (
-        (item.element_type === 'default') ||
-        (item.element_type === 'pad')
-    ){
+        (item.type === 'default') ||
+        (item.type === 'pad')
+    ) {
         var DOM_play = element.querySelector('.area .play_btn');
     } else if (
-        (item.element_type === 'wall') ||
-        (item.element_type === 'search_audio') ||
-        (item.element_type === 'search') ||
-        (item.element_type === 'messages') ||
-        (item.element_type === 'attach')
-    ){
+        (item.type === 'wall') ||
+        (item.type === 'search_audio') ||
+        (item.type === 'search') ||
+        (item.type === 'messages') ||
+        (item.type === 'attach')
+    ) {
         var DOM_play = element.querySelector('.area .play_btn_wrap');
+    }
+
+    item.dom.element.classList.add('kz-audio-element');
+    item.dom.actions = item.dom.element.querySelector('.actions');
+
+    item.dom.element.classList.add('kz-ac-' + item.dom.actions.childElementCount);
+
+    // Сокращение ширины индикатора длительности.
+    if (item.vk_duration < 600) {
+        // Меньше 10-ти минут
+        item.dom.element.classList.add('kz-less-10');
+    } else if (item.vk_duration < 3600) {
+        // Меньше часа
+        item.dom.element.classList.add('kz-less-60');
     }
 
     // Создание кнопки
@@ -58,30 +72,31 @@ mod.create_button = function(item){
             '<div class="kz-vk-audio__carousel__item kz-unavailable"></div>' +
         '</a>';
 
-    if (DOM_play.nextSibling){
+    if (DOM_play.nextSibling) {
         DOM_play.parentElement.insertBefore(DOM_kz__wrapper, DOM_play.nextSibling);
     } else {
         DOM_play.parentElement.appendChild(DOM_kz__wrapper);
     }
 
-    item.dom_wrapper = DOM_kz__wrapper;
+    item.dom.wrapper = DOM_kz__wrapper;
+    item.dom.play_button = DOM_play;
 
-    item.dom_carousel = item.dom_wrapper
+    item.dom.carousel = item.dom.wrapper
         .querySelector('.kz-vk-audio__carousel');
-    item.dom_bitrate = item.dom_wrapper
+    item.dom.bitrate = item.dom.wrapper
         .querySelector('.kz-vk-audio__carousel__item.kz-bitrate');
-    item.dom_progress = item.dom_wrapper
+    item.dom.progress = item.dom.wrapper
         .querySelector('.kz-vk-audio__carousel__item.kz-progress');
-    item.dom_progress__filling = item.dom_wrapper
+    item.dom.progress__filling = item.dom.wrapper
         .querySelector('.kz-vk-audio__progress-filling');
-    item.dom_unavailable = item.dom_wrapper
+    item.dom.unavailable = item.dom.wrapper
         .querySelector('.kz-vk-audio__carousel__item.kz-unavailable');
 
-    item.dom_carousel.addEventListener('click', function(event){
+    item.dom.carousel.addEventListener('click', function(event) {
         mod.button_event(item, event);
     }, false);
 
-    item.dom_carousel.addEventListener('dragstart', function(event){
+    item.dom.carousel.addEventListener('dragstart', function(event) {
         mod.button_event(item, event);
     }, false);
 }

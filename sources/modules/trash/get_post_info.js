@@ -4,7 +4,7 @@ function parse(matches) {
     _.author_id = matches[1];
     _.post_id = matches[2];
 
-    if (_.author_id[0] === '-'){
+    if (_.author_id[0] === '-') {
         _.author_id = _.author_id.slice(1);
         _.is_group = true;
     } else {
@@ -14,7 +14,7 @@ function parse(matches) {
     return _;
 }
 
-mod.get_post_info = function(element){
+mod.get_post_info = function(element) {
 
     if (!(element instanceof Element) || !element.classList.contains('post')) {
         mod.warn('Не пост', element);
@@ -28,7 +28,7 @@ mod.get_post_info = function(element){
 
     var copy = element.getAttribute('data-copy');
 
-    if (copy){
+    if (copy) {
         _.is_repost = true;
 
         matches = copy.match(/(.+?)_(.+)/);

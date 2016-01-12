@@ -133,11 +133,11 @@
     "o__ui__header": {
         "message": "Дополнения интерфейса"
     },
-    "o__ui__kzvk_button": {
-        "message": "kzvk_button"
+    "o__ui__sidebar_button": {
+        "message": "Ссылка на эту страницу в меню"
     },
     "o__ui__ids": {
-        "message": "ids"
+        "message": "Идентификаторы пользователей"
     },
 
 

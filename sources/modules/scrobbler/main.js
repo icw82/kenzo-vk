@@ -16,23 +16,23 @@ Object.defineProperty(mod, 'auth_url', {
     get: function () {
         return 'http://last.fm/api/auth?api_key=' +
             this.api_key + '&cb=' +
-            chrome.runtime.getURL('options/template.html');
+            chrome.runtime.getURL('options/index.html');
     }
 });
 
 // FUTURE: Разделить файл
 
-mod.get_signature = function(params){
+mod.get_signature = function(params) {
     var keys = [],
         string = '';
 
-    for (let key in params){
+    for (let key in params) {
         keys.push(key);
     }
 
     keys.sort();
 
-    each (keys, function(key){
+    each (keys, function(key) {
         string += key + params[key];
     });
 
@@ -41,21 +41,21 @@ mod.get_signature = function(params){
     return md5(string);
 }
 
-mod.get_encoded_params = function(params){
+mod.get_encoded_params = function(params) {
     var pairs = [];
 
-    for (let key in params){
+    for (let key in params) {
         pairs.push(key + '=' + encodeURIComponent(params[key]));
     }
 
     return pairs.join('&');
 }
 
-mod.request = function(params, callback, post){
+mod.request = function(params, callback, post) {
     if (typeof params != 'object')
         params = {}
 
-    if (typeof params.method != 'string'){
+    if (typeof params.method != 'string') {
         mod.warn('Метод не задан');
         return false;
     }
@@ -78,7 +78,7 @@ mod.request = function(params, callback, post){
     }
 }
 
-mod.xhr = function(url, params, callback, post){
+mod.xhr = function(url, params, callback, post) {
     var xhr = new XMLHttpRequest();
 
     //mod.log('— params:', params);
@@ -88,15 +88,15 @@ mod.xhr = function(url, params, callback, post){
     else
         xhr.open('GET', url, true);
 
-    xhr.onreadystatechange = function(){
+    xhr.onreadystatechange = function() {
         if (xhr.readyState !== 4) return false;
-        if (xhr.status === 200){
+        if (xhr.status === 200) {
             var self = this;
 
             //mod.log('self.response:', self.response);
 
             if (typeof callback == 'function') {
-                if (self.response.error){
+                if (self.response.error) {
                     if (self.response.error == 9) {
                         if (mod.session !== null) {
                             mod.reset_session();
@@ -124,47 +124,30 @@ mod.xhr = function(url, params, callback, post){
     }
 }
 
-mod.reset_session = function(){
-    chrome.storage.local.get('scrobbler', function(storage){
-        storage.scrobbler.session = null;
+mod.reset_session = function() {
+    chrome.storage.local.get('scrobbler', function(storage) {
+        storage.scrobbler__session = null;
 
-        chrome.storage.local.set(storage, function(){
+        chrome.storage.local.set(storage, function() {
             mod.log('сессия сброшена');
         });
     });
 }
 
-/*
-
-Проблема в том, что chrome.storage.onChanged следит только за объектами первого уровня.
-Не целесообразно хранить данные в больших объектах, их нужно дробить.
-Например:
-    scrobbler {
-        buffer: […], ← Нельзя повесить слушателя на этот подобъект
-        session: {…}
-    }
-нужно заменить на:
-    scrobbler__buffer = []; ← Можно повесить отдельный слушатель на этот объект
-    scrobbler__session = {};
-
-Минус в том, что прослушку нужно вешать на несколько объектов, вместо одного.
-
-*/
 mod.observe = function() {
-    function observer(changes, areaName) {
-        if ((areaName == 'local') && ('scrobbler' in changes)) {
-            //mod.log('changes', changes);
-
-            if (changes.scrobbler.newValue.session !== mod.session)
-                mod.session = changes.scrobbler.newValue.session;
-
-            //mod.log('observe - scrobbler.session', mod.session);
+    function observer(changes, namespace) {
+        if ((namespace == 'local') && ('scrobbler__session' in changes)) {
+            if (
+                mod.session === null ||
+                changes.scrobbler__session.newValue.key !== mod.session.key
+            )
+                mod.session = changes.scrobbler__session.newValue;
         }
     }
 
-    chrome.storage.local.get('scrobbler', function(storage) {
+    chrome.storage.local.get('scrobbler__session', function(storage) {
         //mod.log('storage', storage);
-        mod.session = storage.scrobbler.session;
+        mod.session = storage.scrobbler__session;
         chrome.storage.onChanged.addListener(observer);
     });
 }

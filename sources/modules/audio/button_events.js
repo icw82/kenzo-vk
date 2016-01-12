@@ -56,14 +56,10 @@ mod.button_event = function(item, event) {
         }
 
         if (item.available) {
-            if ('progress' in item) {
-                if (item.progress === null)
-                    start();
-                else
-                    stop();
-            } else {
+            if (typeof item.progress == 'undefined' || item.progress === null)
                 start();
-            }
+            else
+                stop();
         } else {
             mod.log('Запись недоступна');
         }

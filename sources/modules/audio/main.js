@@ -11,13 +11,30 @@ mod.default_options = {
     simplified: false
 }
 
-mod.list = [] // временно здесь?
 mod.audio_item_classes = [
     'kz-bitrate',
     'kz-progress',
     'kz-unavailable'
 ]
-mod.provider_key = kk.generate_key();
+mod.provider_key = kk.generate_key(15);
+
+// TODO: to kk
+mod.create_proxy = function(object, property, callback) {
+    if (typeof property !== 'string') return;
+
+    var proxy_property = '_' + property;
+
+    object[proxy_property] = void(0);
+
+    Object.defineProperty(object, property, {
+        get: function() {return object[proxy_property]},
+        set: function(new_value) {
+            object[proxy_property] = new_value;
+            callback(object, property);
+        }
+    });
+}
+
 
 // Включение модуля
 ext.modules[mod.name] = mod;
@@ -27,9 +44,10 @@ ext.modules[mod.name] = mod;
 // TODO: Унифицировать кнопку (код, стили и пр.)
 // TODO: Опробовать веб-компоненты;
 
-//TODO: Иконка ожидания скачивания;
-//TODO: Скачивание блоками или всего плейлиста;
+// TODO: Иконка ожидания скачивания;
+// TODO: Скачивание блоками или всего плейлиста;
 
+//FUTURE: Скрытие кнопки play;
 //FUTURE: Обнаружение аудиозаписей-клонов;
 //FUTURE: Правильный фильтр, чтобы вместо flume не выдавал lumen;
 //FUTURE: Фильтры: битрейт, продолжительность, размер файла;

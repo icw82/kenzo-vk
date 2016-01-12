@@ -1,3 +1,5 @@
+.kz-audio-element .duration{text-align: right}
+
 .kz-vk-audio__wrapper{width: 38px; height: 16px; position: relative; float: left;
     box-sizing: border-box; margin-top: 9px; padding-right: 9px;
     -webkit-perspective: 50px;
@@ -38,7 +40,7 @@
     -webkit-transform: translateZ(14.5px) rotateY(0deg);
             transform: translateZ(14.5px) rotateY(0deg)}
 .kz-bitrate
-    .kz-vk-audio__carousel__item.kz-bitrate{opacity:1; pointer-events: auto}
+    .kz-vk-audio__carousel__item.kz-bitrate{opacity: 1; pointer-events: auto}
 
 
 .kz-progress .kz-vk-audio__carousel{
@@ -48,27 +50,27 @@
     -webkit-transform: translateX(14.5px) rotateY(90deg);
             transform: translateX(14.5px) rotateY(90deg)}
 .kz-progress
-    .kz-vk-audio__carousel__item.kz-progress{opacity:1; pointer-events: auto}
+    .kz-vk-audio__carousel__item.kz-progress{opacity: 1; pointer-events: auto}
 
 
-.kz-unavailable .kz-vk-audio__carousel{opacity:.4;
+.kz-unavailable .kz-vk-audio__carousel{opacity: .4;
     -webkit-transform: translateZ(-14.5px) rotateY(180deg);
             transform: translateZ(-14.5px) rotateY(180deg)}
 .kz-vk-audio__carousel__item.kz-unavailable{
     -webkit-transform: translateZ(-14.5px) rotateY(180deg);
             transform: translateZ(-14.5px) rotateY(180deg)}
 .kz-unavailable
-    .kz-vk-audio__carousel__item.kz-unavailable{opacity:1 !important; pointer-events: auto}
+    .kz-vk-audio__carousel__item.kz-unavailable{opacity: 1 !important; pointer-events: auto}
 
 
-.kz-direct .kz-vk-audio__carousel{opacity:.4;
+.kz-direct .kz-vk-audio__carousel{opacity: .4;
     -webkit-transform: translateZ(-14.5px) rotateY(90deg);
             transform: translateZ(-14.5px) rotateY(90deg)}
 .kz-vk-audio__carousel__item.kz-direct{
     -webkit-transform: translateZ(-14.5px) rotateY(-90deg);
             transform: translateZ(-14.5px) rotateY(-90deg)}
 .kz-direct
-    .kz-vk-audio__carousel__item.kz-direct{opacity:1 !important; pointer-events: auto}
+    .kz-vk-audio__carousel__item.kz-direct{opacity: 1 !important; pointer-events: auto}
 
 /*
  *  Упращённая версия
@@ -86,58 +88,57 @@
 }
 
 
-#audio.new .audio.current
-.kz-vk-audio__carousel__item,
-#pad_playlist .audio.current
-.kz-vk-audio__carousel__item,
-.kz-vk-audio__carousel__item.std{border:1px solid; color:white}
+#audio.new .kz-audio-element.current .kz-vk-audio__carousel__item,
+#pad_playlist .kz-audio-element.current .kz-vk-audio__carousel__item,
+#pad_search_list .kz-audio-element.current .kz-vk-audio__carousel__item,
+.kz-vk-audio__carousel__item.std{border: 1px solid; color: white}
 
-.kz-vk-audio__carousel__item.kz-bitrate:before{content:attr(data-message); opacity:1;
+.kz-vk-audio__carousel__item.kz-bitrate:before{content: attr(data-message); opacity: 1;
     /*transition: opacity .2s*/}
-.kz-vk-audio__carousel__item.kz-bitrate:after{display:block; width:11px; height:13px;
-    position:absolute; left:8px; top:-4px; opacity:0; content:"";
-    background-image:url(chrome-extension://__MSG_@@extension_id__/images/download.png);
+.kz-vk-audio__carousel__item.kz-bitrate:after{display: block; width: 11px; height: 13px;
+    position: absolute; left: 8px; top: -4px; opacity: 0; content: "";
+    background-image: url(chrome-extension://__MSG_@@extension_id__/images/download.png);
     /*transition: opacity .1s*/}
-#audio.new .audio.current
-.kz-vk-audio__carousel__item.kz-bitrate:after,
-#pad_playlist .audio.current
-.kz-vk-audio__carousel__item.kz-bitrate:after{
-    background-image:url(chrome-extension://__MSG_@@extension_id__/images/download-c.png)}
-.kz-vk-audio__carousel__item.kz-bitrate:hover:before{opacity:0;
+#audio.new .kz-audio-element.current .kz-vk-audio__carousel__item.kz-bitrate:after,
+#pad_playlist .kz-audio-element.current .kz-vk-audio__carousel__item.kz-bitrate:after,
+#pad_search_list .kz-audio-element.current .kz-vk-audio__carousel__item.kz-bitrate:after{
+    background-image: url(chrome-extension://__MSG_@@extension_id__/images/download-c.png)}
+.kz-vk-audio__carousel__item.kz-bitrate:hover:before{opacity: 0;
     /*transition: opacity .1s*/}
-.kz-vk-audio__carousel__item.kz-bitrate:hover:after{opacity:1;
+.kz-vk-audio__carousel__item.kz-bitrate:hover:after{opacity: 1;
     /*transition: opacity .2s*/}
 
 .im_new_msg
 .kz-vk-audio__carousel__item.kz-bitrate:after{
-    background-image:url(chrome-extension://__MSG_@@extension_id__/images/download-u.png)}
+    background-image: url(chrome-extension://__MSG_@@extension_id__/images/download-u.png)}
 
 
 /* Progress bar */
-.kz-vk-audio__carousel__item.kz-progress{overflow:hidden;
-    background-position:center center; background-repeat:no-repeat}
+.kz-vk-audio__carousel__item.kz-progress{overflow: hidden;
+    background-position: center center; background-repeat: no-repeat}
 
 .kz-vk-audio__carousel__item.kz-progress > .kz-vk-audio__cross{
     width: 11px; height: 11px; position: relative; top: 2px; z-index: 3;
-    margin: 0 auto; opacity:0; fill:rgb(95, 127, 162)}
+    margin: 0 auto; opacity: 0; fill: rgb(95, 127, 162)}
 
-.kz-vk-audio__carousel__item.kz-progress:hover > .kz-vk-audio__cross{opacity:1}
+.kz-vk-audio__carousel__item.kz-progress:hover > .kz-vk-audio__cross{opacity: 1}
 
-#audio.new .audio.current
+#audio.new .kz-audio-element.current
 .kz-vk-audio__carousel__item.kz-progress > .kz-vk-audio__cross,
-#pad_playlist .audio.current
+#pad_playlist .kz-audio-element.current
+.kz-vk-audio__carousel__item.kz-progress > .kz-vk-audio__cross,
+#pad_search_list .kz-audio-element.current
 .kz-vk-audio__carousel__item.kz-progress > .kz-vk-audio__cross{fill: white}
 
-.kz-vk-audio__progress-filling{width:100%; height:100%;
-    position:absolute; left:-100%; top:0; z-index:1;
-    background-color:rgba(95,127,162,.4);
+.kz-vk-audio__progress-filling{width: 100%; height: 100%;
+    position: absolute; left: -100%; top: 0; z-index: 1;
+    background-color: rgba(95,127,162,.4);
     transition: left .5s ease}
 
-.audio.current
-.kz-vk-audio__progress-filling{background-color:rgba(255,255,255,.4)}
+.kz-audio-element.current .kz-vk-audio__progress-filling{
+    background-color: rgba(255, 255, 255, .4)}
 
-
-.kz-vk-audio__carousel__item.kz-unavailable{line-height:12px; font-size: 12px}
+.kz-vk-audio__carousel__item.kz-unavailable{line-height: 12px; font-size: 12px}
 .kz-vk-audio__carousel__item.kz-unavailable:before{content: '×_×'}
 
 .kz-vk-audio__unavailable .play_btn_wrap,
@@ -146,57 +147,74 @@
 
 
 /* Sizes */
-.kz-vk-audio #audio.new .audio .info{width: 352px}
-.kz-vk-audio #audio.new .audio .title_wrap{width: 292px}
-.kz-vk-audio #audio.new .audio .play_btn{margin-right:38px}
-.kz-vk-audio #audio.new .audio .play_btn + .kz-vk-audio__wrapper{margin-left:-38px}
+.kz-audio-element:hover .title_wrap{transition: width ease .1s}
 
-.kz-vk-audio #pad_playlist_panel .audio .info{width: 352px}
-.kz-vk-audio #pad_playlist_panel .audio .title_wrap{width:295px!important}
-.kz-vk-audio.font_medium #pad_playlist_panel .audio .title_wrap{width:290px!important}
+#kz-ext #audio.new .audio .play_btn{margin-right: 38px}
+#kz-ext #audio.new .audio .play_btn + .kz-vk-audio__wrapper{margin-left: -38px}
+
+#kz-ext #audio.new .audio .info{width: 352px}
+#kz-ext #audio.new .audio .title_wrap{width: 292px}
+#kz-ext #audio.new .kz-less-10 .duration{width: 26px}
+#kz-ext #audio.new .kz-less-10 .title_wrap{width: 308px}
+#kz-ext #audio.new .kz-less-60 .duration{width: 31px}
+#kz-ext #audio.new .kz-less-60 .title_wrap{width: 303px}
+#kz-ext #audio.new .kz-audio-element:hover.kz-ac-1 .title_wrap{width: calc(352px - 32px)}
+#kz-ext #audio.new .kz-audio-element:hover.kz-ac-2 .title_wrap{width: calc(352px - 60px)}
+#kz-ext #audio.new .kz-audio-element:hover.kz-ac-3 .title_wrap{width: calc(352px - 88px)}
+
+#kz-ext #pad_playlist_panel .kz-audio-element .info{width: 352px}
+#kz-ext #pad_playlist_panel .kz-audio-element .title_wrap{width: 294px}
+
+#kz-ext #pad_playlist_panel .kz-less-10 .duration{width: 26px}
+#kz-ext #pad_playlist_panel .kz-less-10 .title_wrap{width: 308px}
+#kz-ext #pad_playlist_panel .kz-less-60 .duration{width: 31px}
+#kz-ext #pad_playlist_panel .kz-less-60 .title_wrap{width: 303px}
+#kz-ext #pad_playlist_panel .kz-audio-element:hover.kz-ac-1 .title_wrap{width: calc(352px - 32px)}
+#kz-ext #pad_playlist_panel .kz-audio-element:hover.kz-ac-2 .title_wrap{width: calc(352px - 61px)}
+#kz-ext #pad_playlist_panel .kz-audio-element:hover.kz-ac-3 .title_wrap{width: calc(352px - 90px)}
 
 .kz-vk-audio .wall_module .play_btn_wrap,
-.kz-vk-audio .choose_box .play_btn_wrap{float:left; margin-right:35px}
+.kz-vk-audio .choose_box .play_btn_wrap{float: left; margin-right: 35px}
 .kz-vk-audio .wall_module .play_btn_wrap + .kz-vk-audio__wrapper,
 .kz-vk-audio .choose_box .play_btn_wrap + .kz-vk-audio__wrapper{
-    width:35px; margin-left:-35px; margin-top:6px; padding-right:6px}
+    width: 35px; margin-left: -35px; margin-top: 6px; padding-right: 6px}
 .kz-vk-audio .wall_module .audio .title_wrap{
-    width:225px!important}
+    width: 225px!important}
 .kz-vk-audio .wall_module .reply_text .audio .title_wrap{
-    width:185px!important}
+    width: 185px!important}
 .kz-vk-audio .wall_module .audio .reply_table .title_wrap{
-    width:165px!important}
+    width: 165px!important}
 .kz-vk-audio .wide_wall_module .audio .title_wrap{
-    width:425px!important}
+    width: 425px!important}
 .kz-vk-audio .wide_wall_module .reply_table .audio .title_wrap{
-    width:365px!important}
+    width: 365px!important}
 
 .kz-vk-audio #search_content .wall_text .audio .title_wrap{
-    width:390px!important}
+    width: 390px!important}
 
 .kz-vk-audio #wl_post_body_wrap .audio .title_wrap{
-    width:495px!important}
+    width: 495px!important}
 .kz-vk-audio #wl_replies_wrap .reply_table .audio .title_wrap{
-    width:435px!important}
+    width: 435px!important}
 
 .kz-vk-audio .im_log_body .wall_module .audio .title_wrap{
-    width:235px!important}
+    width: 235px!important}
 .kz-vk-audio .im_fwd_log_row .audio .title_wrap,
 .kz-vk-audio .im_fwd_log_row .post_media .audio .title_wrap{
-    width:185px!important}
+    width: 185px!important}
 
-.kz-vk-audio .audio .title_wrap b{max-width:55%!important}
+.kz-vk-audio .audio .title_wrap b{max-width: 55%!important}
 
-.kz-vk-audio .audio_results .play_btn_wrap{float:left; margin-right:35px}
+.kz-vk-audio .audio_results .play_btn_wrap{float: left; margin-right: 35px}
 .kz-vk-audio .audio_results .play_btn_wrap + .kz-vk-audio__wrapper{
-    width:35px; margin-left:-35px; margin-top:6px; padding-right:6px}
-.kz-vk-audio .results .audio .title_wrap{width:calc(360px - 35px)}
+    width: 35px; margin-left: -35px; margin-top: 6px; padding-right: 6px}
+.kz-vk-audio .results .audio .title_wrap{width: calc(360px - 35px)}
 
-.kz-vk-audio .show_media .audio .play_btn_wrap{float:left; margin-right:35px}
+.kz-vk-audio .show_media .audio .play_btn_wrap{float: left; margin-right: 35px}
 .kz-vk-audio .show_media .audio .play_btn_wrap + .kz-vk-audio__wrapper{
-    width:35px; margin-left:-35px;  margin-top:6px; padding-right:6px}
+    width: 35px; margin-left: -35px;  margin-top: 6px; padding-right: 6px}
 .kz-vk-audio .show_media .audio .title_wrap{
-    width:480px!important}
+    width: 480px!important}
 
 .kz-vk-audio .choose_audio_row .audio .title_wrap{
-    width:345px}
+    width: 345px}

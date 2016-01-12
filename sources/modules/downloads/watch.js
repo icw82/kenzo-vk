@@ -1,20 +1,20 @@
-mod.big_watch = (function(){
+mod.big_watch = (function() {
 
     var interval_id = null,
         interval = 1000,
         _ = {};
 
-    function update(){
+    function update() {
 
     }
 
-    function stop(){
+    function stop() {
 //        clearInterval(interval_id);
 //        interval_id = null;
 //        mod.log('BIG Watch complete');
     }
 
-    _.start = function(){
+    _.start = function() {
         if (interval_id !== null)
             return false;
 
@@ -28,29 +28,29 @@ mod.big_watch = (function(){
 })();
 
 
-mod.watch = (function(){
+mod.watch = (function() {
 
     var interval_id = null,
         interval = 1000,
         _ = {};
 
-    function update(){
-        chrome.storage.local.get('downloads', function(data){
+    function update() {
+        chrome.storage.local.get('downloads', function(data) {
             var current = data.downloads.current;
 
             chrome.downloads.search({
                 state: 'in_progress'
-            }, function(downloads){
-                if (downloads.length === 0){
+            }, function(downloads) {
+                if (downloads.length === 0) {
                     stop();
                     return false;
                 }
 
                 var list = [];
 
-                each (current, function(item){
-                    each (downloads, function(download){
-                        if (download.id === item.download_id){
+                each (current, function(item) {
+                    each (downloads, function(download) {
+                        if (download.id === item.download_id) {
                             item.progress =
                                 Math.floor(download.bytesReceived / download.totalBytes * 100);
 
@@ -62,7 +62,7 @@ mod.watch = (function(){
 
                 mod.log('Список загрузок после обновления:', list);
 
-                if (list.length === 0){
+                if (list.length === 0) {
                     stop();
                 } else {
                     chrome.storage.local.set({
@@ -75,7 +75,7 @@ mod.watch = (function(){
         });
     }
 
-    function stop(){
+    function stop() {
         chrome.storage.local.set({
             'downloads': {
                 'current': []
@@ -87,7 +87,7 @@ mod.watch = (function(){
         mod.log('Watch complete');
     }
 
-    _.start = function(){
+    _.start = function() {
         if (interval_id !== null)
             return false;
 

@@ -4,7 +4,7 @@ var gp = {
 };
 
 // Регистрация и Отлов изменений глобального плеера
-mod.observe_gp = function(element){
+mod.observe_gp = function(element) {
     if (!(element instanceof Element))
         return false;
 
@@ -18,14 +18,14 @@ mod.observe_gp = function(element){
         mod.make_provider(mod.provider_key);
 
     // FIX: не очень красиво сие
-    var observer = new MutationObserver(function(mutations){
-        each (mutations, function(mr){
+    var observer = new MutationObserver(function(mutations) {
+        each (mutations, function(mr) {
             // Если плеер ещё не создан полностью
-            if (mr.target.getAttribute('id') === 'gp_play_btn'){
+            if (mr.target.getAttribute('id') === 'gp_play_btn') {
                 gp.dom.button = mr.target;
-            } else if (mr.target.getAttribute('id') === 'gp_performer'){
+            } else if (mr.target.getAttribute('id') === 'gp_performer') {
                 gp.dom.performer = mr.target;
-            } else if (mr.target.getAttribute('id') === 'gp_title'){
+            } else if (mr.target.getAttribute('id') === 'gp_title') {
                 gp.dom.title = mr.target;
             }
         });
@@ -34,7 +34,7 @@ mod.observe_gp = function(element){
             (gp.dom.button instanceof Element) &&
             (gp.dom.performer instanceof Element) &&
             (gp.dom.title instanceof Element)
-        ){
+        ) {
 //            var DOM_kz__wrapper = document.createElement('div');
 //                DOM_kz__wrapper.classList.add('kz-vk-audio__wrapper');
 //
@@ -68,12 +68,12 @@ mod.observe_gp = function(element){
     observer.observe(gp.dom.self, {childList: true, subtree: true, attributes: true});
 }
 
-mod.observe_gb_button = function(){
-    var observer = new MutationObserver(function(mutations){
-        each (mutations, function(mr){
-            if (mr.type === 'childList'){
+mod.observe_gb_button = function() {
+    var observer = new MutationObserver(function(mutations) {
+        each (mutations, function(mr) {
+            if (mr.type === 'childList') {
                 mod.log('-- ADD', mr);
-            } else if (mr.type === 'attributes'){
+            } else if (mr.type === 'attributes') {
                 mod.log('-- ATTR', mr);
             }
         });
@@ -99,12 +99,28 @@ mod.make_provider = function(key) {
     var isolated_function = function(_) {
         var secret_key = null;
 
-        var ap_observer = function(changes) {
-            // mod.log('changes', changes);
-            var track = audioPlayer.lastSong;
+        // TODO: to kk
+        var create_proxy = function(object, property, callback) {
+            if (typeof property !== 'string') return;
+
+            var proxy_property = '_' + property;
+
+            object[proxy_property] = null;
+
+            Object.defineProperty(object, property, {
+                get: function() {return object[proxy_property]},
+                set: function(new_value) {
+                    object[proxy_property] = new_value;
+                    callback(object, property);
+                }
+            });
+        }
+
+        var ap_observer = function() {
+            var track = audioPlayer._lastSong;
 
             var info = {
-                current_time: audioPlayer.curTime,
+                current_time: audioPlayer._curTime,
                 id: track.aid,
                 duration: track[3],
                 performer: track[5],
@@ -123,7 +139,8 @@ mod.make_provider = function(key) {
             if (typeof arguments[0] === 'string') {
                 secret_key = arguments[0];
                 if (typeof audioPlayer === 'object') {
-                    Object.observe(audioPlayer, ap_observer);
+                    create_proxy(audioPlayer, 'curTime', ap_observer);
+                    create_proxy(audioPlayer, 'lastSong', ap_observer);
                 }
             }
         });

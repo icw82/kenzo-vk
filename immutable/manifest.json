@@ -2,7 +2,7 @@
     "default_locale": "ru",
     "name": "Kenzo VK",
     "short_name": "Kenzo VK",
-    "version": "2.1.2",
+    "version": "3",
     "description": "__MSG_ext_description__",
     "author": "icw82",
     "icons": {
@@ -38,7 +38,7 @@
             "scripts/ext.min.js"
         ]
     },
-    "options_page": "options/template.html",
+    "options_page": "options/index.html",
     "content_scripts": [
         {
             "matches": [
@@ -55,7 +55,7 @@
                 "scripts/he.js",
                 "scripts/ext.min.js"
             ],
-            "run_at": "document_end"
+            "run_at": "document_idle"
         }
     ],
     "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
@@ -69,7 +69,7 @@
         "images/download-w.png",
         "images/abort.png",
         "images/abort-c.png",
-        "options/template.html"
+        "options/index.html"
     ],
     "minimum_chrome_version": "45",
     "manifest_version": 2

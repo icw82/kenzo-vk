@@ -1,8 +1,8 @@
-mod.add_to_current = function(download_id, type, id, format){
+mod.add_to_current = function(download_id, type, id, format) {
 
     //mod.log('add_to_current:', arguments);
 
-    chrome.storage.local.get('downloads', function(data){
+    chrome.storage.local.get('downloads', function(data) {
         data.downloads.current.push({
             download_id: download_id, // идентификатор загрузки
             type: type, // тип загружаемого файла

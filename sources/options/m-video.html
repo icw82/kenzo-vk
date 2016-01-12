@@ -1,0 +1,30 @@
+<section class="module video">
+    <p>
+        <label class="f-label checkbox level-1 outside">
+            <input type="checkbox" ng-model="Options.video">
+            <span class="a-h1" ng-bind="i18n.video.header"></span>
+        </label>
+    </p>
+    <div class="f-group" ng-class="{off: !Options.video}">
+        <p>
+            <label class="f-label checkbox">
+                <input type="checkbox" ng-model="Options.video__progress_bars">
+                <span ng-bind="i18n.video.progress_bars"></span>
+            </label>
+        </p>
+        <p>
+            <label class="f-label checkbox">
+                <input type="checkbox" ng-model="Options.video__simplified">
+                <span ng-bind="i18n.video.simplified"></span>
+            </label>
+        </p>
+        <p>
+            <label class="f-label checkbox">
+                <input type="checkbox" ng-model="Options.video__format_before_ext">
+                <span ng-bind="i18n.video.format_before_ext"></span><br />
+                <span ng-bind="i18n.video.format_before_ext__desc"
+                    class="a-description"></span>
+            </label>
+        </p>
+    </div>
+</section>

@@ -1,0 +1,64 @@
+<section class="module trash">
+    <p>
+        <label class="f-label checkbox level-1 outside">
+            <input type="checkbox" ng-model="Options.trash">
+            <span class="a-h1" ng-bind="i18n.trash.header"></span>
+        </label>
+    </p>
+    <div class="f-group" ng-class="{off: !Options.trash}">
+        <p>
+            <label class="f-label checkbox">
+                <input type="checkbox" ng-model="Options.trash__lsb__ad">
+                <span ng-bind="i18n.trash.lsb__ad"></span>
+            </label>
+        </p>
+        <p>
+            <label class="f-label checkbox">
+                <input type="checkbox" ng-model="Options.trash__lsb__fr">
+                <span ng-bind="i18n.trash.lsb__fr"></span>
+            </label>
+        </p>
+        <p>
+            <label class="f-label checkbox">
+                <input type="checkbox" ng-model="Options.trash__group_recom">
+                <span ng-bind="i18n.trash.group_recom"></span>
+            </label>
+        </p>
+        <p>
+            <label class="f-label checkbox">
+                <input type="checkbox" ng-model="Options.trash__newsads">
+                <span ng-bind="i18n.trash.newsads"></span>
+            </label>
+        </p>
+        <p>
+            <label class="f-label checkbox">
+                <input type="checkbox" ng-model="Options.trash__promoted_posts">
+                <span ng-bind="i18n.trash.promoted_posts"></span>
+            </label>
+        </p>
+        <p>
+            <label class="f-label checkbox">
+                <input type="checkbox" ng-model="Options.trash__profile_rate">
+                <span ng-bind="i18n.trash.profile_rate"></span>
+            </label>
+        </p>
+        <p>
+            <label class="f-label checkbox">
+                <input type="checkbox" ng-model="Options.trash__big_like">
+                <span ng-bind="i18n.trash.big_like"></span>
+            </label>
+        </p>
+        <p>
+            <label class="f-label checkbox">
+                <input type="checkbox" ng-model="Options.trash__user_reposts">
+                <span ng-bind="i18n.trash.user_reposts"></span>
+            </label>
+        </p>
+        <p>
+            <label class="f-label checkbox">
+                <input type="checkbox" ng-model="Options.trash__group_reposts">
+                <span ng-bind="i18n.trash.group_reposts"></span>
+            </label>
+        </p>
+    </div>
+</section>

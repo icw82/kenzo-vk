@@ -1,4 +1,4 @@
-mod.calc_bitrate_classic = function(size, duration){
+mod.calc_bitrate_classic = function(size, duration) {
     var kbps = Math.floor(size * 8 / duration / 1000);
 
     if ((kbps >= 288)) kbps = 320; else

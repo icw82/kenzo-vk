@@ -8,8 +8,8 @@ var rename = require('gulp-rename');
 //var sourcemaps = require('gulp-sourcemaps');
 
 var globs = {
-    reset: './bower_components/kenzo-kit/kk-reset.css',
-    sources: './sources/**/*.css'
+    reset: './bower_components/kk/kk-reset.css',
+    sources: ['./sources/base/*.css', './sources/modules/**/*.css']
 }
 
 gulp.task('styles', function() {

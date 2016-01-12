@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html ng-app="kenzo-vk">
+<head>
+    <title></title>
+    <meta charset="UTF-8" />
+
+    <link type="image/png" rel="icon" href="../images/icons/16.png" />
+    <link rel="stylesheet" href="../styles/kk-reset.css" />
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body ng-controller="settings">
+    <div class="layout-global-wrapper">
+        <div class="layout-wrapper">
+            <div class="b-header">
+                <div class="b-header__header" ng-bind="i18n.header"></div>
+                <div class="b-header__extention">
+                    <span class="b-header__name" ng-bind="Manifest.name"></span>
+                    <span class="b-header__version" ng-bind="Manifest.version"></span>
+                </div>
+            </div>
+        </div>
+        <div class="layout-wrapper dec-page">
+{% block content %}{% endblock %}
+        </div>
+        <div class="layout-wrapper">
+            <div class="b-footer">
+                <a class="b-footer__sign" href="http://icw82.ru#kenzovk"></a>
+            </div>
+        </div>
+    </div>
+
+    <script src="../scripts/angular.min.js"></script>
+    <script src="../scripts/angular-sanitize.min.js"></script>
+    <script src="../scripts/kk.min.js"></script>
+    <script src="../scripts/md5.min.js"></script>
+    <script src="../scripts/he.js"></script>
+    <script src="../scripts/ext.min.js"></script>
+    <script src="script.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+</body>
+</html>
