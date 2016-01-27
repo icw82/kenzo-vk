@@ -161,19 +161,25 @@ ext.Module = function(name) {
 
     var prefix = this.full_name + ' (' + ext.s + ') —';
 
-    this.log = function(message, value) {
-        if (!ext.options || !ext.options.debug__log) return;
-        if (typeof value === 'undefined')
-            console.log(prefix, message);
-        else
-            console.log(prefix, message, value);
+    this.log = function() {
+        if (!ext.options)
+            console.warn('Неподходящее место, настройки не загружены');
+
+        else if (ext.options.debug__log) {
+            let args = Array.prototype.slice.call(arguments);
+            args.unshift(prefix);
+            console.log.apply(console, args);
+        }
     }
 
     this.warn = function(message, value) {
-        if (!ext.options || !ext.options.debug__log) return;
-        if (typeof value === 'undefined')
-            console.warn(prefix, message);
-        else
-            console.warn(prefix, message, value);
+        if (!ext.options)
+            console.warn('Неподходящее место');
+
+        else if (ext.options.debug__log) {
+            let args = Array.prototype.slice.call(arguments);
+            args.unshift(prefix);
+            console.warn.apply(console, args);
+        }
     }
 }

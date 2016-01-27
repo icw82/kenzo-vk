@@ -1,3 +1,6 @@
+// FUTURE: Некоторые файлы имеют испорченный заголовок, в котором неверно указана длина тегов,
+//         из-за чего не находится первый фрейм.
+
 mod.get_more_info_from_mp3 = function(url, _, callback) {
     var slice;
 
@@ -5,7 +8,6 @@ mod.get_more_info_from_mp3 = function(url, _, callback) {
         _.tag_length = 0;
 
     _.content_length = _.size - _.tag_length;
-
 
     // вырезка
     if (_.content_length > 128) {
@@ -21,21 +23,23 @@ mod.get_more_info_from_mp3 = function(url, _, callback) {
 
     // Чтение заголовка mp3 фрейма
     function read_frame_header(view) {
-        var view_binary = kk.i8ArrayTo2(view);
+        var binary = kk.i8ArrayTo2(view);
 
         // AAAAAAAAAAA BB CC D EEEE FF G H II JJ K L MM
         // 11111111111 11 01 1 1001 00 0 0 01 10 0 1 00
 
         // A
-        if (view_binary.slice(0, 11) !== '11111111111') {
+        if (binary.slice(0, 11) !== '11111111111') {
             _.error = 'Фрейм не обнаружен';
-            return false;
+            // TODO: Обнаружить фрейм
+
+            return;
         }
 
         // B
-        if (view_binary.slice(11, 13) !== '11') {
+        if (binary.slice(11, 13) !== '11') {
             _.error = 'Версия не MPEG 1';
-            return false;
+            return;
         }
 
         // E
@@ -43,17 +47,17 @@ mod.get_more_info_from_mp3 = function(url, _, callback) {
             '01': [0, 32, 40, 48,  56,  64,  80,  96, 112, 128, 160, 192, 224, 256, 320, 0],
             '10': [0, 32, 48, 56,  64,  80,  96, 112, 128, 160, 192, 224, 256, 320, 384, 0],
             '11': [0, 32, 64, 96, 128, 160, 192, 224, 256, 288, 320, 352, 384, 416, 448, 0]
-        }[view_binary.slice(13, 15)][parseInt(view_binary.slice(16, 20), 2)];
+        }[binary.slice(13, 15)][parseInt(binary.slice(16, 20), 2)];
 
         // F
         _.samplerate = {
             '00': 44100,
             '01': 48000,
             '10': 32000
-        }[view_binary.slice(20, 22)];
+        }[binary.slice(20, 22)];
 
         // I
-        _.channelmode = parseInt(view_binary.slice(24, 26), 2);
+        _.channelmode = parseInt(binary.slice(24, 26), 2);
 // ['Stereo', 'Joint stereo (Stereo)', 'Dual channel (Stereo)', 'Single channel (Mono)'];
 
     }
@@ -75,7 +79,8 @@ mod.get_more_info_from_mp3 = function(url, _, callback) {
     kk.get_buffer(url, ranges, function(response) {
         _.vbr = false;
 
-        read_frame_header(new Uint8Array(response[0].content, 0, 4));
+        var expected_frame_header = new Uint8Array(response[0].content, 0, 4);
+        read_frame_header(expected_frame_header);
 
         _.hash = (function() {
             var slice_of_content = [
@@ -135,7 +140,7 @@ mod.get_info_from_mp3 = function(url, callback) {
             if (type != 'audio/mpeg') {
                 mod.warn('get_info_from_mp3: не «audio/mpeg»');
                 callback(_);
-                return false;
+                return;
             }
 
             _.available = true;
@@ -145,7 +150,7 @@ mod.get_info_from_mp3 = function(url, callback) {
 
             if (!_.size) {
                 callback(_);
-                return false;
+                return;
             }
 
             // Версия тега
@@ -166,11 +171,13 @@ mod.get_info_from_mp3 = function(url, callback) {
                         return false;
                     }
                 }
+
+
             })(first_part, last_part);
 
             if (!_.tag_version) {
                 callback(_);
-                return false;
+                return;
             }
 
             if (_.tag_version && (_.tag_version != 'ID3v1')) {

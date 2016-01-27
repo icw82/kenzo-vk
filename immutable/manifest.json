@@ -2,7 +2,7 @@
     "default_locale": "ru",
     "name": "Kenzo VK",
     "short_name": "Kenzo VK",
-    "version": "3",
+    "version": "3.1",
     "description": "__MSG_ext_description__",
     "author": "icw82",
     "icons": {
@@ -18,7 +18,8 @@
         "*://vk.com/*",
         "*://*.vk.com/*",
         "*://*.vk.me/*",
-        "*://*.vk-cdn.net/*"
+        "*://*.vk-cdn.net/*",
+        "*://raw.githubusercontent.com/icw82/*"
     ],
     "externally_connectable": {
         "matches": [

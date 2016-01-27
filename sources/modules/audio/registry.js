@@ -29,7 +29,7 @@ mod.registry.add = function(element) {
         mod.create_button(info);
 
         // Расширенная информация о файле
-        mod.enrich_item(info);
+        info.enrich();
 
         // Профилактическая очистка списка
         mod.registry.list = mod.registry.list.filter(function(item) {

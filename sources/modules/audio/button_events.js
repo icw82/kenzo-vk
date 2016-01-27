@@ -9,7 +9,7 @@ mod.button_event = function(item, event) {
 
 //        mod.log('dt', dt);
 //
-        return false;
+        return;
     }
 
     kk.event.stop(event);
@@ -21,7 +21,7 @@ mod.button_event = function(item, event) {
 //            conflictAction: 'prompt'
 //        });
 
-        return false;
+        return;
     }
 
     function start() {

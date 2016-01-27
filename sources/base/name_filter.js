@@ -15,6 +15,8 @@ ext.name_filter = function(name) {
 
         name = name.trim();
         name = name.replace(/\s+/g, ' ');
+        name = name.replace(/\.{2,}/g, '.');
+        name = name.replace(/^\./g, '');
         name = name.replace(/\s(\.\w+?)$/g, '$1');
 
         if (name.length === 0) {

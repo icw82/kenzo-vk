@@ -8,6 +8,7 @@ mod.dom_observers.push({
 
 // TODO: Кэширование
 // FIX: Если обновить страницу средствами VK, url останется неизменным, но DOM обновится.
+// FIX: два номера при переходе с удалённой странички на нормальную.
 
 mod.user_id_after_name = function() {
     var dom = {
@@ -44,7 +45,7 @@ mod.user_id_after_name = function() {
     var page = window.location.pathname.match(/\/(.+)/)[1];
 
     var xhr = new XMLHttpRequest();
-    var url = 'https://api.vk.com/method/users.get?user_ids=' + page;
+    var url = 'https://api.vk.com/method/utils.resolveScreenName?screen_name=' + page;
     xhr.open('GET', url, true);
     xhr.onreadystatechange = function() {
         if (xhr.readyState !== 4) return false;
@@ -52,15 +53,23 @@ mod.user_id_after_name = function() {
             var data = JSON.parse(this.response)
 
             if (data.error) {
-                mod.log(data);
+                mod.warn(data);
+                return;
+            } else if (!data.response || !data.response.object_id) {
+                mod.warn('нету');
                 return;
             }
 
-            var id = data.response[0].uid;
+            var id = data.response.object_id;
 
             dom.id = document.createElement('span');
             dom.id.classList.add('kz-ui-id');
-            dom.id.innerHTML = '<a href="/id' + id +'">' + id + '</a>';
+            if (data.response.type == 'user')
+                dom.id.innerHTML = '<a href="/id' + id +'">' + id + '</a>';
+            else if (data.response.type == 'group')
+                dom.id.innerHTML = '<a href="/club' + id +'">' + id + '</a>';
+            else
+                warn('!!!!!!!!!!!!!!!!!', data.response.type)
 
             dom.title.appendChild(dom.id);
         }

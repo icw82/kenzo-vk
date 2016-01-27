@@ -13,7 +13,6 @@ mod.dom_observers.push({
                 }))
                     return true;
             })) {
-//                mod.log('********************');
                 mod.sidebar_button.create();
             };
         });

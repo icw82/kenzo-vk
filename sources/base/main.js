@@ -211,5 +211,19 @@ function init__modules() {
 }
 
 // FUTURE: banlist;
+//    var xhr = new XMLHttpRequest();
+//    var url = 'https://raw.githubusercontent.com/icw82/blacklist/master/blacklist.json';
+//    xhr.open('GET', url, true);
+//    xhr.onreadystatechange = function() {
+//        if (xhr.readyState !== 4) return;
+//        if (xhr.status === 200) {
+//            var data = JSON.parse(this.response);//
+//        }
+//    }
+//
+//    xhr.send(null);
+//
+//    https://github.com/icw82/blacklist/blob/master/blacklist.json
+
 // FUTURE: генерируемый messages.json;
 // future: опробовать WeakMap
