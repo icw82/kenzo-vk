@@ -6,7 +6,7 @@ class ModelListener {
         this.last_query = false;
     }
 
-    goal(object, property) {
+    goal() {
         let update = this.update.bind(this);
 
         if (this.first_query === false) {

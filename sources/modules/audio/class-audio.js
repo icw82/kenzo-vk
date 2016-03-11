@@ -34,10 +34,7 @@ class Audio {
 
         this.type = mod.get_audio_element_type(this.dom.element);
 
-        if (!this.type) {
-            mod.warn('Audio: Тип элемента не определён', this);
-            return;
-        }
+        if (!this.type) return;
 
         this.dom.tw = this.dom.element.querySelector('.area .info .title_wrap');
         this.id = this.dom.element.querySelector('a:first-child').getAttribute('name');

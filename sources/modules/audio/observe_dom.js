@@ -29,14 +29,14 @@ mod.new_nodes_listner = function(element) {
 
         if (element.classList.contains('audio')) {
             mod.registry.add(element);
-            return false;
+            return;
         }
 
         if (element.classList.contains('area')) {
             if (element.parentElement.classList.contains('audio')) {
                 //mod.log('area', element.parentElement);
                 mod.registry.add(element.parentElement);
-                return false;
+                return;
             }
         }
 
@@ -47,7 +47,7 @@ mod.new_nodes_listner = function(element) {
 
                 mod.registry.add(item);
             });
-            return false;
+            return;
         }
 
 

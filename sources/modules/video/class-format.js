@@ -42,7 +42,7 @@ mod.Format = function(host) {
             last_query: false
         }
 
-        _.goal = function(object, property) {
+        _.goal = function() {
             if (_.first_query === false) {
                 _.first_query = setTimeout(_.update, 100);
                 _.last_query = setTimeout(_.update, 10);
