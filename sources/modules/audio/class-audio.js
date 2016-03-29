@@ -38,8 +38,10 @@ class Audio {
 
         this.dom.tw = this.dom.element.querySelector('.area .info .title_wrap');
         this.id = this.dom.element.querySelector('a:first-child').getAttribute('name');
-        this.vk_artist = ext.name_filter(this.dom.tw.querySelector('b').textContent.trim());
-        this.vk_title = ext.name_filter(this.dom.tw.querySelector('.title').textContent.trim());
+        this.vk_artist = ext.filter.base(this.dom.tw.querySelector('b').textContent);
+        this.vk_artist = ext.filter.trash(this.vk_artist);
+        this.vk_title = ext.filter.base(this.dom.tw.querySelector('.title').textContent);
+        this.vk_title = ext.filter.trash(this.vk_title);
 
         if (this.dom.element.querySelector('.area.deleted')) {
             mod.log('Audio: — Запись удалена', this);

@@ -96,6 +96,15 @@
     "o__scrobbler__header": {
         "message": "Скробблер (β)"
     },
+    "o__scrobbler__m4m": {
+        "message": "… или через 4 минуты"
+    },
+    "o__scrobbler__m4m__desc": {
+        "message": "(в зависимости от того, какое событие наступит раньше)"
+    },
+    "o__scrobbler__name_filter": {
+        "message": "Фильтр передаваемых названий"
+    },
 
 
     "o__trash__header": {

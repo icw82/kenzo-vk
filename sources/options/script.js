@@ -80,7 +80,10 @@ var pre_i18n = get_messages(
     ['reset'],
     [
         'scrobbler', [
-            'header'
+            'header',
+            'm4m',
+            'm4m__desc',
+            'name_filter'
         ]
     ], [
         'trash', [

@@ -20,10 +20,15 @@
         <p>
             <label class="f-label checkbox">
                 <input type="checkbox" ng-model="Options.scrobbler__m4m">
-                <span>… или через 4 минуты </span>
+                <span ng-bind="i18n.scrobbler.m4m"></span>
             </label>
-            <span class="a-description ">
-                (в зависимости от того, какое событие наступит раньше)</span>
+            <span class="a-description" ng-bind="i18n.scrobbler.m4m__desc"></span>
+        </p>
+        <p>
+            <label class="f-label checkbox">
+                <input type="checkbox" ng-model="Options.scrobbler__name_filter">
+                <span ng-bind="i18n.scrobbler.name_filter"></span>
+            </label>
         </p>
     </div>
 </section>

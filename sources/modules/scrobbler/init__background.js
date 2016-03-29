@@ -29,19 +29,23 @@ mod.init__background = function() {
                         (typeof request.info.performer == 'string') &&
                         (typeof request.info.title == 'string')
                     ) {
-                        request.info.performer = ext.name_filter(request.info.performer);
-                        request.info.title = ext.name_filter(request.info.title);
+                        request.info.performer = ext.filter.base(request.info.performer)
+                        request.info.title = ext.filter.base(request.info.title)
+
+                        if (mod.options.name_filter) {
+                            request.info.performer = ext.filter.trash(request.info.performer);
+                            request.info.title = ext.filter.trash(request.info.title);
+                        }
 
                         request.info.name = request.info.performer + ' '
                             + ext.options.audio__separator + ' '
                             + request.info.title;
 
-                        request.info.name = ext.name_filter(request.info.name);
                     } else {
                         mod.warn('#audio status update');
                     }
 
-                    //mod.log('request.info', request.info);
+//                    mod.log('request.info', request.info);
                     mod.center(request.info);
                }
             });

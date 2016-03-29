@@ -3,7 +3,8 @@ var mod = new ext.Module('scrobbler');
 mod.default_options = {
     _: false,
     proportion: 50,
-    m4m: true
+    m4m: true,
+    name_filter: true
 }
 
 mod.api_url = 'http://ws.audioscrobbler.com/2.0/';

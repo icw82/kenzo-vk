@@ -7,7 +7,10 @@ mod.Video = function(element, object) {
     this._title = null;
     Object.defineProperty(this, 'title', {
         get: function() {return this._title},
-        set: function(new_value) {this._title = ext.name_filter(new_value)}
+        set: function(new_value) {
+            this._title = ext.filter.base(new_value);
+            this._title = ext.filter.trash(this._title);
+        }
     });
 
     this.owner = null;
