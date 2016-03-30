@@ -11,6 +11,8 @@ ext.filter = (function() {
         return string.trim();
     };
 
+    // TODO: удалять сердечки, смайлики и прочую лабуду.
+
     _.trash = function(string) {
         if (ext.options.filters__square_brackets === true) {
             string = string.replace(/\[.+?\]/g, '');

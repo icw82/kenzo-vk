@@ -5,6 +5,12 @@ mod.dom_observers.push({
         mod.drop('.post[data-ad]');
     },
     for_observer: function(element) {
+//        console.log('*****', element);
+        if (element.classList.contains('post')) {
+            if (element.getAttribute('data-ad')) {
+                mod.drop(element);
+            }
+        }
 
         if (element.classList.contains('feed_row')) {
             mod.drop(element.querySelectorAll('.post[data-ad]'));

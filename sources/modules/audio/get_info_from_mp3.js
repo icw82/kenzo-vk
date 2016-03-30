@@ -31,7 +31,7 @@ mod.get_more_info_from_mp3 = function(url, _, callback) {
         // A
         if (binary.slice(0, 11) !== '11111111111') {
             _.error = 'Фрейм не обнаружен';
-            // TODO: Обнаружить фрейм
+            // TODO: Обнаружить фрейм (бывает, что файл сохранён не корректно)
 
             return;
         }
