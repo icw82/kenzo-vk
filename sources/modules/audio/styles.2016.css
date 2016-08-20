@@ -24,7 +24,6 @@
 .audio_row.claimed .kzvk-audio__play_button{opacity: .4}
 
 
-
 /* Элемент аудиозаписи */
 .kzvk-audio{}
 .kzvk-audio.with-button{}
@@ -40,4 +39,6 @@
 .kzvk-audio.inlined.audio_row_current
     .kzvk-download-button__item.kzvk-pending .kzvk-cross{transform: translate(12px, 4px)}
 
+.kzvk-audio.audio_row_current:hover .kzvk-overlay{fill: rgb(232, 237, 244)}
+.kzvk-audio.inlined.audio_row_current:hover .kzvk-overlay{fill: white}
 .kzvk-audio:not(.audio_row_current):hover .kzvk-overlay{fill: rgb(245, 247, 250)}
