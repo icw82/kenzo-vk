@@ -3,10 +3,9 @@ var mod = new ext.Module('trash');
 mod.default_options = {
     _: true,
     self: true,
-    lsb__ad: true,
-    lsb__fr: true,
+    sidebar_ads: true,
+    potential_friends: true,
     group_recom: true,
-    newsads: true,
     promoted_posts: false,
     profile_rate: true,
     big_like: false,
@@ -14,9 +13,7 @@ mod.default_options = {
     group_reposts: false
 }
 
-// Включение модуля
-ext.modules[mod.name] = mod;
-
+// TODO: audio_friends_list_wrap
 //FUTURE: Удалать шары групп и прочего;
 //FUTURE: Удалять шары групп, в которых я и так состою;
 //TODO: Индикация удалённых репостов (количество);

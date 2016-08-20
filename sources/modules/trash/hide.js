@@ -11,7 +11,7 @@ mod.hide = function(input, hard) {
         }
     } else {
         var _ = function(node) {
-            node.classList.add('kz-vk-trash__hidden-shit');
+            node.classList.add('kzvk-trash__hidden-shit');
             mod.log('hide', node);
         }
     }

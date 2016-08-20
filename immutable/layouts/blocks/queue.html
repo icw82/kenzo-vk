@@ -1,0 +1,33 @@
+<div class="b-queue"
+    ng-controller="QueueCtrl as queue">
+
+    <p class="b-queue__empty"
+         ng-if="queue.list.length === 0">Очередь пуста</p>
+
+    <ol class="b-queue__list"
+        ng-if="queue.list.length > 0">
+        <li class="b-queue__item"
+            ng-repeat="item in queue.list"
+            ng-class="[queue.state_class(item.state),
+                {extended: queue.extedned_view.includes(item.id) || true}]">
+            <div class="b-queue__remove"
+                ng-click="queue.remove(item.id)">
+                <svg>
+                    <use xlink:href="#kzvk-cross" />
+                </svg>
+            </div>
+            <div class="b-queue__name">
+                <span ng-bind="item.name"
+                    ng-click="queue.toggle_view(item.id)"></span>
+            </div>
+            <div class="b-queue__url">
+                <span ng-bind="item.url"></span>
+            </div>
+            [[ item.chrome_id ]]
+
+            <div class="b-queue__progress"
+                 ng-bind="item.progress"></div>
+        </li>
+    </ol>
+
+</div>

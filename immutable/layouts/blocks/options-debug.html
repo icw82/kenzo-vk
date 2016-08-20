@@ -1,0 +1,25 @@
+<section class="module debug f-for-dev"
+   ng-controller="DebugModCtrl as mod"
+   ng-class="{visible: ctrl_is_pressed || options.debug}">
+    <p>
+        <label class="f-label checkbox level-1 outside">
+            <input type="checkbox" ng-model="options.debug">
+            <span class="a-h1" ng-bind="i18n.debug.header"></span>
+        </label>
+    </p>
+    <p>
+        <label class="f-label checkbox">
+            <input type="checkbox" ng-model="options.debug__styles">
+            <span ng-bind="i18n.debug.styles"></span>
+        </label>
+        <label class="f-label checkbox">
+            <input type="checkbox" ng-model="options.debug__log">
+            <span ng-bind="i18n.debug.log"></span>
+        </label>
+    </p>
+    <p>
+        <button class="f-button" ng-click="clear_db()">
+            Очистить локальную базу данных
+        </button>
+    </p>
+</section>

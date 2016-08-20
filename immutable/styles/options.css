@@ -1,0 +1,9 @@
+body{background-color: rgb(81, 130, 188); color: white}
+
+.layout-global-wrapper{width: 100%; min-width: 400px; height: 100%}
+.layout-wrapper{width: 1000px; padding: 25px 55px 20px 55px}
+
+.dec-page{background-color: white; color: rgba(0, 0, 0, .8);
+    box-shadow: 0 20px 50px -20px rgba(0, 0, 0, .4)}
+
+.compensator{margin-right: -44px}

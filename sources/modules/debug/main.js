@@ -6,6 +6,3 @@ mod.default_options = {
     log: false,
     flood: false
 }
-
-// Включение модуля
-ext.modules[mod.name] = mod;

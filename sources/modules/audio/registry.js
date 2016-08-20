@@ -1,39 +1,42 @@
-mod.registry = {
-    list: []
-}
+mod.registry = (() => {
+    const _ = {};
+    let list = [];
 
-mod.registry.add = function(element) {
-    if (!(element instanceof Element)) {
-        mod.warn('registry.add: DOM-элемент не передан');
-        return;
+    _.has = element => {
+        return each (list, item => {
+            if (item.dom.element === element)
+                return item;
+        });
     }
 
-    each (mod.registry.list, function (item) {
-        // Отлов дублей
-        if (item.dom.element === element) {
-            mod.warn('Отлов дублей, йоу');
-            //return true;
-        }
+    _.update = input => {
+        let collection;
 
-    }, function () {
-        var info = new mod.Audio(element);
+        if (kk.is_E(input))
+            collection = [input];
+        else if (kk.is_NL(input))
+            collection = input;
 
-        if (!info.type) {
-            mod.warn('no type');
-            return;
-        }
+        each (collection, element => {
+            if (_.has(element))
+                return;
 
-        mod.registry.list.push(info);
-//        mod.log('new item in the list');
+            if (element.classList.contains('kzvk-audio')) {
+                mod.warn('Уже обработан');
+                return;
+            }
 
-        mod.create_button(info);
+            let audio = new mod.Audio(element);
+            list.push(audio);
 
-        // Расширенная информация о файле
-        info.enrich();
+//            mod.log(audio);
+        });
 
-        // Профилактическая очистка списка
-        mod.registry.list = mod.registry.list.filter(function(item) {
+        // Чистка
+        list = list.filter(item => {
             return document.body.contains(item.dom.element);
         });
-    });
-}
+    }
+
+    return _;
+})();

@@ -1,14 +1,16 @@
 mod.init__content = function() {
     if (ext.options.trash !== true) return;
 
-    kk.class_forever('kz-vk-trash', ext.dom.body);
-
     ext.dom.trash_bin = document.createElement('div');
-    ext.dom.trash_bin.classList.add('kz-vk-trash__bin');
-    ext.dom.body.insertBefore(ext.dom.trash_bin, ext.dom.body.firstChild);
+    ext.dom.trash_bin.classList.add('kzvk-trash__bin');
+    document.head.appendChild(ext.dom.trash_bin);
 
-//    mod.observe_dom();
+    mod.on_content_load.then(function() {
+        document.body.insertBefore(ext.dom.trash_bin, document.body.firstChild);
+    });
+
     mod.init_dom_observers();
 
     mod.dispatch_load_event();
-}
+
+};

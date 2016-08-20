@@ -1,15 +1,23 @@
 mod.drop = function(input, option) {
-    var _ = function(node) {
+    const drop = node => {
+        if (ext.dom.trash_bin.contains(node))
+            return;
         ext.dom.trash_bin.appendChild(node);
         node.style.height = '0px';
         mod.log('drop', node);
     }
 
-    if (typeof input == 'string') {
-        each (document.querySelectorAll(input), _);
-    } else if (input instanceof NodeList) {
-        each (input, _);
-    } else if (input instanceof Node) {
-        _(input);
+    if (kk.is_s(input)) {
+        each (document.querySelectorAll(input), drop);
+        return;
+    }
+
+    if (kk.is_NL(input)) {
+        each (input, drop);
+        return;
+    }
+
+    if (kk.is_N(input)) {
+        drop(input);
     }
 }

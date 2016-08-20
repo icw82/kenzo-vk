@@ -7,7 +7,7 @@ var kenzo = {};
 // если обратная функция возвращает true, перебор прерывается.
 kenzo.each = function(array, callback, def) {
     if (typeof array === 'string')
-        return false; //array = document.querySelectorAll(array);
+        return; //array = document.querySelectorAll(array);
     else if (typeof array === 'number')
         array = Array(array);
 

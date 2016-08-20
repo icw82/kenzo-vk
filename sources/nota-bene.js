@@ -1,12 +1,10 @@
-// element, node — обязательно DOM Element
-// item — элемент списка.
-
-//    "browser_action": {
-//        "default_icon": {
-//            "19": "icons/19.png",
-//            "38": "icons/38.png"
-//        }
+//"browser_action": {
+//    "default_icon": {
+//        "19": "images/icons/19.png",
+//        "38": "images/icons/38.png"
 //    },
+//    "default_popup": "layouts/browser_action.html"
+//},
 
 //    chrome.tabs.query({url: [
 //        "*://vk.com/*",
@@ -15,17 +13,7 @@
 //    ]}, function(tabs) { console.log(tabs)})
 
 
-//    var xhr = new XMLHttpRequest();
 //    var url = 'https://api.vk.com/method/groups.getMembers?group_id=70770587';
-//    xhr.open('GET', url, true);
-//    xhr.onreadystatechange = function() {
-//        if (xhr.readyState !== 4) return false;
-//        if (xhr.status === 200) {
-//            console.log('API:', this.response);
-//        }
-//    }
-//    xhr.send(null);
-
 
 //    var graph_of_dependencies = {
 //        vertices: [],// вершины

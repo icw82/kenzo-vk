@@ -1,4 +1,2 @@
-.kz-ui-id{display: inline-block; margin-left: .7em; font-weight: normal}
-.kz-ui-id > a{color: inherit}
-
-.kz-ui-sidebar_button{}
+.kzvk-ui-profile_info_row__label{display: inline-block; vertical-align: top}
+.kzvk-ui-profile_info_row__content{display: inline-block; vertical-align: top}

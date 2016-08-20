@@ -1,7 +1,6 @@
-.kz-vk-trash__bin{overflow: hidden; height: 0}
-.kz-vk-trash__profile_rate #profile_counts{margin-bottom: 10px}
-.kz-vk-trash__profile_rate .rate_line{display: none}
-.kz-vk-trash__profile_rate .profile_rate_warning{display: none}
+.kzvk-trash__bin{overflow: hidden; height: 0; position: relative}
+.kzvk-trash__profile_rate #profile_counts{margin-bottom: 10px}
+.kzvk-trash__profile_rate .rate_line{display: none}
+.kzvk-trash__profile_rate .profile_rate_warning{display: none}
 
-.kz-vk-trash
-.kz-vk-trash__hidden-shit{overflow: hidden; height: 0; margin: 0; padding: 0; border: none}
+#kzvk .kzvk-trash__hidden-shit{overflow: hidden; height: 0; margin: 0; padding: 0; border: none}

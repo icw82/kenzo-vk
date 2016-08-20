@@ -9,14 +9,29 @@
     <div class="f-group" ng-class="{off: !Options.ui}">
         <p>
             <label class="f-label checkbox">
-                <input type="checkbox" ng-model="Options.ui__sidebar_button">
-                <span ng-bind="i18n.ui.sidebar_button"></span>
+                <input type="checkbox" ng-model="Options.ui__ids">
+                <span ng-bind="i18n.ui.ids"></span>
             </label>
         </p>
         <p>
             <label class="f-label checkbox">
-                <input type="checkbox" ng-model="Options.ui__ids">
-                <span ng-bind="i18n.ui.ids"></span>
+                <input type="checkbox" ng-model="Options.ui__sidebar_button">
+                <span ng-bind="i18n.ui.sidebar_button"></span>
+                <span class="f-2006-only"></span>
+            </label>
+        </p>
+        <p>
+            <label class="f-label checkbox">
+                <input type="checkbox" ng-model="Options.ui__unrounding">
+                <span ng-bind="i18n.ui.unrounding"></span>
+                <span class="f-2016-only"></span>
+            </label>
+        </p>
+        <p>
+            <label class="f-label checkbox">
+                <input type="checkbox" ng-model="Options.ui__gray">
+                <span ng-bind="i18n.ui.gray"></span>
+                <span class="f-2016-only"></span>
             </label>
         </p>
     </div>

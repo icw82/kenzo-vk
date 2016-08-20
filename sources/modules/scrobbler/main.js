@@ -7,17 +7,18 @@ mod.default_options = {
     name_filter: true
 }
 
+mod.dependencies = ['status'];
+
 mod.api_url = 'http://ws.audioscrobbler.com/2.0/';
 mod.api_key = 'dc20a585f46d025a75b0efdce8c9957a';
 mod.secret = '110ce7f7a6cec742c6433507428ebfc7';
 mod.session = null;
-mod.keys = [];
 
 Object.defineProperty(mod, 'auth_url', {
     get: function () {
         return 'http://last.fm/api/auth?api_key=' +
             this.api_key + '&cb=' +
-            chrome.runtime.getURL('options/index.html');
+            chrome.runtime.getURL('layouts/options.html');
     }
 });
 
@@ -152,10 +153,6 @@ mod.observe = function() {
         chrome.storage.onChanged.addListener(observer);
     });
 }
-
-
-// Включение модуля
-ext.modules[mod.name] = mod;
 
 //FUTURE: (скробблинг) Индикация прогресса.
 //FUTURE: (скробблинг) Кнопка в избранное.

@@ -1,21 +1,22 @@
-var gulp = require('gulp');
+'use strict';
 
-var es = require('event-stream');
-var fs = require('fs');
-var path = require('path');
-var concat = require('gulp-concat');
-var rename = require('gulp-rename');
-var kk = require('../../core/kk-node.js');
-var each = kk.each;
+const gulp = require('gulp');
 
-var sourcemaps = require('gulp-sourcemaps');
-var gutil = require('gulp-util');
-var uglify = require('gulp-uglify');
-var streamqueue = require('streamqueue');
+const es = require('event-stream');
+const fs = require('fs');
+const path = require('path');
+const concat = require('gulp-concat');
+const rename = require('gulp-rename');
+const kk = require('../../core/kk-node.js');
+const each = kk.each;
 
-var streams = [];
-var modules_path = './sources/modules/';
-var parts_path = [
+const sourcemaps = require('gulp-sourcemaps');
+const gutil = require('gulp-util');
+const uglify = require('gulp-uglify');
+const streamqueue = require('streamqueue');
+
+const streams = [];
+const parts_path = [
     './bower_components/angular/angular.min.js',
     './bower_components/angular/angular.min.js.map',
     './bower_components/angular-sanitize/angular-sanitize.min.js',
@@ -24,54 +25,25 @@ var parts_path = [
     './bower_components/kk/kk.min.js',
     './bower_components/kk/kk.min.js.map',
     './bower_components/blueimp-md5/js/md5.min.js',
-    './bower_components/he/he.js']
+    './bower_components/he/he.js'];
 
 gulp.task('scripts', function() {
-    var parts = gulp.src(parts_path);
-
-    var base = gulp.src([
+    const base = gulp.src([
+        './sources/base/header.js',
+        './sources/base/utils.js',
+        './sources/base/events.js',
         './sources/base/main.js',
+        './sources/base/classes/*.js',
         './sources/base/*.js',
         './sources/close-code__base.js'
-    ])
-        .pipe(concat('base.js'));
+    ]).pipe(concat('base.js'));
 
-    var modules = [];
+    let queue = streamqueue({ objectMode: true });
+    queue.queue(base);
+    queue.queue(modules_stream('./sources/modules/'));
+    queue.queue(gulp.src(['./sources/init.js']));
 
-    each (fs.readdirSync(modules_path), function(item) {
-        if (item === 'base') return;
-        var item_path = path.join(modules_path, item);
-        if (fs.statSync(item_path).isDirectory()) {
-            modules.push(gulp
-                .src([
-                    path.join('./sources/open-code__mod.js'),
-                    path.join(item_path, 'main.js'),
-                    path.join(item_path, '*.js'),
-                    path.join('./sources/close-code__mod.js')
-                ])
-                .pipe(concat(item + '.js'))
-            );
-        }
-    });
-
-    var all_modules = es.merge(modules);
-
-    var init = gulp
-        .src(['./sources/init.js']);
-
-
-    streamqueue({ objectMode: true },
-        gulp.src('foo/*'),
-        gulp.src('bar/*')
-    )
-
-
-    var sources = streamqueue({ objectMode: true });
-    sources.queue(base);
-    sources.queue(all_modules);
-    sources.queue(init);
-
-    var sources = sources.done()
+    let sources = queue.done()
         .pipe(concat('ext.js'))
 //        .pipe(sourcemaps.init())
 //        .pipe(uglify().on("error", gutil.log)) // У uglify пока нет поддержки ES6.
@@ -79,11 +51,82 @@ gulp.task('scripts', function() {
         .pipe(sourcemaps.write('../scripts/'))
 
 
-    return es.merge(parts, sources)
-        .pipe(gulp.dest('build/scripts'));
+    return es.merge(
+        gulp.src(parts_path),
+        sources
+    ).pipe(gulp.dest('build/scripts'));
 });
 
+function is_dirSync(path) {
+    try {
+        return fs.statSync(path).isDirectory();
+    } catch (error) {
+        return false;
+    }
+}
 
+function modules_stream(modules_dir) {
+    const modules = [];
+
+    each (fs.readdirSync(modules_dir), function(name) {
+        const module_dir = path.join(modules_dir, name);
+
+        if (!fs.statSync(module_dir).isDirectory())
+            return;
+
+        let queue = streamqueue({ objectMode: true });
+
+        queue.queue(gulp.src([
+            path.join('./sources/open-code__mod.js'),
+            path.join(module_dir, 'main.js'),
+            path.join(module_dir, '*.js')
+        ]));
+
+        let sub_modules_dir = path.join(module_dir, 'submodules');
+
+        if (is_dirSync(sub_modules_dir)) {
+            queue.queue(sub_modules_stream(sub_modules_dir));
+        }
+
+        queue.queue(gulp.src([
+            path.join('./sources/close-code__mod.js')
+        ]));
+
+        let module = queue.done().pipe(concat(name + '.js'))
+
+        modules.push(module);
+
+    });
+
+    return es.merge(modules);
+}
+
+function sub_modules_stream (sub_modules_dir) {
+    const submodules = [];
+
+    each (fs.readdirSync(sub_modules_dir), function(name) {
+        const submodule_dir = path.join(sub_modules_dir, name);
+
+        if (!is_dirSync(submodule_dir))
+            return;
+
+        let queue = streamqueue({ objectMode: true });
+
+        queue.queue(gulp.src([
+            path.join('./sources/open-code__submod.js'),
+            path.join(submodule_dir, 'main.js'),
+            path.join(submodule_dir, '*.js'),
+            path.join('./sources/close-code__submod.js')
+        ]));
+
+        let submodule = queue.done().pipe(concat(name + '.js'))
+        submodules.push(submodule);
+
+    });
+
+    return es.merge(submodules);
+
+}
 
 gulp.task('watch__scripts', function() {
     gulp.watch([parts_path, './sources/**/*.js'], ['scripts']);

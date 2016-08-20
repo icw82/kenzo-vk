@@ -51,10 +51,9 @@ var pre_i18n = get_messages(
         'audio', [
             'header',
             'cache',
+            'download_button',
             'separator',
-            'progress_bars',
-            'simplified',
-            'simplified__desc'
+            'separator__desc'
         ]
     ], [
         'debug', [
@@ -63,22 +62,30 @@ var pre_i18n = get_messages(
             'log'
         ]
     ], [
+        'download_button', [
+            'simplified',
+            'simplified__desc'
+        ]
+    ], [
         'filters', [
             'brackets',
             'square_brackets',
             'curly_brackets'
         ]
-    ],
-    [
+    ], [
         'info', [
             'changes',
+            'in2006',
+            'in2016',
             'beta'
         ]
-    ],
-    ['header'],
-    ['others'],
-    ['reset'],
-    [
+    ], [
+        'header'
+    ], [
+        'common'
+    ], [
+        'reset'
+    ], [
         'scrobbler', [
             'header',
             'm4m',
@@ -89,7 +96,7 @@ var pre_i18n = get_messages(
         'trash', [
             'header',
             'lsb__ad',
-            'lsb__fr',
+            'potential_friends',
             'newsads',
             'promoted_posts',
             'group_recom',
@@ -101,14 +108,14 @@ var pre_i18n = get_messages(
     ], [
         'ui', [
             'header',
+            'ids',
+            'unrounding',
             'sidebar_button',
-            'ids'
+            'gray'
         ]
     ], [
         'video', [
             'header',
-            'progress_bars',
-            'simplified',
             'format_before_ext',
             'format_before_ext__desc'
         ]
@@ -170,7 +177,9 @@ $scope.$watch('Options', function() {
 }, true);
 
 $scope.defaults = function() {
-    chrome.storage.sync.set(ext.default_options);
+    if (confirm('Вы действительно хотите сбросить настройки?')) {
+        chrome.storage.sync.set(ext.default_options);
+    }
 }
 
 $scope.clear_db = function() {

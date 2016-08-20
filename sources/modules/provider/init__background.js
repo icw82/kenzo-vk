@@ -1,7 +1,7 @@
 mod.init__background = function() {
     mod.tabs = [];
 
-    // From Content Script — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —
+    // From Content Script —
     chrome.runtime.onConnect.addListener(function(port) {
         if (port.name !== mod.full_name) return;
 

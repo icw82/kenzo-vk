@@ -3,20 +3,21 @@ mod.methods = {
     track: {}
 };
 
-mod.methods.auth.getSession = function(token, callback) {
+mod.methods.auth.getSession = (token, callback) => {
     mod.session = null;
 
-    var params = {
+    const params = {
         method: 'auth.getSession',
         token: token
     }
 
-    ext.modules.scrobbler.request(params, function(response) {
+    ext.modules.scrobbler.request(params, response => {
+//        mod.log('response', response);
+
         if (typeof response.session == 'object') {
-            //mod.log('response.session.key', response.session.key);
 
             mod.session = response.session;
-            mod.log('mod.methods.auth.getSession ** mod.session', mod.session);
+            mod.log('mod.methods.auth.getSession >> mod.session', mod.session);
 
             chrome.storage.local.get('scrobbler__session', function(storage) {
                 storage.scrobbler__session = response.session;

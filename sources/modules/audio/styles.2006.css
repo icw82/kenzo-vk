@@ -1,0 +1,139 @@
+/* Стили только для 2006 */
+/* Кнопка play */
+/*
+.kzvk-audio__original_play_button{display: none}
+.kzvk-audio__play_button{display: block; width: 16px; height: 16px;
+    box-sizing: border-box;
+    border: 1px solid rgb(87, 124, 161); border-radius: 3px; fill: rgb(87, 124, 161)}
+
+.kzvk-audio.current .kzvk-audio__play_button{border-color: white; fill: white}
+
+.kzvk-audio:hover .kzvk-audio__play_button{}
+
+.kzvk-audio__play_button > use{display: none}
+.kzvk-audio__play{transform: translate3d(5px, 3px, 0)}
+.kzvk-audio__pause{transform: translate3d(4px, 4px, 0)}
+.kzvk-audio__play-current{transform: translate3d(5px, 3px, 0)}
+.kzvk-audio__pause-current{transform: translate3d(4px, 4px, 0)}
+
+.playing + .kzvk-audio__play_button .kzvk-audio__play{}
+.playing + .kzvk-audio__play_button .kzvk-audio__pause{}
+*/
+
+/* Элемент аудиозаписи */
+
+:root {
+    --a-action: 28px;
+    --a-button: 29px;
+
+    --a-tables-play: 16px;
+    --a-divs-play: 16px;
+
+    --a-tables-m: 6px;
+    --a-divs-m: 9px;
+
+}
+
+.kzvk-audio .play_btn_wrap{box-sizing: border-box; position: relative}
+
+.kzvk-audio.kzvk-tables.with-button .play_btn_wrap{
+    padding-right: calc(var(--a-button) + var(--a-tables-m) * 2)!important}
+.kzvk-audio.kzvk-divs.with-button .play_btn_wrap{
+    padding-right: calc(var(--a-button) + var(--a-divs-m) * 2)!important}
+
+.kzvk-audio.kzvk-tables .kzvk-main{table-layout: fixed}
+.kzvk-audio.kzvk-tables .kzvk-main td:first-child{
+    width: calc(16px + var(--a-tables-m) * 2)}
+.kzvk-audio.kzvk-tables.with-button .kzvk-main td:first-child{
+    width: calc(16px + var(--a-tables-m) * 3 + var(--a-button))}
+
+.kzvk-audio.kzvk-divs .info{
+    width: calc(100% - 16px - var(--a-divs-m) * 2)!important}
+.kzvk-audio.kzvk-divs.with-button .info{
+    width: calc(100% - 16px - var(--a-divs-m) * 3 - var(--a-button))!important}
+
+.kzvk-audio .title_wrap{box-sizing: border-box; width: 100%!important}
+.kzvk-audio:hover .title_wrap{transition: width ease .1s}
+
+/* Аудиозаписи и плеер */
+/* Посты и коментарии */
+/* Открытый Пост*/
+/* Выбор аудиозаписи для вставки в пост или комментарий */
+/* Поиск: общее */
+/* Поиск по аудиозаписям (не раздел Аудиозаписей) */
+/* Сообщения */
+/* Записи в переписке */
+/* Узкий модуль (в сайдбаре) */
+
+#profile_audios .kzvk-audio .title_wrap > b,
+#public_audios .kzvk-audio .title_wrap > b{max-width: 45%}
+
+.kzvk-audio .title_wrap b{max-width: 55%!important}
+.kzvk-audio .duration{box-sizing: border-box; position: absolute; right: 0; top: 0;
+    text-align: right}
+
+.kzvk-audio .duration{max-width: none!important; padding-left: 0!important}
+.kzvk-audio.kzvk-less-10 .duration{width: 38px}
+.kzvk-audio.kzvk-less-10 .title_wrap{width: calc(100% - 38px)!important}
+.kzvk-audio.kzvk-less-60 .duration{width: 44px}
+.kzvk-audio.kzvk-less-60 .title_wrap{width: calc(100% - 44px)!important}
+.kzvk-audio.kzvk-less-600 .duration{width: 52px}
+.kzvk-audio.kzvk-less-600 .title_wrap{width: calc(100% - 52px)!important}
+
+.kzvk-audio:hover.kzvk-ac-0 .title_wrap{
+    width: 100%!important}
+.kzvk-audio:hover.kzvk-ac-1 .title_wrap{
+    width: calc(100% - var(--a-action) - 4px)!important}
+.kzvk-audio:hover.kzvk-ac-2 .title_wrap{
+    width: calc(100% - var(--a-action) * 2 - 4px)!important}
+.kzvk-audio:hover.kzvk-ac-3 .title_wrap{
+    width: calc(100% - var(--a-action) * 3 - 4px)!important}
+.kzvk-audio:hover.kzvk-ac-4 .title_wrap{
+    width: calc(100% - var(--a-action) * 4 - 4px)!important}
+
+/* Корректировка кнопки скачивания */
+.kzvk-audio .kzvk-download-button{width: var(--a-button); position: absolute}
+.kzvk-audio.kzvk-tables .kzvk-download-button{
+    top: var(--a-tables-m); right: var(--a-tables-m)}
+.kzvk-audio.kzvk-divs .kzvk-download-button{
+    top: var(--a-divs-m); right: var(--a-divs-m)}
+
+/* Размеры блока в Сообщениях */
+.im_log_body .audio{width: 430px}
+.im_fwd_log_body .audio{width: 367px}
+
+.kzvk-audio.kzvk-divs.current .kzvk-download-button__item{color: white}
+
+.im_new_msg
+.kzvk-download-button__item.kzvk-label:after{
+    background-image: url(chrome-extension://__MSG_@@extension_id__/images/download-u.png)}
+
+
+.kzvk-download-button__cross{width: 11px; height: 11px;
+    position: absolute; left: calc(50% - 5.5px); top: 2px; z-index: 3; opacity: 0}
+.kzvk-download-button__cross > use{fill: rgb(95, 127, 162)}
+
+/* Progress bar */
+.kzvk-download-button__item.kzvk-progress{overflow: hidden}
+.kzvk-download-button__item:hover > .kzvk-download-button__cross{opacity: 1}
+.kzvk-divs.current .kzvk-download-button__cross > use{fill: white}
+
+.kzvk-download-button__progress-filling{width: 100%; height: 100%;
+    position: absolute; left: -100%; top: 0; z-index: 1;
+    background-color: rgba(95, 127, 162, .4);
+    transition: left .5s ease}
+.kzvk-audio.current .kzvk-download-button__progress-filling{
+    background-color: rgba(255, 255, 255, .4)}
+
+/* pending */
+.kzvk-download-button__item.kzvk-pending{line-height: 12px; font-size: 14px}
+.kzvk-download-button__item.kzvk-pending:before{content: '→'}
+.kzvk-download-button__item.kzvk-pending:hover:before{opacity: 0}
+
+/* Unavailable */
+.kzvk-download-button__item.kzvk-unavailable{line-height: 12px; font-size: 12px}
+.kzvk-download-button__item.kzvk-unavailable:before{content: '×_×'}
+
+.kzvk-audio__unavailable .play_btn_wrap,
+.kzvk-audio__unavailable .title_wrap,
+.kzvk-audio__unavailable .duration{opacity: .6}

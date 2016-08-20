@@ -112,6 +112,11 @@ p{margin-bottom: 7px}
 .f-group{transition: opacity .3s ease}
 .f-group.off{opacity: .2; pointer-events:none; cursor: default}
 
+.f-2006-only{color: rgba(205, 125, 0, .45)}
+.f-2006-only:before{content: '•'}
+.f-2016-only{color: rgba(0, 125, 200, .75)}
+.f-2016-only:before{content: '•'}
+
 .b-header{text-align: center;}
 .b-header__header{font-size: 42px; font-weight:bold}
 .b-header__extention{}

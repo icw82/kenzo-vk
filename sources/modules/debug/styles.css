@@ -1,20 +1,4 @@
-.kz-vk-debug .kz-audio-element .area{
-    background-color: rgba(167, 158, 173, .6)}
-.kz-vk-debug .kz-audio-element .title_wrap{
-    background-color: rgba(255, 222, 44, .7)}
-.kz-vk-debug .kz-audio-element .duration{overflow: hidden;
-    background-color: rgba(78, 199, 195, .6)}
-.kz-vk-debug .kz-audio-element .duration:after{display: block; width: 200px; height: 1px;
-    content: ''; margin-top: -3px}
-.kz-vk-debug .kz-audio-element .actions{overflow: hidden;
-    background-color: rgba(255, 0, 167, .6)}
+#kz-ext.kzvk-debug .wall_text_name_explain_promoted_post{background-color: red !important}
 
-.kz-vk-debug .mv_info_panel{background-color: rgb(255, 220, 101)}
-.kz-vk-debug .mv_info_block{background-color: rgb(255, 202, 21)}
-.kz-vk-debug .mv_title_panel{background-color: rgb(239, 156, 0)}
-.kz-vk-debug .mv_title{background-color: rgb(255, 96, 11); color: white}
-.kz-vk-debug .mv_author_name{background-color: rgb(226, 88, 46)}
-.kz-vk-debug .mv_info_panel a{color: white}
-
-.kz-vk-debug .wall_text_name_explain_promoted_post{background-color: red !important}
-
+#kz-ext.kzvk-debug .page_name {background: rgba(255, 248, 79, 0.6)}
+#kz-ext.kzvk-debug h2.page_name {background: rgba(255, 214, 79, 0.6)}

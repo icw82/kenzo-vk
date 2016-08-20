@@ -1,15 +1,28 @@
 mod.init__content = function() {
     if (ext.options.audio !== true) return;
 
-    chrome.runtime.sendMessage({
-        action: 'set audio provider key',
-        key: mod.provider_key
+    if (!ext.mode) return;
+
+    ext.events.on_mutation.addListener(mt => {
+        let elements;
+        let query;
+
+        if (ext.mode === 2016) {
+            query = '.audio_row';
+
+        } else if (ext.mode === 2006) {
+            query = '.audio';
+        }
+
+        if (!query)
+            return;
+
+        elements = kk.d.querySelectorAll(query);
+
+        if (elements.length > 0) {
+            let item = mod.registry.update(elements);
+        }
     });
-
-    kk.class_forever('kz-vk-audio', ext.dom.body);
-
-    mod.observe_dom();
-    mod.observe_downloads();
 
     mod.dispatch_load_event();
 }

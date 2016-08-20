@@ -13,11 +13,17 @@
     "o__audio__header": {
         "message": "Аудио"
     },
-    "o__audio__cache": {
-        "message": "Кэширование информации об аудиозаписях"
+    "o__audio__download_button": {
+        "message": "Кнопка с битрейтом"
+    },
+    "o__audio__replace_play_button": {
+        "message": "Замена кнопки проигрывания"
     },
     "o__audio__separator": {
         "message": "Разделитель:"
+    },
+    "o__audio__separator__desc": {
+        "message": "При сохранении этот знак будет разделять имя исполнителя и название"
     },
     "o__audio__separator__1": {
         "message": "—"
@@ -37,15 +43,6 @@
     "o__audio__separator__3__desc": {
         "message": "дефис"
     },
-    "o__audio__progress_bars": {
-        "message": "Прогресс-бары"
-    },
-    "o__audio__simplified": {
-        "message": "Упрощённый вид кнопки"
-    },
-    "o__audio__simplified__desc": {
-        "message": "Убирает анимацию, увеличивает производительность страницы с большим количеством кнопок"
-    },
 
 
     "o__debug__header": {
@@ -56,6 +53,14 @@
     },
     "o__debug__log": {
         "message": "Сообщения в консоли"
+    },
+
+
+    "o__download_button__simplified": {
+        "message": "Упрощённый вид кнопок скачивания"
+    },
+    "o__download_button__simplified__desc": {
+        "message": "Убирает анимацию, увеличивая производительность страницы с большим количеством кнопок"
     },
 
 
@@ -78,13 +83,19 @@
     "o__info__changes": {
         "message": "Некоторые изменения вступают в силу после перезагрузки страницы VK"
     },
+    "o__info__in2006": {
+        "message": "— только для старой версии VK"
+    },
+    "o__info__in2016": {
+        "message": "— только для новой"
+    },
     "o__info__beta": {
         "message": "Прежде чем использовать тестируемый функционал (β), прочтите его описание<br />в *официальной группе расширения*"
     },
 
 
-    "o__others": {
-        "message": "Дополнительные настройки"
+    "o__common": {
+        "message": "Общее"
     },
 
 
@@ -110,10 +121,10 @@
     "o__trash__header": {
         "message": "Сбор мусора"
     },
-    "o__trash__lsb__ad": {
+    "o__trash__sidebar_ads": {
         "message": "Реклама в сайдбаре"
     },
-    "o__trash__lsb__fr": {
+    "o__trash__potential_friends": {
         "message": "Предложение друзей"
     },
     "o__trash__newsads": {
@@ -123,7 +134,7 @@
         "message": "Продвигаемые посты"
     },
     "o__trash__group_recom": {
-        "message": "Популярные сообщества"
+        "message": "Рекомендуемые сообщества"
     },
     "o__trash__profile_rate": {
         "message": "Заполненность профиля"
@@ -142,22 +153,22 @@
     "o__ui__header": {
         "message": "Дополнения интерфейса"
     },
-    "o__ui__sidebar_button": {
-        "message": "Ссылка на эту страницу в меню"
+    "o__ui__unrounding": {
+        "message": "Раскруглить это дерьмо"
     },
     "o__ui__ids": {
         "message": "Идентификаторы пользователей и групп в заголовках страниц"
+    },
+    "o__ui__sidebar_button": {
+        "message": "Ссылка на эту страницу в меню"
+    },
+    "o__ui__gray": {
+        "message": "Обесцветить аватары"
     },
 
 
     "o__video__header": {
         "message": "Видео"
-    },
-    "o__video__progress_bars": {
-        "message": "Прогресс-бары"
-    },
-    "o__video__simplified": {
-        "message": "Упрощённый вид кнопок"
     },
     "o__video__format_before_ext": {
         "message": "Формат видеозаписи перед расширением в названии файла"

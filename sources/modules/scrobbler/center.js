@@ -2,6 +2,8 @@ mod.last_update_request__ts = 0;
 mod.last_update_request__name = '';
 
 mod.center = function(info) {
+//    mod.log('center update', info);
+
     var expiration = 300000; // 1000 * 60 * (5 минут)
     var acceptable_delay = 1500; // 1,5 секунды
 

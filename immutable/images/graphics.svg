@@ -3,9 +3,30 @@
     xmlns:xlink="http://www.w3.org/1999/xlink">
 
     <def>
-        <g id="kzvk-cross" viewBox="0 0 11 11">
+
+        <g id="kzvk-play-2016" viewBox="0 0 8 10">
+            <polygon points="0,0 8,5 0,10" />
+        </g>
+
+        <g id="kzvk-pause-2016" viewBox="0 0 8 10">
+            <rect width="3" height="10" rx="1.5" ry="1.5" />
+            <rect width="3" height="10" rx="1.5" ry="1.5" x="5" />
+        </g>
+
+        <g id="kzvk-download-arrow-2016" viewBox="0 0 15 10">
+            <path d="M 5,10 v -10 h 1 v 10 l 4,-4 l 0.5,0.5 l -5,5 l -5,-5 l 0.5,-0.5 z"/>
+        </g>
+
+        <g id="kzvk-pending-2016">
+            <rect width="14" height="1" x="0" y="4" />
+            <path d="M 0,0 l -4,-3 l 0.5,-0.5 l 4.7,3.5 l -4.7,3.5 l -0.5,-0.5 z"
+                  transform="translate(14, 4.5)"/>
+        </g>
+
+        <g id="kzvk-cross-2016" viewBox="0 0 11 11">
             <polygon points="10.4,1.4 9.6,0.6 5.5,4.8 1.4,0.6 0.6,1.4 4.8,5.5 0.6,9.6
                 1.4,10.4 5.5,6.2 9.6,10.4 10.4,9.6 6.2,5.5" />
         </g>
+
     </def>
 </svg>

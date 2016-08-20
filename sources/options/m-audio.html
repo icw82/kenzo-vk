@@ -3,9 +3,16 @@
         <label class="f-label checkbox level-1 outside">
             <input type="checkbox" ng-model="Options.audio">
             <span class="a-h1" ng-bind="i18n.audio.header"></span>
+            <span class="f-2006-only"></span>
         </label>
     </p>
     <div class="f-group" ng-class="{off: !Options.audio}">
+        <p>
+            <label class="f-label checkbox">
+                <input type="checkbox" ng-model="Options.audio__download_button">
+                <span ng-bind="i18n.audio.download_button"></span>
+            </label>
+        </p>
         <p>
             <label class="f-label checkbox">
                 <input type="checkbox" ng-model="Options.audio__cache">
@@ -13,26 +20,14 @@
             </label>
         </p>
         <p>
-            <label class="f-label checkbox">
-                <input type="checkbox" ng-model="Options.audio__progress_bars">
-                <span ng-bind="i18n.audio.progress_bars"></span>
-            </label>
-        </p>
-        <p>
-            <label class="f-label checkbox">
-                <input type="checkbox" ng-model="Options.audio__simplified">
-                <span ng-bind="i18n.audio.simplified"></span><br />
-                <span ng-bind="i18n.audio.simplified__desc" class="a-description"></span>
-            </label>
-        </p>
-
-        <p>
             <label class="f-label select">
                 <span ng-bind="i18n.audio.separator"></span>
                 <select
                    ng-model="Options.audio__separator"
                    ng-options="item.char as item.desc for item in i18n.audio.separators">
-                </select>
+                </select><br />
+                <span ng-bind="i18n.audio.separator__desc"
+                    class="a-description"></span>
             </label>
         </p>
     </div>

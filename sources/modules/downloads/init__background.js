@@ -1,19 +1,32 @@
 mod.init__background = function() {
-    chrome.downloads.onCreated.addListener(function(item) {
-        //var id = item.id;
-        mod.log('downloads.onCreated', item);
-    })
 
-//    chrome.downloads.onErased.addListener(function(item) {
-//        var id = item.id;
-//        mod.log('onErased', item);
-//    })
+    mod.history = new mod.DownloadHistory();
+    mod.queue = new mod.DownloadQueue();
 
-    mod.watch.start();
+    // Обработка сообщений
+    chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+        if (sender.id !== chrome.runtime.id) return;
 
-    chrome.downloads.onChanged.addListener(mod.downloads_listner);
+        if (request.action === 'download') {
+            if (request.item) {
+                mod.queue.add(request.item);
+                return;
+            }
 
-    chrome.runtime.onMessage.addListener(mod.message_listner);
+            if ((request.items instanceof kk._A) && request.items.length > 0) {
+                mod.queue.add(request.items)
+                return;
+            }
 
-    mod.dispatch_load_event(); // FUTURE: Определить зависимости для модулей, использующих загрузки
+            mod.warn('Кажется что-то пошло не так');
+
+        } else if (request.action === 'cancel-download') {
+            mod.queue.remove(request.id);
+
+        }
+    });
+
+    // FUTURE: Определить зависимости для модулей, использующих загрузки
+    mod.dispatch_load_event();
+
 }
