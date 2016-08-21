@@ -110,8 +110,7 @@ var pre_i18n = get_messages(
             'header',
             'ids',
             'unrounding',
-            'sidebar_button',
-            'gray'
+            'sidebar_button'
         ]
     ], [
         'video', [

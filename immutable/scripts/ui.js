@@ -124,8 +124,7 @@ function data($rootScope) {
                 'header',
                 'ids',
                 'unrounding',
-                'sidebar_button',
-                'gray'
+                'sidebar_button'
             ]
         ], [
             'video', [

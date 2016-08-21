@@ -35,7 +35,7 @@ class DownloadButton2016 {
         // Контейнер
         this.container = document.createElement('a');
         this.container.classList.add('kzvk-download-button__container');
-        this.container.setAttribute('draggable', true);
+//        this.container.setAttribute('draggable', true);
         this.element.appendChild(this.container);
 
         // Этикетка
@@ -142,7 +142,7 @@ class DownloadButton2016 {
             this.unavailable.innerHTML = '×_×';
             kk.class(self.element, 'kzvk-unavailable', this.classes);
 
-            console.log(this.file.url);
+//            console.log(this.file.url);
             return;
         }
 
@@ -233,11 +233,11 @@ class DownloadButton2016 {
         // TODO: Обрабатывать скачивания с помошью драг-н-дропа
         // FIX: Не различает файлы
         if (event.type === 'dragstart') {
-            ext.log('event.type:', event.type);
-            var data = event.dataTransfer;
-            var url = 'audio/mpeg:' + this.file.vk_name  + '.mp3:' + this.file.url_clean;
-            data.setData('DownloadURL', url);
-//            data.addElement(this);
+//            ext.log('event.dataTransfer:', event.dataTransfer);
+//
+//            const data = event.dataTransfer;
+//            const url = 'audio/mpeg:' + this.file.vk_name  + '.mp3:' + this.file.url_clean;
+//            data.setData('DownloadURL', url);
 //            data.setDragImage();
             return;
         }

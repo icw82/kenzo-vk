@@ -6,8 +6,7 @@ mod.default_options = {
     _: true,
     unrounding: false,
     ids: false,
-    sidebar_button: false,
-    gray: false
+    sidebar_button: false
 }
 
 //TODO: у постов, открыть в новой вкладке.

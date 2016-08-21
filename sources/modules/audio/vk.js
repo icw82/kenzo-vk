@@ -78,7 +78,7 @@ mod.vk = (mod => {
                 on_response.removeListener(listner);
                 resolve(url);
             } else if (url === false) {
-                mod.warn('Странность №3: в ответе с сервера небыло подходящего URL');
+                mod.warn('В ответе сервера небыло подходящего URL');
                 reject();
             }
         }

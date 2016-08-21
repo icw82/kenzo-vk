@@ -5,58 +5,62 @@
     padding-bottom: 2px; font-weight: normal; color: rgba(0, 0, 0, .4)}
 .kzvk-ui-id > a{color: inherit}
 
-.kzvk-ui-unrounding .nim-peer .nim-peer--photo .im_grid > img,
-.kzvk-ui-unrounding .nim-peer .nim-peer--photo > img,
-.kzvk-ui-unrounding .nim-peer .nim-peer--photo-w,
-.kzvk-ui-unrounding .module_body .people_cell_img,
-.kzvk-ui-unrounding .top_profile_img,
-.kzvk-ui-unrounding .top_profile_arrow,
-.kzvk-ui-unrounding .post_img,
-.kzvk-ui-unrounding .group_row_photo,
-.kzvk-ui-unrounding .group_row_img,
-.kzvk-ui-unrounding .friends_photo_img,
-.kzvk-ui-unrounding .friends_photo_wrap .ui_zoom_inner,
-.kzvk-ui-unrounding .wall_module .copy_post_img,
-.kzvk-ui-unrounding .wall_module .reply_img,
-.kzvk-ui-unrounding .reply_img,
-.kzvk-ui-unrounding .feed_friend_image,
-.kzvk-ui-unrounding .page_group_image,
-.kzvk-ui-unrounding .page_list_module .cell_img,
-.kzvk-ui-unrounding .page_list_module .thumb,
-.kzvk-ui-unrounding .ow_ava.ow_ava_small,
-.kzvk-ui-unrounding .like_tt_image,
-.kzvk-ui-unrounding .poll_tt_image,
-.kzvk-ui-unrounding .right_list_img,
-.kzvk-ui-unrounding .apps_feed_user_img,
-.kzvk-ui-unrounding .post_field_user_image,
-.kzvk-ui-unrounding .submit_post_box .thumb_off,
-.kzvk-ui-unrounding .submit_post_box .thumb_on,
-.kzvk-ui-unrounding .ui_ownblock_img,
-.kzvk-ui-unrounding .feedback_sticky_icon,
-.kzvk-ui-unrounding img.fc_contact_photo
-    {border-radius: 3px}
+.kzvk-ui-unrounding .apps_feed_user_img /* В приложениях */
+,.kzvk-ui-unrounding .cell_img /* Блок «Интересные страницы» */
+,.kzvk-ui-unrounding .chat_tab_img /* Чат:собеседник */
+,.kzvk-ui-unrounding .copy_post_img /* Репост */
+,.kzvk-ui-unrounding .fc_contact_photo /* Чат: список */
+,.kzvk-ui-unrounding .fc_msgs_img /* Чат */
+,.kzvk-ui-unrounding .feedback_img /* Уведомления */
+,.kzvk-ui-unrounding .feedback_sticky_icon /* Уведомления */
+,.kzvk-ui-unrounding .friends_photo_img /* Друзья */
+,.kzvk-ui-unrounding .group_l_photo /* Ссылки группы */
+,.kzvk-ui-unrounding .group_l_photo_img /* Ссылки группы */
+,.kzvk-ui-unrounding .group_row_img /* Группы */
+,.kzvk-ui-unrounding .group_row_photo /* Группы */
+,.kzvk-ui-unrounding .group_u_photo /* Участники группы */
+,.kzvk-ui-unrounding .group_u_photo_img /* Участники группы */
+,.kzvk-ui-unrounding .im-member-item--photo /* Участники беседы */
+,.kzvk-ui-unrounding .im_chatbox_mem_photo /* Участники беседы */
+,.kzvk-ui-unrounding .like_tt_image /* Лайкнувшие */
+,.kzvk-ui-unrounding .mention_tt_img /* Создатель опроса */
+,.kzvk-ui-unrounding .nim-peer img /* Сообщения */
+,.kzvk-ui-unrounding .nim-peer--photo-w /* Сообщения */
+,.kzvk-ui-unrounding .notify_tt_img /* Внутреннее сообщение VK */
+,.kzvk-ui-unrounding .notify_tt_thumb/* Внутреннее сообщение VK */
+,.kzvk-ui-unrounding .olist_item_photo /* Добавление в беседу */
+,.kzvk-ui-unrounding .ow_ava /* Изображение */
+,.kzvk-ui-unrounding .page_group_image /* Аватара страницы */
+,.kzvk-ui-unrounding .page_list_module .thumb /* Блок «Интересные страницы» */
+,.kzvk-ui-unrounding .people_cell_img /* Блок людей (друзей) */
+,.kzvk-ui-unrounding .poll_tt_image /* Голосовавшие */
+,.kzvk-ui-unrounding .post_field_user_image /* Блок «Что у вас нового?» */
+,.kzvk-ui-unrounding .post_img /* Пост */
+,.kzvk-ui-unrounding .profile_career_img /* Место работы в профиле */
+,.kzvk-ui-unrounding .reply_img /* Комментарий */
+,.kzvk-ui-unrounding .result_list img /* Поиск-подсказка */
+,.kzvk-ui-unrounding .search_item_img /* Поиск */
+,.kzvk-ui-unrounding .submit_post_box .thumb_off /* Написание поста в группе */
+,.kzvk-ui-unrounding .submit_post_box .thumb_on /* Написание поста в группе */
+,.kzvk-ui-unrounding .top_profile_img /* В шапке */
+,.kzvk-ui-unrounding .ts_contact_img /* Поиск-подсказка в шапке */
+,.kzvk-ui-unrounding .ui_ownblock_img /* В админке группы */
+,.kzvk-ui-unrounding .ui_zoom_inner /* Зум аватарок */
+    {border-radius: 3px!important}
 
-.kzvk-ui-gray .friends_photo_img,
-.kzvk-ui-gray .post_img,
-.kzvk-ui-gray .page_group_image,
-.kzvk-ui-gray .page_avatar_img,
-.kzvk-ui-gray .copy_post_img,
-.kzvk-ui-gray .reply_img,
-.kzvk-ui-gray .people_cell_img,
-.kzvk-ui-gray .cell_img,
-.kzvk-ui-gray .dialogs_inline_chatter,
-.kzvk-ui-gray .im_grid > img,
-.kzvk-ui-gray .nim-peer--photo > img,
-.kzvk-ui-gray .group_row_img,
-.kzvk-ui-gray .right_list_img,
-.kzvk-ui-gray .ow_ava.ow_ava_small,
-.kzvk-ui-gray .apps_feed_user_img,
-.kzvk-ui-gray .post_field_user_image,
-.kzvk-ui-gray .submit_post_box .thumb_off,
-.kzvk-ui-gray .submit_post_box .thumb_on,
-.kzvk-ui-gray .ui_ownblock_img,
-.kzvk-ui-gray .feedback_sticky_icon,
-.kzvk-ui-gray img.fc_contact_photo
-    {-webkit-filter: grayscale(100%)}
+/*
+.apps_feed_user_photo img,
+.blst_img,
+.bp_img,
+.fans_fan_img,
+.fave_link_thumb,
+.feed_friend_image,
+.feedback_group_photo_img,
+.like_tt_owner,
+.mention_tt_person_img,
+.mv_author_photo,
+.poll_tt_owner,
+.right_list_img,
+*/
 
 .kzvk-ui-unrounding .online:after{}

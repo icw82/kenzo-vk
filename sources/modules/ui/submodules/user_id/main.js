@@ -134,7 +134,6 @@ let check = () => {
         header.classList.add('kzvk-ui-page-header');
 
         get_id (page).then(data => {
-
             if (element) {
                 if (header.contains(element))
                     return;
@@ -143,17 +142,12 @@ let check = () => {
             }
 
             element = create (header, data.id, data.type);
-
-            mod.warn('>>>', header, element);
-
             header.appendChild(element);
 
         }, error => {
             mod.warn('get_id error >', error);
         });
-
     }
-
 //    limit--;
 };
 

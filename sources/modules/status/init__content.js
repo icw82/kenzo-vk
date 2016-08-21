@@ -11,7 +11,7 @@ mod.init__content = function() {
         mod.audio(mod.audio_provider_key);
 
     mod.on_content_load.then(function() {
-        ext.dom.header = document.body.querySelector('#top_nav');
+        ext.dom.header = document.body.querySelector('#page_header_cont');
         ext.dom.content = document.body.querySelector('#page_body');
         ext.dom.side_bar = document.body.querySelector('#side_bar');
 
