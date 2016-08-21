@@ -34,6 +34,7 @@ mod.get = url => new Promise(function(resolve, reject) {
 
             if (result.basic.mime === 'audio/mpeg') {
                 mod.submodules.audio_mpeg.parse(url).then(data => {
+                    data.ts = kk.ts();
 //                    mod.info('audio_mpeg >', data);
                     mod.cache.put(data);
                     resolve(data);

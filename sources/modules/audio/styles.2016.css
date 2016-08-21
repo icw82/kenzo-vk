@@ -28,6 +28,7 @@
 .kzvk-audio{}
 .kzvk-audio.with-button{}
 .kzvk-audio.with-button .audio_play_wrap{width: 64px}
+.kzvk-audio.with-button .audio_hq_label{display: none!important}
 
 .kzvk-audio .kzvk-download-button{height: var(--h);
     position: absolute; left: calc(var(--w-play) + var(--space)); top: 0}

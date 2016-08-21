@@ -17,14 +17,16 @@ class Audio2016 {
         const info = JSON.parse(this.dom.element.getAttribute('data-audio'));
         let url = false;
 
+        const clean = string => string.replace(/(<\/?em>)/g, '');
+
         this.vk = {
             id: info[0],
             owner_id: info[1],
             get full_id() {
                 return this.owner_id + '_' + this.id
             },
-            performer: info[4],
-            title: info[3],
+            performer: clean(info[4]),
+            title: clean(info[3]),
             get name() {return this.performer + ' '
                 + mod.options.separator + ' '
                 + this.title

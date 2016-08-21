@@ -4,7 +4,7 @@ mod.vk = (mod => {
     // TODO: Допилить
     const cache = new ext.SimpleStore({
         name: 'kenzo-vk-audio',
-        version: 3,
+        version: 4,
         store: {
             name: 'audio',
             key: 'id',
@@ -26,12 +26,10 @@ mod.vk = (mod => {
 
     const responses = [];
 
+    // TODO: Возможно стоит сделать некий таймер для сброса кэша?
+
     vk.get_url = id => new Promise((resolve, reject) => {
-        cache.get(id).then(data => {
-            if (kk.is_o(data)) {
-                resolve(data.url);
-            }
-        }, () => {
+        const get_and_record = () => {
             vk.get_url_from_vk(id).then(url => {
                 cache.put({
                     id: id,
@@ -40,7 +38,22 @@ mod.vk = (mod => {
                 });
                 resolve(url);
             }, reject);
-        });
+        }
+
+        cache.get(id).then(data => {
+            if (kk.is_o(data)) {
+                if (data.ts + 43200000 > kk.ts()) {
+                    resolve(data.url);
+                } else {
+                    mod.ext.utils.is_url_exists(data.url).then(() => {
+                        resolve(data.url);
+                    }, get_and_record);
+                }
+            } else {
+                get_and_record();
+            }
+        }, get_and_record);
+
     });
 
     vk.get_url_from_vk = id => new Promise((resolve, reject) => {

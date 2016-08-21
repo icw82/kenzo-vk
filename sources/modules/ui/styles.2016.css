@@ -31,8 +31,10 @@
 .kzvk-ui-unrounding .post_field_user_image,
 .kzvk-ui-unrounding .submit_post_box .thumb_off,
 .kzvk-ui-unrounding .submit_post_box .thumb_on,
-.kzvk-ui-unrounding .ui_ownblock_img
-    {border-radius: 4px}
+.kzvk-ui-unrounding .ui_ownblock_img,
+.kzvk-ui-unrounding .feedback_sticky_icon,
+.kzvk-ui-unrounding img.fc_contact_photo
+    {border-radius: 3px}
 
 .kzvk-ui-gray .friends_photo_img,
 .kzvk-ui-gray .post_img,
@@ -52,7 +54,9 @@
 .kzvk-ui-gray .post_field_user_image,
 .kzvk-ui-gray .submit_post_box .thumb_off,
 .kzvk-ui-gray .submit_post_box .thumb_on,
-.kzvk-ui-gray .ui_ownblock_img
+.kzvk-ui-gray .ui_ownblock_img,
+.kzvk-ui-gray .feedback_sticky_icon,
+.kzvk-ui-gray img.fc_contact_photo
     {-webkit-filter: grayscale(100%)}
 
 .kzvk-ui-unrounding .online:after{}

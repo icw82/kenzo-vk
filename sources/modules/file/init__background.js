@@ -3,11 +3,11 @@ mod.init__background = function() {
 
     mod.cache  = new ext.SimpleStore({
         name: 'kenzo-vk',
-        version: 3,
+        version: 4,
         store: {
             name: 'files',
             key: false,
-            indexes: ['basic.url', 'basic.mime']
+            indexes: ['basic.url', 'basic.mime', 'ts']
         }
     });
 
