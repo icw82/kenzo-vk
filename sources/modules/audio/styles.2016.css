@@ -23,10 +23,8 @@
 .audio_row.audio_deleted .kzvk-audio__play_button,
 .audio_row.claimed .kzvk-audio__play_button{opacity: .4}
 
-
 /* Элемент аудиозаписи */
-.kzvk-audio{}
-.kzvk-audio.with-button{}
+.kzvk-audio.with-button .audio_performer{max-width: 52%!important}
 .kzvk-audio.with-button .audio_play_wrap{width: 64px}
 .kzvk-audio.with-button .audio_hq_label{display: none!important}
 
