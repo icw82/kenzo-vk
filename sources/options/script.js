@@ -95,7 +95,7 @@ var pre_i18n = get_messages(
     ], [
         'trash', [
             'header',
-            'lsb__ad',
+            'sidebar_ads',
             'potential_friends',
             'newsads',
             'promoted_posts',

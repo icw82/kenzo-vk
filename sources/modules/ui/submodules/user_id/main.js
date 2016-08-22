@@ -177,7 +177,7 @@ let create = (container, id, type) => {
 
 sub.init__content = () => {
     ext.events.on_mutation.addListener(mutations => {
-        if (ext.options.ui__ids) {
+        if (ext.options.ui && ext.options.ui__ids) {
             check();
         }
     });
