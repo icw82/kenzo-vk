@@ -119,7 +119,7 @@ mod.audio = function(key) {
 
                 } catch (error) {
                     console.error(error);
-                    // stop_observe = true;
+//                     stop_observe = true;
                 }
             }
 
