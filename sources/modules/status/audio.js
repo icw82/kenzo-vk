@@ -94,29 +94,28 @@ mod.audio = function(key) {
                 if (!object._isPlaying) return;
 
                 try {
-                    if (!object._impl._currentAudioEl)
-                        console.warn('Снова случилась хуйния');
-                    if (object._listenedTime > 0)
-                        console.warn('РАБОТАЕТ', object._listenedTime);
+                    if (!object._impl._currentAudioEl) {
+                        console.warn('object._impl', object._impl);
+                    } else {
+                        var info = {
+    //                        is_playing: object._isPlaying,
+                            current_time: object._impl._currentAudioEl.currentTime,
+                            id: object._currentAudio[0],
+                            owner: object._currentAudio[1],
+                            url: object._currentAudio[2],
+                            title: object._currentAudio[3],
+                            performer: object._currentAudio[4],
+                            duration: object._currentAudio[5]
+                        }
 
-                    var info = {
-//                        is_playing: object._isPlaying,
-                        current_time: object._impl._currentAudioEl.currentTime,
-                        id: object._currentAudio[0],
-                        owner: object._currentAudio[1],
-                        url: object._currentAudio[2],
-                        title: object._currentAudio[3],
-                        performer: object._currentAudio[4],
-                        duration: object._currentAudio[5]
+                        chrome.runtime.sendMessage(_.id, {
+                            action: 'audio status update',
+                            key: secret_key,
+                            info: info
+                        });
+
+                        console.warn(info);
                     }
-
-                    chrome.runtime.sendMessage(_.id, {
-                        action: 'audio status update',
-                        key: secret_key,
-                        info: info
-                    });
-
-//                    console.warn(info);
 
                 } catch (error) {
                     console.error(error);
