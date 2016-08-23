@@ -36,7 +36,7 @@ ext.init = function() {
 
     Promise.all([
 //        new Promise(ext.promise__content_load),
-        new Promise(load_storage__sync),
+//        new Promise(load_storage__sync),
         new Promise(load_storage__local)
     ]).then(function() {
         if (ext.scope === 'content')
@@ -65,32 +65,32 @@ ext.promise__content_load = function(resolve, reject) {
 };
 
 
-var load_storage__sync = function(resolve, reject) {
-    chrome.storage.sync.get(ext.default_options, function(options) {
-        ext.options = options;
-
-        // Прослушивание изменений настроек
-        chrome.storage.onChanged.addListener(function(changes, areaName) {
-            if (areaName == 'sync') {
-                chrome.storage.sync.get(ext.default_options, function(options) {
-                    ext.options = options;
-                });
-            }
-        });
-
-        ext.info('current options', ext.options);
-
-        if (!ext.options.debug__log) {
-            console.warn('ОТЛАДОЧНЫЕ СООБЩЕНИЯ ОТКЛЮЧЕНЫ');
-        }
-
-        resolve();
-    });
-};
+//var load_storage__sync = function(resolve, reject) {
+//    chrome.storage.sync.get(ext.default_options, function(options) {
+//        ext.options = options;
+//
+//        // Прослушивание изменений настроек
+//        chrome.storage.onChanged.addListener(function(changes, areaName) {
+//            if (areaName == 'sync') {
+//                chrome.storage.sync.get(ext.default_options, function(options) {
+//                    ext.options = options;
+//                });
+//            }
+//        });
+//
+//        ext.info('current options', ext.options);
+//
+//        if (!ext.options.debug__log) {
+//            console.warn('ОТЛАДОЧНЫЕ СООБЩЕНИЯ ОТКЛЮЧЕНЫ');
+//        }
+//
+//        resolve();
+//    });
+//};
 
 
 var load_storage__local = function(resolve, reject) {
-    chrome.storage.local.get(ext.default_globals, function(globals) {
+    chrome.storage.local.get(ext.defaults, function(globals) {
         // Set нужен, так как ext.globals не используется, в отличие от ext.options
         chrome.storage.local.set(globals, function() {
             ext.info('current globals', globals);

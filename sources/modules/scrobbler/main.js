@@ -1,6 +1,6 @@
 var mod = new ext.Module('scrobbler');
 
-mod.default_options = {
+mod.defaults = {
     _: false,
     proportion: 50,
     m4m: true,

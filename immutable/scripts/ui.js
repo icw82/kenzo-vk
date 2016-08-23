@@ -204,23 +204,23 @@ function data($rootScope) {
     $rootScope.options = {};
     var listen_storage = false;
 
-    chrome.storage.onChanged.addListener(function(changes, areaName) {
-        if (areaName === 'sync') {
-            sync_model();
-        }
-    });
-
-    sync_model();
-
-    function sync_model() {
-        listen_storage = false;
-
-        chrome.storage.sync.get(ext.default_options, function(items) {
-            $rootScope.options = items;
-            $rootScope.$apply();
-            listen_storage = true;
-        });
-    }
+//    chrome.storage.onChanged.addListener(function(changes, areaName) {
+//        if (areaName === 'sync') {
+//            sync_model();
+//        }
+//    });
+//
+//    sync_model();
+//
+//    function sync_model() {
+//        listen_storage = false;
+//
+//        chrome.storage.sync.get(ext.default_options, function(items) {
+//            $rootScope.options = items;
+//            $rootScope.$apply();
+//            listen_storage = true;
+//        });
+//    }
 
     $rootScope.$watch('options', function() {
         (listen_storage) && chrome.storage.sync.set($rootScope.options);
@@ -241,7 +241,7 @@ function data($rootScope) {
 
     this.defaults = function() {
         if (confirm('Вы действительно хотите сбросить настройки?')) {
-            chrome.storage.sync.set(ext.default_options);
+//            chrome.storage.sync.set(ext.defaults);
         }
     }
 

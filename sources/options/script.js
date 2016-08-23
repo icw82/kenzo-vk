@@ -160,26 +160,26 @@ $scope.scrobbler = {
 }
 $scope.ctrl = false;
 
-function sync_model() {
-    chrome.storage.sync.get(ext.default_options, function(items) {
-        watch_flag = false;
-        $scope.Options = items;
-        $scope.$apply();
-        watch_flag = true;
-    });
-}
-
-sync_model();
+//function sync_model() {
+//    chrome.storage.sync.get(ext.default_options, function(items) {
+//        watch_flag = false;
+//        $scope.Options = items;
+//        $scope.$apply();
+//        watch_flag = true;
+//    });
+//}
+//
+//sync_model();
 
 $scope.$watch('Options', function() {
     (watch_flag) && chrome.storage.sync.set($scope.Options);
 }, true);
 
-$scope.defaults = function() {
-    if (confirm('Вы действительно хотите сбросить настройки?')) {
-        chrome.storage.sync.set(ext.default_options);
-    }
-}
+//$scope.defaults = function() {
+//    if (confirm('Вы действительно хотите сбросить настройки?')) {
+//        chrome.storage.sync.set(ext.default_options);
+//    }
+//}
 
 $scope.clear_db = function() {
     chrome.storage.local.clear(function() {
@@ -191,11 +191,11 @@ $scope.clear_db = function() {
     });
 }
 
-chrome.storage.onChanged.addListener(function(changes, areaName) {
-    if (areaName === 'sync') {
-        sync_model();
-    }
-});
+//chrome.storage.onChanged.addListener(function(changes, areaName) {
+//    if (areaName === 'sync') {
+//        sync_model();
+//    }
+//});
 
 // Токен
 var token = window.location.href.match(/token=([\w\d]+)/) || false;

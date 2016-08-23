@@ -5,27 +5,46 @@
     padding-bottom: 2px; font-weight: normal; color: rgba(0, 0, 0, .4)}
 .kzvk-ui-id > a{color: inherit}
 
-.kzvk-ui-unrounding .apps_feed_user_img /* В приложениях */
+ .kzvk-ui-unrounding .apps_feed_user_img /* В приложениях */
+,.kzvk-ui-unrounding .bd_cell_img /* Календарь */
+,.kzvk-ui-unrounding .bd_img /* Календарь */
+,.kzvk-ui-unrounding .blst_img /* Список обсуждений */
+,.kzvk-ui-unrounding .bp_img /* Обсуждения */
 ,.kzvk-ui-unrounding .cell_img /* Блок «Интересные страницы» */
 ,.kzvk-ui-unrounding .chat_tab_img /* Чат:собеседник */
 ,.kzvk-ui-unrounding .copy_post_img /* Репост */
+,.kzvk-ui-unrounding .fans_fan_img /* Подписчики */
+,.kzvk-ui-unrounding .fans_idolph_wrap /* Интересные страницы */
+,.kzvk-ui-unrounding .fave_al_thumb /* Закладки: добавить ссылку */
+,.kzvk-ui-unrounding .fave_link_thumb /* Закладки: ссылки */
 ,.kzvk-ui-unrounding .fc_contact_photo /* Чат: список */
 ,.kzvk-ui-unrounding .fc_msgs_img /* Чат */
+,.kzvk-ui-unrounding .feed_friend_image /* Обновления: добавленные друзья */
+,.kzvk-ui-unrounding .feedback_group_photo_img /* Уведомления: несколько лайков */
 ,.kzvk-ui-unrounding .feedback_img /* Уведомления */
 ,.kzvk-ui-unrounding .feedback_sticky_icon /* Уведомления */
+,.kzvk-ui-unrounding .flist_item_thumb /* Настройки приватности: скрыть друзей */
+,.kzvk-ui-unrounding .flist_sel_list .flist_item_action /* Настройки приватности: скрыть друзей */
 ,.kzvk-ui-unrounding .friends_photo_img /* Друзья */
+,.kzvk-ui-unrounding .group_box_image_link /* Контакты, мероприятия, пригласить друзей */
+,.kzvk-ui-unrounding .group_box_image_wrap /* Контакты, мероприятия, пригласить друзей */
+,.kzvk-ui-unrounding .group_contact_image_wrap /* Добавление контакта к группе */
 ,.kzvk-ui-unrounding .group_l_photo /* Ссылки группы */
 ,.kzvk-ui-unrounding .group_l_photo_img /* Ссылки группы */
 ,.kzvk-ui-unrounding .group_row_img /* Группы */
 ,.kzvk-ui-unrounding .group_row_photo /* Группы */
 ,.kzvk-ui-unrounding .group_u_photo /* Участники группы */
 ,.kzvk-ui-unrounding .group_u_photo_img /* Участники группы */
-,.kzvk-ui-unrounding .im-member-item--photo /* Участники беседы */
 ,.kzvk-ui-unrounding .im_chatbox_mem_photo /* Участники беседы */
+,.kzvk-ui-unrounding .im-member-item--photo /* Участники беседы */
+,.kzvk-ui-unrounding .im-prebody img /* Результаты опроса: подробно */
 ,.kzvk-ui-unrounding .like_tt_image /* Лайкнувшие */
+,.kzvk-ui-unrounding .mail_box_single_ava_img /* Написать сообщение */
 ,.kzvk-ui-unrounding .mention_tt_img /* Создатель опроса */
+,.kzvk-ui-unrounding .mv_author_photo /* Владелец видео */
 ,.kzvk-ui-unrounding .nim-peer img /* Сообщения */
 ,.kzvk-ui-unrounding .nim-peer--photo-w /* Сообщения */
+,.kzvk-ui-unrounding .notifier_image /* Уведомление о сообщении */
 ,.kzvk-ui-unrounding .notify_tt_img /* Внутреннее сообщение VK */
 ,.kzvk-ui-unrounding .notify_tt_thumb/* Внутреннее сообщение VK */
 ,.kzvk-ui-unrounding .olist_item_photo /* Добавление в беседу */
@@ -40,34 +59,16 @@
 ,.kzvk-ui-unrounding .reply_img /* Комментарий */
 ,.kzvk-ui-unrounding .result_list img /* Поиск-подсказка */
 ,.kzvk-ui-unrounding .search_item_img /* Поиск */
+,.kzvk-ui-unrounding .settings_bl_photo /* Черный список пользователя */
 ,.kzvk-ui-unrounding .submit_post_box .thumb_off /* Написание поста в группе */
 ,.kzvk-ui-unrounding .submit_post_box .thumb_on /* Написание поста в группе */
 ,.kzvk-ui-unrounding .top_profile_img /* В шапке */
 ,.kzvk-ui-unrounding .ts_contact_img /* Поиск-подсказка в шапке */
 ,.kzvk-ui-unrounding .ui_ownblock_img /* В админке группы */
 ,.kzvk-ui-unrounding .ui_zoom_inner /* Зум аватарок */
-,.kzvk-ui-unrounding .bd_cell_img /* Календарь */
-,.kzvk-ui-unrounding .bd_img /* Календарь */
-,.kzvk-ui-unrounding .blst_img /* Список обсуждений */
-,.kzvk-ui-unrounding .bp_img /* Обсуждения */
-,.kzvk-ui-unrounding .group_box_image_link /* Контакты, мероприятия, пригласить друзей */
-,.kzvk-ui-unrounding .group_box_image_wrap /* Контакты, мероприятия, пригласить друзей */
-,.kzvk-ui-unrounding .mail_box_single_ava_img /* Написать сообщение */
-,.kzvk-ui-unrounding .fans_idolph_wrap /* Интересные страницы */
-,.kzvk-ui-unrounding .fans_fan_img /* Подписчики */
-,.kzvk-ui-unrounding .fave_link_thumb /* Закладки: ссылки */
-,.kzvk-ui-unrounding .fave_al_thumb /* Закладки: добавить ссылку */
-,.kzvk-ui-unrounding .feed_friend_image /* Обновления: добавленные друзья */
-,.kzvk-ui-unrounding .settings_bl_photo /* Черный список пользователя */
-,.kzvk-ui-unrounding .flist_item_thumb /* Настройки приватности: скрыть друзей */
-,.kzvk-ui-unrounding .flist_sel_list .flist_item_action /* Настройки приватности: скрыть друзей */
-,.kzvk-ui-unrounding .group_contact_image_wrap /* Добавление контакта к группе */
 ,.kzvk-ui-unrounding .wddi_img /* Поделиться записью */
-,.kzvk-ui-unrounding .wpost_owner_head_img /* Экспорт записи */
-,.kzvk-ui-unrounding .mv_author_photo /* Владелец видео */
-,.kzvk-ui-unrounding .notifier_image /* Уведомление о сообщении */
-,.kzvk-ui-unrounding .feedback_group_photo_img /* Уведомления: несколько лайков */
 ,.kzvk-ui-unrounding .wk_poll_usr /* Результаты опроса: подробно */
+,.kzvk-ui-unrounding .wpost_owner_head_img /* Экспорт записи */
     {border-radius: 3px!important}
 
 /*.kzvk-ui-unrounding .online:after{}*/
