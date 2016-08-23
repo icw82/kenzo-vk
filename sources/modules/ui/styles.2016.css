@@ -46,21 +46,28 @@
 ,.kzvk-ui-unrounding .ts_contact_img /* Поиск-подсказка в шапке */
 ,.kzvk-ui-unrounding .ui_ownblock_img /* В админке группы */
 ,.kzvk-ui-unrounding .ui_zoom_inner /* Зум аватарок */
+,.kzvk-ui-unrounding .bd_cell_img /* Календарь */
+,.kzvk-ui-unrounding .bd_img /* Календарь */
+,.kzvk-ui-unrounding .blst_img /* Список обсуждений */
+,.kzvk-ui-unrounding .bp_img /* Обсуждения */
+,.kzvk-ui-unrounding .group_box_image_link /* Контакты, мероприятия, пригласить друзей */
+,.kzvk-ui-unrounding .group_box_image_wrap /* Контакты, мероприятия, пригласить друзей */
+,.kzvk-ui-unrounding .mail_box_single_ava_img /* Написать сообщение */
+,.kzvk-ui-unrounding .fans_idolph_wrap /* Интересные страницы */
+,.kzvk-ui-unrounding .fans_fan_img /* Подписчики */
+,.kzvk-ui-unrounding .fave_link_thumb /* Закладки: ссылки */
+,.kzvk-ui-unrounding .fave_al_thumb /* Закладки: добавить ссылку */
+,.kzvk-ui-unrounding .feed_friend_image /* Обновления: добавленные друзья */
+,.kzvk-ui-unrounding .settings_bl_photo /* Черный список пользователя */
+,.kzvk-ui-unrounding .flist_item_thumb /* Настройки приватности: скрыть друзей */
+,.kzvk-ui-unrounding .flist_sel_list .flist_item_action /* Настройки приватности: скрыть друзей */
+,.kzvk-ui-unrounding .group_contact_image_wrap /* Добавление контакта к группе */
+,.kzvk-ui-unrounding .wddi_img /* Поделиться записью */
+,.kzvk-ui-unrounding .wpost_owner_head_img /* Экспорт записи */
+,.kzvk-ui-unrounding .mv_author_photo /* Владелец видео */
+,.kzvk-ui-unrounding .notifier_image /* Уведомление о сообщении */
+,.kzvk-ui-unrounding .feedback_group_photo_img /* Уведомления: несколько лайков */
+,.kzvk-ui-unrounding .wk_poll_usr /* Результаты опроса: подробно */
     {border-radius: 3px!important}
 
-/*
-.apps_feed_user_photo img,
-.blst_img,
-.bp_img,
-.fans_fan_img,
-.fave_link_thumb,
-.feed_friend_image,
-.feedback_group_photo_img,
-.like_tt_owner,
-.mention_tt_person_img,
-.mv_author_photo,
-.poll_tt_owner,
-.right_list_img,
-*/
-
-.kzvk-ui-unrounding .online:after{}
+/*.kzvk-ui-unrounding .online:after{}*/

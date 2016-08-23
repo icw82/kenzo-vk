@@ -16,8 +16,6 @@ ext.mode = (() => {
 
 ext.init = function() {
     ext.info(ext.name, ext);
-//    ext.info('default options', ext.default_options);
-//    ext.info('default globals', ext.default_globals);
 
     ext.dom = {}
 

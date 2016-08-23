@@ -3,8 +3,8 @@
 const key = kk.generate_key(10);
 
 const events = {
-    on_module_init: new chrome.Event(),
-    on_module_load: new chrome.Event(),
+    on_module_init: new kk.Event(),
+    on_module_load: new kk.Event(),
 };
 
 events.on_content_loaded = new kk.Event(key);

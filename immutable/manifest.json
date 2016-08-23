@@ -82,6 +82,6 @@
 
         "layouts/options.html"
     ],
-    "minimum_chrome_version": "45",
+    "minimum_chrome_version": "52",
     "manifest_version": 2
 }
