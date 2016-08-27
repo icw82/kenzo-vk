@@ -1,2 +1,0 @@
-(function(ext) {
-'use strict';

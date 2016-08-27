@@ -79,7 +79,7 @@ _Kenzo VK и подобные ему расширения могут вступ�
 <!-- Chromium 45+ (Chrome 45+, Яндекс.Браузер 15.10+, Opera 32+ и т. д.). -->
 <!-- Chromium 41+ (Chrome 41+, Яндекс.Браузер 15.4+, Opera 28+ и т. д.). -->
 
-<!--http://html5test.com/results/desktop.html-->
+<!-- http://html5test.com/results/desktop.html -->
 
 <!--
     Firefox 48 (Web Extentions)
