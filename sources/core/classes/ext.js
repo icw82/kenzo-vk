@@ -8,8 +8,6 @@ class Extention {
         this.modules = {};
 
         core.utils.local_console(this, this.name);
-
-        console.log(this);
     }
 
     init() {
@@ -36,17 +34,17 @@ class Extention {
             core.utils.inject_to_dom('svg', chrome.extension.getURL('images/graphics.svg'));
         }
 
-        const load_storage = () => new Promise((resolve, reject) => {
-            chrome.storage.local.get(ext.defaults, function(globals) {
-                // Set нужен, так как ext.globals не используется, в отличие от ext.options
-                chrome.storage.local.set(globals, function() {
-                    ext.info('current globals', globals);
-                    resolve();
+        const load_storage = new Promise((resolve, reject) => {
+            chrome.storage.local.get(ext.defaults, globals => {
+                chrome.storage.local.set(globals, () => {
+                    resolve(globals);
                 });
             });
         });
 
-        load_storage.then(() => {
+        load_storage.then(globals => {
+            ext.info('Current globals', globals);
+
             each (['content', 'background'], scope => {
                 if (core.scope === 'content') {
                     let init = self['init__' + scope];

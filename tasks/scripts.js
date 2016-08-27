@@ -5,9 +5,6 @@ const each = kk.each;
 
 const gulp = require('gulp');
 
-//const es = require('event-stream');
-//const fs = require('fs');
-//const path = require('path');
 //const replace = require('gulp-replace');
 //const rename = require('gulp-rename');
 //const gutil = require('gulp-util');
