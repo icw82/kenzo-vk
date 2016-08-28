@@ -1,9 +1,12 @@
 'use strict';
 const gulp = require('gulp');
 const concat = require('gulp-concat');
+//const join = require('path').join;
 
 const paths = [
-    'main.js'
+    'styles.css',
+    'modules/*/styles.css',
+    'modules/*/submodules/*/styles.css'
 ].map(item => './sources/ext/' + item);
 
 gulp.task('styles', () => gulp

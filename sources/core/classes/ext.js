@@ -53,8 +53,20 @@ class Extention {
                 }
             });
 
-            //init__modules();
+            // Инициирование модулей
+            init_modules();
         });
+
+        const init_modules = () => {
+            // FUTURE: Проверка на ацикличность графа зависимостей
+            // FUTURE: Promise.chain([ [*, *], [*, *], * ]);
+
+            for (let name in self.modules) {
+                if (self.modules[name] instanceof core.Module) {
+                    self.modules[name].init();
+                }
+            }
+        }
     }
 }
 

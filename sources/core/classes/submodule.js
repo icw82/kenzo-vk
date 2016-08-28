@@ -10,4 +10,4 @@ class SubModule {
     }
 }
 
-ext.SubModule = SubModule;
+core.SubModule = SubModule;

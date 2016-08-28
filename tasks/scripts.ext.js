@@ -14,70 +14,89 @@ const es = require('event-stream');
 //    'main.js'
 //].map(item => './sources/ext/' + item);
 
-const base = () => gulp
-    .src('./sources/ext/main.js');
+const is_dirSync = path => {
+    try {
+        return fs.statSync(path).isDirectory();
+    } catch (error) {
+        return false;
+    }
+}
+
+const base = path => gulp
+    .src(join (path, 'main.js'));
 
 const modules = path => {
     const modules = [];
 
-    each (fs.readdirSync(path), name => {
-        const dir = join(path, name);
+    if (is_dirSync(path)) {
+        each (fs.readdirSync(path), name => {
+            const dir = join(path, name);
 
-        if (!fs.statSync(dir).isDirectory())
-            return;
+            if (!is_dirSync(dir))
+                return;
 
-//        const queue = streamqueue({ objectMode: true });
+            const queue = streamqueue({ objectMode: true });
 
-        const paths = [
-            join(dir, 'main.js'),
-            join(dir, '*.js')
-        ];
+            // Основные файлы модуля
+            queue.queue(gulp.src([
+                join(dir, 'main.js'),
+                join(dir, '*.js')
+            ]).pipe(concat(name + '.js')));
 
-        const module = gulp
-            .src(paths)
-            .pipe(concat(name + '.js'))
-            .pipe(insert.wrap(
-                '(ext => {\nconst mod = new core.Module(\'' + name + '\');\n',
-                '\next.modules[\'' + name + '\'] = mod;\n})(ext);\n'));
+            // Подмодули
+            queue.queue(submodules(join(dir, 'submodules')));
 
-        modules.push(module);
+            const module = queue.done()
+                .pipe(concat(name + '.js'))
+                .pipe(insert.wrap(
+                    '(ext => {\nconst mod = new core.Module(\'' + name + '\');\n\n',
+                    '\next.modules[\'' + name + '\'] = mod;\n})(ext);\n'));
 
-//        const queue = streamqueue({ objectMode: true });
-
-//        queue.queue(gulp.src([
-//            join('./sources/open-code__mod.js'),
-//            join(module_dir, 'main.js'),
-//            join(module_dir, '*.js')
-//        ]));
-//
-//        let sub_modules_dir = join(module_dir, 'submodules');
-//
-//        if (is_dirSync(sub_modules_dir)) {
-//            queue.queue(sub_modules_stream(sub_modules_dir));
-//        }
-//
-//        queue.queue(gulp.src([
-//            join('./sources/close-code__mod.js')
-//        ]));
-//
-//        let module = queue.done().pipe(concat(name + '.js'))
-//
-//        modules.push(module);
-
-    });
+            modules.push(module);
+        });
+    }
 
     return es.merge(modules);
 }
 
 const submodules = path => {
+    const submodules = [];
 
+    if (is_dirSync(path)) {
+        each (fs.readdirSync(path), name => {
+            const dir = join(path, name);
+
+            if (!is_dirSync(dir))
+                return;
+
+            const queue = streamqueue({ objectMode: true });
+
+            // Файлы подмодуля
+            queue.queue(gulp.src([
+                join(dir, 'main.js'),
+                join(dir, '*.js')
+            ]).pipe(concat(name + '.js')));
+
+            const submodule = queue.done()
+                .pipe(concat(name + '.js'))
+                .pipe(insert.wrap(
+                    '(mod => {\nconst sub = new core.SubModule(\'' + name + '\');\n\n',
+                    '\nmod.submodules[\'' + name + '\'] = sub;\n})(mod);\n'));
+
+            modules.push(submodule);
+
+        });
+    }
+
+    return es.merge(submodules);
 }
 
 gulp.task('scripts_ext', () => {
+    const path = './sources/ext';
     const queue = streamqueue({ objectMode: true });
 
-    queue.queue(base());
-    queue.queue(modules('./sources/ext/modules/'));
+    queue.queue(base(path));
+    queue.queue(modules(join(path, 'modules')));
 
     return queue.done()
         .pipe(concat('ext.js'))

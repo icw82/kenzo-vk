@@ -1,4 +1,4 @@
-mod.init__content = function() {
+mod.init__content = () => {
     if (!ext.options.debug) return;
 
     if (mod.options.styles) {
