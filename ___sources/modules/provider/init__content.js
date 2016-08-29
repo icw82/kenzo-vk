@@ -36,7 +36,7 @@ mod.init__content = function() {
 
     function after_confirmation(message, port) {
         if (message.action === 'page is connected') {
-            mod.dispatch_load_event();
+            mod.on_loaded.dispatch();
         } else
             each (ignore_actions, function(item) {
                 if (message.action === item)

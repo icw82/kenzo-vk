@@ -4,7 +4,7 @@ const key = kk.generate_key(10);
 
 const events = {
     on_module_init: new kk.Event(),
-    on_module_load: new kk.Event(),
+    on_module_loaded: new kk.Event(),
 };
 
 events.on_content_loaded = new kk.Event(key);
@@ -59,7 +59,7 @@ events.on_node_removal.addListener(element => {
 
 // Изменение URL (Пока разработчики не родили нормальный тригер изменения url)
 events.on_change_location = new kk.Event(key);
-if (ext.scope === 'content') {
+if (core.scope === 'content') {
 
     let period = 50;
     let interval_id = false;

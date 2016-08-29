@@ -114,7 +114,7 @@ mod.init__background = function() {
                     action: 'page is connected'
                 });
 
-                mod.dispatch_load_event();
+                mod.on_loaded.dispatch();
 
                 return true;
             }, function() {

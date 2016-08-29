@@ -27,6 +27,6 @@ mod.init__background = function() {
     });
 
     // FUTURE: Определить зависимости для модулей, использующих загрузки
-    mod.dispatch_load_event();
+    mod.on_loaded.dispatch();
 
 }

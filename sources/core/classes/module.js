@@ -1,5 +1,5 @@
 class Module {
-    constructor (name) {
+    constructor (name, ext) {
         const self = this;
         this.name = name;
         this.ext = ext;
@@ -7,20 +7,74 @@ class Module {
         this.initiated = false;
         this.loaded = false;
         this.submodules = {};
+        this.on_init = new kk.Event();
+        this.on_loaded = new kk.Event();
 
         // Модули, которые должны работать до запуска данного модуля
         this.dependencies = [];
 
         core.utils.local_console(this, this.full_name);
 
-//        core.utils.object_to_flat();
-//        core.utils.flat_to_object();
+        ///
 
+        this.on_init.addListener(() => {
+            self.initiated = true;
+            if (!self.loaded)
+                self.log('Модуль инициирован');
+            core.events.on_module_init.dispatch(self.name);
+        });
+
+        this.on_loaded.addListener(() => {
+            self.loaded = true;
+            self.log('Модуль загружен');
+            core.events.on_module_loaded.dispatch(self.name);
+        });
     }
 
     init () {
         const self = this;
+        const init = this['init__' + core.scope];
 
+        if (!kk.is_f(init))
+            return;
+
+        this.dependencies = this.dependencies.filter(item => item !== this.name);
+
+        // Замена названий модулей на ссылки
+        each (self.dependencies, (module, i) => {
+            if (ext.modules[module] instanceof core.Module) {
+                self.dependencies[i] = ext.modules[module];
+            } else {
+                throw new Error('Модуль «' + module + '» не обнаружен');
+            }
+        });
+
+        const try_init = () => {
+            this.dependencies = this.dependencies.filter(module => !module.loaded);
+//            this.log('Dependencies', self.dependencies);
+
+            if (self.dependencies.length === 0) {
+                core.events.on_module_loaded.removeListener(try_init);
+
+                if (each (core.scopes, scope => {
+                    if (core.scope === scope) {
+                        const init = self['init__' + scope];
+                        kk.is_f(init) && init();
+                        return true;
+                    }
+                })) {
+//                    init_submodules(self);
+                };
+
+                self.on_init.dispatch();
+            }
+
+            if (!self.initiated) {
+                core.events.on_module_loaded.addListener(try_init);
+            }
+        }
+
+        try_init();
     }
 }
 
@@ -55,12 +109,7 @@ core.Module = Module;
 //
 //
 //    }
-//
-//    init () {
-//
-//
-//    }
-//
+
 //}
 
 //    function get_options(name, source) {
@@ -79,13 +128,7 @@ core.Module = Module;
 //
 //        return output;
 //    }
-//
-//    function set_options(name, new_value, target) {
-//        //
-//    }
-//
 
-//
 //    Object.defineProperty(this, 'options', {
 //        get: () => {
 //            return get_options(this.name, ext.options);
@@ -97,7 +140,7 @@ core.Module = Module;
 //        for (let name in mod.submodules) {
 //            if (mod.submodules[name] instanceof ext.SubModule) {
 //                let sub = mod.submodules[name];
-//                let init_for_scope = sub['init__' + ext.scope];
+//                let init_for_scope = sub['init__' + core.scope];
 //
 //                if (kk.is_f(init_for_scope)) {
 //                    if (!sub.initiated) {
@@ -109,68 +152,9 @@ core.Module = Module;
 //        }
 //    }
 //
-//    this.init = function() {
-//        const self = this;
-//        const init_for_scope = self['init__' + ext.scope];
+//    this.init = function()
 //
-////        console.log('------', self.name, 'init__' + ext.scope);
-//
-//        if (typeof init_for_scope === 'function') {
-//            var remove = [];
-//            each (self.dependencies, function(module_name) {
-//                // Если модуль загружен быстре, чем инициирован зависимый модуль
-//                if (module_name in ext.modules && ext.modules[module_name].loaded) {
-//                    remove.push(module_name);
-//                }
-//            }, function() {
-//                if (remove.length < 1) return;
-//                each (remove, function(module_name) {
-//                    var index = self.dependencies.indexOf(module_name);
-//                    if (index >= 0) {
-//                        self.dependencies.splice(index, 1);
-//                    }
-//                });
-//            });
-//
-//            try_init();
-//
-//            if (!self.initiated) {
-//                ext.events.on_module_load.addListener(check);
-//            }
-//        }
-//
-//        function check(module_name) {
-//            if (typeof module_name !== 'string') return;
-//            var index = self.dependencies.indexOf(module_name);
-//            if (index >= 0) {
-//                self.dependencies.splice(index, 1);
-//                try_init();
-//            }
-//        }
-//
-//        function try_init() {
-//            if (self.dependencies.length > 0) return;
-//            ext.events.on_module_load.removeListener(check);
-//
-//            init_for_scope();
-//            init_submodules(self);
-//
-//            self.dispatch_init_event();
-//        }
-//    }
-//
-//    this.dispatch_init_event = function() {
-//        this.initiated = true;
-//        if (!this.loaded)
-//            this.log('Модуль инициирован');
-//        ext.events.on_module_init.dispatch(this.name);
-//    }
-//
-//    this.dispatch_load_event = function() {
-//        this.loaded = true;
-//        this.log('Модуль загружен');
-//        ext.events.on_module_load.dispatch(this.name);
-//    }
+
 //
 //    // Подмодули
 //
@@ -228,8 +212,6 @@ core.Module = Module;
 //
 //    };
 //
-//
-//
 //    this.on_content_load = new Promise(ext.promise__content_load);
-//
+
 //}

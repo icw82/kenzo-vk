@@ -23,7 +23,7 @@ const is_dirSync = path => {
 }
 
 const base = path => gulp
-    .src(join (path, 'main.js'));
+    .src(join(path, 'main.js'));
 
 const modules = path => {
     const modules = [];
@@ -49,7 +49,7 @@ const modules = path => {
             const module = queue.done()
                 .pipe(concat(name + '.js'))
                 .pipe(insert.wrap(
-                    '(ext => {\nconst mod = new core.Module(\'' + name + '\');\n\n',
+                    '(ext => {\nconst mod = new core.Module(\'' + name + '\', ext);\n\n',
                     '\next.modules[\'' + name + '\'] = mod;\n})(ext);\n'));
 
             modules.push(module);
@@ -80,7 +80,7 @@ const submodules = path => {
             const submodule = queue.done()
                 .pipe(concat(name + '.js'))
                 .pipe(insert.wrap(
-                    '(mod => {\nconst sub = new core.SubModule(\'' + name + '\');\n\n',
+                    '(mod => {\nconst sub = new core.SubModule(\'' + name + '\', mod);\n\n',
                     '\nmod.submodules[\'' + name + '\'] = sub;\n})(mod);\n'));
 
             modules.push(submodule);
@@ -107,4 +107,7 @@ gulp.task('scripts_ext', () => {
 
 });
 
-//gulp.task('watch__scripts_ext', () => gulp.watch(paths, ['scripts_ext']));
+gulp.task('watch__scripts_ext', () => gulp.watch([
+    './sources/ext/*.js',
+    './sources/ext/**/*.js',
+], ['scripts_ext']));

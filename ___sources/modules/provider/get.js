@@ -9,7 +9,7 @@ mod.get = function(value, tab) {
     var key = kk.generate_key(15);
 
     return new Promise(function(resolve, reject) {
-        if (ext.scope === 'content') {
+        if (core.scope === 'content') {
             // Если вызывается из CS
             tab = mod.current_tab;
             var port = tab.port_of_background;
@@ -39,7 +39,7 @@ mod.get = function(value, tab) {
                     resolve(response);
             }
 
-        } else if (ext.scope === 'background') {
+        } else if (core.scope === 'background') {
             // Если вызывается из BG (proxy)
             mod.log('proxy', value);
 

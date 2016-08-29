@@ -21,9 +21,11 @@ class Extention {
             core.utils.inject_to_dom('js', chrome.extension.getURL('scripts/kk.min.js'));
 
             // Подключение стилей
-            each ([2016, 'm'], name => {
+            const modes = [2016, 'm'];
+
+            each (modes, name => {
                 if (ext.mode === name) {
-                    let url = chrome.extension.getURL('styles/styles.' + name + '.css')
+                    let url = chrome.extension.getURL('styles/ext.' + name + '.css')
                     if (url)
                         core.utils.inject_to_dom('css', url);
                     return true;
@@ -35,31 +37,40 @@ class Extention {
         }
 
         const load_storage = new Promise((resolve, reject) => {
-            chrome.storage.local.get(ext.defaults, globals => {
-                chrome.storage.local.set(globals, () => {
-                    resolve(globals);
+            chrome.storage.local.get(ext.defaults, storage => {
+                chrome.storage.local.set(storage, () => {
+                    resolve(storage);
                 });
             });
         });
 
-        load_storage.then(globals => {
-            ext.info('Current globals', globals);
+        load_storage.then(storage => {
+            ext.info('Storage', core.utils.flat_to_object(storage));
 
-            each (['content', 'background'], scope => {
-                if (core.scope === 'content') {
-                    let init = self['init__' + scope];
-                    kk.is_f(init) && init();
-                    return true;
+            // Слушатель хранилища
+            chrome.storage.onChanged.addListener((changes, areaName) => {
+                if (areaName === 'local') {
+                    ext.info('Storage onChanged', changes);
                 }
             });
 
-            // Инициирование модулей
-            init_modules();
+            if (each (core.scopes, scope => {
+                if (core.scope === scope) {
+                    const init = self['init__' + scope];
+                    kk.is_f(init) && init();
+                    return true;
+                }
+            })) {
+                // Инициирование модулей
+                init_modules();
+            };
         });
 
         const init_modules = () => {
             // FUTURE: Проверка на ацикличность графа зависимостей
             // FUTURE: Promise.chain([ [*, *], [*, *], * ]);
+
+            // TODO: Базовые модули
 
             for (let name in self.modules) {
                 if (self.modules[name] instanceof core.Module) {

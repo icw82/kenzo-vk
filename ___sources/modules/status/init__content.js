@@ -15,6 +15,6 @@ mod.init__content = function() {
         ext.dom.content = document.body.querySelector('#page_body');
         ext.dom.side_bar = document.body.querySelector('#side_bar');
 
-        mod.dispatch_load_event();
+        mod.on_loaded.dispatch();
     });
 }

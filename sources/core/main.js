@@ -1,6 +1,8 @@
 const core = {
     utils: {},
-    events: {}
+    events: {},
+    events_key: kk.generate_key(10),
+    scopes: ['content', 'background']
 }
 
 // Определение контекста

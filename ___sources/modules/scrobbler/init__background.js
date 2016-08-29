@@ -10,5 +10,5 @@ mod.init__background = function() {
 
     mod.observe();
 
-    mod.dispatch_load_event();
+    mod.on_loaded.dispatch();
 }

@@ -6,6 +6,7 @@ const insert = require('gulp-insert');
 const paths = [
     'main.js',
     'utils/*.js',
+    'events/*.js',
     'classes/*.js'
 ].map(item => './sources/core/' + item);
 

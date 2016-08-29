@@ -24,5 +24,5 @@ mod.init__content = function() {
         }
     });
 
-    mod.dispatch_load_event();
+    mod.on_loaded.dispatch();
 }
