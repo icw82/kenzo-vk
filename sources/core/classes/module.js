@@ -1,33 +1,46 @@
 class Module {
     constructor (name, ext) {
         const self = this;
+
+        if (name === 'base') {
+            throw new Error('Недопустимое имя модуля');
+        }
+
         this.name = name;
         this.ext = ext;
-        this.full_name = ext.name + ': ' + this.name;
+        this.full_name = ext.name + '.' + this.name;
+        core.utils.local_console(this, this.full_name);
+
+        this.submodules = {};
+        this.defaults = {};
+        this.storage = null;
+
         this.initiated = false;
         this.loaded = false;
-        this.submodules = {};
         this.on_init = new kk.Event();
         this.on_loaded = new kk.Event();
+        this.on_storage_changed = new kk.Event();
 
         // Модули, которые должны работать до запуска данного модуля
         this.dependencies = [];
-
-        core.utils.local_console(this, this.full_name);
-
-        ///
 
         this.on_init.addListener(() => {
             self.initiated = true;
             if (!self.loaded)
                 self.log('Модуль инициирован');
             core.events.on_module_init.dispatch(self.name);
+
         });
 
         this.on_loaded.addListener(() => {
             self.loaded = true;
             self.log('Модуль загружен');
             core.events.on_module_loaded.dispatch(self.name);
+        });
+
+        this.on_storage_changed.addListener(changes => {
+            //self.log(changes);
+            self.update_storage();
         });
     }
 
@@ -39,15 +52,18 @@ class Module {
             return;
 
         this.dependencies = this.dependencies.filter(item => item !== this.name);
+        this.update_storage();
 
         // Замена названий модулей на ссылки
         each (self.dependencies, (module, i) => {
-            if (ext.modules[module] instanceof core.Module) {
+            if (module in ext.modules) {
                 self.dependencies[i] = ext.modules[module];
             } else {
                 throw new Error('Модуль «' + module + '» не обнаружен');
             }
         });
+
+        // сбор настрокек с подмодулей
 
         const try_init = () => {
             this.dependencies = this.dependencies.filter(module => !module.loaded);
@@ -75,6 +91,15 @@ class Module {
         }
 
         try_init();
+    }
+
+    update_storage() {
+        if (this.name in this.ext.storage) {
+            this.storage = this.ext.storage[this.name];
+            if ('options' in this.storage) {
+                this.options = this.storage.options;
+            }
+        }
     }
 }
 

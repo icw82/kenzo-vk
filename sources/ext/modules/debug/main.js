@@ -1,6 +1,6 @@
-mod.dependencies.push('test');
+//mod.dependencies.push('test');
 
-mod.default_options = {
+mod.defaults.options = {
     _: false,
     log: false,
     styles: false

@@ -10,9 +10,10 @@ const fs = require('fs');
 const join = require('path').join;
 const es = require('event-stream');
 
-//const paths = [
-//    'main.js'
-//].map(item => './sources/ext/' + item);
+//const replace = require('gulp-replace');
+//const rename = require('gulp-rename');
+//const gutil = require('gulp-util');
+//const uglify = require('gulp-uglify');
 
 const is_dirSync = path => {
     try {

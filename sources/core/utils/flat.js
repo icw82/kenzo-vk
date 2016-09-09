@@ -30,7 +30,6 @@ core.utils.flat_to_object = flat => {
         let current = object;
 
         each (splited_path, (key, i) => {
-
             if (i < splited_path.length - 1) {
                 if (!kk.is_o(current[key])) {
                     current[key] = {};
@@ -39,7 +38,6 @@ core.utils.flat_to_object = flat => {
                 current = current[key];
             } else {
                 current[key] = flat[path];
-                console.log(path, flat[path]);
             }
         });
     }

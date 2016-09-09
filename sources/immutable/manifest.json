@@ -66,7 +66,7 @@
         "scripts/angular.min.js.map",
         "scripts/kk.min.js",
         "scripts/kk.min.js.map",
-        "scripts/ext.min.js.map",
+        "scripts/ext.js.map",
 
         "styles/ext.2016.css",
         "styles/ext.2006.css",

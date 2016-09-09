@@ -4,7 +4,7 @@ core.utils.inject_to_dom = (type, url) => {
         return;
 
     const xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function() {
+    xhr.onreadystatechange = () => {
         if (xhr.readyState === 4 && xhr.status === 200) {
             let container;
             if (type === 'svg') {
