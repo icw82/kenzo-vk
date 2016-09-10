@@ -10,8 +10,12 @@ if (location.protocol === 'chrome-extension:') {
     if (location.pathname === '/_generated_background_page.html') {
         core.scope = 'background';
         core.s = 'bg';
-    } else {
-        // TODO: Для страницы настроек?
+    } else if (location.pathname === '/layouts/options.html') {
+        core.scope = 'options';
+        core.s = 'opt';
+    } else if (location.pathname === '/layouts/browser_action.html') {
+        core.scope = 'browser_action';
+        core.s = 'act';
     }
 } else {
     core.scope = 'content';

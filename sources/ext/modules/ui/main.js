@@ -1,12 +1,14 @@
-var mod = new ext.Module('ui');
+//mod.dependencies = ['status'];
 
-mod.dependencies = ['status'];
-
-mod.default_options = {
+mod.defaults.options = {
     _: true,
     unrounding: false,
     ids: false,
     sidebar_button: false
+}
+
+mod.init__content = () => {
+    mod.on_loaded.dispatch();
 }
 
 //TODO: у постов, открыть в новой вкладке.

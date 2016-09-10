@@ -50,7 +50,7 @@ const modules = path => {
             const module = queue.done()
                 .pipe(concat(name + '.js'))
                 .pipe(insert.wrap(
-                    '(ext => {\nconst mod = new core.Module(\'' + name + '\', ext);\n\n',
+                    ';(ext => {\nconst mod = new core.Module(\'' + name + '\', ext);\n\n',
                     '\next.modules[\'' + name + '\'] = mod;\n})(ext);\n'));
 
             modules.push(module);
@@ -81,7 +81,7 @@ const submodules = path => {
             const submodule = queue.done()
                 .pipe(concat(name + '.js'))
                 .pipe(insert.wrap(
-                    '(mod => {\nconst sub = new core.SubModule(\'' + name + '\', mod);\n\n',
+                    ';(mod => {\nconst sub = new core.SubModule(\'' + name + '\', mod);\n\n',
                     '\nmod.submodules[\'' + name + '\'] = sub;\n})(mod);\n'));
 
             submodules.push(submodule);

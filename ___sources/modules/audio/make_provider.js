@@ -63,7 +63,7 @@ mod.make_provider = function(key) {
 
     provider.innerHTML = '(' + isolated_function + ')(' + JSON.stringify(_) + ')';
 
-    mod.on_content_load.then(function() {
+    core.events.on_content_loaded.addListener(() => {
         document.body.appendChild(provider);
     });
 }

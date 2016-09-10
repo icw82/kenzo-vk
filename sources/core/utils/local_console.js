@@ -12,7 +12,7 @@ core.utils.local_console = (object, prefix) => {
 
     each (['log', 'info', 'warn', 'error'], method => {
         object[method] = function() {
-            if (ext.options && !ext.options.debug__log)
+            if (ext && ext.options && ext.options.debug && !ext.options.debug.log)
                 return;
 
             console[method].apply(this, add_prefix(arguments));
@@ -20,7 +20,7 @@ core.utils.local_console = (object, prefix) => {
     });
 
 //    object.flood = function() {
-//        if (ext.options && !ext.options.debug__flood)
+//        if (ext && ext.storage && ext.storage.debug && ext.storage.debug.options.flood)
 //            return;
 //
 //        console.log.apply(this, add_prefix(arguments));

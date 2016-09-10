@@ -25,7 +25,7 @@ class DownloadButton2016 {
 //            'kzvk-download-button__container'
 //        ]
 //
-//        if (ext.options.download_button__simplified)
+//        if (simplified)
 //            this.container_classes.push('kzvk-simplified-view');
 //
         // Обёртка

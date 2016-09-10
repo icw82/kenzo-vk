@@ -1,5 +1,5 @@
 mod.init__content = function() {
-    if (ext.options.audio !== true) return;
+    if (mod.options._ !== true) return;
 
     if (!ext.mode) return;
 

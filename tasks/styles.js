@@ -11,13 +11,18 @@ gulp.task('styles', () => {
         gulp.src('./bower_components/kk/kk-reset.css')
     );
 
-    streams.push(
-        gulp.src([
-            'styles.css',
-            'modules/*/styles.css',
-            'modules/*/submodules/*/styles.css'].map(item => './sources/ext/' + item))
-        .pipe(concat('ext.css'))
-    );
+    for (let mode of ['', '.2016', '.m']) {
+        let list = [
+            'styles',
+            'modules/*/styles',
+            'modules/*/submodules/*/styles'
+        ];
+
+        streams.push(gulp
+            .src(list.map(item => './sources/ext/' + item + mode + '.css'))
+            .pipe(concat('ext' + mode + '.css'))
+        );
+    }
 
     return es.merge.apply(this, streams)
         .pipe(gulp.dest('build/styles'));

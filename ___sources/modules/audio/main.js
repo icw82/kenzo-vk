@@ -2,7 +2,7 @@ var mod = new ext.Module('audio');
 
 mod.dependencies = ['file'];
 
-mod.default_options = {
+mod.defaults.options = {
     _: true,
     download_button: true,
     replace_play_button: true,

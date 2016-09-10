@@ -49,7 +49,7 @@ class Audio2016 {
         this.dom.play_button_wrap = this.dom.original_play_button.parentElement;
 
         // Замена родной кнопки Play
-        if (ext.options.audio__replace_play_button) {
+        if (mod.options.replace_play_button) {
             this.dom.original_play_button.classList.add('kzvk-audio__original_play_button');
             this.dom.play_button = document.createElement('div');
             this.dom.play_button.innerHTML =
@@ -67,7 +67,7 @@ class Audio2016 {
 //                this.dom.play_button_wrap
 //            );
 
-        this.with_button = ext.options.audio__download_button;
+        this.with_button = mod.options.download_button;
         // Не встраивать кнопку в запись в узких колонках
         if (kk.find_ancestor(element, [
             '#profile_audios',

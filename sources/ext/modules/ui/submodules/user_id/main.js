@@ -1,5 +1,3 @@
-const sub = new ext.SubModule(mod, 'ids');
-
 //let limit = 1000;
 let cache = [];
 
@@ -177,7 +175,7 @@ let create = (container, id, type) => {
 
 sub.init__content = () => {
     core.events.on_mutation.addListener(mutations => {
-        if (ext.options.ui && ext.options.ui__ids) {
+        if (sub.mod.options._ && sub.mod.options.ids) {
             check();
         }
     });

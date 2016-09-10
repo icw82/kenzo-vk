@@ -199,33 +199,31 @@ function data($rootScope) {
     ];
 
     $rootScope.i18n = pre_i18n;
-    console.log('i18n', pre_i18n);
+    ext.log('i18n', pre_i18n);
 
-    $rootScope.options = {};
-    var listen_storage = false;
+    {
+        let listen_storage = false;
 
-//    chrome.storage.onChanged.addListener(function(changes, areaName) {
-//        if (areaName === 'sync') {
-//            sync_model();
-//        }
-//    });
-//
-//    sync_model();
-//
-//    function sync_model() {
-//        listen_storage = false;
-//
-//        chrome.storage.sync.get(ext.default_options, function(items) {
-//            $rootScope.options = items;
-//            $rootScope.$apply();
-//            listen_storage = true;
-//        });
-//    }
+        const sync_model = () => {
+            listen_storage = false;
 
-    $rootScope.$watch('options', function() {
-        (listen_storage) && chrome.storage.sync.set($rootScope.options);
-    }, true);
+            ext.load_storage().then(storage => {
+                $rootScope.storage = ext.storage;
+                $rootScope.$apply();
+                listen_storage = true;
+            });
+        }
 
+        sync_model();
+
+        ext.on_storage_changed.addListener(() => {
+            sync_model();
+        });
+
+        $rootScope.$watch('storage', (new_value, old_value) => {
+            (listen_storage) && ext.save_storage();
+        }, true);
+    }
 
     this.manifest = chrome.runtime.getManifest();
 
@@ -317,14 +315,14 @@ ScrobblerModCtrl.$inject = ['$scope', '$element', 'data'];
 function ScrobblerModCtrl($scope, $element, data) {
     const self = this;
 
-    this.scrobbler = {
-        auth_url: ext.modules.scrobbler.auth_url
-    }
-
-    // Токен
-    var token = window.location.href.match(/token=([\w\d]+)/) || false;
-    if (token)
-        ext.modules.scrobbler.methods.auth.getSession(token[1]);
+//    this.scrobbler = {
+//        auth_url: ext.modules.scrobbler.auth_url
+//    }
+//
+//    // Токен
+//    var token = window.location.href.match(/token=([\w\d]+)/) || false;
+//    if (token)
+//        ext.modules.scrobbler.methods.auth.getSession(token[1]);
 
 }
 

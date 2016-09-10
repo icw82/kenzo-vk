@@ -15,11 +15,12 @@ class Extention {
             }
         };
         this.storage = this.defaults;
-        this.options = this.storage.options;
 
-        this.initiated = false;
-        this.loaded = false;
-
+//        this.initiated = false;
+//        this.loaded = false;
+//        this.on_init = new kk.Event();
+//        this.on_loaded = new kk.Event();
+        this.on_storage_changed = new kk.Event();
     }
 
     init() {
@@ -57,36 +58,34 @@ class Extention {
             }
         }
 
-        const load_storage = new Promise((resolve, reject) => {
-            const flat_defaults = core.utils.object_to_flat(self.defaults);
-//            ext.info('flat_defaults', flat_defaults);
-            chrome.storage.local.get(flat_defaults, storage => {
-                chrome.storage.local.set(storage, () => resolve(storage));
-            });
-        });
-
-        load_storage.then(storage => {
-//            ext.info('flat storage', storage);
+        this.load_storage().then(storage => {
+//            self.info('flat storage', storage);
             self.storage = core.utils.flat_to_object(storage);
-            ext.info('Storage', self.storage);
+            self.options = self.storage._.options;
+            self.info('Storage', self.storage);
 
             // Слушатель хранилища
             chrome.storage.onChanged.addListener((changes, areaName) => {
                 if (areaName === 'local') {
                     changes = core.utils.flat_to_object(changes);
 
-                    for (let name in changes) {
-                        if (name === 'base') {
+                    self.load_storage().then(storage => {
+                        self.storage = core.utils.flat_to_object(storage);
+                        self.options = self.storage._.options;
+                        ext.on_storage_changed.dispatch(changes);
 
-                        } else {
-                            if (name in ext.modules) {
-                                let mod = ext.modules[name];
-                                mod.on_storage_changed.dispatch(changes[name]);
+                        for (let name in changes) {
+                            if (name === '_') {
+
+                            } else {
+                                if (name in ext.modules) {
+                                    let mod = ext.modules[name];
+                                    mod.on_storage_changed.dispatch(changes[name]);
+                                }
                             }
                         }
-                    }
-
-                    ext.info('Storage onChanged', changes);
+//                        self.info('Storage onChanged', changes);
+                    });
                 }
             });
 
@@ -101,7 +100,6 @@ class Extention {
                 init_modules();
             };
         });
-
 
         const init_modules = () => {
             // FUTURE: Проверка на ацикличность графа зависимостей
@@ -118,6 +116,27 @@ class Extention {
                 }
             }
         }
+    }
+
+    load_storage() {
+        const self = this;
+
+        return new Promise((resolve, reject) => {
+            const flat_defaults = core.utils.object_to_flat(self.defaults);
+//            self.info('flat_defaults', flat_defaults);
+            chrome.storage.local.get(flat_defaults, storage => {
+                chrome.storage.local.set(storage, () => resolve(storage));
+            });
+        });
+    }
+
+    save_storage() {
+        const self = this;
+
+        return new Promise((resolve, reject) => {
+            const flat_storage = core.utils.object_to_flat(self.storage);
+            chrome.storage.local.set(flat_storage, () => resolve(self.storage));
+        });
     }
 }
 

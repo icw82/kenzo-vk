@@ -2,22 +2,22 @@
     ng-controller="UIModCtrl as mod">
     <p>
         <label class="f-label checkbox level-1 outside">
-            <input type="checkbox" ng-model="options.ui">
+            <input type="checkbox" ng-model="storage.ui.options._">
             <span class="a-h1" ng-bind="i18n.ui.header"></span>
         </label>
     </p>
 
-    <div class="f-group" ng-class="{off: !options.ui}">
+    <div class="f-group" ng-class="{off: !storage.ui.options._}">
         <p>
             <label class="f-label checkbox">
-                <input type="checkbox" ng-model="options.ui__ids">
+                <input type="checkbox" ng-model="storage.ui.options.ids">
                 <span ng-bind="i18n.ui.ids"></span>
             </label>
         </p>
 <!--
         <p>
             <label class="f-label checkbox">
-                <input type="checkbox" ng-model="options.ui__sidebar_button">
+                <input type="checkbox" ng-model="storage.ui.options.sidebar_button">
                 <span ng-bind="i18n.ui.sidebar_button"></span>
                 <span class="f-2006-only"></span>
             </label>
@@ -25,7 +25,7 @@
 -->
         <p>
             <label class="f-label checkbox">
-                <input type="checkbox" ng-model="options.ui__unrounding">
+                <input type="checkbox" ng-model="storage.ui.options.unrounding">
                 <span ng-bind="i18n.ui.unrounding"></span>
 <!--                <span class="f-2016-only"></span>-->
             </label>

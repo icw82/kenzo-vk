@@ -1,9 +1,17 @@
 const ext = new core.Extention();
 
-ext.defaults._.options.filters = true;
-ext.defaults._.options.filters__square_brackets = true;
-ext.defaults._.options.filters__curly_brackets = true;
-ext.defaults._.options.download_button__simplified = false;
+ext.defaults._.options = {
+    filters: true,
+    filters__square_brackets: true,
+    filters__curly_brackets: true,
+    filters__trash: true,
+    download_button__simplified: false,
+    debug: {
+        _: false,
+        log: false,
+        styles: false
+    }
+}
 
 // Определение версии ВК
 if (location.hostname === 'vk.com')
@@ -14,23 +22,34 @@ else
     ext.mode = false;
 
 ext.init__content = () => {
-//    const on_content_load = new Promise(ext.promise__content_load);
-//
-//    on_content_load.then(function() {
-//        document.body.setAttribute('id', 'kz-ext');
-//        ext.dom.vk = {
-//            header: document.body.querySelector('#page_header_cont'),
-//            sidebar: document.body.querySelector('#side_bar'),
-//            body: document.body.querySelector('#page_body'),
-//            footer: document.body.querySelector('#footer_wrap')
-//            //narrow_column_wrap
-//        }
-//    });
+    if (!ext.options.debug._) {
+        console.warn('ОТЛАДОЧНЫЕ СООБЩЕНИЯ ОТКЛЮЧЕНЫ');
+        return;
+    }
+
+    core.events.on_content_loaded.addListener(() => {
+        document.body.setAttribute('id', 'kz-ext');
+        ext.dom.vk = {
+            header: document.body.querySelector('#page_header_cont'),
+            sidebar: document.body.querySelector('#side_bar'),
+            body: document.body.querySelector('#page_body'),
+            footer: document.body.querySelector('#footer_wrap')
+            //narrow_column_wrap
+        }
+
+        if (ext.options.debug.styles) {
+            kk.class_forever('kzvk-debug', document.body);
+        }
+    });
 }
 
 ext.init__background = () => {
-    // TODO: В утилиты?
+    if (!ext.options.debug._) {
+        console.warn('ОТЛАДОЧНЫЕ СООБЩЕНИЯ ОТКЛЮЧЕНЫ');
+        return;
+    }
 
+    // TODO: В утилиты?
 //    // Изменения, которые нужно произвести при загрузке новой версии
 //    kk.ls.create('ext_version');
 //    if (kk.ls.get('ext_version') !== ext.version) {

@@ -2,33 +2,33 @@
     ng-controller="TrashModCtrl as mod">
     <p>
         <label class="f-label checkbox level-1 outside">
-            <input type="checkbox" ng-model="options.trash">
+            <input type="checkbox" ng-model="storage.trash.options._">
             <span class="a-h1" ng-bind="i18n.trash.header"></span>
         </label>
     </p>
-    <div class="f-group" ng-class="{off: !options.trash}">
+    <div class="f-group" ng-class="{off: !storage.trash.options._}">
         <p>
             <label class="f-label checkbox">
-                <input type="checkbox" ng-model="options.trash__sidebar_ads">
+                <input type="checkbox" ng-model="storage.trash.options.sidebar_ads">
                 <span ng-bind="i18n.trash.sidebar_ads"></span>
             </label>
         </p>
         <p>
             <label class="f-label checkbox">
-                <input type="checkbox" ng-model="options.trash__potential_friends">
+                <input type="checkbox" ng-model="storage.trash.options.potential_friends">
                 <span ng-bind="i18n.trash.potential_friends"></span>
             </label>
         </p>
         <p>
             <label class="f-label checkbox">
-                <input type="checkbox" ng-model="options.trash__group_recom">
+                <input type="checkbox" ng-model="storage.trash.options.group_recom">
                 <span ng-bind="i18n.trash.group_recom"></span>
             </label>
         </p>
 <!--
         <p>
             <label class="f-label checkbox">
-                <input type="checkbox" ng-model="options.trash__newsads">
+                <input type="checkbox" ng-model="storage.trash.options.newsads">
                 <span ng-bind="i18n.trash.newsads"></span>
                 <span class="f-2006-only"></span>
             </label>
@@ -36,32 +36,32 @@
 -->
         <p>
             <label class="f-label checkbox">
-                <input type="checkbox" ng-model="options.trash__promoted_posts">
+                <input type="checkbox" ng-model="storage.trash.options.promoted_posts">
                 <span ng-bind="i18n.trash.promoted_posts"></span>
             </label>
         </p>
         <p>
             <label class="f-label checkbox">
-                <input type="checkbox" ng-model="options.trash__profile_rate">
+                <input type="checkbox" ng-model="storage.trash.options.profile_rate">
                 <span ng-bind="i18n.trash.profile_rate"></span>
             </label>
         </p>
         <p>
             <label class="f-label checkbox">
-                <input type="checkbox" ng-model="options.trash__big_like">
+                <input type="checkbox" ng-model="storage.trash.options.big_like">
                 <span ng-bind="i18n.trash.big_like"></span>
             </label>
         </p>
 <!--
         <p>
             <label class="f-label checkbox">
-                <input type="checkbox" ng-model="options.trash__user_reposts">
+                <input type="checkbox" ng-model="storage.trash.options.user_reposts">
                 <span ng-bind="i18n.trash.user_reposts"></span>
             </label>
         </p>
         <p>
             <label class="f-label checkbox">
-                <input type="checkbox" ng-model="options.trash__group_reposts">
+                <input type="checkbox" ng-model="storage.trash.options.group_reposts">
                 <span ng-bind="i18n.trash.group_reposts"></span>
             </label>
         </p>

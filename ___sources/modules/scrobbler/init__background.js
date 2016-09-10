@@ -1,5 +1,5 @@
 mod.init__background = function() {
-    if (ext.options.scrobbler !== true)
+    if (mod.options._ !== true)
         return;
 
     var status = ext.modules['status'];

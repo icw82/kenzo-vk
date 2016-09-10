@@ -1,8 +1,8 @@
 class SubModule {
-    constructor (mod, name) {
+    constructor (name, mod) {
         this.mod = mod;
         this.name = name;
-        this.full_name = mod.full_name + ': ' + this.name;
+        this.full_name = mod.full_name + '.' + this.name;
         this.initiated = false;
         this.loaded = false;
 

@@ -9,7 +9,7 @@ mod.inject = function(tab_id, key) {
         full_name: mod.full_name,
         key: key,
         tab_id: tab_id,
-        debug__log: ext.options.debug__log
+        debug__log: ext.storage.debug.options.debug__log
     }
 
     // Функция-провайдер, передаваемая во внешний скрипт в форме текста.
@@ -81,8 +81,7 @@ mod.inject = function(tab_id, key) {
 
     provider.innerHTML = '(' + isolated_function + ')(' + JSON.stringify(_) + ')';
 
-
-    mod.on_content_load.then(function() {
+    core.events.on_content_loaded.addListener(() => {
         document.body.appendChild(provider);
         // Сразу после создания DOM-объекта, функция выполняется.
         // Проверка показала, что скрипт-провайдер выполняется в первую очередь
