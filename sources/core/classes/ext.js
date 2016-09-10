@@ -8,8 +8,14 @@ class Extention {
         core.utils.local_console(this, this.name);
 
         this.modules = {};
-        this.defaults = {};
-        this.storage = null;
+        this.defaults = {
+            _: {
+                options: {},
+                keys: []
+            }
+        };
+        this.storage = this.defaults;
+        this.options = this.storage.options;
 
         this.initiated = false;
         this.loaded = false;
@@ -53,6 +59,7 @@ class Extention {
 
         const load_storage = new Promise((resolve, reject) => {
             const flat_defaults = core.utils.object_to_flat(self.defaults);
+//            ext.info('flat_defaults', flat_defaults);
             chrome.storage.local.get(flat_defaults, storage => {
                 chrome.storage.local.set(storage, () => resolve(storage));
             });

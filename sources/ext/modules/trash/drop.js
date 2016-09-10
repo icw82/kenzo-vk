@@ -1,8 +1,8 @@
 mod.drop = function(input, option) {
     const drop = node => {
-        if (ext.dom.trash_bin.contains(node))
+        if (mod.dom.trash_bin.contains(node))
             return;
-        ext.dom.trash_bin.appendChild(node);
+        mod.dom.trash_bin.appendChild(node);
         node.style.height = '0px';
         mod.log('drop', node);
     }

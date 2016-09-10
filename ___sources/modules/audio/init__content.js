@@ -3,7 +3,7 @@ mod.init__content = function() {
 
     if (!ext.mode) return;
 
-    ext.events.on_mutation.addListener(mt => {
+    core.events.on_mutation.addListener(mt => {
         let elements;
         let query;
 

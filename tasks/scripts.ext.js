@@ -84,7 +84,7 @@ const submodules = path => {
                     '(mod => {\nconst sub = new core.SubModule(\'' + name + '\', mod);\n\n',
                     '\nmod.submodules[\'' + name + '\'] = sub;\n})(mod);\n'));
 
-            modules.push(submodule);
+            submodules.push(submodule);
 
         });
     }

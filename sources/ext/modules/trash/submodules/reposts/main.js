@@ -1,5 +1,4 @@
 // Репосты пользователей
-const sub = new ext.SubModule(mod, 'reposts');
 
 // TODO: Обновить
 //mod.dom_observers.push({

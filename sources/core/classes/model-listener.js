@@ -29,4 +29,4 @@ class ModelListener {
 
 }
 
-ext.ModelListener = ModelListener;
+core.ModelListener = ModelListener;

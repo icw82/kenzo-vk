@@ -1,8 +1,10 @@
 mod.init__content = () => {
+    if (!mod.options._) {
+        console.warn('ОТЛАДОЧНЫЕ СООБЩЕНИЯ ОТКЛЮЧЕНЫ');
+        return;
+    }
 
-    if (!mod.options._) return;
-
-    core.events.on_content_loaded.then(() => {
+    core.events.on_content_loaded.addListener(() => {
         if (mod.options.styles) {
             kk.class_forever('kzvk-debug', document.body);
         }

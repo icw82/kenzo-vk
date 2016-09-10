@@ -3,7 +3,7 @@
 // Встраивание векторной графики
 core.utils.inject_to_dom('svg', chrome.extension.getURL('images/graphics.svg'));
 
-var modules = [];
+const modules = [];
 
 angular
     .module('kenzo', modules)
@@ -56,10 +56,10 @@ angular
 
 data.$inject = ['$rootScope'];
 function data($rootScope) {
-    var self = this;
+    const self = this;
 
     // Текст
-    var pre_i18n = get_messages(
+    const pre_i18n = get_messages(
         [
             'audio', [
                 'header',
@@ -303,7 +303,7 @@ angular
 
 VideoModCtrl.$inject = ['$scope', '$element', 'data'];
 function VideoModCtrl($scope, $element, data) {
-    var self = this;
+    const self = this;
 
 }
 
@@ -336,7 +336,7 @@ angular
 
 CommonOptionsCtrl.$inject = ['$scope', '$element', 'data'];
 function CommonOptionsCtrl($scope, $element, data) {
-    var self = this;
+    const self = this;
 
 }
 
@@ -348,7 +348,7 @@ angular
 
 UIModCtrl.$inject = ['$scope', '$element', 'data'];
 function UIModCtrl($scope, $element, data) {
-    var self = this;
+    const self = this;
 
 }
 
@@ -360,7 +360,7 @@ angular
 
 TrashModCtrl.$inject = ['$scope', '$element', 'data'];
 function TrashModCtrl($scope, $element, data) {
-    var self = this;
+    const self = this;
 
 }
 
@@ -372,7 +372,7 @@ angular
 
 DebugModCtrl.$inject = ['$scope', '$element', 'data'];
 function DebugModCtrl($scope, $element, data) {
-    var self = this;
+    const self = this;
 
 }
 
@@ -384,7 +384,7 @@ angular
 
 QueueCtrl.$inject = ['$scope', '$element', 'data'];
 function QueueCtrl($scope, $element, data) {
-    var self = this;
+    const self = this;
 
     this.list = data.download_queue;
     this.extedned_view = [];
@@ -425,6 +425,6 @@ function QueueCtrl($scope, $element, data) {
             console.log('REMOVE ID', id);
             queue.remove(id);
         });
-    };
+    }
 }
 

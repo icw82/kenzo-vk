@@ -8,6 +8,16 @@ class SubModule {
 
         core.utils.local_console(this, this.full_name);
     }
+
+    init () {
+        const self = this;
+        const init = this['init__' + core.scope];
+
+        if (!kk.is_f(init))
+            return;
+
+        init();
+    }
 }
 
 core.SubModule = SubModule;

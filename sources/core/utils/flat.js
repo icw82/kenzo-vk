@@ -9,7 +9,7 @@ core.utils.object_to_flat = object => {
             else
                 path += key;
 
-            if (kk.is_o(source[key])) {
+            if (kk.is_o(source[key]) && !kk.is_A(source[key])) {
                 flat(source[key], path)
             } else {
                 list[path] = source[key];

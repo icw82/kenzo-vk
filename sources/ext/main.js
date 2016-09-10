@@ -1,5 +1,10 @@
 const ext = new core.Extention();
 
+ext.defaults._.options.filters = true;
+ext.defaults._.options.filters__square_brackets = true;
+ext.defaults._.options.filters__curly_brackets = true;
+ext.defaults._.options.download_button__simplified = false;
+
 // Определение версии ВК
 if (location.hostname === 'vk.com')
     ext.mode = 2016;
@@ -39,3 +44,14 @@ ext.init__background = () => {
 //        kk.ls.update('ext_version', ext.version);
 //    }
 }
+
+// FUTURE: генерируемый messages.json;
+
+// FUTURE: Группы загрузок
+// FUTURE: Remove_group()
+// FUTURE: Clean_queue()
+// FUTURE: История загрузок
+// FUTURE: Сверка элементов очереди с кэшкм (?)
+// FUTURE: Сортировка очереди
+// FUTURE: Сверка элементов очереди с кэшкм (?)
+// FUTURE: Сверка элементов очереди с кэшкм (?)

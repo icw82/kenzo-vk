@@ -12,8 +12,11 @@ class Module {
         core.utils.local_console(this, this.full_name);
 
         this.submodules = {};
-        this.defaults = {};
-        this.storage = null;
+        this.defaults = {
+            options: {}
+        };
+        this.storage = this.defaults;
+        this.options = this.storage.options;
 
         this.initiated = false;
         this.loaded = false;
@@ -51,6 +54,7 @@ class Module {
         if (!kk.is_f(init))
             return;
 
+        this.dom = {};
         this.dependencies = this.dependencies.filter(item => item !== this.name);
         this.update_storage();
 
@@ -79,7 +83,7 @@ class Module {
                         return true;
                     }
                 })) {
-//                    init_submodules(self);
+                    init_submodules(self);
                 };
 
                 self.on_init.dispatch();
@@ -87,6 +91,17 @@ class Module {
 
             if (!self.initiated) {
                 core.events.on_module_loaded.addListener(try_init);
+            }
+        }
+
+        const init_submodules = () => {
+            for (let name in self.submodules) {
+                let sub = self.submodules[name];
+
+                if (sub instanceof core.SubModule) {
+//                    self.defaults[name] = sub.defaults;
+                    sub.init();
+                }
             }
         }
 

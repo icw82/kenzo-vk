@@ -151,7 +151,7 @@ class SimpleStore {
     }
 }
 
-ext.SimpleStore = SimpleStore;
+core.SimpleStore = SimpleStore;
 
 //ext.test = new ext.SimpleStore({
 //    name: 'test-db',
