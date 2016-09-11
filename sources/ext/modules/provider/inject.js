@@ -9,7 +9,7 @@ mod.inject = function(tab_id, key) {
         full_name: mod.full_name,
         key: key,
         tab_id: tab_id,
-        debug__log: ext.storage.debug.options.debug__log
+        debug__log: ext.options.debug__log
     }
 
     // Функция-провайдер, передаваемая во внешний скрипт в форме текста.

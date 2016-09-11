@@ -4,17 +4,17 @@ mod.queue_sync = (function() {
     _.queue = [];
 
     _.init = function() {
-        chrome.storage.local.get('downloads', function(storage) {
-            _.queue = storage.downloads;
-            _.sync();
-        });
-
-        chrome.storage.onChanged.addListener(function(changes, areaName) {
-            if ((areaName == 'local') && ('downloads' in changes)) {
-                _.queue = changes.downloads.newValue;
-                _.sync();
-            }
-        });
+//        chrome.storage.local.get('downloads', function(storage) {
+//            _.queue = storage.downloads;
+//            _.sync();
+//        });
+//
+//        chrome.storage.onChanged.addListener(function(changes, areaName) {
+//            if ((areaName == 'local') && ('downloads' in changes)) {
+//                _.queue = changes.downloads.newValue;
+//                _.sync();
+//            }
+//        });
     }
 
     _.sync = function() {

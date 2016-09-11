@@ -1,5 +1,3 @@
-var mod = new ext.Module('audio');
-
 mod.dependencies = ['file'];
 
 mod.defaults.options = {
@@ -11,6 +9,37 @@ mod.defaults.options = {
         ru: '—'
     })
 }
+
+mod.init__content = function() {
+    if (mod.options._ !== true || !ext.mode)
+        return;
+
+    core.events.on_mutation.addListener(() => {
+        let elements;
+        let query;
+
+        if (ext.mode === 2016) {
+            query = '.audio_row';
+        } else {
+            return;
+        }
+
+        elements = kk.d.querySelectorAll(query);
+
+        if (elements.length > 0) {
+            let item = mod.registry.update(elements);
+        }
+    });
+
+    mod.on_loaded.dispatch();
+}
+
+//mod.init__background = function() {
+//    if (mod.options._ !== true)
+//        return;
+//
+//    mod.on_loaded.dispatch();
+//}
 
 // TODO: удалять настройки, у которых нет значений по умолчанию? Чтобы не оставался мусор.
 

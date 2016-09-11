@@ -1,5 +1,3 @@
-const sub = new ext.SubModule(mod, 'audio_mpeg');
-
 sub.required_lenth_of_frame_header = 176;
 //   4 — header
 //  32 — CRC

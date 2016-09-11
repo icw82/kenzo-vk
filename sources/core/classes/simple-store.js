@@ -153,7 +153,7 @@ class SimpleStore {
 
 core.SimpleStore = SimpleStore;
 
-//ext.test = new ext.SimpleStore({
+//ext.test = new core.SimpleStore({
 //    name: 'test-db',
 //    version: 9,
 //    store: {

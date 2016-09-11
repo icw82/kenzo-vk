@@ -36,11 +36,11 @@ class Audio2016 {
         }
 
         // Чистка
-        this.vk.performer = ext.filter.base(this.vk.performer);
-        this.vk.performer = ext.filter.trash(this.vk.performer);
+        this.vk.performer = core.utils.filter.base(this.vk.performer);
+        this.vk.performer = core.utils.filter.trash(this.vk.performer);
 
-        this.vk.title = ext.filter.base(this.vk.title);
-        this.vk.title = ext.filter.trash(this.vk.title);
+        this.vk.title = core.utils.filter.base(this.vk.title);
+        this.vk.title = core.utils.filter.trash(this.vk.title);
 
         // Определение вида блока аудиозаписи
 

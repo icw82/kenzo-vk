@@ -2,20 +2,20 @@
     ng-controller="AudioModCtrl as mod">
     <p>
         <label class="f-label checkbox level-1 outside">
-            <input type="checkbox" ng-model="options.audio">
+            <input type="checkbox" ng-model="storage.audio.options._">
             <span class="a-h1" ng-bind="i18n.audio.header"></span>
         </label>
     </p>
-    <div class="f-group" ng-class="{off: !options.audio}">
+    <div class="f-group" ng-class="{off: !storage.audio.options._}">
         <p>
             <label class="f-label checkbox">
-                <input type="checkbox" ng-model="options.audio__download_button">
+                <input type="checkbox" ng-model="storage.audio.options.download_button">
                 <span ng-bind="i18n.audio.download_button"></span>
             </label>
         </p>
         <p>
             <label class="f-label checkbox">
-                <input type="checkbox" ng-model="options.audio__replace_play_button">
+                <input type="checkbox" ng-model="storage.audio.options.replace_play_button">
                 <span ng-bind="i18n.audio.replace_play_button"></span>
             </label>
         </p>
@@ -23,7 +23,7 @@
             <label class="f-label select">
                 <span ng-bind="i18n.audio.separator"></span>
                 <select
-                   ng-model="options.audio__separator"
+                   ng-model="storage.audio.options.separator"
                    ng-options="item.char as item.desc for item in i18n.audio.separators">
                 </select><br />
                 <span ng-bind="i18n.audio.separator__desc"

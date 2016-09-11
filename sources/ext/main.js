@@ -13,6 +13,16 @@ ext.defaults._.options = {
     }
 }
 
+
+//ext.defaults = {
+//    downloads: [],
+//    downloads__history: [],
+//    downloads__count: 1,
+//    scrobbler__buffer: [],
+//    scrobbler__session: {}
+//}
+
+
 // Определение версии ВК
 if (location.hostname === 'vk.com')
     ext.mode = 2016;
@@ -63,6 +73,8 @@ ext.init__background = () => {
 //        kk.ls.update('ext_version', ext.version);
 //    }
 }
+
+// FIX: https://vk.com/kenzovk?w=wall-70770587_1572
 
 // FUTURE: генерируемый messages.json;
 

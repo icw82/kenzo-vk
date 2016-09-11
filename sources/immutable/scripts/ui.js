@@ -200,6 +200,7 @@ function data($rootScope) {
 
     $rootScope.i18n = pre_i18n;
     ext.log('i18n', pre_i18n);
+    self.storage = {}
 
     {
         let listen_storage = false;
@@ -209,6 +210,7 @@ function data($rootScope) {
 
             ext.load_storage().then(storage => {
                 $rootScope.storage = ext.storage;
+//                self.storage = $rootScope.storage;
                 $rootScope.$apply();
                 listen_storage = true;
             });
@@ -372,6 +374,8 @@ DebugModCtrl.$inject = ['$scope', '$element', 'data'];
 function DebugModCtrl($scope, $element, data) {
     const self = this;
 
+//    console.log('data.storage', data.storage);
+//    this.options = data.storage;
 }
 
 

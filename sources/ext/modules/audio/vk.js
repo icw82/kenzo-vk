@@ -2,7 +2,7 @@ mod.vk = (mod => {
     const vk = {};
 
     // TODO: Допилить
-    const cache = new ext.SimpleStore({
+    const cache = new core.SimpleStore({
         name: 'kenzo-vk-audio',
         version: 4,
         store: {
@@ -42,10 +42,10 @@ mod.vk = (mod => {
 
         cache.get(id).then(data => {
             if (kk.is_o(data)) {
-                if (data.ts + 43200000 > kk.ts()) {
+                if (data.ts + 43200000 > kk.ts()) { // 12 часов
                     resolve(data.url);
                 } else {
-                    mod.core.utils.is_url_exists(data.url).then(() => {
+                    core.utils.is_url_exists(data.url).then(() => {
                         resolve(data.url);
                     }, get_and_record);
                 }

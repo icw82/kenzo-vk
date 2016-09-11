@@ -188,7 +188,7 @@ class DownloadQueue {
                 }
 
                 if (in_pending[0].name)
-                    options.filename = ext.filter.file_name(in_pending[0].name);
+                    options.filename = core.utils.filter.file_name(in_pending[0].name);
 
                 chrome.downloads.download(options, function(id) {
                     in_pending[0].chrome_id = id;
