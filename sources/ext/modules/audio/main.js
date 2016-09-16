@@ -1,4 +1,4 @@
-mod.dependencies = ['file'];
+//mod.dependencies = ['file'];
 
 mod.defaults.options = {
     _: true,
@@ -34,12 +34,12 @@ mod.init__content = function() {
     mod.on_loaded.dispatch();
 }
 
-//mod.init__background = function() {
-//    if (mod.options._ !== true)
-//        return;
-//
-//    mod.on_loaded.dispatch();
-//}
+mod.init__background = function() {
+    if (mod.options._ !== true)
+        return;
+
+    mod.on_loaded.dispatch();
+}
 
 // TODO: удалять настройки, у которых нет значений по умолчанию? Чтобы не оставался мусор.
 

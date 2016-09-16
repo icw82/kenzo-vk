@@ -15,8 +15,20 @@ class Module {
         this.defaults = {
             options: {}
         };
-        this.storage = this.defaults;
-        this.options = this.storage.options;
+
+        Object.defineProperty(this, 'storage', {
+            get: () => {
+                if (this.name in this.ext.storage) {
+                    return this.ext.storage[this.name];
+                } else {
+                    return this.defaults;
+                }
+            }
+        });
+
+        Object.defineProperty(this, 'options', {
+            get: () => this.storage.options
+        });
 
         this.initiated = false;
         this.loaded = false;
@@ -41,9 +53,10 @@ class Module {
             core.events.on_module_loaded.dispatch(self.name);
         });
 
-        this.on_storage_changed.addListener(changes => {
-            //self.log(changes);
-            self.update_storage();
+        ext.on_storage_changed.addListener(changes => {
+            if (self.name in changes) {
+                self.on_storage_changed.dispatch(changes[self.name]);
+            }
         });
     }
 
@@ -56,7 +69,6 @@ class Module {
 
         this.dom = {};
         this.dependencies = this.dependencies.filter(item => item !== this.name);
-        this.update_storage();
 
         // Замена названий модулей на ссылки
         each (self.dependencies, (module, i) => {
@@ -66,8 +78,6 @@ class Module {
                 throw new Error('Модуль «' + module + '» не обнаружен');
             }
         });
-
-        // сбор настрокек с подмодулей
 
         const try_init = () => {
             this.dependencies = this.dependencies.filter(module => !module.loaded);
@@ -106,15 +116,6 @@ class Module {
         }
 
         try_init();
-    }
-
-    update_storage() {
-        if (this.name in this.ext.storage) {
-            this.storage = this.ext.storage[this.name];
-            if ('options' in this.storage) {
-                this.options = this.storage.options;
-            }
-        }
     }
 }
 

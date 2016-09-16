@@ -1,20 +1,19 @@
 // Реестр используемых на странице файлов (класс File)
-mod.registry = (function() {
-
-    var registry = {
+mod.registry = (() => {
+    const registry = {
         list: []
     };
 
     // TODO: Оптимизировать: url → item
 
-    registry.get_by_url = function(url) {
+    registry.get_by_url = url => {
         return each (registry.list, function(item) {
             if (item.url === url)
                 return item;
         });
     }
 
-    registry.add = function(url) {
+    registry.add = url => {
         let file = registry.get_by_url(url);
 
         if (file) {

@@ -3,32 +3,34 @@ mod.methods = {
     track: {}
 };
 
-mod.methods.auth.getSession = (token, callback) => {
-    mod.session = null;
+mod.methods.auth.getSession = token => new Promise((resolve, reject) => {
+//    mod.storage.session = null;
+//    ext.save_storage();
 
     const params = {
         method: 'auth.getSession',
         token: token
     }
 
-    ext.modules.scrobbler.request(params, response => {
-//        mod.log('response', response);
+    mod.request(params).then(response => {
+        if (!kk.is_o(response))
+            return;
 
-        if (typeof response.session == 'object') {
+        mod.storage.session = response.session;
 
-            mod.session = response.session;
-            mod.log('mod.methods.auth.getSession >> mod.session', mod.session);
+        mod.log('mod.storage', mod.storage);
+        mod.log('ext.storage.scrobbler', ext.storage.scrobbler);
 
-            chrome.storage.local.get('scrobbler__session', function(storage) {
-                storage.scrobbler__session = response.session;
-                chrome.storage.local.set(storage, function() {
-                    if (typeof callback == 'function')
-                        callback();
-                });
-            });
-        }
-    });
-}
+        setTimeout(() => {
+            mod.log('ext.storage.scrobbler', ext.storage.scrobbler);
+            // Куда изчезает сессия, блять?
+        }, 2000)
+
+        ext.save_storage().then(() => {
+            resolve();
+        });
+    }, reject);
+});
 
 mod.methods.track.updateNowPlaying = function(params, callback) {
     if (typeof params !== 'object') {

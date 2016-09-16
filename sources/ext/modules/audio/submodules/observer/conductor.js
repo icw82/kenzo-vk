@@ -49,7 +49,7 @@ sub.conductor = () => {
                 }
 
                 info.name = info.performer + ' ' + separator + ' ' + info.title;
-//                sub.log('info', info);
+//                sub.log(info);
                 core.events.on_audio_play.dispatch(info);
             }
 

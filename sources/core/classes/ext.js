@@ -16,6 +16,10 @@ class Extention {
         };
         this.storage = this.defaults;
 
+        Object.defineProperty(this, 'options', {
+            get: () => this.storage._.options
+        });
+
 //        this.initiated = false;
 //        this.loaded = false;
 //        this.on_init = new kk.Event();
@@ -61,7 +65,6 @@ class Extention {
         this.load_storage().then(storage => {
 //            self.info('flat storage', storage);
             self.storage = core.utils.flat_to_object(storage);
-            self.options = self.storage._.options;
             self.info('Storage', self.storage);
 
             // Слушатель хранилища
@@ -71,7 +74,6 @@ class Extention {
 
                     self.load_storage().then(storage => {
                         self.storage = core.utils.flat_to_object(storage);
-                        self.options = self.storage._.options;
                         ext.on_storage_changed.dispatch(changes);
 
                         for (let name in changes) {

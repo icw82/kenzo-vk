@@ -1,17 +1,23 @@
-mod.init__content = function() {
+mod.defaults = {
+    queue: [],
+    history: [],
+    count: 1
+}
+
+mod.init__content = () => {
 //    mod.buttons_registry.init();
 
     mod.on_loaded.dispatch();
 }
 
-mod.init__background = function() {
-
+mod.init__background = () => {
     mod.history = new mod.DownloadHistory();
     mod.queue = new mod.DownloadQueue();
 
     // Обработка сообщений
-    chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-        if (sender.id !== chrome.runtime.id) return;
+    chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+        if (sender.id !== chrome.runtime.id)
+            return;
 
         if (request.action === 'download') {
             if (request.item) {
@@ -19,7 +25,7 @@ mod.init__background = function() {
                 return;
             }
 
-            if ((request.items instanceof kk._A) && request.items.length > 0) {
+            if (kk.is_A(request.items) && request.items.length > 0) {
                 mod.queue.add(request.items)
                 return;
             }

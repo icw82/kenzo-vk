@@ -1,14 +1,14 @@
-mod.init__content = function() {
+mod.init__content = () => {
     // Синхронизация реестра файлов с очередью загрузок;
     mod.queue_sync.init();
 
     mod.on_loaded.dispatch();
 };
 
-mod.init__background = function() {
-    const enabled_methods = [];
+mod.init__background = () => {
+    const enabled_methods = ['get'];
 
-    mod.cache  = new core.SimpleStore({
+    mod.cache = new core.SimpleStore({
         name: 'kenzo-vk',
         version: 4,
         store: {
@@ -18,13 +18,11 @@ mod.init__background = function() {
         }
     });
 
-    /////////////////
-
-    each ([
-        'get'
-    ], function(name) {
-        if (name in mod)
-            enabled_methods.push(name);
+    each (enabled_methods, (name, index) => {
+        if (!(name in mod)) {
+            enabled_methods.splice(index, 1);
+            mod.warn('Лишний метод');
+        }
     });
 
     chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
@@ -44,12 +42,10 @@ mod.init__background = function() {
             });
 
             return true;
-
         } else {
             sendResponse(result);
         }
     });
 
     mod.on_loaded.dispatch();
-
 };

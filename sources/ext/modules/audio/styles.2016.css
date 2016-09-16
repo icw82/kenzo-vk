@@ -8,7 +8,7 @@
 .kzvk-audio .audio_play_wrap{position: relative}
 
 /* Кнопка play */
-.kzvk-audio__original_play_button{display: none}
+.kzvk-audio__original_play_button{display: none!important}
 .kzvk-audio__play_button{display: block;
     width: var(--w-play); height: var(--h); box-sizing: border-box;
 /*    margin-top: 1px;*/

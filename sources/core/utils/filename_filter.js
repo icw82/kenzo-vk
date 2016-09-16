@@ -53,7 +53,7 @@ core.utils.filter.file_name = string => {
         string = chrome.i18n.getMessage('mistake');
     } else {
         string = string.replace(/[\\\/:\*\?\"<>\|\+~]/g, ' ');
-        string = _.trash(string);
+        string = core.utils.filter.trash(string);
     }
 
     return string.trim();

@@ -1,38 +1,26 @@
-mod.queue_sync = (function() {
+mod.queue_sync = (() => {
     const _ = {};
 
-    _.queue = [];
-
-    _.init = function() {
-//        chrome.storage.local.get('downloads', function(storage) {
-//            _.queue = storage.downloads;
-//            _.sync();
-//        });
-//
-//        chrome.storage.onChanged.addListener(function(changes, areaName) {
-//            if ((areaName == 'local') && ('downloads' in changes)) {
-//                _.queue = changes.downloads.newValue;
-//                _.sync();
-//            }
-//        });
+    _.init = () => {
+        ext.modules.downloads.on_storage_changed.addListener(_.sync);
     }
 
-    _.sync = function() {
+    _.sync = () => {
         each (mod.registry.list, _.update);
     }
 
-    _.update = function(file) {
-        let q = each (_.queue, function(q) {
+    _.update = file => {
+        let item = each (ext.storage.downloads.queue, item => {
             // Первая попавшаяся запись с этим URL
-            if (q.url === file.clean_url) {
-                return q;
+            if (item.url === file.clean_url) {
+                return item;
             }
         });
 
-        if (q) {
-            file.state = q.state;
-            file.queue_id = q.id;
-            file.progress = q.progress;
+        if (item) {
+            file.state = item.state;
+            file.queue_id = item.id;
+            file.progress = item.progress;
         } else {
             file.state = 0;
             file.queue_id = false;

@@ -49,7 +49,42 @@ angular
         };
     });
 
+
 // ————————————————————————————————————————
+
+const mod_options = (name, ctrl, $scope) => {
+//    console.log('mod_options', name);
+    ext.load_storage().then(() => {
+        let scope;
+
+        if (name === '_') {
+            scope = ext;
+        } else if (name in ext.modules) {
+            scope = ext.modules[name];
+        } else {
+            console.warn('Неправильное имя');
+            return;
+        }
+
+        ctrl.options = scope.options;
+        $scope.$apply();
+
+        ext.on_storage_changed.addListener(() => {
+//            console.log('on_storage_changed')
+            ctrl.options = scope.options;
+            $scope.$apply();
+        });
+
+        $scope.$watch(angular.bind(ctrl, () => ctrl.options), (new_value, old_value) => {
+//            console.log('$watch', new_value, old_value);
+            for (let key in ctrl.options) {
+                scope.options[key] = ctrl.options[key];
+            }
+            ext.save_storage();
+        }, true);
+    });
+}
+
 angular
     .module('kenzo')
     .service('data', data);
@@ -202,31 +237,6 @@ function data($rootScope) {
     ext.log('i18n', pre_i18n);
     self.storage = {}
 
-    {
-        let listen_storage = false;
-
-        const sync_model = () => {
-            listen_storage = false;
-
-            ext.load_storage().then(storage => {
-                $rootScope.storage = ext.storage;
-//                self.storage = $rootScope.storage;
-                $rootScope.$apply();
-                listen_storage = true;
-            });
-        }
-
-        sync_model();
-
-        ext.on_storage_changed.addListener(() => {
-            sync_model();
-        });
-
-        $rootScope.$watch('storage', (new_value, old_value) => {
-            (listen_storage) && ext.save_storage();
-        }, true);
-    }
-
     this.manifest = chrome.runtime.getManifest();
 
     this.clear_db = function() {
@@ -265,22 +275,20 @@ function data($rootScope) {
     });
 
     this.download_queue = [];
-    get_download_queue()
 
-    function get_download_queue() {
-        chrome.storage.local.get('downloads', function(data) {
-            self.download_queue = data.downloads;
-            $rootScope.$apply();
-        });
+    ext.load_storage().then(() => {
+        self.download_queue = ext.storage.downloads.queue;
+        $rootScope.$apply();
+    })
 
-    }
-
-    chrome.storage.onChanged.addListener(function(changes, areaName) {
-        if ((areaName == 'local') && ('downloads' in changes)) {
-            get_download_queue();
+    ext.on_storage_changed.addListener(changes => {
+        if ('downloads' in changes) {
+            if ('queue' in changes.downloads) {
+                self.download_queue = ext.storage.downloads.queue;
+                $rootScope.$apply();
+            }
         }
     });
-
 };
 
 
@@ -293,6 +301,7 @@ AudioModCtrl.$inject = ['$scope', '$element', 'data'];
 function AudioModCtrl($scope, $element, data) {
     var self = this;
 
+    mod_options('audio', this, $scope);
 }
 
 
@@ -305,8 +314,8 @@ VideoModCtrl.$inject = ['$scope', '$element', 'data'];
 function VideoModCtrl($scope, $element, data) {
     const self = this;
 
+    mod_options('video', this, $scope);
 }
-
 
 // ————————————————————————————————————————
 angular
@@ -316,16 +325,16 @@ angular
 ScrobblerModCtrl.$inject = ['$scope', '$element', 'data'];
 function ScrobblerModCtrl($scope, $element, data) {
     const self = this;
+    this.scrobbler = {
+        auth_url: ext.modules.scrobbler.auth_url
+    }
 
-//    this.scrobbler = {
-//        auth_url: ext.modules.scrobbler.auth_url
-//    }
-//
-//    // Токен
-//    var token = window.location.href.match(/token=([\w\d]+)/) || false;
-//    if (token)
-//        ext.modules.scrobbler.methods.auth.getSession(token[1]);
+    // Токен
+    const token = window.location.href.match(/token=([\w\d]+)/) || false;
+    if (token)
+        ext.modules.scrobbler.methods.auth.getSession(token[1]);
 
+    mod_options('scrobbler', self, $scope);
 }
 
 
@@ -338,6 +347,7 @@ CommonOptionsCtrl.$inject = ['$scope', '$element', 'data'];
 function CommonOptionsCtrl($scope, $element, data) {
     const self = this;
 
+    mod_options('_', this, $scope);
 }
 
 
@@ -350,6 +360,7 @@ UIModCtrl.$inject = ['$scope', '$element', 'data'];
 function UIModCtrl($scope, $element, data) {
     const self = this;
 
+    mod_options('ui', self, $scope);
 }
 
 
@@ -362,6 +373,7 @@ TrashModCtrl.$inject = ['$scope', '$element', 'data'];
 function TrashModCtrl($scope, $element, data) {
     const self = this;
 
+    mod_options('trash', self, $scope);
 }
 
 
@@ -374,8 +386,7 @@ DebugModCtrl.$inject = ['$scope', '$element', 'data'];
 function DebugModCtrl($scope, $element, data) {
     const self = this;
 
-//    console.log('data.storage', data.storage);
-//    this.options = data.storage;
+    mod_options('_', self, $scope);
 }
 
 
@@ -391,13 +402,7 @@ function QueueCtrl($scope, $element, data) {
     this.list = data.download_queue;
     this.extedned_view = [];
 
-    $scope.$watch(function() {
-        return data.download_queue;
-
-    }, function() {
-        self.list = data.download_queue;
-
-    }, true);
+    $scope.$watch(() => data.download_queue, () => { self.list = data.download_queue }, true);
 
     this.state_class = function(id) {
         if (id === 0)
@@ -421,12 +426,14 @@ function QueueCtrl($scope, $element, data) {
             this.extedned_view.push(id);
     }
 
-    this.remove = function(id) {
-        chrome.runtime.getBackgroundPage(function(background) {
-            let queue = background.ext.modules.downloads.queue;
-            console.log('REMOVE ID', id);
-            queue.remove(id);
-        });
+    this.remove = id => {
+        if (kk.is_n(id)) {
+            chrome.runtime.sendMessage({
+                action: 'cancel-download',
+                id: id
+            });
+        } else {
+            console.warn('Нет идентификатора');
+        }
     }
 }
-

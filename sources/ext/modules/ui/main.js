@@ -1,4 +1,4 @@
-//mod.dependencies = ['status'];
+//mod.dependencies = [''];
 
 mod.defaults.options = {
     _: true,
@@ -13,6 +13,7 @@ mod.init__content = () => {
 
 //TODO: у постов, открыть в новой вкладке.
 //TODO: Возраст, если известна дата.
+//TODO: Номера треков в посте
 
 //// TODO: унифицировать инструмент
 //mod.make_row = function(label, content) {
