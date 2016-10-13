@@ -12,8 +12,15 @@ core.utils.local_console = (object, prefix) => {
 
     each (['log', 'info', 'warn', 'error'], method => {
         object[method] = function() {
-            if (ext && ext.options && ext.options.debug && !ext.options.debug.log)
+            if (
+                ext &&
+                ext.loaded &&
+                ext.options &&
+                ext.options.debug &&
+                !ext.options.debug.log
+            ) {
                 return;
+            }
 
             console[method].apply(this, add_prefix(arguments));
         }

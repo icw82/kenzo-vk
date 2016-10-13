@@ -18,8 +18,8 @@ class Module {
 
         Object.defineProperty(this, 'storage', {
             get: () => {
-                if (this.name in this.ext.storage) {
-                    return this.ext.storage[this.name];
+                if (this.name in core.storage.data) {
+                    return core.storage.data[this.name];
                 } else {
                     return this.defaults;
                 }

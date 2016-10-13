@@ -277,7 +277,7 @@ class DownloadQueue {
                         }
                     });
                     item.chrome_id = id;
-                    ext.save_storage();
+                    ext.save_storage('download-queue/check');
                 });
             }
         }
@@ -468,7 +468,7 @@ class DownloadQueue {
 
         const self = this;
 
-        ext.save_storage().then(() => {
+        ext.save_storage('download-queue/update_storage').then(() => {
             if (changes.added > 0)
                 self.on_add.dispatch();
             if (changes.removed > 0)

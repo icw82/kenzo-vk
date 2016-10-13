@@ -7,6 +7,7 @@ const paths = [
     'main.js',
     'utils/*.js',
     'events/*.js',
+    'storage/*.js',
     'classes/*.js'
 ].map(item => './sources/core/' + item);
 
@@ -15,7 +16,7 @@ gulp.task('scripts_core', () => gulp
     .pipe(concat('core.js'))
     .pipe(insert.wrap(
         'const core = (kk => {\n\nconst each = kk.each;\n\n',
-        '\nreturn core;\n})(kk)\n'))
+        '\nreturn core;\n})(kk);\n\ncore.init();\n'))
     .pipe(gulp.dest('build/scripts'))
 );
 

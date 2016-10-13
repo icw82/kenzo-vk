@@ -1,6 +1,6 @@
 const ext = new core.Extention();
 
-ext.defaults._.options = {
+ext.defaults.options = {
     filters: true,
     filters__square_brackets: true,
     filters__curly_brackets: true,

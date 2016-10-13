@@ -1,6 +1,11 @@
 const core = {
     utils: {},
     events: {},
+    storage: {
+        defaults: {},
+        map: {},
+        data: {}
+    },
     events_key: kk.generate_key(10),
     scopes: ['content', 'background']
 }
@@ -20,4 +25,8 @@ if (location.protocol === 'chrome-extension:') {
 } else {
     core.scope = 'content';
     core.s = 'cs';
+}
+
+core.init = () => {
+
 }

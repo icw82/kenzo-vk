@@ -5,7 +5,7 @@ mod.methods = {
 
 mod.methods.auth.getSession = token => new Promise((resolve, reject) => {
 //    mod.storage.session = null;
-//    ext.save_storage();
+//    ext.save_storage('auth.getSession');
 
     const params = {
         method: 'auth.getSession',
@@ -19,14 +19,14 @@ mod.methods.auth.getSession = token => new Promise((resolve, reject) => {
         mod.storage.session = response.session;
 
         mod.log('mod.storage', mod.storage);
-        mod.log('ext.storage.scrobbler', ext.storage.scrobbler);
+        mod.log('ext.storage.scrobbler 1)', ext.storage.scrobbler);
 
         setTimeout(() => {
-            mod.log('ext.storage.scrobbler', ext.storage.scrobbler);
+            mod.log('ext.storage.scrobbler 2)', ext.storage.scrobbler);
             // Куда изчезает сессия, блять?
         }, 2000)
 
-        ext.save_storage().then(() => {
+        ext.save_storage('auth.getSession/response').then(() => {
             resolve();
         });
     }, reject);

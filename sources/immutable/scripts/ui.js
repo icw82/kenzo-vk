@@ -53,36 +53,57 @@ angular
 // ————————————————————————————————————————
 
 const mod_options = (name, ctrl, $scope) => {
-//    console.log('mod_options', name);
-    ext.load_storage().then(() => {
-        let scope;
+    console.log('mod_options', name);
 
-        if (name === '_') {
-            scope = ext;
-        } else if (name in ext.modules) {
-            scope = ext.modules[name];
-        } else {
-            console.warn('Неправильное имя');
-            return;
-        }
+    let root;
 
-        ctrl.options = scope.options;
-        $scope.$apply();
+    if (name === '_') {
+        root = ext;
+    } else if (name in ext.modules) {
+        root = ext.modules[name];
+    } else {
+        console.warn('Неправильное имя');
+        return;
+    }
 
-        ext.on_storage_changed.addListener(() => {
-//            console.log('on_storage_changed')
-            ctrl.options = scope.options;
+    {
+        let inited = false;
+        let ignore_watch = false;
+
+        ctrl.options = root.options;
+
+//        $scope.$apply();
+
+        root.on_storage_changed.addListener(changes => {
+            console.log('root.on_storage_changed', name, changes);
+            ignore_watch = true;
+            ctrl.options = root.options;
             $scope.$apply();
+            ignore_watch = false;
         });
 
-        $scope.$watch(angular.bind(ctrl, () => ctrl.options), (new_value, old_value) => {
-//            console.log('$watch', new_value, old_value);
-            for (let key in ctrl.options) {
-                scope.options[key] = ctrl.options[key];
+        $scope.$watch(() => ctrl.options, (new_value, old_value) => {
+            if (!inited) {
+                inited = true;
+                return;
             }
-            ext.save_storage();
+
+            if (ignore_watch) {
+                inited = true;
+                return;
+            }
+
+//            console.log('$watch', new_value, old_value);
+
+//            console.log('→ ', ctrl.options._);
+
+            for (let key in ctrl.options) {
+                root.options[key] = ctrl.options[key];
+                console.log(key + '→ ', ctrl.options[key], core.storage.data.audio.options[key]);
+            }
+            core.storage.save('options/$watch');
         }, true);
-    });
+    }
 }
 
 angular
@@ -276,17 +297,15 @@ function data($rootScope) {
 
     this.download_queue = [];
 
-    ext.load_storage().then(() => {
-        self.download_queue = ext.storage.downloads.queue;
-        $rootScope.$apply();
-    })
+//    ext.load_storage().then(() => {
+//        self.download_queue = ext.storage.downloads.queue;
+//        $rootScope.$apply();
+//    });
 
-    ext.on_storage_changed.addListener(changes => {
-        if ('downloads' in changes) {
-            if ('queue' in changes.downloads) {
-                self.download_queue = ext.storage.downloads.queue;
-                $rootScope.$apply();
-            }
+    ext.modules.downloads.on_storage_changed.addListener(changes => {
+        if ('queue' in changes) {
+            self.download_queue = ext.storage.downloads.queue;
+            $rootScope.$apply();
         }
     });
 };
@@ -301,7 +320,7 @@ AudioModCtrl.$inject = ['$scope', '$element', 'data'];
 function AudioModCtrl($scope, $element, data) {
     var self = this;
 
-    mod_options('audio', this, $scope);
+    mod_options('audio', self, $scope);
 }
 
 
@@ -314,7 +333,7 @@ VideoModCtrl.$inject = ['$scope', '$element', 'data'];
 function VideoModCtrl($scope, $element, data) {
     const self = this;
 
-    mod_options('video', this, $scope);
+    mod_options('video', self, $scope);
 }
 
 // ————————————————————————————————————————
@@ -347,7 +366,7 @@ CommonOptionsCtrl.$inject = ['$scope', '$element', 'data'];
 function CommonOptionsCtrl($scope, $element, data) {
     const self = this;
 
-    mod_options('_', this, $scope);
+    mod_options('_', self, $scope);
 }
 
 
