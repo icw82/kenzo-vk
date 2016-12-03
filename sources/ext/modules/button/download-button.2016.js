@@ -19,7 +19,7 @@ class DownloadButton2016 {
             'kzvk-pending',
             'kzvk-progress',
             'kzvk-unavailable'
-        ]
+        ];
 
 //        this.container_classes = [
 //            'kzvk-download-button__container'
@@ -283,7 +283,7 @@ class DownloadButton2016 {
                 module: self.module
             };
 
-//            console.log('* start() *', item);
+            console.log('Start download:', item);
 
             chrome.runtime.sendMessage({
                 action: 'download',

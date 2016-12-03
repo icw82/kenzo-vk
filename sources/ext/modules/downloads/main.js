@@ -20,6 +20,7 @@ mod.init__background = () => {
             return;
 
         if (request.action === 'download') {
+            console.log('download');
             if (request.item) {
                 mod.queue.add(request.item);
                 return;

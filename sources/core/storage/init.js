@@ -31,7 +31,7 @@ core.storage.init = () => new Promise((resolve, reject) => {
                     root.on_storage_changed.dispatch(changes[name]);
                 }
 
-                console.info('Storage onChanged', changes);
+//                console.info('Storage onChanged', changes);
             });
         });
 

@@ -18,7 +18,7 @@ mod.request = (params, post) => new Promise((resolve, reject) => {
                 if (xhr.response.error == 9) {
                     // 9 : Invalid session key - Please re-authenticate
                     mod.storage.session = null;
-                    ext.save_storage('scrobbler/request');
+//                    ext.save_storage('scrobbler/request');
                     mod.log('Сессия сброшена');
                     reject();
                 } else {

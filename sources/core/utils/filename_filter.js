@@ -18,15 +18,15 @@ core.utils.filter.trash = string => {
         return string;
     }
 
-//    if (!ext || !ext.storage._ || !ext.storage.filters) {
+//    if (!ext || !ext.options._ || !ext.options.filters) {
 //        return string;
 //    }
 
-    if (ext.storage.filters__square_brackets === true) {
+    if (ext.options.filters__square_brackets === true) {
         string = string.replace(/\[.+?\]/g, '');
     }
 
-    if (ext.storage.filters__curly_brackets === true) {
+    if (ext.options.filters__curly_brackets === true) {
         string = string.replace(/\{.+?\}/g, '');
     }
 

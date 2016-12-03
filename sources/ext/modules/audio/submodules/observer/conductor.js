@@ -37,13 +37,12 @@ sub.conductor = () => {
                     return;
                 }
 
-                const separator = '—';
-//                const separator = ext.storage.audio.options.separator;
+                const separator = mod.options.separator;
 
                 info.performer = core.utils.filter.base(info.performer)
                 info.title = core.utils.filter.base(info.title)
 
-                if (ext.storage._.options.filters__trash) {
+                if (ext.options.filters__trash) {
                     info.performer = core.utils.filter.trash(info.performer);
                     info.title = core.utils.filter.trash(info.title);
                 }

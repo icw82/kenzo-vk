@@ -18,17 +18,13 @@ mod.methods.auth.getSession = token => new Promise((resolve, reject) => {
 
         mod.storage.session = response.session;
 
-        mod.log('mod.storage', mod.storage);
-        mod.log('ext.storage.scrobbler 1)', ext.storage.scrobbler);
-
         setTimeout(() => {
-            mod.log('ext.storage.scrobbler 2)', ext.storage.scrobbler);
             // Куда изчезает сессия, блять?
         }, 2000)
 
-        ext.save_storage('auth.getSession/response').then(() => {
-            resolve();
-        });
+//        ext.save_storage('auth.getSession/response').then(() => {
+//            resolve();
+//        });
     }, reject);
 });
 

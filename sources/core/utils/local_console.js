@@ -26,10 +26,5 @@ core.utils.local_console = (object, prefix) => {
         }
     });
 
-//    object.flood = function() {
-//        if (ext && ext.storage && ext.storage.debug && ext.storage.debug.options.flood)
-//            return;
-//
-//        console.log.apply(this, add_prefix(arguments));
-//    }
+//    object.flood = function() { }
 }

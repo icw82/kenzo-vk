@@ -1,16 +1,20 @@
+// Синхронизация реестра файлов (registry.js) с очередью загрузок;
 mod.queue_sync = (() => {
     const _ = {};
 
     _.init = () => {
+        // При изменении очереди загрузок провести синхронизацию
+        // с реестром файлов:
         ext.modules.downloads.on_storage_changed.addListener(_.sync);
     }
 
     _.sync = () => {
+        // Перебор зарегистированных на странице файлов:
         each (mod.registry.list, _.update);
     }
 
     _.update = file => {
-        let item = each (ext.storage.downloads.queue, item => {
+        let item = each (mod.storage.queue, item => {
             // Первая попавшаяся запись с этим URL
             if (item.url === file.clean_url) {
                 return item;

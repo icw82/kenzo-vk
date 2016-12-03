@@ -298,13 +298,13 @@ function data($rootScope) {
     this.download_queue = [];
 
 //    ext.load_storage().then(() => {
-//        self.download_queue = ext.storage.downloads.queue;
+//        self.download_queue = ext.modules.downloads.storage.queue;
 //        $rootScope.$apply();
 //    });
 
     ext.modules.downloads.on_storage_changed.addListener(changes => {
         if ('queue' in changes) {
-            self.download_queue = ext.storage.downloads.queue;
+            self.download_queue = ext.modules.downloads.storage.queue;
             $rootScope.$apply();
         }
     });

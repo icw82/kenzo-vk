@@ -38,7 +38,7 @@ class DownloadQueue {
 
         this.loop__interval = false;
         this.loop__interval_duration = 1200;
-        this.max_active = 10;
+        this.max_active = 2; // TODO: Опцией
 
 //        mod.on_storage_changed.addListener(changes => {
 //            console.log('— storage changes →', changes, mod.storage.queue.length);
@@ -277,7 +277,7 @@ class DownloadQueue {
                         }
                     });
                     item.chrome_id = id;
-                    ext.save_storage('download-queue/check');
+                    core.storage.save('download-queue/check');
                 });
             }
         }
@@ -468,7 +468,9 @@ class DownloadQueue {
 
         const self = this;
 
-        ext.save_storage('download-queue/update_storage').then(() => {
+//        console.log('changes:', changes)
+
+        core.storage.save('download-queue/update_storage').then(() => {
             if (changes.added > 0)
                 self.on_add.dispatch();
             if (changes.removed > 0)
