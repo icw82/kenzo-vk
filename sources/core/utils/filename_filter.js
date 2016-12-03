@@ -18,16 +18,15 @@ core.utils.filter.trash = string => {
         return string;
     }
 
-    if (!ext || !ext.storage._ || !ext.storage._.options) {
-        console.error('core.utils.filter.trash: настройки не обнаружены');
-        return string;
-    }
+//    if (!ext || !ext.storage._ || !ext.storage.filters) {
+//        return string;
+//    }
 
-    if (ext.storage._.options.filters__square_brackets === true) {
+    if (ext.storage.filters__square_brackets === true) {
         string = string.replace(/\[.+?\]/g, '');
     }
 
-    if (ext.storage._.options.filters__curly_brackets === true) {
+    if (ext.storage.filters__curly_brackets === true) {
         string = string.replace(/\{.+?\}/g, '');
     }
 
