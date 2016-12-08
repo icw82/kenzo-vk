@@ -14,8 +14,9 @@ mod.queue_sync = (() => {
     }
 
     _.update = file => {
-        let item = each (mod.storage.queue, item => {
-            // Первая попавшаяся запись с этим URL
+        // Поиск соответствия зарегистрированного файла и записи в очереди:
+        let item = each (ext.modules.downloads.storage.queue, item => {
+            // Первая попавшаяся запись с этим URL:
             if (item.url === file.clean_url) {
                 return item;
             }

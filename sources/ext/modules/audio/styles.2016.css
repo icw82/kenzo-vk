@@ -40,4 +40,4 @@
 
 .kzvk-audio.audio_row_current:hover .kzvk-overlay{fill: rgb(232, 237, 244)}
 .kzvk-audio.inlined.audio_row_current:hover .kzvk-overlay{fill: white}
-.kzvk-audio:not(.audio_row_current):hover .kzvk-overlay{fill: rgb(245, 247, 250)}
+.kzvk-audio:not(.audio_row_current):hover .kzvk-overlay{fill: rgb(240, 242, 245)}

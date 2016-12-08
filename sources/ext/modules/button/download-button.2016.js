@@ -105,15 +105,15 @@ class DownloadButton2016 {
 
         }
 
-        this.container.addEventListener('mousedown', function(event) {
+        this.container.addEventListener('mousedown', event => {
             self.button_handler(event);
         }, false);
 
-        this.container.addEventListener('dragstart', function(event) {
+        this.container.addEventListener('dragstart', event => {
             self.button_handler(event);
         }, false);
 
-        this.container.addEventListener('click', function(event) {
+        this.container.addEventListener('click', event => {
             self.button_handler(event);
         }, false);
 
@@ -123,11 +123,11 @@ class DownloadButton2016 {
 //        this.file.on_error.addListener(this.update.bind(this));
         this.update();
 
-        this.file.on_change_progress.addListener(function() {
+        this.file.on_change_progress.addListener(() => {
             self.update_state();
         });
 
-        this.file.on_change_state.addListener(function() {
+        this.file.on_change_state.addListener(() => {
             self.update_state();
         });
     }
@@ -210,6 +210,7 @@ class DownloadButton2016 {
         }
 
         if (self.file.state === 2) {
+//            console.log('self.file.progress', self.file.progress);
             kk.class(self.element, 'kzvk-progress', self.classes);
             self.progress__filling.style.transform =
                 'translateX(' + (-100 + self.file.progress) + '%)';

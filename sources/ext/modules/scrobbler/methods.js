@@ -12,38 +12,27 @@ mod.methods.auth.getSession = token => new Promise((resolve, reject) => {
         token: token
     }
 
-    mod.request(params).then(response => {
+    mod.request(params, true).then(response => {
         if (!kk.is_o(response))
             return;
 
         mod.storage.session = response.session;
+        core.storage.save('getSession');
 
-        setTimeout(() => {
-            // Куда изчезает сессия, блять?
-        }, 2000)
-
-//        ext.save_storage('auth.getSession/response').then(() => {
-//            resolve();
-//        });
     }, reject);
 });
 
-mod.methods.track.updateNowPlaying = function(params, callback) {
-    if (typeof params !== 'object') {
-        mod.warn('Параметры не заданы')
-        return false;
-    }
-
+mod.methods.track.updateNowPlaying = params => new Promise((resolve, reject) => {
     params.method = 'track.updateNowPlaying';
 
-    ext.modules.scrobbler.request(params, function(response) {
-        // mod.log('updateNowPlaying:', response);
+    mod.request(params, true).then(response => {
+        if (!kk.is_o(response))
+            return;
 
-        if (typeof callback == 'function')
-            callback(response);
+        resolve(response);
 
-    }, true);
-}
+    }, reject);
+});
 
 mod.methods.track.scrobble = function(params, callback) {
     if (typeof params !== 'object') {

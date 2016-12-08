@@ -90,7 +90,7 @@ class File {
 
             Object.defineProperty(self, key, {
                 get: () => {return _[key]},
-                set: function(new_value) {
+                set: new_value => {
                     if (_[key] !== new_value) {
                         _[key] = new_value;
                         self['on_change_' + key].dispatch();

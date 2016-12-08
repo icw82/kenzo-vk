@@ -49,7 +49,11 @@ mod.request = (params, post) => new Promise((resolve, reject) => {
 
     params.api_key = mod.api_key;
 
-    if (kk.is_o(mod.storage.session) && ('key' in mod.storage.session)) {
+    if (
+        kk.is_o(mod.storage.session)
+        && (mod.storage.session !== null)
+        && ('key' in mod.storage.session)
+    ) {
         params.sk = mod.storage.session.key;
     }
 

@@ -9,7 +9,12 @@ core.utils.object_to_flat = object => {
             else
                 path += key;
 
-            if (kk.is_o(source[key]) && !kk.is_A(source[key])) {
+            if (
+                kk.is_o(source[key])
+                && !kk.is_A(source[key])
+                && (source[key] !== null)
+                && Object.keys(source[key]).length > 0
+            ) {
                 flat(source[key], path)
             } else {
                 list[path] = source[key];
@@ -29,14 +34,21 @@ core.utils.flat_to_object = flat => {
         const splited_path = path.split('.');
         let current = object;
 
+        // test.testico = null
+
         each (splited_path, (key, i) => {
             if (i < splited_path.length - 1) {
-                if (!kk.is_o(current[key])) {
+                // Путь
+                if (!kk.is_o(current[key]) || current[key] === null) {
                     current[key] = {};
                 }
 
                 current = current[key];
             } else {
+                // Конечное значение
+                if (current === null)
+                    current = {};
+
                 current[key] = flat[path];
             }
         });
