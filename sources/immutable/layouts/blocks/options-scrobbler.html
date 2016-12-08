@@ -1,0 +1,36 @@
+<section class="module scrobbler">
+    <div ng-controller="ScrobblerModCtrl as mod">
+        <p>
+            <label class="f-label checkbox level-1 outside short">
+                <input type="checkbox" ng-model="mod.options._">
+                <span class="a-h1" ng-bind="i18n.scrobbler.header"></span>
+            </label>
+            <a class="f-button" ng-href="[[ mod.scrobbler.auth_url ]]">
+                Авторизировать
+            </a>
+        </p>
+        <div class="f-group" ng-class="{off: !mod.options._}">
+            <p>
+                На <input type="range" min="50" max="100" step="5"
+                    style="vertical-align: top; width:100px"
+                    ng-model="mod.options.proportion" />
+                <span
+                    ng-bind="mod.options.proportion"></span>% композиции
+                </label>
+            </p>
+            <p>
+                <label class="f-label checkbox">
+                    <input type="checkbox" ng-model="mod.options.m4m">
+                    <span ng-bind="i18n.scrobbler.m4m"></span>
+                </label>
+                <span class="a-description" ng-bind="i18n.scrobbler.m4m__desc"></span>
+            </p>
+            <p>
+                <label class="f-label checkbox">
+                    <input type="checkbox" ng-model="mod.options.name_filter">
+                    <span ng-bind="i18n.scrobbler.name_filter"></span>
+                </label>
+            </p>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,176 @@
+{
+    "ext_name": {
+        "message": "Кензо ВК"
+    },
+    "ext_description": {
+        "message": "Определение битрейта и скачивание аудиозаписей вконтакте (vk.com), антиреклама скробблинг и раскругление"
+    },
+    "mistake": {
+        "message": "Недоразумение"
+    },
+
+
+    "o__audio__header": {
+        "message": "Аудио"
+    },
+    "o__audio__download_button": {
+        "message": "Кнопка с битрейтом"
+    },
+    "o__audio__replace_play_button": {
+        "message": "Замена кнопки проигрывания"
+    },
+    "o__audio__separator": {
+        "message": "Разделитель:"
+    },
+    "o__audio__separator__desc": {
+        "message": "При сохранении этот знак будет разделять имя исполнителя и название"
+    },
+    "o__audio__separator__1": {
+        "message": "—"
+    },
+    "o__audio__separator__1__desc": {
+        "message": "тире"
+    },
+    "o__audio__separator__2": {
+        "message": "–"
+    },
+    "o__audio__separator__2__desc": {
+        "message": "среднее тире"
+    },
+    "o__audio__separator__3": {
+        "message": "-"
+    },
+    "o__audio__separator__3__desc": {
+        "message": "дефис"
+    },
+
+
+    "o__debug__header": {
+        "message": "Отладка"
+    },
+    "o__debug__styles": {
+        "message": "Стили"
+    },
+    "o__debug__log": {
+        "message": "Сообщения в консоли"
+    },
+
+
+    "o__download_button__simplified": {
+        "message": "Упрощённый вид кнопок скачивания"
+    },
+    "o__download_button__simplified__desc": {
+        "message": "Убирает анимацию, увеличивая производительность страницы с большим количеством кнопок"
+    },
+
+
+    "o__filters__brackets": {
+        "message": "Удалять из названий сохраняемых файлов скобки и их содержимое:"
+    },
+    "o__filters__square_brackets": {
+        "message": "[квадратные]"
+    },
+    "o__filters__curly_brackets": {
+        "message": "{фигурные}"
+    },
+
+
+    "o__header": {
+        "message": "Настройки"
+    },
+
+
+    "o__info__changes": {
+        "message": "Некоторые изменения вступают в силу после перезагрузки страницы VK"
+    },
+    "o__info__in2006": {
+        "message": "— только для старой версии VK"
+    },
+    "o__info__in2016": {
+        "message": "— только для новой"
+    },
+    "o__info__beta": {
+        "message": "Прежде чем использовать тестируемый функционал (β), прочтите его описание<br />в *официальной группе расширения*"
+    },
+
+
+    "o__common": {
+        "message": "Общее"
+    },
+
+
+    "o__reset": {
+        "message": "Сбросить настройки"
+    },
+
+
+    "o__scrobbler__header": {
+        "message": "Скробблер (β)"
+    },
+    "o__scrobbler__m4m": {
+        "message": "… или через 4 минуты"
+    },
+    "o__scrobbler__m4m__desc": {
+        "message": "(в зависимости от того, какое событие наступит раньше)"
+    },
+    "o__scrobbler__name_filter": {
+        "message": "Фильтр передаваемых названий"
+    },
+
+
+    "o__trash__header": {
+        "message": "Сбор мусора"
+    },
+    "o__trash__sidebar_ads": {
+        "message": "Реклама в сайдбаре"
+    },
+    "o__trash__potential_friends": {
+        "message": "Предложение друзей"
+    },
+    "o__trash__newsads": {
+        "message": "Рекомендации между постами"
+    },
+    "o__trash__promoted_posts": {
+        "message": "Продвигаемые посты"
+    },
+    "o__trash__group_recom": {
+        "message": "Рекомендуемые сообщества"
+    },
+    "o__trash__profile_rate": {
+        "message": "Заполненность профиля"
+    },
+    "o__trash__big_like": {
+        "message": "Кнопка ♥ на изображении"
+    },
+    "o__trash__user_reposts": {
+        "message": "Репосты пользователей"
+    },
+    "o__trash__group_reposts": {
+        "message": "Репосты групп"
+    },
+
+
+    "o__ui__header": {
+        "message": "Дополнения интерфейса"
+    },
+    "o__ui__unrounding": {
+        "message": "Раскруглить это дерьмо"
+    },
+    "o__ui__ids": {
+        "message": "Идентификаторы пользователей и групп в заголовках страниц"
+    },
+    "o__ui__sidebar_button": {
+        "message": "Ссылка на эту страницу в меню"
+    },
+
+
+    "o__video__header": {
+        "message": "Видео"
+    },
+    "o__video__format_before_ext": {
+        "message": "Формат видеозаписи перед расширением в названии файла"
+    },
+    "o__video__format_before_ext__desc": {
+        "message": "Например: «название.720.mp4»"
+    }
+}

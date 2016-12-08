@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html ng-app="kenzo">
+<head>
+    <title></title>
+    <link rel="stylesheet" href="../styles/kk-reset.css" />
+    <link rel="stylesheet" href="../styles/ui.css" />
+    <link rel="stylesheet" href="../styles/browser_action.css" />
+</head>
+
+<body>
+    <div class="layout-global-wrapper">
+        <div class="layout-wrapper">
+            <div class="b-tabs" data-name="browser_action">
+                <div class="b-tabs__anchors">
+                    <div class="b-tabs__anchor">
+                        Очередь
+                    </div><div class="b-tabs__anchor">
+                        Настройки
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layout-wrapper dec-page">
+            <div class="b-tabs" data-name="browser_action">
+                <div class="b-tabs__frame">
+                    <div class="b-tabs__container">
+                        <div class="b-tabs__item pad">
+                            <div class="grid">
+                                <div class="col-4">
+                                    <div block="queue"></div>
+                                </div>
+                            </div>
+                        </div><div class="b-tabs__item pad">
+                            <div class="grid">
+                                <div class="col-4">
+                                    <div block="options-audio"></div>
+<!--                                    <div block="options-video"></div>-->
+                                    <div block="options-scrobbler"></div>
+                                    <div block="options-common"></div>
+                                    <div block="options-ui"></div>
+                                    <div block="options-trash"></div>
+                                    <div block="options-debug"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../scripts/angular.min.js"></script>
+    <script src="../scripts/angular-sanitize.min.js"></script>
+    <script src="../scripts/kk.min.js"></script>
+<!--
+    <script src="../scripts/md5.min.js"></script>
+    <script src="../scripts/he.js"></script>
+-->
+    <script src="../scripts/core.js"></script>
+    <script src="../scripts/ext.js"></script>
+    <script src="../scripts/ui.js"></script>
+    <script src="../scripts/browser_action.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+</body>
+</html>
