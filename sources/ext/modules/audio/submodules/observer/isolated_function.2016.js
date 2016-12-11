@@ -12,6 +12,12 @@ const isolated_function_2016 = properties => {
             key: properties.key
         }
 
+//        otherWindow.postMessage(message, targetOrigin, [transfer]);
+//        window.postMessage({
+//            direction: "from-page-script",
+//            message: "Message from the page"
+//        }, "*");
+
         chrome.runtime.sendMessage(properties.id, message, key => {
             if (!kk.is_s(key))
                 return;
