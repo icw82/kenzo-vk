@@ -45,8 +45,14 @@ class Audio2016 {
         // Определение вида блока аудиозаписи
 
         // Определение оригинальный кнопки проигрывания
-        this.dom.original_play_button = this.dom.element.querySelector('button.audio_play');
-        this.dom.play_button_wrap = this.dom.original_play_button.parentElement;
+        this.dom.original_play_button =
+            this.dom.element.querySelector('button.audio_play');
+        if (kk.is_E(this.dom.original_play_button)) {
+            this.dom.play_button_wrap =
+                this.dom.original_play_button.parentElement;
+        } else {
+            console.warn('rgnlbtn>', this.dom.element);
+        }
 
         // Замена родной кнопки Play
         if (mod.options.replace_play_button) {
@@ -81,7 +87,6 @@ class Audio2016 {
         }
 
         mod.vk.get_url(this.vk.full_id).then(url => {
-
             // Добавление или извлечение записи из реестра файлов;
             this.file = ext.modules.file.registry.add(url);
 
@@ -95,7 +100,8 @@ class Audio2016 {
                     module: mod.name
                 });
 
-                this.dom.play_button_wrap.appendChild(this.download_button.element);
+                this.dom.play_button_wrap.appendChild(
+                    this.download_button.element);
             }
 
             if (this.deleted) {

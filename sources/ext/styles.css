@@ -1,4 +1,5 @@
 #kz-ext.kzvk-debug .wall_text_name_explain_promoted_post{background-color: red !important}
 
-#kz-ext.kzvk-debug .page_name {background: rgba(255, 248, 79, 0.6)}
-#kz-ext.kzvk-debug h2.page_name {background: rgba(255, 214, 79, 0.6)}
+#kz-ext.kzvk-debug .page_top{background: rgba(255, 0, 0, 0.3)}
+#kz-ext.kzvk-debug .page_name {background: rgba(255, 79, 187, 0.6)}
+#kz-ext.kzvk-debug .page_current_info{background-color: rgba(79, 255, 187, 0.6)}

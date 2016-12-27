@@ -232,7 +232,7 @@ class DownloadButton2016 {
         event.stopPropagation();
 
         // TODO: Обрабатывать скачивания с помошью драг-н-дропа
-        // FIX: Не различает файлы
+        // FIXME: Не различает файлы
         if (event.type === 'dragstart') {
 //            ext.log('event.dataTransfer:', event.dataTransfer);
 //

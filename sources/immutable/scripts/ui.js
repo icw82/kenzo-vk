@@ -236,7 +236,7 @@ function data($rootScope) {
 
     pre_i18n.info.beta = replace_links(pre_i18n.info.beta, 'https://vk.com/kenzovk');
 
-    // FIX: Убрать этот бред отсюда
+    // FIXME: Убрать этот бред отсюда
     function get_msg(name) { return chrome.i18n.getMessage('o__' + name) }
     pre_i18n.audio.separators = [
         {

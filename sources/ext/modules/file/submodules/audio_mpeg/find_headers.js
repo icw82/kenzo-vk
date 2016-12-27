@@ -4,7 +4,7 @@ sub.find_headers = data => new Promise((resolve, reject) => {
 
 //        console.log('Iteration №', data.meta.iteration, data.basic.url);
 
-        // FIX: Одинаковый код
+        // FIXME: Одинаковый код
         let ID3v2_offset = sub.find_ID3v2_header(part);
         if (ID3v2_offset !== false) {
             let buffer = part.slice(ID3v2_offset, ID3v2_offset + 10);

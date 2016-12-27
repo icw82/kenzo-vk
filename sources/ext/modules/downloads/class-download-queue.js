@@ -38,7 +38,7 @@ class DownloadQueue {
 
         this.loop__interval = false;
         this.loop__interval_duration = 1200;
-        this.max_active = 2; // TODO: Опцией
+        this.max_active = 4; // TODO: Опцией
 
 //        mod.on_storage_changed.addListener(changes => {
 //            console.log('— storage changes →', changes, mod.storage.queue.length);

@@ -119,28 +119,42 @@ let check = () => {
         if (ignore.includes(page))
             return;
 
-        if (each (ignore_regexp, function(regexp){
+        if (each (ignore_regexp, regexp => {
             if (regexp.test(page))
                 return true;
         })) return;
 
-        let header = ext.dom.vk.body.querySelector('.page_top');
+        const page_content = ext.dom.vk.body.querySelector('#content');
+        const narrow_column = page_content.querySelector('#narrow_column');
+        const page_block = page_content.querySelector('.page_block');
+//        const header = ext.dom.vk.body.querySelector('.page_top');
+//
+//        if (!header) {
+//            sub.warn('Заголовка нет');
+//            return;
+//        }
 
-        if (!header)
-            return;
-
-        header.classList.add('kzvk-ui-page-header');
-
-        get_id (page).then(data => {
+        get_id(page).then(data => {
             if (element) {
-                if (header.contains(element))
+                if (page_content.contains(element))
                     return;
                 else
                     element = false;
             }
 
-            element = create (header, data.id, data.type);
-            header.appendChild(element);
+            element = create(data.id, data.type);
+
+            sub.log(element)
+
+            if (page_block) {
+                page_block.classList.add('kzvk-ui-id-container');
+                page_block.appendChild(element);
+            } else if (narrow_column) {
+                narrow_column.classList.add('kzvk-ui-id-container');
+                narrow_column.appendChild(element);
+            } else {
+                sub.warn('Место под идентификатор не найдено');
+            }
 
         }, error => {
             mod.warn('get_id error >', error);
@@ -149,9 +163,10 @@ let check = () => {
 //    limit--;
 };
 
-let create = (container, id, type) => {
+let create = (id, type) => {
     let element = document.createElement('div');
     element.classList.add('kzvk-ui-id');
+    element.classList.add('kzvk-ui-id--' + type);
 
     let html = '<a href="/';
 

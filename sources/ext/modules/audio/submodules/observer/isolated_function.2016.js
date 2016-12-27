@@ -8,15 +8,12 @@ const isolated_function_2016 = properties => {
     // Регистрация провайдера и получение секретного ключа
     const register = ap => {
         const message = {
+            target: properties.id,
             action: properties.actions.register,
             key: properties.key
         }
 
-//        otherWindow.postMessage(message, targetOrigin, [transfer]);
-//        window.postMessage({
-//            direction: "from-page-script",
-//            message: "Message from the page"
-//        }, "*");
+//        kk.r.postMessage(message, 'https://vk.com');
 
         chrome.runtime.sendMessage(properties.id, message, key => {
             if (!kk.is_s(key))

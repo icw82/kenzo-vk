@@ -64,15 +64,12 @@ ext.init__background = () => {
 //    }
 }
 
-// FIX: https://vk.com/kenzovk?w=wall-70770587_1572
+// FIXME: https://vk.com/kenzovk?w=wall-70770587_1572
 
 // FUTURE: генерируемый messages.json;
-
 // FUTURE: Группы загрузок
 // FUTURE: Remove_group()
 // FUTURE: Clean_queue()
 // FUTURE: История загрузок
 // FUTURE: Сверка элементов очереди с кэшкм (?)
 // FUTURE: Сортировка очереди
-// FUTURE: Сверка элементов очереди с кэшкм (?)
-// FUTURE: Сверка элементов очереди с кэшкм (?)

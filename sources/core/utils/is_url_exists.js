@@ -15,5 +15,6 @@ core.utils.is_url_exists = url => new Promise((resolve, reject) => {
     });
 
     xhr.open('HEAD', url, true);
+    xhr.setRequestHeader('Cache-Control', 'no-cache');
     xhr.send();
 });

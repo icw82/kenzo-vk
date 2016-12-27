@@ -11,7 +11,7 @@ sub.read_the_first_expected_headers = data => new Promise((resolve, reject) => {
             data.ID3v1 = sub.read_ID3v1_header(parts[0].content);
             data.ID3v2 = [];
 
-            // FIX: Одинаковый код
+            // FIXME: Одинаковый код
             let ID3v2_offset = sub.find_ID3v2_header(parts[1].content);
             if (ID3v2_offset !== false) {
                 let buffer = parts[1].content.slice(ID3v2_offset, ID3v2_offset + 10);

@@ -48,7 +48,7 @@ mod.update_record = (item, status) => {
         if (!item.scrobbled) {
             // Если проиграно 4 минуты (по умолчанию)
             if (mod.options.m4m && (item.state >= 240000)) {
-                item.scrobbled = true; // FIX: а если ошибка? А если задержка?
+                item.scrobbled = true; // FIXME: а если ошибка? А если задержка?
                 mod.send_scrobble_request(status, item.first_update);
             } else {
                 const proportion = Math.round(item.state / item.duration * 100);
@@ -90,7 +90,7 @@ mod.send_update_request = status => {
         // и при смене названия
         status.name != mod.last_update_request__name
     ) {
-        // FIX: если ошибка?
+        // FIXME: если ошибка?
         mod.methods.track.updateNowPlaying(params, r => {
 //            mod.log('request sended', r);
         });

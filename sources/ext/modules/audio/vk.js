@@ -12,6 +12,7 @@ mod.vk = (mod => {
         }
     });
 
+    const expiration = 1000 * 60 * 60 * 12;
     const queue = [];
     const on_response = new kk.Event();
     const on_adding_a_new_item_to_the_queue = new kk.Event();
@@ -42,7 +43,9 @@ mod.vk = (mod => {
 
         cache.get(id).then(data => {
             if (kk.is_o(data)) {
-                if (data.ts + 43200000 > kk.ts()) { // 12 часов
+                const age = kk.ts() - data.ts;
+
+                if (age < expiration) {
                     resolve(data.url);
                 } else {
                     core.utils.is_url_exists(data.url).then(() => {

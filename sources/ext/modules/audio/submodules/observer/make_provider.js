@@ -8,6 +8,13 @@ sub.make_provider = key => {
         key: key
     }
 
+//    kk.r.addEventListener('message', event => {
+//        if (event.origin == 'https://vk.com') {
+//
+//            console.log(event);
+//        }
+//    });
+
     provider.innerHTML = '(' + sub.isolated_function + ')(' + JSON.stringify(properties) + ')';
 
     core.events.on_content_loaded.addListener(() => {

@@ -74,12 +74,9 @@ class Extention {
 
         core.storage.init().then(() => {
             self.loaded = true;
-
-            console.log('core.storage.init()');
-
+//            console.log('Хранилище инициировано');
             if (each (core.scopes, scope => {
                 if (core.scope === scope) {
-                    console.log(core.scope);
                     const init = self['init__' + scope];
                     kk.is_f(init) && init();
                     return true;
@@ -91,11 +88,8 @@ class Extention {
         });
 
         const init_modules = () => {
-
             // FUTURE: Проверка на ацикличность графа зависимостей
             // FUTURE: Promise.chain([ [*, *], [*, *], * ]);
-
-            // TODO: Базовые модули
 
             for (let name in self.modules) {
                 let mod = self.modules[name];
