@@ -22,13 +22,9 @@ else
     ext.mode = false;
 
 ext.init__content = () => {
-    if (!ext.options.debug._) {
-        console.warn('ОТЛАДОЧНЫЕ СООБЩЕНИЯ ОТКЛЮЧЕНЫ');
-        return;
-    }
-
     core.events.on_content_loaded.addListener(() => {
         document.body.setAttribute('id', 'kz-ext');
+
         ext.dom.vk = {
             header: document.body.querySelector('#page_header_cont'),
             sidebar: document.body.querySelector('#side_bar'),
@@ -37,10 +33,15 @@ ext.init__content = () => {
             //narrow_column_wrap
         }
 
-        if (ext.options.debug.styles) {
+        if (ext.options.debug._ && ext.options.debug.styles) {
             kk.class_forever('kzvk-debug', document.body);
         }
     });
+
+    if (!ext.options.debug._) {
+        console.warn('ОТЛАДОЧНЫЕ СООБЩЕНИЯ ОТКЛЮЧЕНЫ');
+        return;
+    }
 }
 
 ext.init__background = () => {

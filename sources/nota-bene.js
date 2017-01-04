@@ -1,9 +1,4 @@
-//    "applications": {
-//        "gecko": {
-//            "id": "icw82@yandex.ru",
-//            "strict_min_version": "48.0"
-//        }
-//    }
+// 132
 
 //"browser_action": {
 //    "default_icon": {

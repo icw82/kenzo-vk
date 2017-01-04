@@ -27,7 +27,7 @@ class DownloadButton2016 {
 //
 //        if (simplified)
 //            this.container_classes.push('kzvk-simplified-view');
-//
+
         // Обёртка
         this.element = document.createElement('div');
         this.element.classList.add('kzvk-download-button');
@@ -44,15 +44,14 @@ class DownloadButton2016 {
             label.classList.add('kzvk-download-button__item');
             label.classList.add('kzvk-label');
 
-            label.innerHTML =
-                '<svg>' +
-                    '<text x="50%" y="50%" text-anchor="middle"></text>' +
-                    '<g class="kzvk-arrow" width="10px">' +
-                        '<rect class="kzvk-overlay" width="7px" height="6px" />' +
-                        '<rect class="kzvk-shaft" width="1px" height="6px" />' +
-                        '<use class="kzvk-head" xlink:href="#kzvk-download-arrow-2016" />' +
-                    '</g>' +
-                '</svg>';
+            label.innerHTML = '<svg>' +
+                '<text x="50%" y="50%" text-anchor="middle"></text>' +
+                '<g class="kzvk-arrow" width="10px">' +
+                    '<rect class="kzvk-overlay" width="7px" height="6px" />' +
+                    '<rect class="kzvk-shaft" width="1px" height="6px" />' +
+                    '<use class="kzvk-head" xlink:href="#kzvk-download-arrow-2016" />' +
+                '</g>' +
+            '</svg>';
 
             this.label = label.querySelector('text');
             this.container.appendChild(label);
@@ -107,15 +106,15 @@ class DownloadButton2016 {
 
         this.container.addEventListener('mousedown', event => {
             self.button_handler(event);
-        }, false);
+        });
 
         this.container.addEventListener('dragstart', event => {
             self.button_handler(event);
-        }, false);
+        });
 
         this.container.addEventListener('click', event => {
             self.button_handler(event);
-        }, false);
+        });
 
 
         this.file.on_change_url.addListener(this.update.bind(this));
@@ -231,6 +230,9 @@ class DownloadButton2016 {
         // Прекращение распространения события
         event.stopPropagation();
 
+//        // Игнорирование остальных слушателей
+//        event.stopImmediatePropagation()
+
         // TODO: Обрабатывать скачивания с помошью драг-н-дропа
         // FIXME: Не различает файлы
         if (event.type === 'dragstart') {
@@ -256,25 +258,31 @@ class DownloadButton2016 {
         //2: Второстепенная кнопка мыши, правая для правшей;
         //3: 4-я кнопка, обычно Назад
         //4: 5-я кнопка, обычно Вперёд
+
+        if (event.type === 'mousedown') {
+            event.preventDefault();
+
+        }
+
         if (event.type === 'click') {
             event.preventDefault();
 
             if (event.button === 0) {
                 if (self.file.available) {
-                    if (self.file.state === 0)
-                        start();
-                    else
-                        stop();
+                    if (event.ctrlKey || event.altKey) {
+                        ext.info(self);
+                    } else {
+                        if (self.file.state === 0)
+                            start();
+                        else
+                            stop();
+                    }
                 } else
                     ext.log('Запись недоступна');
 
                 return;
             }
 
-            if (event.button === 1) {
-                ext.log('DownloadButton:', self);
-                return;
-            }
         }
 
         function start() {
@@ -284,7 +292,7 @@ class DownloadButton2016 {
                 module: self.module
             };
 
-            console.log('Start download:', item);
+            ext.info('Start download:', item);
 
             chrome.runtime.sendMessage({
                 action: 'download',

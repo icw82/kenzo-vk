@@ -1,4 +1,3 @@
-//let limit = 1000;
 let cache = [];
 
 let ignore = [
@@ -101,9 +100,6 @@ let get_id = page => new Promise((resolve, reject) => {
 });
 
 let check = () => {
-//    if (limit == 0)
-//        return;
-
     if (!ext.dom.vk)
         return;
 
@@ -127,12 +123,6 @@ let check = () => {
         const page_content = ext.dom.vk.body.querySelector('#content');
         const narrow_column = page_content.querySelector('#narrow_column');
         const page_block = page_content.querySelector('.page_block');
-//        const header = ext.dom.vk.body.querySelector('.page_top');
-//
-//        if (!header) {
-//            sub.warn('Заголовка нет');
-//            return;
-//        }
 
         get_id(page).then(data => {
             if (element) {
@@ -160,7 +150,6 @@ let check = () => {
             mod.warn('get_id error >', error);
         });
     }
-//    limit--;
 };
 
 let create = (id, type) => {
