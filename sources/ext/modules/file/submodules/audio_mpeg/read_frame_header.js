@@ -29,6 +29,10 @@ sub.read_frame_header = buffer => {
 
     // E — Bitrate index
     const bitrate_index = parseInt(binary.slice(16, 20), 2);
+    // FIXME: Что за 15-й индекс?
+//    if (bitrate_index == 15) {
+//        sub.warn('BAD bitrate_index >', MPEG);
+//    }
 
     if (MPEG.mpeg_version === 1) {
         MPEG.bitrate = [
@@ -40,8 +44,8 @@ sub.read_frame_header = buffer => {
     } else if (MPEG.mpeg_version === 2 || MPEG.mpeg_version === 2.5) {
         MPEG.bitrate = [
             [0, 32, 48, 56, 64, 80, 96, 112, 128, 144, 160, 176, 192, 224, 256, 0],
-            [0, 8, 16, 24,  32,  40,  48, 56, 64, 80, 96, 112, 128, 144, 160, 0],
-            [0, 8, 16, 24,  32,  40,  48, 56, 64, 80, 96, 112, 128, 144, 160, 0]
+            [0,  8, 16, 24, 32, 40, 48,  56,  64,  80,  96, 112, 128, 144, 160, 0],
+            [0,  8, 16, 24, 32, 40, 48,  56,  64,  80,  96, 112, 128, 144, 160, 0]
         ][MPEG.layer - 1][bitrate_index];
     }
 

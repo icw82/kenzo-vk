@@ -121,8 +121,6 @@ class File {
             method: 'get',
             arguments: [self.clean_url]
         }, data => {
-
-
             for (let key in data) {
                 if (key === 'basic') {
                     each (['size', 'mime', 'modified', 'expires'], key =>{

@@ -27,18 +27,22 @@ mod.vk = (mod => {
 
     const responses = [];
 
-    // TODO: Возможно стоит сделать некий таймер для сброса кэша?
+    vk.force_refresh_url = id => new Promise((resolve, reject) => {
+        vk.get_url_from_vk(id).then(url => {
+            cache.put({
+                id: id,
+                url: url,
+                ts: kk.ts()
+            });
+            resolve(url);
+        }, reject);
+    });
 
     vk.get_url = id => new Promise((resolve, reject) => {
-        const get_and_record = () => {
-            vk.get_url_from_vk(id).then(url => {
-                cache.put({
-                    id: id,
-                    url: url,
-                    ts: kk.ts()
-                });
-                resolve(url);
-            }, reject);
+//        mod.log('get_url', id); // FIXME: Почему вызывается дважды?
+
+        const refresh = () => {
+            vk.force_refresh_url(id).then(resolve, reject);
         }
 
         cache.get(id).then(data => {
@@ -50,12 +54,12 @@ mod.vk = (mod => {
                 } else {
                     core.utils.is_url_exists(data.url).then(() => {
                         resolve(data.url);
-                    }, get_and_record);
+                    }, refresh);
                 }
             } else {
-                get_and_record();
+                refresh();
             }
-        }, get_and_record);
+        }, refresh);
 
     });
 
@@ -81,7 +85,7 @@ mod.vk = (mod => {
                 on_response.removeListener(listner);
                 resolve(url);
             } else if (url === false) {
-                mod.warn('В ответе сервера небыло подходящего URL');
+                mod.warn('В ответе сервера небыло подходящего URL', id, response);
                 reject();
             }
         }
@@ -92,6 +96,8 @@ mod.vk = (mod => {
     const add_to_the_queue = id => {
         item_counter++;
         const item_id = item_counter;
+
+//        ext.log('add_to_the_queue', id);
 
         each (queue, item => {
             if (item.id === id) {
@@ -142,8 +148,8 @@ mod.vk = (mod => {
     }
 
     const send = request => {
-//        console.log('request', request);
-//        console.log('requests_counter', requests_counter);
+//        ext.log('request', request);
+//        ext.log('requests_counter', requests_counter);
 
         const ids = [];
         each (request.items, item => {

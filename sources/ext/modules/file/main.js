@@ -25,7 +25,7 @@ mod.init__background = () => {
         }
     });
 
-    chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    const listener = (request, sender, sendResponse) => {
         if (
             (sender.id !== chrome.runtime.id) ||
             (request.module !== mod.name) ||
@@ -35,17 +35,19 @@ mod.init__background = () => {
         let result = mod[request.method].apply(null, request.arguments);
 
         if (result instanceof Promise) {
-            result.then(function(result) {
+            result.then(result => {
                 sendResponse(result);
             }, error => {
-                mod.error(request.method, '>', error);
+                mod.error('Method:', request.method, error);
             });
 
             return true;
         } else {
             sendResponse(result);
         }
-    });
+    }
+
+    chrome.runtime.onMessage.addListener(listener);
 
     mod.on_loaded.dispatch();
 };

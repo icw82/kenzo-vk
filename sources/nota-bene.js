@@ -1,4 +1,4 @@
-// 132
+// 132 (длина описания)
 
 //"browser_action": {
 //    "default_icon": {
@@ -104,3 +104,18 @@
 //    // 2. Инвертирование ориентации рёбер (как бы имеется ввиду, но не производится),
 //    //    топологическая сортировка каждой компоненты свзяности
 //    //    и поранговый запуск.
+
+//    calc_mp3_bitrate_classic(size, duration) {
+//        var kbps = Math.floor(size * 8 / duration / 1000);
+//
+//        if ((kbps >= 288)) kbps = 320; else
+//        if ((kbps >= 224) && (kbps < 288)) kbps = 256; else
+//        if ((kbps >= 176) && (kbps < 224)) kbps = 192; else
+//        if ((kbps >= 144) && (kbps < 176)) kbps = 160; else
+//        if ((kbps >= 112) && (kbps < 144)) kbps = 128; else
+//        if ((kbps >= 80 ) && (kbps < 112)) kbps = 96; else
+//        if ((kbps >= 48 ) && (kbps < 80 )) kbps = 64; else
+//        if ((kbps >= 20 ) && (kbps < 48 )) kbps = 32;
+//
+//        return kbps;
+//    }
