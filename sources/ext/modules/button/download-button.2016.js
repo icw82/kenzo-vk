@@ -294,7 +294,7 @@ class DownloadButton2016 {
 
             ext.info('Start download:', item);
 
-            chrome.runtime.sendMessage({
+            browser.runtime.sendMessage({
                 action: 'download',
                 item: item
             });
@@ -302,7 +302,7 @@ class DownloadButton2016 {
 
         function stop() {
             if (self.file.queue_id) {
-                chrome.runtime.sendMessage({
+                browser.runtime.sendMessage({
                     action: 'cancel-download',
                     id: self.file.queue_id
                 });

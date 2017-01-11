@@ -2,7 +2,7 @@
 
 // title
 //Настройки Kenzo VK
-document.title = chrome.runtime.getManifest().name + ': ' + chrome.i18n.getMessage('o__header');
+document.title = browser.runtime.getManifest().name + ': ' + browser.i18n.getMessage('o__header');
 
 
 // ————————————————————————————————————————

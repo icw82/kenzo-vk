@@ -1,5 +1,5 @@
 core.utils.choose_a_locale = options => {
-    const ui_language = chrome.i18n.getUILanguage();
+    const ui_language = browser.i18n.getUILanguage();
 
     if (kk.is_o(options)) {
         if (options[ui_language]) {

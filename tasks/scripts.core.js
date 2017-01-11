@@ -15,6 +15,8 @@ gulp.task('scripts_core', () => gulp
     .src(paths)
     .pipe(concat('core.js'))
     .pipe(insert.wrap(
+        'if(typeof browser===kk._u){var browser;' +
+        'typeof chrome!==kk._u?browser=chrome:console.error("Неизвестный браузер")}\n' +
         'const core = (kk => {\n\nconst each = kk.each;\n\n',
         '\nreturn core;\n})(kk);\n\ncore.init();\n'))
     .pipe(gulp.dest('build/scripts'))

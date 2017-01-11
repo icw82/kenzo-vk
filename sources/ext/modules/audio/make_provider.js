@@ -4,7 +4,7 @@ mod.make_provider = function(key) {
 
     // Объект, передаваемый в формате JSON изолированной функции
     var _ = {
-        id: chrome.runtime.id,
+        id: browser.runtime.id,
         message: {
             action: 'register audio provider',
             key: key
@@ -22,7 +22,7 @@ mod.make_provider = function(key) {
 //        });
 
         // Регистрация провайдера и получение секретного ключа
-        chrome.runtime.sendMessage(_.id, _.message, function() {
+        browser.runtime.sendMessage(_.id, _.message, function() {
             if (typeof arguments[0] === 'string') {
                 secret_key = arguments[0];
                 if (typeof ap === 'object') {
@@ -49,7 +49,7 @@ mod.make_provider = function(key) {
                     duration: object._currentAudio[5]
                 }
 
-                chrome.runtime.sendMessage(_.id, {
+                browser.runtime.sendMessage(_.id, {
                     action: 'audio status update',
                     key: secret_key,
                     info: info

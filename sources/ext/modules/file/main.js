@@ -27,7 +27,7 @@ mod.init__background = () => {
 
     const listener = (request, sender, sendResponse) => {
         if (
-            (sender.id !== chrome.runtime.id) ||
+            (sender.id !== browser.runtime.id) ||
             (request.module !== mod.name) ||
             !enabled_methods.includes(request.method)
         ) return;
@@ -47,7 +47,7 @@ mod.init__background = () => {
         }
     }
 
-    chrome.runtime.onMessage.addListener(listener);
+    browser.runtime.onMessage.addListener(listener);
 
     mod.on_loaded.dispatch();
 };

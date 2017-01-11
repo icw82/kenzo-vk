@@ -1,11 +1,11 @@
 core.storage.init = () => new Promise((resolve, reject) => {
     core.storage.load('core.storage.init').then(storage => {
         // Слушатель хранилища
-        chrome.storage.onChanged.addListener((changes, area) => {
+        browser.storage.onChanged.addListener((changes, area) => {
             if (area !== 'local')
                 return;
 
-//            console.info('chrome.storage.onChanged', changes);
+//            console.info('browser.storage.onChanged', changes);
 //            for (let path in changes) {
 //                core.storage.map[path] = changes[path].newValue;
 //                if (!(path in core.storage.map)) {

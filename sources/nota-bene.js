@@ -25,7 +25,7 @@
 //    https://github.com/icw82/blacklist/blob/master/blacklist.json
 
 
-//    chrome.tabs.query({url: [
+//    browser.tabs.query({url: [
 //        "*://vk.com/*",
 //        "*://*.vk.com/*",
 //        "*://*.vk.me/*"

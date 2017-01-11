@@ -2,7 +2,7 @@ mod.init__background = function() {
     mod.tabs = [];
 
     // From Content Script —
-    chrome.runtime.onConnect.addListener(function(port) {
+    browser.runtime.onConnect.addListener(function(port) {
         if (port.name !== mod.full_name) return;
 
         var current_tab = {};
@@ -78,7 +78,7 @@ mod.init__background = function() {
     });
 
     // From Page — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —
-    chrome.runtime.onConnectExternal.addListener(function(port) {
+    browser.runtime.onConnectExternal.addListener(function(port) {
         if (port.name !== mod.full_name) return;
 
         var current_tab = {};

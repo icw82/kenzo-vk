@@ -5,7 +5,7 @@ mod.inject = function(tab_id, key) {
 
     // Объект, передаваемый в формате JSON изолированной функции
     var _ = {
-        ext_id: chrome.runtime.id,
+        ext_id: browser.runtime.id,
         full_name: mod.full_name,
         key: key,
         tab_id: tab_id,
@@ -15,7 +15,8 @@ mod.inject = function(tab_id, key) {
     // Функция-провайдер, передаваемая во внешний скрипт в форме текста.
     // Работает только в контексте страницы.
     var isolated_function = function(_) {
-        var port = chrome.runtime.connect(_.ext_id, {name: _.full_name});
+        var browser = chrome; // FIXME
+        var port = browser.runtime.connect(_.ext_id, {name: _.full_name});
 
         port.onMessage.addListener(awaiting_confirmation);
 

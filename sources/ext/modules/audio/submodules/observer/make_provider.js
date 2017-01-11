@@ -3,7 +3,7 @@ sub.make_provider = key => {
 
     // Объект, передаваемый в формате JSON изолированной функции
     const properties = {
-        id: chrome.runtime.id,
+        id: browser.runtime.id,
         actions: sub.actions,
         key: key
     }

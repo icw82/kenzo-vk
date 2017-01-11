@@ -5,6 +5,8 @@ const isolated_function_2016 = properties => {
     let secret_key = null;
     let stop_observe = false;
 
+    var browser = chrome; // FIXME
+
     // Регистрация провайдера и получение секретного ключа
     const register = ap => {
         const message = {
@@ -13,9 +15,11 @@ const isolated_function_2016 = properties => {
             key: properties.key
         }
 
+        // TODO: Нужен новый механизм передачи данных со страницы в расширение,
+        //       потому что некоторые браузеры не умеют в browser.runtime
 //        kk.r.postMessage(message, 'https://vk.com');
 
-        chrome.runtime.sendMessage(properties.id, message, key => {
+        browser.runtime.sendMessage(properties.id, message, key => {
             if (!kk.is_s(key))
                 return;
 
@@ -87,7 +91,7 @@ const isolated_function_2016 = properties => {
                     }
                 }
 
-                chrome.runtime.sendMessage(properties.id, message);
+                browser.runtime.sendMessage(properties.id, message);
 //                console.log('>>>', message.info);
             }
 

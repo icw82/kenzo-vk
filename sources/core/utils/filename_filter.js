@@ -49,7 +49,7 @@ core.utils.filter.trash = string => {
 
 core.utils.filter.file_name = string => {
     if (string.length === 0) {
-        string = chrome.i18n.getMessage('mistake');
+        string = browser.i18n.getMessage('mistake');
     } else {
         string = string.replace(/[\\\/:\*\?\"<>\|\+~]/g, ' ');
         string = core.utils.filter.trash(string);

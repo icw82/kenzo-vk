@@ -15,8 +15,8 @@ mod.init__background = () => {
     mod.queue = new mod.DownloadQueue();
 
     // Обработка сообщений
-    chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-        if (sender.id !== chrome.runtime.id)
+    browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
+        if (sender.id !== browser.runtime.id)
             return;
 
         if (request.action === 'download') {

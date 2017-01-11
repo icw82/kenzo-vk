@@ -116,7 +116,7 @@ class File {
 
         const self = this;
 
-        chrome.runtime.sendMessage({
+        browser.runtime.sendMessage({
             module: 'file',
             method: 'get',
             arguments: [self.clean_url]

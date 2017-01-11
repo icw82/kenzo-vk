@@ -1,6 +1,6 @@
 mod.init__content = function() {
 
-    var port = chrome.runtime.connect({
+    var port = browser.runtime.connect({
         name: mod.full_name
     });
 

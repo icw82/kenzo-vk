@@ -1,7 +1,7 @@
 'use strict';
 
 // Встраивание векторной графики
-core.utils.inject_to_dom('svg', chrome.extension.getURL('images/graphics.svg'));
+core.utils.inject_to_dom('svg', browser.extension.getURL('images/graphics.svg'));
 
 const modules = [];
 
@@ -216,10 +216,10 @@ function data($rootScope) {
                     if (typeof item !== 'string')
                         throw new Error('get_messages error 2');
 
-                    i18n[root][item] = chrome.i18n.getMessage('o__' + root + '__' + item);
+                    i18n[root][item] = browser.i18n.getMessage('o__' + root + '__' + item);
                 });
             } else if (item.length === 1) {
-                i18n[root] = chrome.i18n.getMessage('o__' + root);
+                i18n[root] = browser.i18n.getMessage('o__' + root);
             } else
                 throw new Error('get_messages error 3');
         });
@@ -237,7 +237,7 @@ function data($rootScope) {
     pre_i18n.info.beta = replace_links(pre_i18n.info.beta, 'https://vk.com/kenzovk');
 
     // FIXME: Убрать этот бред отсюда
-    function get_msg(name) { return chrome.i18n.getMessage('o__' + name) }
+    function get_msg(name) { return browser.i18n.getMessage('o__' + name) }
     pre_i18n.audio.separators = [
         {
             char: get_msg('audio__separator__1'),
@@ -258,11 +258,11 @@ function data($rootScope) {
     ext.log('i18n', pre_i18n);
     self.storage = {}
 
-    this.manifest = chrome.runtime.getManifest();
+    this.manifest = browser.runtime.getManifest();
 
     this.clear_db = function() {
-        chrome.storage.local.clear(function() {
-            chrome.storage.local.get(function() {
+        browser.storage.local.clear(function() {
+            browser.storage.local.get(function() {
                 //mod.log(arguments);
             });
 
@@ -272,7 +272,7 @@ function data($rootScope) {
 
     this.defaults = function() {
         if (confirm('Вы действительно хотите сбросить настройки?')) {
-//            chrome.storage.sync.set(ext.defaults);
+//            browser.storage.sync.set(ext.defaults);
         }
     }
 
@@ -447,7 +447,7 @@ function QueueCtrl($scope, $element, data) {
 
     this.remove = id => {
         if (kk.is_n(id)) {
-            chrome.runtime.sendMessage({
+            browser.runtime.sendMessage({
                 action: 'cancel-download',
                 id: id
             });

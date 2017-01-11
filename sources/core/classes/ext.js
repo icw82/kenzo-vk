@@ -1,6 +1,6 @@
 class Extention {
     constructor() {
-        const manifest = chrome.runtime.getManifest();
+        const manifest = browser.runtime.getManifest();
         const self = this;
 
         this.name = manifest.name;
@@ -45,14 +45,14 @@ class Extention {
 
         if (core.scope === 'content') {
             // Подключение Kenzo Kit к странице
-            core.utils.inject_to_dom('js', chrome.extension.getURL('scripts/kk.min.js'));
+            core.utils.inject_to_dom('js', browser.extension.getURL('scripts/kk.min.js'));
 
             // Подключение стилей
             const modes = [2016, 'm'];
 
             each (modes, name => {
                 if (ext.mode === name) {
-                    let url = chrome.extension.getURL('styles/ext.' + name + '.css')
+                    let url = browser.extension.getURL('styles/ext.' + name + '.css')
                     if (url)
                         core.utils.inject_to_dom('css', url);
                     return true;
@@ -60,7 +60,7 @@ class Extention {
             });
 
             // Встраивание векторной графики
-            core.utils.inject_to_dom('svg', chrome.extension.getURL('images/graphics.svg'));
+            core.utils.inject_to_dom('svg', browser.extension.getURL('images/graphics.svg'));
         }
 
         for (let name in self.modules) {

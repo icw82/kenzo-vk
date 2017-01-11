@@ -65,14 +65,14 @@ class DownloadQueue {
         // Нужно для того, чтобы:
         //  — отслеживание состояния прогресса (хром не предоставлят для этого возможностей);
         //  — встраивать в очередь те загрузки, которые были созданы вне экосистемы расширения;
-        chrome.downloads.onChanged.addListener(delta => {
+        browser.downloads.onChanged.addListener(delta => {
             if (
                 ('filename' in delta) || // Новый
                 ('paused' in delta) ||   // Пауза
                 ('state' in delta)       // Завершение
             ) {
 //                mod.log('delta', delta);
-                chrome.downloads.search({id: delta.id}, result => {
+                browser.downloads.search({id: delta.id}, result => {
                     const update = self.convert(result[0]);
                     self.update(update, 'delta');
                     self.loop('delta'); // Для включения
@@ -80,12 +80,12 @@ class DownloadQueue {
             }
         });
 
-//        chrome.downloads.onCreated.addListener(function() {
+//        browser.downloads.onCreated.addListener(function() {
 //            // Создание задачи
 //            console.log('downloads.onCreated', arguments);
 //        });
 //
-//        chrome.downloads.onErased.addListener(function() {
+//        browser.downloads.onErased.addListener(function() {
 //            console.log('downloads.onErased', arguments);
 //        });
 
@@ -146,7 +146,7 @@ class DownloadQueue {
     sync () {
         const self = this;
 
-        chrome.downloads.search({}, downloads => {
+        browser.downloads.search({}, downloads => {
             const ids = [];
             const to_update = [];
 
@@ -215,7 +215,7 @@ class DownloadQueue {
             state: 'in_progress'
         };
 
-        chrome.downloads.search(query, downloads => {
+        browser.downloads.search(query, downloads => {
 //            console.log('————————————— loop (' + source + ') —————————————');
             each (downloads, download => {
                 // Прогресс
@@ -270,7 +270,7 @@ class DownloadQueue {
                 if (next.name)
                     options.filename = core.utils.filter.file_name(next.name);
 
-                chrome.downloads.download(options, id => {
+                browser.downloads.download(options, id => {
                     let item = each (mod.storage.queue, item => {
                         if (item.id === next.id) {
                             return item;
@@ -543,7 +543,7 @@ class DownloadQueue {
                     to_update.push(item);
 
                 } else if (item.state === 2 || item.state === 3) {
-                    chrome.downloads.cancel(item.chrome_id);
+                    browser.downloads.cancel(item.chrome_id);
                 }
             }
         });
@@ -559,7 +559,7 @@ class DownloadQueue {
     }
 
     clear () {
-//        chrome.storage.local.set({downloads: []});
+//        browser.storage.local.set({downloads: []});
     }
 
 }

@@ -10,7 +10,7 @@ sub.actions = {
 sub.init__content = () => {
     sub.key = kk.generate_key(15);
 
-    chrome.runtime.sendMessage({
+    browser.runtime.sendMessage({
         action: sub.actions.set_key,
         key: sub.key
     });

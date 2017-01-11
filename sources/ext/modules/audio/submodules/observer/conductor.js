@@ -1,6 +1,6 @@
 sub.conductor = () => {
-    chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-        if (sender.id !== chrome.runtime.id)
+    browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
+        if (sender.id !== browser.runtime.id)
             return;
 
         if (request.action === sub.actions.set_key) {
@@ -9,7 +9,7 @@ sub.conductor = () => {
         }
     });
 
-    chrome.runtime.onMessageExternal.addListener((request, sender, sendResponse) => {
+    browser.runtime.onMessageExternal.addListener((request, sender, sendResponse) => {
         // Существует ничтожно малая вероятность коллизии (примерно 1:(3*10^64))
         if (request.action === sub.actions.register) {
             const index = sub.audio_player_keys.indexOf(request.key);
