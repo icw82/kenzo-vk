@@ -10,26 +10,21 @@ mod.defaults.options = {
     })
 }
 
-mod.init__content = function() {
+mod.init__content = () => {
     if (mod.options._ !== true || !ext.mode)
         return;
 
-    core.events.on_mutation.addListener(() => {
-        let elements;
-        let query;
-
-        if (ext.mode === 2016) {
-            query = '.audio_row';
-        } else {
-            return;
-        }
-
-        elements = kk.d.querySelectorAll(query);
+    const listener__2016 = () => {
+        let elements = kk.d.querySelectorAll('.audio_row');
 
         if (elements.length > 0) {
             let item = mod.registry.update(elements);
         }
-    });
+    }
+
+    if (ext.mode === 2016) {
+        core.events.on_mutation.addListener(listener__2016);
+    }
 
     mod.on_loaded.dispatch();
 }

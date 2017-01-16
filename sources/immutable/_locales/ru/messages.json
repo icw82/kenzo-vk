@@ -139,8 +139,14 @@
     "o__trash__profile_rate": {
         "message": "Заполненность профиля"
     },
+    "o__trash__ads_in_group": {
+        "message": "Посты в сообществах, помеченные как рекламные"
+    },
     "o__trash__big_like": {
         "message": "Кнопка ♥ на изображении"
+    },
+    "o__trash__chat": {
+        "message": "Чатик"
     },
     "o__trash__user_reposts": {
         "message": "Репосты пользователей"

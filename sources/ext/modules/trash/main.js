@@ -2,7 +2,9 @@
 
 mod.defaults.options = {
     _: true,
+    ads_in_group: false,
     big_like: false,
+    chat: false,
     group_recom: true,
     potential_friends: true,
     profile_rate: true,

@@ -99,7 +99,7 @@ const mod_options = (name, ctrl, $scope) => {
 
             for (let key in ctrl.options) {
                 root.options[key] = ctrl.options[key];
-                console.log(key + '→ ', ctrl.options[key], core.storage.data.audio.options[key]);
+//                console.log(key + '→ ', ctrl.options[key], core.storage.data.audio.options[key]);
             }
             core.storage.save('options/$watch');
         }, true);
@@ -165,13 +165,15 @@ function data($rootScope) {
         ], [
             'trash', [
                 'header',
+                'ads_in_group',
+                'big_like',
+                'chat',
                 'sidebar_ads',
                 'potential_friends',
                 'newsads',
                 'promoted_posts',
                 'group_recom',
                 'profile_rate',
-                'big_like',
                 'user_reposts',
                 'group_reposts'
             ]

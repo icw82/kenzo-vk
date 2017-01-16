@@ -2,8 +2,6 @@ class DownloadButton2016 {
     constructor (file, props) {
         const self = this;
 
-        this.file = file;
-
         if (props) {
             if (props.mode)
                 this.mode = props.mode;
@@ -116,19 +114,35 @@ class DownloadButton2016 {
             self.button_handler(event);
         });
 
+        self.set_file(file);
 
-        this.file.on_change_url.addListener(this.update.bind(this));
-        this.file.on_enrich.addListener(this.update.bind(this));
-//        this.file.on_error.addListener(this.update.bind(this));
-        this.update();
+    }
 
-        this.file.on_change_progress.addListener(() => {
-            self.update_state();
-        });
+    set_file(file) {
+        const self = this;
 
-        this.file.on_change_state.addListener(() => {
-            self.update_state();
-        });
+        if (self.file instanceof ext.File) {
+            mod.log('self.file instanceof ext.File');
+        } else {
+
+        }
+
+        self.file = file;
+
+        self.file.on_change_url.addListener(self.update.bind(self));
+        self.file.on_enrich.addListener(self.update.bind(self));
+//        self.file.on_error.addListener(self.update.bind(self));
+
+
+//        mod.log('Bind', self.update.bind(self));
+
+        //removeListener
+
+        self.update();
+
+        self.file.on_change_progress.addListener(self.update_state.bind(self));
+        self.file.on_change_state.addListener(self.update_state.bind(self));
+
     }
 
     update() {
