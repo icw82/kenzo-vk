@@ -170,6 +170,7 @@ function data($rootScope) {
                 'header',
 
                 'ads_in_group',
+                'audio_friends_list',
                 'big_like',
                 'chat',
                 'feed_since_photos',

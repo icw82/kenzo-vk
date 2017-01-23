@@ -124,6 +124,9 @@
     "o__trash__ads_in_group": {
         "message": "Реклама в сообществах (₽)"
     },
+    "o__trash__audio_friends_list": {
+        "message": "Друзья в аудиозаписях"
+    },
     "o__trash__big_like": {
         "message": "Кнопка ♥ на изображении"
     },
