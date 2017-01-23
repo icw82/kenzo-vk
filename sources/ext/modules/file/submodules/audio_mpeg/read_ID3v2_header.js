@@ -29,6 +29,10 @@ sub.read_ID3v2_header = buffer => {
 //          Bit 4 indicates that a footer (section 3.4) is present at the very
 //          end of the tag. A set bit indicates the presence of a footer.
 
+//          All the other flags MUST be cleared. If one of these undefined flags
+//          are set, the tag might not be readable for a parser that does not
+//          know the flags function.
+
         if (data.version <= 4 && flags.substring(4) !== '0000')
             return false;
 
@@ -48,20 +52,3 @@ sub.read_ID3v2_header = buffer => {
         return false;
     }
 }
-//
-//
-//   c - Experimental indicator
-//
-//     The third bit (bit 5) is used as an 'experimental indicator'. This
-//     flag SHALL always be set when the tag is in an experimental stage.
-//
-//
-//   d - Footer present
-//
-//     Bit 4 indicates that a footer (section 3.4) is present at the very
-//     end of the tag. A set bit indicates the presence of a footer.
-//
-//
-//   All the other flags MUST be cleared. If one of these undefined flags
-//   are set, the tag might not be readable for a parser that does not
-//   know the flags function.

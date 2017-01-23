@@ -1,4 +1,4 @@
-mod.drop = function(input, option) {
+mod.drop = (input, option) => {
     const drop = node => {
         if (mod.dom.trash_bin.contains(node))
             return;

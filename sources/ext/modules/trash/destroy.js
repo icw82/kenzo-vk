@@ -1,5 +1,5 @@
-mod.destroy = function(input, option) {
-    var _ = function(node) {
+mod.destroy = (input, option) => {
+    var _ = node => {
         node.parentElement.removeChild(node);
         mod.log('destroy', node);
     }

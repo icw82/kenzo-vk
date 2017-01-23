@@ -2,18 +2,17 @@
 
 mod.defaults.options = {
     _: true,
-    unrounding: false,
+    ages: false, //TODO: Возраст, если известна дата.
     ids: false,
-    sidebar_button: false
+    original_image: true,
+    post_in_new_tab: true, //TODO: у постов, открыть в новой вкладке.
+    sidebar_button: false,
+    unrounding: false
 }
 
 mod.init__content = () => {
     mod.on_loaded.dispatch();
 }
-
-//TODO: у постов, открыть в новой вкладке.
-//TODO: Возраст, если известна дата.
-//TODO: Номера треков в посте
 
 //// TODO: унифицировать инструмент
 //mod.make_row = function(label, content) {

@@ -7,7 +7,8 @@ mod.defaults.options = {
     separator: core.utils.choose_a_locale({
         en: '–',
         ru: '—'
-    })
+    }),
+    track_numbers: false // TODO: Номера аудиозаписей в посте
 }
 
 mod.init__content = () => {

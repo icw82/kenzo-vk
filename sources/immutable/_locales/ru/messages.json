@@ -121,24 +121,6 @@
     "o__trash__header": {
         "message": "Сбор мусора"
     },
-    "o__trash__sidebar_ads": {
-        "message": "Реклама в сайдбаре"
-    },
-    "o__trash__potential_friends": {
-        "message": "Предложение друзей"
-    },
-    "o__trash__newsads": {
-        "message": "Рекомендации между постами"
-    },
-    "o__trash__promoted_posts": {
-        "message": "Продвигаемые посты"
-    },
-    "o__trash__group_recom": {
-        "message": "Рекомендуемые сообщества"
-    },
-    "o__trash__profile_rate": {
-        "message": "Заполненность профиля"
-    },
     "o__trash__ads_in_group": {
         "message": "Реклама в сообществах (₽)"
     },
@@ -148,25 +130,49 @@
     "o__trash__chat": {
         "message": "Чатик"
     },
-    "o__trash__user_reposts": {
-        "message": "Репосты пользователей"
+    "o__trash__feed_since_photos": {
+        "message": "Актуальные фотографии"
+    },
+    "o__trash__newsads": {
+        "message": "Рекомендации между постами"
+    },
+    "o__trash__group_recom": {
+        "message": "Рекомендуемые сообщества"
     },
     "o__trash__group_reposts": {
         "message": "Репосты групп"
+    },
+    "o__trash__potential_friends": {
+        "message": "Предложение друзей"
+    },
+    "o__trash__promoted_posts": {
+        "message": "Продвигаемые посты"
+    },
+    "o__trash__profile_rate": {
+        "message": "Заполненность профиля"
+    },
+    "o__trash__sidebar_ads": {
+        "message": "Реклама в сайдбаре"
+    },
+    "o__trash__user_reposts": {
+        "message": "Репосты пользователей"
     },
 
 
     "o__ui__header": {
         "message": "Дополнения интерфейса"
     },
-    "o__ui__unrounding": {
-        "message": "Раскруглить это дерьмо"
-    },
     "o__ui__ids": {
         "message": "Идентификаторы пользователей и групп в заголовках страниц"
     },
+    "o__ui__original_image": {
+        "message": "Ссылка на оригинал изображения"
+    },
     "o__ui__sidebar_button": {
         "message": "Ссылка на эту страницу в меню"
+    },
+    "o__ui__unrounding": {
+        "message": "Раскруглить это дерьмо"
     },
 
 

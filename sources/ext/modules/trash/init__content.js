@@ -1,5 +1,6 @@
 mod.init__content = () => {
-    if (mod.options._ !== true) return;
+    if (mod.options._ !== true)
+        return;
 
     mod.dom.trash_bin = document.createElement('div');
     mod.dom.trash_bin.classList.add('kzvk-trash__bin');

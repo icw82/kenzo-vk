@@ -1,4 +1,4 @@
-mod.hide = function(input, hard) {
+mod.hide = (input, hard) => {
     if (hard) {
         var _ = function(node) {
             node.style.height = 0;

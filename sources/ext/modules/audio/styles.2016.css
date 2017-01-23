@@ -36,7 +36,9 @@
 .kzvk-audio.inlined.audio_row_current
     .kzvk-download-button__item.kzvk-pending .kzvk-arrow{transform: translate(10px, 5px)}
 .kzvk-audio.inlined.audio_row_current
-    .kzvk-download-button__item.kzvk-pending .kzvk-cross{transform: translate(12px, 4px)}
+    .kzvk-download-button__item.kzvk-pending .kzvk-cross,
+.kzvk-audio.inlined.audio_row_current
+    .kzvk-download-button__item.kzvk-progress .kzvk-cross{transform: translate(12px, 4px)}
 
 .kzvk-audio.audio_row_current:hover .kzvk-overlay{fill: rgb(232, 237, 244)}
 .kzvk-audio.inlined.audio_row_current:hover .kzvk-overlay{fill: white}

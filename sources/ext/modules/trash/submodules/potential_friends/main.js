@@ -2,8 +2,8 @@
 sub.init__content = () => {
     if (ext.mode === 2016) {
         core.events.on_mutation.addListener(() => {
-            if (mod.options.potential_friends) {
-                mod.drop('#friends_possible_block');
+            if (sub.mod.options._ && sub.mod.options.potential_friends) {
+                sub.mod.drop('#friends_possible_block');
             }
         });
     }

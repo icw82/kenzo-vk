@@ -5,6 +5,7 @@ mod.defaults.options = {
     ads_in_group: false,
     big_like: false,
     chat: false,
+    feed_since_photos: true,
     group_recom: true,
     potential_friends: true,
     profile_rate: true,

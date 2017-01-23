@@ -119,6 +119,7 @@ function data($rootScope) {
         [
             'audio', [
                 'header',
+
                 'cache',
                 'download_button',
                 'replace_play_button',
@@ -128,6 +129,7 @@ function data($rootScope) {
         ], [
             'debug', [
                 'header',
+
                 'styles',
                 'log'
             ]
@@ -139,15 +141,15 @@ function data($rootScope) {
         ], [
             'filters', [
                 'brackets',
-                'square_brackets',
-                'curly_brackets'
+                'curly_brackets',
+                'square_brackets'
             ]
         ], [
             'info', [
                 'changes',
+                'beta',
                 'in2006',
-                'in2016',
-                'beta'
+                'in2016'
             ]
         ], [
             'header'
@@ -158,6 +160,7 @@ function data($rootScope) {
         ], [
             'scrobbler', [
                 'header',
+
                 'm4m',
                 'm4m__desc',
                 'name_filter'
@@ -165,28 +168,33 @@ function data($rootScope) {
         ], [
             'trash', [
                 'header',
+
                 'ads_in_group',
                 'big_like',
                 'chat',
-                'sidebar_ads',
-                'potential_friends',
-                'newsads',
-                'promoted_posts',
+                'feed_since_photos',
                 'group_recom',
+                'group_reposts',
+                'newsads',
+                'potential_friends',
                 'profile_rate',
-                'user_reposts',
-                'group_reposts'
+                'promoted_posts',
+                'sidebar_ads',
+                'user_reposts'
             ]
         ], [
             'ui', [
                 'header',
+
                 'ids',
-                'unrounding',
-                'sidebar_button'
+                'original_image',
+                'sidebar_button',
+                'unrounding'
             ]
         ], [
             'video', [
                 'header',
+
                 'format_before_ext',
                 'format_before_ext__desc'
             ]
