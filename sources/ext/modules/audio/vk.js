@@ -4,7 +4,7 @@ mod.vk = (mod => {
     // TODO: Допилить
     const cache = new core.SimpleStore({
         name: 'kenzo-vk-audio',
-        version: 4,
+        version: 5,
         store: {
             name: 'audio',
             key: 'id',
