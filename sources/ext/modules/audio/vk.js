@@ -147,6 +147,78 @@ mod.vk = (mod => {
         }
     }
 
+    const check_url = url => {
+        if (!url.includes('audio_api_unavailable'))
+            return url;
+
+        var map = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMN0PQRSTUVWXYZO123456789+/=';
+        var transform = {
+            v: string => string.split('').reverse().join(''),
+            r: (string, shift) => {
+                string = string.split('');
+                var a = map + map;
+                for (var i, o = string.length; o--;) {
+                    i = a.indexOf(string[o]);
+                    ~i && (string[o] = a.substr(i - shift, 1));
+                }
+                return string.join('')
+            },
+            x: (string, alt) => {
+                let output = [];
+                let chars = string.split('');
+                alt = alt.charCodeAt(0);
+
+                each (chars, char => {
+                    output.push(String.fromCharCode(char.charCodeAt(0) ^ alt))
+                });
+
+                return output.join('');
+            }
+        };
+
+        function someshit(e) {
+            if (!e || e.length % 4 == 1)
+                return !1;
+
+            for (var t, i, a = 0, o = 0, r = ""; i = e.charAt(o++);) {
+                i = map.indexOf(i);
+
+                ~i &&
+                (t = a % 4 ? 64 * t + i : i, a++ % 4) &&
+                (r += String.fromCharCode(255 & t >> (-2 * a & 6)));
+            }
+
+            return r
+        }
+
+        {
+            let extra_code = url.split("?extra=")[1].split("#");
+            let shit = someshit(extra_code[1]);
+
+            extra_code = someshit(extra_code[0]);
+
+            if (!shit || !extra_code)
+                return url;
+
+            shit = shit.split(String.fromCharCode(9));
+
+            for (let a, r, s = shit.length; s--;) {
+                r = shit[s].split(String.fromCharCode(11));
+                a = r.splice(0, 1, extra_code)[0];
+
+                if (!transform[a])
+                    return url;
+
+                extra_code = transform[a].apply(null, r);
+            }
+
+            if (extra_code && "http" === extra_code.substr(0, 4))
+                return extra_code;
+        }
+
+    }
+
+
     const send = request => {
 //        ext.log('request', request);
 //        ext.log('requests_counter', requests_counter);
@@ -154,7 +226,7 @@ mod.vk = (mod => {
         const ids = [];
         each (request.items, item => {
             ids.push(item.id);
-        })
+        });
 
         let xhr = new XMLHttpRequest();
         let url = 'https://vk.com/al_audio.php';
@@ -203,7 +275,7 @@ mod.vk = (mod => {
                             });
 
                             if (url) {
-                                item.url = url;
+                                item.url = check_url(url);
                             } else {
                                 item.url = false;
                             }

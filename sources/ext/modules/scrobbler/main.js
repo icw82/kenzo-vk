@@ -1,3 +1,5 @@
+mod.dependencies = ['common'];
+
 mod.defaults.buffer = [];
 // FIXME: Если по умолчанию переменная не объект,
 //        то после присвоения ей объекта в хранилище остаётся
@@ -21,6 +23,9 @@ mod.auth_url = 'http://last.fm/api/auth?api_key=' +
 mod.secret = '110ce7f7a6cec742c6433507428ebfc7';
 
 //mod.session = null;
+mod.init__content = () => {
+
+}
 
 mod.init__background = () => {
     if (mod.options._ !== true)

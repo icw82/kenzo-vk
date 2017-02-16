@@ -281,9 +281,9 @@ function data($rootScope) {
         });
     }
 
-    this.defaults = function() {
+    this.defaults = () => {
         if (confirm('Вы действительно хотите сбросить настройки?')) {
-//            browser.storage.sync.set(ext.defaults);
+            core.storage.reset();
         }
     }
 

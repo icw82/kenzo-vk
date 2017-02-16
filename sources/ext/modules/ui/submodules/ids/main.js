@@ -172,7 +172,9 @@ let create = (id, type) => {
         return;
     }
 
-    element.innerHTML = html + id + '">' + id + '</a><br />';
+    html += id + '" title="' + kk.format.number(id) + '"';
+
+    element.innerHTML = html + '>' + id + '</a><br />';
 
     return element;
 }
