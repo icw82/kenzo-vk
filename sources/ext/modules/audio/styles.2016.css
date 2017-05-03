@@ -28,8 +28,12 @@
 .kzvk-audio.with-button .audio_play_wrap{width: 64px}
 .kzvk-audio.with-button .audio_hq_label{display: none!important}
 
-.kzvk-audio .kzvk-download-button{height: var(--h);
-    position: absolute; left: calc(var(--w-play) + var(--space)); top: 0}
+.kzvk-audio .kzvk-download-button{
+	height: var(--h);
+    position: absolute;
+    left: 46px;
+    top: 11px;
+}
 
 .kzvk-audio.inlined.audio_row_current .kzvk-download-button{height: 16px; line-height: 14px}
 .kzvk-audio.inlined.audio_row_current .kzvk-head{transform: translateY(1px)}
