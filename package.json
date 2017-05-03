@@ -6,6 +6,7 @@
   },
   "private": true,
   "scripts": {
+    "install": "npm install; bower install; gulp build",
     "start": "gulp"
   },
   "devDependencies": {

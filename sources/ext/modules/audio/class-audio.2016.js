@@ -55,6 +55,7 @@ class Audio2016 {
         }
 
         // Замена родной кнопки Play
+        /* @d3i0
         if (mod.options.replace_play_button) {
             this.dom.original_play_button.classList.add('kzvk-audio__original_play_button');
             this.dom.play_button = document.createElement('div');
@@ -67,6 +68,7 @@ class Audio2016 {
             this.dom.play_button = this.dom.play_button.firstChild;
             this.dom.play_button_wrap.appendChild(this.dom.play_button);
         }
+        //*/
 
 //            this.dom.element.insertBefore(
 //                this.download_button.element,
@@ -100,8 +102,12 @@ class Audio2016 {
                     module: mod.name
                 });
 
+				// @d3i0
+				this.dom.element.querySelector('.audio_title_wrap').appendChild( this.download_button.element );
+				/* @d3i0
                 this.dom.play_button_wrap.appendChild(
                     this.download_button.element);
+                //*/
             }
 
             if (this.deleted) {

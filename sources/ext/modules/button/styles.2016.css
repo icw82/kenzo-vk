@@ -3,8 +3,13 @@
     --c_main: rgb(87, 124, 161);
 }
 
-.kzvk-download-button{display: inline-block; width: 37px; height: 24px;
+.kzvk-download-button{
+	display: inline-block;
+	width: 37px;
+	height: 24px;
+    
     transition: height .2s ease, line-height .2s ease;
+    
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -59,3 +64,7 @@
 .kzvk-download-button__item.kzvk-unavailable{opacity: 1; pointer-events: auto}
 .kzvk-download-button__item.kzvk-unavailable text{fill: var(--c_main); font-size: 15px;
     transform: translateY(5px); opacity: 1}
+    
+.audio_row .audio_title_wrap {
+ 	padding-left: 46px !important;
+ }
