@@ -42,36 +42,31 @@ class Audio2016 {
         this.vk.title = core.utils.filter.base(this.vk.title);
         this.vk.title = core.utils.filter.trash(this.vk.title);
 
-        // Определение вида блока аудиозаписи
-
-        // Определение оригинальный кнопки проигрывания
+        // Обёртка для кнопок
         this.dom.original_play_button =
-            this.dom.element.querySelector('button.audio_play');
-        if (kk.is_E(this.dom.original_play_button)) {
-            this.dom.play_button_wrap =
-                this.dom.original_play_button.parentElement;
-        } else {
-            console.warn('rgnlbtn>', this.dom.element);
-        }
+            this.dom.element.querySelector('.audio_row_cover_wrap');
+        this.dom.button_wrapper = document.createElement('div');
+        this.dom.button_wrapper.classList.add('kzvk-audio__button-wrapper');
 
-        // Замена родной кнопки Play
-        if (mod.options.replace_play_button) {
-            this.dom.original_play_button.classList.add('kzvk-audio__original_play_button');
-            this.dom.play_button = document.createElement('div');
-            this.dom.play_button.innerHTML =
-                '<svg class="kzvk-audio__play_button">' +
-                    '<use class="kzvk-audio__play" xlink:href="#kzvk-play-2016" />' +
-                    '<use class="kzvk-audio__pause" xlink:href="#kzvk-pause-2016" />' +
-                '</svg>';
+        this.dom.original_play_button.parentElement.insertBefore(
+            this.dom.button_wrapper,
+            this.dom.original_play_button.nextSibling
+        );
 
-            this.dom.play_button = this.dom.play_button.firstChild;
-            this.dom.play_button_wrap.appendChild(this.dom.play_button);
-        }
+        // Замена мэйлрушного говна (обложки с ебучей нотой)
+        this.dom.original_play_button.classList
+            .add('kzvk-audio__original_play_button');
 
-//            this.dom.element.insertBefore(
-//                this.download_button.element,
-//                this.dom.play_button_wrap
-//            );
+        this.dom.play_button = document.createElement('div');
+        this.dom.play_button.innerHTML =
+            '<svg class="kzvk-audio__play_button">' +
+                '<use class="kzvk-audio__play" xlink:href="#kzvk-play-classic" />' +
+                '<use class="kzvk-audio__pause" xlink:href="#kzvk-pause-classic" />' +
+            '</svg>';
+
+        this.dom.play_button = this.dom.play_button.firstChild;
+        this.dom.button_wrapper.appendChild(this.dom.play_button);
+
 
         this.with_button = mod.options.download_button;
         // Не встраивать кнопку в запись в узких колонках
@@ -80,6 +75,10 @@ class Audio2016 {
             '#public_audios'
         ])) {
             this.with_button = false;
+        }
+
+        if (mod.options.hide_hq_label) {
+            this.dom.element.classList.add('without-hq-label');
         }
 
         if (this.with_button) {
@@ -100,7 +99,7 @@ class Audio2016 {
                     module: mod.name
                 });
 
-                this.dom.play_button_wrap.appendChild(
+                this.dom.button_wrapper.appendChild(
                     this.download_button.element);
             }
 
@@ -120,7 +119,7 @@ class Audio2016 {
                     module: mod.name
                 });
 
-                this.dom.play_button_wrap.appendChild(this.download_button.element);
+                this.dom.button_wrapper.appendChild(this.download_button.element);
             }
         });
 

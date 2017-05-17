@@ -3,7 +3,7 @@
         "message": "Кензо ВК"
     },
     "ext_description": {
-        "message": "Определение битрейта и скачивание аудиозаписей (музыки) вконтакте (vk.com), антиреклама скробблинг и раскругление"
+        "message": "Улучшение интерфейса VK.com"
     },
     "mistake": {
         "message": "Недоразумение"
@@ -16,8 +16,8 @@
     "o__audio__download_button": {
         "message": "Кнопка с битрейтом"
     },
-    "o__audio__replace_play_button": {
-        "message": "Замена кнопки проигрывания"
+    "o__audio__hide_hq_label": {
+        "message": "Скрывать индикатор «HD» всегда"
     },
     "o__audio__separator": {
         "message": "Разделитель:"

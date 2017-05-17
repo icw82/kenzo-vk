@@ -1,35 +1,65 @@
 'use strict';
+
 const gulp = require('gulp');
-const es = require('event-stream');
+const path = require('path');
+const task_name = path.basename(__filename, '.js');
+//const info = require('./../package.json');
+
+const streamqueue = require('streamqueue');
+//const insert = require('gulp-insert');
 const concat = require('gulp-concat');
-//const join = require('path').join;
+//const csso = require('gulp-csso');
+//const rename = require('gulp-rename');
+//const replace = require('gulp-replace');
 
-gulp.task('styles', () => {
-    const streams = [];
+const ext = '.css';
+const glob = [
+    'styles',
+    'modules/*/styles',
+    'modules/*/submodules/*/styles'
+].map(item => './sources/ext/' + item);
 
-    streams.push(
-        gulp.src('./bower_components/kk/kk-reset.css')
-    );
+const task = (() => {
+    const subtasks = [];
 
-    for (let mode of ['', '.2016', '.m']) {
-        let list = [
-            'styles',
-            'modules/*/styles',
-            'modules/*/submodules/*/styles'
-        ];
+    {
+        const subtask_name = task_name + ':reset';
+        subtasks.push(subtask_name);
 
-        streams.push(gulp
-            .src(list.map(item => './sources/ext/' + item + mode + '.css'))
-            .pipe(concat('ext' + mode + '.css'))
+        gulp.task(subtask_name, () => gulp
+            .src('./bower_components/kk/kk-reset.css')
+            .pipe(gulp.dest('build/styles'))
         );
     }
 
-    return es.merge.apply(this, streams)
-        .pipe(gulp.dest('build/styles'));
-});
+    const modes = [{
+        name: 'common',
+        postfix: ''
+    }, {
+        name: '2016',
+        postfix: '.2016'
+    }, {
+        name: 'mobile',
+        postfix: '.m'
+    }];
 
-gulp.task('watch__styles', () => gulp.watch([
-    './sources/ext/*.css',
-    './sources/ext/**/*.css'
-], ['styles']));
+    for (let mode of modes) {
+        const subtask_name = task_name + ':' + mode.name;
+        subtasks.push(subtask_name);
 
+        gulp.task(subtask_name, () => gulp
+            .src(glob.map(item => item + mode.postfix + ext), { allowEmpty: true })
+            .pipe(concat('ext' + mode.postfix + '.css'))
+            .pipe(gulp.dest('build/styles'))
+        );
+    }
+
+    return gulp.parallel(...subtasks);
+})();
+
+gulp.task(task_name, task);
+
+gulp.task('watch:' + task_name, () => gulp.watch([
+    './sources/ext/*' + ext,
+    './sources/ext/**/*' + ext
+], gulp.task(task_name)));

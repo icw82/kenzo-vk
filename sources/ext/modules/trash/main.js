@@ -11,13 +11,14 @@ mod.defaults.options = {
     potential_friends: true,
     profile_rate: true,
     promoted_posts: false,
+    playlists_block: true,
 //    audio_catalog_performers: true
 //    user_reposts: false,
 //    group_reposts: false,
     sidebar_ads: true
 }
 
-// FUTURE: Удалать шары групп и прочего;
+// FUTURE: Удалять шары групп и прочего;
 // FUTURE: Удалять шары групп, в которых я и так состою;
 // TODO: Индикация удалённых репостов (количество);
 // NOTE: Нужно ли делать искустенную прокурутку для удаления всех репостов ленты?;

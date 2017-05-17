@@ -3,7 +3,10 @@ mod.drop = (input, option) => {
         if (mod.dom.trash_bin.contains(node))
             return;
         mod.dom.trash_bin.appendChild(node);
-        node.style.height = '0px';
+        if ('style' in node)
+            node.style.height = '0px';
+        else
+            console.warn('>>>>', node);
         mod.log('drop', node);
     }
 

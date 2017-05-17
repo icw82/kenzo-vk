@@ -122,7 +122,7 @@ function data($rootScope) {
 
                 'cache',
                 'download_button',
-                'replace_play_button',
+                'hide_hq_label',
                 'separator',
                 'separator__desc'
             ]

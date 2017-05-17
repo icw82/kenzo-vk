@@ -4,7 +4,7 @@ class DownloadQueue {
 //     2 — active (скачивается)
 //     3 — paused (скачивание на паузе)
 
-// TODO: Сортировка по дате
+// TODO: Сортировка по дате (Зачем?)
 
     get sources () {
         return ['ext', 'chrome'];

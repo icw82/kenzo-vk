@@ -29,7 +29,7 @@ mod.registry = (() => {
             let audio = new mod.Audio(element);
             list.push(audio);
 
-//            mod.log(audio);
+            mod.log(audio);
         });
 
         // Чистка

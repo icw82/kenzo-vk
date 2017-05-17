@@ -3,7 +3,7 @@
 mod.defaults.options = {
     _: true,
     download_button: true,
-    replace_play_button: true,
+    hide_hq_label: true,
     separator: core.utils.choose_a_locale({
         en: '–',
         ru: '—'

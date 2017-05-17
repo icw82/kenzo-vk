@@ -1,14 +1,24 @@
-require('require-dir')('./tasks');
+'use strict';
 
-const gulp = require('gulp');
+const fs = require('fs');
+const is = require('./tools/is');
 
-const observers = [];
-for (var key in gulp.tasks) {
-    if (key.indexOf('watch__') === 0);
-        observers.push(key);
+if (
+    !is.dir('./sources') ||
+    !is.dir('./sources/core') ||
+    !is.dir('./sources/ext') ||
+    !is.dir('./sources/immutable')
+) {
+    throw Error(
+        ['\x1b[31m', '\x1b[0m'].join('%s'),
+        path + ' — не существует'
+    );
 }
 
-gulp.task('watch', observers);
-gulp.task('scripts', ['scripts_parts', 'scripts_core', 'scripts_ext']);
-gulp.task('build', ['immutable', 'scripts', 'styles']);
-gulp.task('default', ['clean', 'build', 'watch']);
+const tasks_dir = './tasks/';
+const tasks = fs.readdirSync(tasks_dir);
+tasks.forEach(task => {
+    const path = tasks_dir + '/' + task;
+    if (is.file(path))
+        require(path);
+});

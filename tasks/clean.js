@@ -1,14 +1,13 @@
-var gulp = require('gulp');
-var del = require('del');
+'use strict';
 
-gulp.task('clean', function(callback) {
-    del.sync([
-        'build/**/*'
-    ]);
+const gulp = require('gulp');
+const path = require('path');
+const task_name = path.basename(__filename, '.js');
 
-    callback();
-});
+const del = require('del');
 
-//gulp.task('watch__clean', function() {
-//    gulp.watch(['…'], ['clean']);
-//});
+const task = done => del([
+    'build/**/*'
+], done);
+
+gulp.task(task_name, task);
