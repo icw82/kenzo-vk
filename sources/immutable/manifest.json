@@ -66,7 +66,8 @@
         "default_icon": {
             "19": "images/icons/19.png",
             "38": "images/icons/38.png"
-        }
+        },
+        "default_popup": "layouts/browser_action.html"
     },
     "content_security_policy":
         "script-src 'self' 'unsafe-eval'; object-src 'self'",

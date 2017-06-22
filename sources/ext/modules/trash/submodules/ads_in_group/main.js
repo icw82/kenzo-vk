@@ -5,8 +5,10 @@ sub.init__content = () => {
                 //let area = ext.dom.content ? ext.dom.content : document;
 
                 each ('.wall_module .wall_marked_as_ads', target => {
-                    let block = kk.find_ancestor(target, '.page_block');
-                    sub.mod.drop(block);
+                    let block = kk.find_ancestor(target, 'page_block');
+
+                    if (block.classList.contains('post'))
+                        sub.mod.drop(block);
                 });
             }
         });

@@ -4,7 +4,7 @@ mod.vk = (mod => {
     // TODO: Допилить
     const cache = new core.SimpleStore({
         name: 'kenzo-vk-audio',
-        version: 5,
+        version: 6,
         store: {
             name: 'audio',
             key: 'id',
@@ -12,7 +12,7 @@ mod.vk = (mod => {
         }
     });
 
-    const expiration = 1000 * 60 * 60 * 12;
+    const expiration = 1000 * 60 * 60 * 10;
     const queue = [];
     const on_response = new kk.Event();
     const on_adding_a_new_item_to_the_queue = new kk.Event();

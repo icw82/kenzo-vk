@@ -11,8 +11,6 @@ class Audio2016 {
             element: element
         }
 
-        this.dom.element.classList.add('kzvk-audio');
-
         // Получение информации об аудиозаписи со страницы VK
         const info = JSON.parse(this.dom.element.getAttribute('data-audio'));
         let url = false;
@@ -42,31 +40,28 @@ class Audio2016 {
         this.vk.title = core.utils.filter.base(this.vk.title);
         this.vk.title = core.utils.filter.trash(this.vk.title);
 
-        // Обёртка для кнопок
-        this.dom.original_play_button =
-            this.dom.element.querySelector('.audio_row_cover_wrap');
-        this.dom.button_wrapper = document.createElement('div');
-        this.dom.button_wrapper.classList.add('kzvk-audio__button-wrapper');
+        // DOM
 
-        this.dom.original_play_button.parentElement.insertBefore(
-            this.dom.button_wrapper,
-            this.dom.original_play_button.nextSibling
-        );
+        // Удаление лишних элементов
+        {
+            const to_remove = this.dom.element.querySelectorAll([
+                '.blind_label',
+                '.audio_row__cover',
+                '.audio_row__cover_back',
+                '.audio_row__cover_icon',
+                '.audio_row__counter',
+                '.audio_row__play_btn'
+            ].join(','));
 
-        // Замена мэйлрушного говна (обложки с ебучей нотой)
-        this.dom.original_play_button.classList
-            .add('kzvk-audio__original_play_button');
+            each (to_remove, node => node.remove());
+        }
 
-        this.dom.play_button = document.createElement('div');
-        this.dom.play_button.innerHTML =
-            '<svg class="kzvk-audio__play_button">' +
-                '<use class="kzvk-audio__play" xlink:href="#kzvk-play-classic" />' +
-                '<use class="kzvk-audio__pause" xlink:href="#kzvk-pause-classic" />' +
-            '</svg>';
+        this.dom.element.classList.remove('audio_row_with_cover');
 
-        this.dom.play_button = this.dom.play_button.firstChild;
-        this.dom.button_wrapper.appendChild(this.dom.play_button);
-
+        // Скрытие индикатора HQ
+        if (mod.options.hide_hq_label) {
+            this.dom.element.classList.remove('audio_hq');
+        }
 
         this.with_button = mod.options.download_button;
         // Не встраивать кнопку в запись в узких колонках
@@ -77,13 +72,40 @@ class Audio2016 {
             this.with_button = false;
         }
 
-        if (mod.options.hide_hq_label) {
-            this.dom.element.classList.add('without-hq-label');
-        }
-
         if (this.with_button) {
             this.dom.element.classList.add('with-button');
         }
+
+        // Элемент с названием, временем и кнопками действия
+        this.dom.inner = this.dom.element.querySelector('.audio_row__inner');
+
+        if (!this.dom.inner) {
+            console.warn('Не найден элемент .audio_row__inner');
+            return;
+        }
+
+        // Обёртка для кнопок
+        this.dom.button_wrapper = document.createElement('div');
+        this.dom.button_wrapper.classList.add('kzvk-audio__button-wrapper');
+
+        this.dom.inner.parentElement.insertBefore(
+            this.dom.button_wrapper,
+            this.dom.inner.parentElement.firstChild
+        );
+
+        this.dom.play_button = document.createElement('div');
+        this.dom.play_button.innerHTML =
+            '<svg class="kzvk-audio__play_button">' +
+                '<use class="kzvk-audio__play" x="50%" y="50%" ' +
+                    'xlink:href="#kzvk-play-classic" />' +
+                '<use class="kzvk-audio__pause" x="50%" y="50%" ' +
+                    'xlink:href="#kzvk-pause-classic" />' +
+            '</svg>';
+
+        this.dom.play_button = this.dom.play_button.firstChild;
+        this.dom.button_wrapper.appendChild(this.dom.play_button);
+
+
 
         mod.vk.get_url(this.vk.full_id).then(url => {
             // Добавление или извлечение записи из реестра файлов;
@@ -122,6 +144,8 @@ class Audio2016 {
                 this.dom.button_wrapper.appendChild(this.download_button.element);
             }
         });
+
+        this.dom.element.classList.add('kzvk-audio');
 
 //        let observer = new MutationObserver(mutations => {
 //            self.update();

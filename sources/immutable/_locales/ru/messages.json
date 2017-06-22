@@ -145,6 +145,9 @@
     "o__trash__group_reposts": {
         "message": "Репосты групп"
     },
+    "o__trash__playlists_block": {
+        "message": "Блок с плейлистами на странице аудиозаписей"
+    },
     "o__trash__potential_friends": {
         "message": "Предложение друзей"
     },

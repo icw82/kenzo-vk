@@ -27,14 +27,11 @@
 .kzvk-download-button__item.kzvk-label text{
     fill: var(--color-main); font-size: 11px; opacity: 1;
     transform: translate(0, 4px)}
-.kzvk-download-button__item.kzvk-label .kzvk-arrow{
-    transform: translate(calc( (var(--a-btn-w) - 2px) / 2 - 5px) )}
+.kzvk-download-button__item.kzvk-label .kzvk-arrow{}
 .kzvk-download-button__item.kzvk-label .kzvk-overlay{fill: white;
-    transform: translate(2px)}
-.kzvk-download-button__item.kzvk-label .kzvk-shaft{
-    transform: translate(5px)}
+    transform: translate(-3px)}
 .kzvk-download-button__item.kzvk-label .kzvk-head{
-    transform: translate(0, 2.5px)}
+    transform: translate(-6px, -6.7px); /*stroke: var(--color-main)*/ }
 
 .kzvk-download-button__item.kzvk-label:hover text{opacity: 0}
 .kzvk-download-button__item.kzvk-label:hover .kzvk-arrow{opacity: 1}
@@ -42,10 +39,10 @@
 .kzvk-pending
 .kzvk-download-button__item.kzvk-pending{
     opacity: 1; pointer-events: auto}
-.kzvk-download-button__item.kzvk-pending .kzvk-arrow{
-    transform: translate(10px, 9px); opacity: 1}
+.kzvk-download-button__item.kzvk-pending .kzvk-arrow{opacity: 1;
+    transform: translate3d(-7px, -4px, 0)}
 .kzvk-download-button__item.kzvk-pending .kzvk-cross{
-    transform: translate(12px, 7px)}
+    transform: translate3d(-5px, -5px, 0)}
 
 .kzvk-download-button__item.kzvk-pending:hover .kzvk-arrow{opacity: 0}
 .kzvk-download-button__item.kzvk-pending:hover .kzvk-cross{opacity: 1}
@@ -56,7 +53,7 @@
 .kzvk-download-button__item.kzvk-progress .kzvk-filling{
     width: 100%; height: 100%; z-index: 1; fill: rgb(95, 127, 162); opacity: .4}
 .kzvk-download-button__item.kzvk-progress .kzvk-cross{
-    transform: translate(12px, 7px)}
+    transform: translate3d(-5px, -5px, 0)}
 .kzvk-download-button__item.kzvk-progress:hover .kzvk-filling{opacity: .3}
 .kzvk-download-button__item.kzvk-progress:hover .kzvk-cross{opacity: 1}
 

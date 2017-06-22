@@ -7,7 +7,7 @@ mod.defaults.options = {
     original_image: true,
     post_in_new_tab: true, //TODO: у постов, открыть в новой вкладке.
     sidebar_button: false,
-    unrounding: false
+    unrounding: true
 }
 
 mod.init__content = () => {

@@ -2,12 +2,12 @@
 :root {
     --color-main: rgb(87, 124, 161);
 
-    --w-play: 18px;
-
-    --a-btn-w: 32px;
-    --a-btn-h: 18px;
+    --a-btn-w: 34px;
+    --a-btn-h: 20px;
     --a-btn-space: 6px;
     --a-btn-radius: 3px;
     --a-btn-padding: 6px;
     --a-btn-transition: .4s;
+
+    --w-play: var(--a-btn-h);
 }

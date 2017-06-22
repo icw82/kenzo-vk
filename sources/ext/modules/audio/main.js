@@ -15,16 +15,23 @@ mod.init__content = () => {
     if (mod.options._ !== true || !ext.mode)
         return;
 
-    const listener__2016 = () => {
-        let elements = kk.d.querySelectorAll('.audio_row');
-
-        if (elements.length > 0) {
-            let item = mod.registry.update(elements);
-        }
-    }
-
     if (ext.mode === 2016) {
-        core.events.on_mutation.addListener(listener__2016);
+        core.events.on_mutation.addListener(mutation => {
+            let elements = kk.d.querySelectorAll('.audio_row');
+
+            if (elements.length > 0) {
+                let item = mod.registry.update(elements);
+            }
+
+            each (kk.d.querySelectorAll('.audio_w_covers'), element => {
+                element.classList.remove('audio_w_covers');
+            });
+
+            each (kk.d.querySelectorAll('.audio_pl_edit_box'), element => {
+                element.classList.add('kzvk-audio-playlist-edit');
+            });
+
+        });
     }
 
     mod.on_loaded.dispatch();

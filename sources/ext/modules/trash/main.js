@@ -11,7 +11,7 @@ mod.defaults.options = {
     potential_friends: true,
     profile_rate: true,
     promoted_posts: false,
-    playlists_block: true,
+    playlists_block: false,
 //    audio_catalog_performers: true
 //    user_reposts: false,
 //    group_reposts: false,

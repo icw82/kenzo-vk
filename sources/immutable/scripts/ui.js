@@ -177,6 +177,7 @@ function data($rootScope) {
                 'group_recom',
                 'group_reposts',
                 'newsads',
+                'playlists_block',
                 'potential_friends',
                 'profile_rate',
                 'promoted_posts',

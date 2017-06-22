@@ -36,6 +36,7 @@ class DownloadButton2016 {
 //        this.container.setAttribute('draggable', true);
         this.element.appendChild(this.container);
 
+        // TODO: Вынести шаблон в отдельный файл
         // Этикетка
         {
             let label = document.createElement('span');
@@ -44,10 +45,9 @@ class DownloadButton2016 {
 
             label.innerHTML = '<svg>' +
                 '<text x="50%" y="50%" text-anchor="middle"></text>' +
-                '<g class="kzvk-arrow" width="10px">' +
-                    '<rect class="kzvk-overlay" width="7px" height="6px" />' +
-                    '<rect class="kzvk-shaft" width="1px" height="6px" />' +
-                    '<use class="kzvk-head" xlink:href="#kzvk-download-arrow-2016" />' +
+                '<g class="kzvk-arrow">' +
+                    '<rect class="kzvk-overlay" x="50%" width="7px" height="6px" />' +
+                    '<use class="kzvk-head" x="50%" xlink:href="#kzvk-download-arrow" />' +
                 '</g>' +
             '</svg>';
 
@@ -63,8 +63,8 @@ class DownloadButton2016 {
 
             pending.innerHTML =
                 '<svg>' +
-                    '<use class="kzvk-arrow" xlink:href="#kzvk-pending-2016" />' +
-                    '<use class="kzvk-cross" xlink:href="#kzvk-cross-2016" />' +
+                    '<use class="kzvk-arrow" x="50%" y="50%" xlink:href="#kzvk-pending-2016" />' +
+                    '<use class="kzvk-cross" x="50%" y="50%" xlink:href="#kzvk-cross-2016" />' +
                 '</svg>';
 
             this.container.appendChild(pending);
@@ -79,7 +79,7 @@ class DownloadButton2016 {
             progress.innerHTML =
                 '<svg>' +
                     '<rect class="kzvk-filling" width="100%" height="100%" />' +
-                    '<use class="kzvk-cross" xlink:href="#kzvk-cross-2016" />' +
+                    '<use class="kzvk-cross" x="50%" y="50%" xlink:href="#kzvk-cross-2016" />' +
                 '</svg>';;
 
             this.progress__filling = progress.querySelector('.kzvk-filling');
