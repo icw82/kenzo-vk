@@ -51,7 +51,8 @@
 .kzvk-download-button__item.kzvk-progress{
     overflow: hidden; opacity: 1; pointer-events: auto}
 .kzvk-download-button__item.kzvk-progress .kzvk-filling{
-    width: 100%; height: 100%; z-index: 1; fill: rgb(95, 127, 162); opacity: .4}
+    width: 100%; height: 100%; z-index: 1; fill: rgb(95, 127, 162);
+    opacity: .4}
 .kzvk-download-button__item.kzvk-progress .kzvk-cross{
     transform: translate3d(-5px, -5px, 0)}
 .kzvk-download-button__item.kzvk-progress:hover .kzvk-filling{opacity: .3}
