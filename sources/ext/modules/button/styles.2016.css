@@ -63,3 +63,11 @@
 .kzvk-download-button__item.kzvk-unavailable text{
     fill: var(--color-main); font-size: 15px; transform: translateY(5px);
     opacity: 1}
+
+/* Качество */
+.kzvk-download-button.kzvk-quality-1{opacity: 1}
+.kzvk-download-button.kzvk-quality-2{opacity: .85}
+.kzvk-download-button.kzvk-quality-3{opacity: .7}
+.kzvk-download-button.kzvk-quality-4{opacity: .55}
+.kzvk-download-button.kzvk-quality-5{opacity: .4}
+.kzvk-download-button.kzvk-quality-vbr{opacity: .7}

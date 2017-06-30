@@ -12,12 +12,17 @@ class DownloadButton2016 {
 
         this.counter = 0;
 
-        this.classes = [
-            'kzvk-label',
-            'kzvk-pending',
-            'kzvk-progress',
-            'kzvk-unavailable'
-        ];
+        this.classes = {
+            state: [
+                'kzvk-label',
+                'kzvk-pending',
+                'kzvk-progress',
+                'kzvk-unavailable'
+            ],
+            quality: [
+                1, 2, 3, 4, 5, 'vbr'
+            ].map(item => 'kzvk-quality-' + item)
+        };
 
 //        this.container_classes = [
 //            'kzvk-download-button__container'
@@ -148,12 +153,12 @@ class DownloadButton2016 {
     update() {
         const self = this;
 
-        let opacity = .4;
+        let quality = 5; // index
 
         if (!this.file.available && this.file.url !== null) {
-            this.element.style.opacity = opacity;
+//            this.element.style.opacity = opacity;
             this.unavailable.innerHTML = '×_×';
-            kk.class(self.element, 'kzvk-unavailable', this.classes);
+            kk.class(self.element, 'kzvk-unavailable', this.classes.state);
 
 //            console.log(this.file.url);
             return;
@@ -178,13 +183,13 @@ class DownloadButton2016 {
 
                         // Прозрачность
                         if (label >= 288)
-                            opacity = 1;
+                            quality = 1;
                         else if (label >= 224)
-                            opacity = .85;
+                            quality = 2;
                         else if (label >= 176)
-                            opacity = .7;
+                            quality = 3;
                         else if (label >= 112)
-                            opacity = .55;
+                            quality = 4;
 
                     } else {
                         label = 'VBR';
@@ -192,7 +197,7 @@ class DownloadButton2016 {
 //                        if (this.file.MPEG.method.quality !== false)
 //                            this.element.style.opacity =
 //                                1 - this.file.MPEG.method.quality / 100 * .6;
-                        opacity = .7;
+                        quality = 'vbr';
                     }
                 }
             }
@@ -201,7 +206,9 @@ class DownloadButton2016 {
                 this.element.setAttribute('title', title.join(', '));
         }
 
-        this.element.style.opacity = opacity;
+        this.element.classList
+        kk.class(self.element, 'kzvk-quality-' + quality, self.classes.quality);
+//        this.element.style.opacity = opacity;
         this.label.innerHTML = label;
         this.update_state();
     }
@@ -213,25 +220,25 @@ class DownloadButton2016 {
             return;
 
         if (self.file.state === 0) {
-            kk.class(self.element, 'kzvk-label', self.classes);
+            kk.class(self.element, 'kzvk-label', self.classes.state);
             return;
         }
 
         if (self.file.state === 1) {
-            kk.class(self.element, 'kzvk-pending', self.classes);
+            kk.class(self.element, 'kzvk-pending', self.classes.state);
             return;
         }
 
         if (self.file.state === 2) {
 //            console.log('self.file.progress', self.file.progress);
-            kk.class(self.element, 'kzvk-progress', self.classes);
+            kk.class(self.element, 'kzvk-progress', self.classes.state);
             self.progress__filling.style.transform =
                 'translateX(' + (-100 + self.file.progress) + '%)';
             return;
         }
 
         if (self.file.state === 3) {
-            kk.class(self.element, 'kzvk-progress', self.classes);
+            kk.class(self.element, 'kzvk-progress', self.classes.state);
             self.progress__filling.style.transform =
                 'translateX(' + (-100 + self.file.progress) + '%)';
             return;

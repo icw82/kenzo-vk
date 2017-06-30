@@ -20,6 +20,7 @@
 
 
  .kzvk-ui-unrounding .apps_feed_user_img /* В приложениях */
+,.kzvk-ui-unrounding .audio_owner_avatar /* Владелец плейлиста */
 ,.kzvk-ui-unrounding .audio_owner_item__img /* Изображения в рекомендациях */
 ,.kzvk-ui-unrounding .bd_cell_img /* Календарь */
 ,.kzvk-ui-unrounding .bd_img /* Календарь */
@@ -42,6 +43,7 @@
 ,.kzvk-ui-unrounding .flist_item_thumb /* Настройки приватности: скрыть друзей */
 ,.kzvk-ui-unrounding .flist_sel_list .flist_item_action /* Настройки приватности: скрыть друзей */
 ,.kzvk-ui-unrounding .friends_photo_img /* Друзья */
+,.kzvk-ui-unrounding .group_al_thumb /* Добавление ссылки к группе */
 ,.kzvk-ui-unrounding .group_box_image_link /* Контакты, мероприятия, пригласить друзей */
 ,.kzvk-ui-unrounding .group_box_image_wrap /* Контакты, мероприятия, пригласить друзей */
 ,.kzvk-ui-unrounding .group_contact_image_wrap /* Добавление контакта к группе */

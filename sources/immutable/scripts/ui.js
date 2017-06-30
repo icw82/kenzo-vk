@@ -270,9 +270,9 @@ function data($rootScope) {
     ext.log('i18n', pre_i18n);
     self.storage = {}
 
-    this.manifest = browser.runtime.getManifest();
+    self.manifest = browser.runtime.getManifest();
 
-    this.clear_db = function() {
+    self.clear_db = function() {
         browser.storage.local.clear(function() {
             browser.storage.local.get(function() {
                 //mod.log(arguments);
@@ -282,7 +282,7 @@ function data($rootScope) {
         });
     }
 
-    this.defaults = () => {
+    self.defaults = () => {
         if (confirm('Вы действительно хотите сбросить настройки?')) {
             core.storage.reset();
         }
@@ -307,12 +307,7 @@ function data($rootScope) {
         }
     });
 
-    this.download_queue = [];
-
-//    ext.load_storage().then(() => {
-//        self.download_queue = ext.modules.downloads.storage.queue;
-//        $rootScope.$apply();
-//    });
+    self.download_queue = ext.modules.downloads.storage.queue;
 
     ext.modules.downloads.on_storage_changed.addListener(changes => {
         if ('queue' in changes) {
@@ -433,7 +428,10 @@ function QueueCtrl($scope, $element, data) {
     this.list = data.download_queue;
     this.extedned_view = [];
 
-    $scope.$watch(() => data.download_queue, () => { self.list = data.download_queue }, true);
+    $scope.$watch(
+        () => data.download_queue,
+        () => { self.list = data.download_queue }, true
+    );
 
     this.state_class = function(id) {
         if (id === 0)
