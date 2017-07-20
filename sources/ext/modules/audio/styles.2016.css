@@ -122,11 +122,19 @@
 .kzvk-audio:not(.audio_row__current):hover .kzvk-overlay{
     fill: rgb(242, 244, 247)}
 
-.audio_pl_edit_box.kzvk-audio-playlist-edit .ape_check{
-    box-sizing: border-box;
-    height: calc(var(--a-btn-padding) * 2 + var(--a-btn-h));
-    padding: var(--a-btn-padding)}
-.audio_pl_edit_box.kzvk-audio-playlist-edit .ape_check{
-    transform: scale(0.85)}
-.audio_pl_edit_box.kzvk-audio-playlist-edit .ape_check .ape_check_icon{
-    margin-top: calc( (22px - var(--a-btn-h)) / -2 - 1px)}
+.kzvk-audio:not(.audio_row__current) .audio_player__place{display: none}
+
+.audio_pl_edit_box.kzvk-audio-playlist-edit
+    .ape_audio_item_wrap .ape_check{
+        box-sizing: border-box;
+        height: calc(var(--a-btn-padding) * 2 + var(--a-btn-h));
+        padding: var(--a-btn-padding)}
+.audio_pl_edit_box.kzvk-audio-playlist-edit
+    .ape_audio_item_wrap .ape_check{
+        transform: scale(0.85)}
+.audio_pl_edit_box.kzvk-audio-playlist-edit
+    .ape_audio_item_wrap .ape_check .ape_check_icon{
+        margin-top: calc( (22px - var(--a-btn-h)) / -2 - 1px)}
+
+.kzvk-audio.audio_row .audio_row__lyrics{padding: var(--a-btn-padding) 0}
+.kzvk-audio.audio_row .audio_row__lyrics{}

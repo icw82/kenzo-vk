@@ -16,7 +16,8 @@
 //    xhr.onreadystatechange = function() {
 //        if (xhr.readyState !== 4) return;
 //        if (xhr.status === 200) {
-//            var data = JSON.parse(this.response);//
+//            var data = JSON.parse(this.response);
+//            console.log()
 //        }
 //    }
 //
