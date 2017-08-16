@@ -14,9 +14,6 @@ mod.init__content = () => {
 }
 
 mod.init__background = () => {
-
-    console.log('>>>>>>>');
-
     {
         const xhr = new XMLHttpRequest();
         const url = 'https://raw.githubusercontent.com/icw82/blacklist/master/blacklist.json';
@@ -25,7 +22,8 @@ mod.init__background = () => {
             if (xhr.readyState !== 4) return;
             if (xhr.status === 200) {
                 const data = JSON.parse(this.response);
-                console.log(data);
+
+                mod.log('BLACKLIST', data);
             }
         }
 

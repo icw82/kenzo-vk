@@ -176,6 +176,7 @@ mod.vk = (mod => {
             }
         };
 
+        // Название какбе символизируе
         function someshit(e) {
             if (!e || e.length % 4 == 1)
                 return !1;
