@@ -18,7 +18,7 @@ sub.init__content = () => {
                         )
                     ) {
                         sub.mod.drop(block.nextElementSibling);
-                        console.log(sub.name);
+//                        console.log(sub.name);
                     }
                     sub.mod.drop(block);
                 });

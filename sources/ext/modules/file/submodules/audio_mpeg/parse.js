@@ -11,7 +11,8 @@ sub.parse = (input) => new Promise((resolve, reject) => {
 
 sub.parse_by_url = (url) => new Promise((resolve, reject) => {
      mod.get__headers(url).then(result => {
-         sub.parse_by_object(result).then(resolve, reject);
+        mod.log('> 2 >>>>>', url);
+        sub.parse_by_object(result).then(resolve, reject);
     }, reject);
 });
 

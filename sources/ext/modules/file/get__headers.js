@@ -13,6 +13,7 @@ mod.get__headers = url => new Promise(function(resolve, reject) {
             url: url
         }
     };
+
     const xhr = new XMLHttpRequest();
 
     xhr.addEventListener('readystatechange', () => {

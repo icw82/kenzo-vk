@@ -4,7 +4,7 @@ mod.vk = (mod => {
     // TODO: Допилить
     const cache = new core.SimpleStore({
         name: 'kenzo-vk-audio',
-        version: 6,
+        version: 7,
         store: {
             name: 'audio',
             key: 'id',
@@ -46,6 +46,9 @@ mod.vk = (mod => {
         }
 
         cache.get(id).then(data => {
+
+//            mod.log('>> cached data >>', data);
+
             if (kk.is_o(data)) {
                 const age = kk.ts() - data.ts;
 
@@ -147,78 +150,96 @@ mod.vk = (mod => {
         }
     }
 
-    const check_url = url => {
-        if (!url.includes('audio_api_unavailable'))
-            return url;
+    /* Говнокод */
+    const check_url = source => {
+        const map =
+            'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMN0PQRSTUVWXYZO123456789+/=';
 
-        var map = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMN0PQRSTUVWXYZO123456789+/=';
-        var transform = {
-            v: string => string.split('').reverse().join(''),
-            r: (string, shift) => {
-                string = string.split('');
-                var a = map + map;
-                for (var i, o = string.length; o--;) {
-                    i = a.indexOf(string[o]);
-                    ~i && (string[o] = a.substr(i - shift, 1));
-                }
-                return string.join('')
+        const transforms = {
+            v: function (t) {
+                console.log('V');
+                return t.split('').reverse().join('')
             },
-            x: (string, alt) => {
-                let output = [];
-                let chars = string.split('');
-                alt = alt.charCodeAt(0);
-
-                each (chars, char => {
-                    output.push(String.fromCharCode(char.charCodeAt(0) ^ alt))
-                });
-
-                return output.join('');
+            r: function (t, e) {
+                console.log('R');
+                t = t.split('');
+                for (var i, o = map + map, a = t.length; a--;)
+                    i = o.indexOf(t[a]), ~i && (t[a] = o.substr(i - e, 1));
+                return t.join('')
+            },
+            s: (string, number) => {
+                console.log('S');
+                const size = string.length;
+                if (size) {
+                    var o = hueta(string, number);
+                    var a = 0;
+                    for (string = string.split(''); ++a < size;) {
+                        string[a] = string.splice(
+                            o[size - 1 - a], 1, string[a]
+                        )[0];
+                    }
+                    string = string.join('')
+                }
+                return string;
+            },
+            x: function (t, e) {
+                console.log('X');
+                var i = [];
+                return e = e.charCodeAt(0), each(t.split(''), function (t, o) {
+                    i.push(String.fromCharCode(o.charCodeAt(0) ^ e))
+                }), i.join('')
             }
-        };
-
-        // Название какбе символизируе
-        function someshit(e) {
-            if (!e || e.length % 4 == 1)
-                return !1;
-
-            for (var t, i, a = 0, o = 0, r = ""; i = e.charAt(o++);) {
-                i = map.indexOf(i);
-
-                ~i &&
-                (t = a % 4 ? 64 * t + i : i, a++ % 4) &&
-                (r += String.fromCharCode(255 & t >> (-2 * a & 6)));
-            }
-
-            return r
         }
 
         {
-            let extra_code = url.split("?extra=")[1].split("#");
-            let shit = someshit(extra_code[1]);
+            let extra = source.split('?extra=')[1].split('#');
+            let ugliness = '' === extra[1] ? '' : hut(extra[1]);
 
-            extra_code = someshit(extra_code[0]);
+            extra = hut(extra[0]);
 
-            if (!shit || !extra_code)
-                return url;
+            if (typeof ugliness != 'string' || !extra)
+                return source;
 
-            shit = shit.split(String.fromCharCode(9));
+            ugliness = ugliness ? ugliness.split(String.fromCharCode(9)) : [];
 
-            for (let a, r, s = shit.length; s--;) {
-                r = shit[s].split(String.fromCharCode(11));
-                a = r.splice(0, 1, extra_code)[0];
-
-                if (!transform[a])
-                    return url;
-
-                extra_code = transform[a].apply(null, r);
+            for (let s, r, n = ugliness.length; n--;) {
+                r = ugliness[n].split(String.fromCharCode(11));
+                s = r.splice(0, 1, extra)[0];
+                if (!transforms[s])
+                    return source;
+                extra = transforms[s].apply(null, r)
             }
 
-            if (extra_code && "http" === extra_code.substr(0, 4))
-                return extra_code;
+            if (extra && 'http' === extra.substr(0, 4))
+                return extra
         }
 
-    }
+        function hut(kusok) {
+            if (!kusok || kusok.length % 4 == 1)
+                return !1;
+            for (var e, i, o = 0, a = 0, s = ''; i = kusok.charAt(a++);) {
+                i = map.indexOf(i);
+                ~i &&
+                (e = o % 4 ? 64 * e + i : i, o++ % 4) &&
+                (s += String.fromCharCode(255 & e >> (-2 * o & 6)));
+            }
+            return s
+        }
 
+        function hueta(string, number) {
+            const size = string.length;
+            const array = [];
+            if (size) {
+                let count = size;
+                for (number = Math.abs(number); count--;) {
+                    array[count] =
+                        (number += number * (count + size) / number) % size | 0
+                }
+            }
+            return array
+        }
+    }
+    /* ************** */
 
     const send = request => {
 //        ext.log('request', request);
@@ -276,7 +297,18 @@ mod.vk = (mod => {
                             });
 
                             if (url) {
-                                item.url = check_url(url);
+                                if (url.includes('audio_api_unavailable')) {
+                                    url = check_url(url);
+
+                                    if (url.includes('audio_api_unavailable')) {
+                                        item.url = false;
+                                        mod.warn('audio_api_unavailable');
+                                    } else {
+                                        item.url = url;
+                                    }
+                                } else {
+                                    item.url =  url;
+                                }
                             } else {
                                 item.url = false;
                             }
@@ -285,7 +317,7 @@ mod.vk = (mod => {
                         });
 
                     } else {
-                        mod.warn('Странность №2: нет данных в ответе');
+                        mod.warn('Странность №2: нет данных в ответе', response);
 
                         // Таймер и повторная отсылка?
 

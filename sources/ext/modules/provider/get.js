@@ -14,6 +14,8 @@ mod.get = function(value, tab) {
             tab = mod.current_tab;
             var port = tab.port_of_background;
 
+//            mod.log('>> @@@ >>', value);
+
             port.postMessage({
                 action: 'get',
                 key: key,
@@ -44,6 +46,8 @@ mod.get = function(value, tab) {
             mod.log('proxy', value);
 
             var port = tab.port_of_page;
+
+//            mod.log('>> @@@ >>', value);
 
             port.postMessage({
                 action: 'get',

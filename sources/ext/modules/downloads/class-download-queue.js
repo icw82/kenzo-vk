@@ -533,6 +533,7 @@ class DownloadQueue {
             input = [input];
 
         each (input, function(id) {
+
             let item = self.get(id);
 
             if (item) {

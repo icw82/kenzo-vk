@@ -105,8 +105,6 @@ class Audio2016 {
         this.dom.play_button = this.dom.play_button.firstChild;
         this.dom.button_wrapper.appendChild(this.dom.play_button);
 
-
-
         mod.vk.get_url(this.vk.full_id).then(url => {
             // Добавление или извлечение записи из реестра файлов;
             this.file = ext.modules.file.registry.add(url);
