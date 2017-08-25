@@ -157,18 +157,18 @@ mod.vk = (mod => {
 
         const transforms = {
             v: function (t) {
-                console.log('V');
+//                console.log('V');
                 return t.split('').reverse().join('')
             },
             r: function (t, e) {
-                console.log('R');
+//                console.log('R');
                 t = t.split('');
                 for (var i, o = map + map, a = t.length; a--;)
                     i = o.indexOf(t[a]), ~i && (t[a] = o.substr(i - e, 1));
                 return t.join('')
             },
             s: (string, number) => {
-                console.log('S');
+//                console.log('S');
                 const size = string.length;
                 if (size) {
                     var o = hueta(string, number);
@@ -183,7 +183,7 @@ mod.vk = (mod => {
                 return string;
             },
             x: function (t, e) {
-                console.log('X');
+//                console.log('X');
                 var i = [];
                 return e = e.charCodeAt(0), each(t.split(''), function (t, o) {
                     i.push(String.fromCharCode(o.charCodeAt(0) ^ e))
