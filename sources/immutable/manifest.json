@@ -15,12 +15,13 @@
         "storage",
         "unlimitedStorage",
         "downloads",
-        "*://vk.com/*",
-        "*://*.vk.com/*",
+        "https://vk.com/*",
+        "https://*.vk.com/*",
         "*://*.vk.me/*",
         "*://*.vk-cdn.net/*",
         "*://*.userapi.com/*",
-        "*://raw.githubusercontent.com/icw82/*"
+        "https://raw.githubusercontent.com/icw82/*",
+        "https://api.github.com/repos/icw82/*"
     ],
     "externally_connectable": {
         "matches": [
@@ -93,6 +94,6 @@
 
         "layouts/options.html"
     ],
-    "minimum_chrome_version": "52",
+    "minimum_chrome_version": "61",
     "manifest_version": 2
 }

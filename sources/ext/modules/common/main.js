@@ -14,22 +14,27 @@ mod.init__content = () => {
 }
 
 mod.init__background = () => {
-    {
-        const xhr = new XMLHttpRequest();
-        const url = 'https://raw.githubusercontent.com/icw82/blacklist/master/blacklist.json';
-        xhr.open('GET', url, true);
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState !== 4) return;
-            if (xhr.status === 200) {
-                const data = JSON.parse(this.response);
 
-                mod.log('BLACKLIST', data);
-            }
-        }
+    const github_api_url = 'https://api.github.com/repos/icw82/kenzo-vk/';
+    const latest_release_url = github_api_url + 'releases/latest';
+    const latest_commit_url = github_api_url + 'git/refs/heads/master';
 
-        xhr.send(null);
-    }
+    const github_raw_url = 'https://raw.githubusercontent.com/icw82/';
+    const blacklist_url = github_raw_url + 'blacklist/master/blacklist.json';
 
-    mod.on_loaded.dispatch();
+    core.utils.fetch_json(latest_release_url)
+        .then(json => {
+            mod.log('Последний релиз', json);
+        }, error => mod.error(error))
+
+    core.utils.fetch_json(latest_commit_url)
+        .then(json => {
+            mod.log('Последний коммит', json);
+        }, error => mod.error(error))
+
+    core.utils.fetch_json(blacklist_url, true)
+        .then(json => {
+            mod.log('Чёрный список', json);
+        }, error => mod.error(error))
 
 }
