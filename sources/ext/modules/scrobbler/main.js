@@ -1,4 +1,4 @@
-mod.dependencies = ['common'];
+//mod.dependencies = ['common'];
 
 mod.defaults.buffer = [];
 // FIXME: Если по умолчанию переменная не объект,

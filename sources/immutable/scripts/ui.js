@@ -356,9 +356,11 @@ function ScrobblerModCtrl($scope, $element, data) {
     }
 
     // Токен
-    const token = window.location.href.match(/token=([\w\d]+)/) || false;
+    const url = new URL(window.location.href);
+    const token = url.searchParams.get('token');
+
     if (token)
-        ext.modules.scrobbler.methods.auth.getSession(token[1]);
+        ext.modules.scrobbler.methods.auth.getSession(token);
 
     mod_options('scrobbler', self, $scope);
 }
