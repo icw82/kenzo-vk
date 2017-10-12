@@ -109,7 +109,9 @@
 .kzvk-audio.with-button .audio_performer{max-width: 52%!important}
 
 .kzvk-audio .kzvk-download-button{
-    position: absolute; left: calc(var(--w-play) + var(--a-btn-space)); top: 0}
+    position: absolute;
+    left: calc(var(--w-play) + var(--a-btn-space));
+    top: 0}
 
 .kzvk-audio.audio_row__current .audio_player__place{opacity: 1}
 .kzvk-audio.audio_row__current .audio_row_content{
@@ -135,6 +137,8 @@
 .audio_pl_edit_box.kzvk-audio-playlist-edit
     .ape_audio_item_wrap .ape_check .ape_check_icon{
         margin-top: calc( (22px - var(--a-btn-h)) / -2 - 1px)}
+
+.im-mess--post .kzvk-audio{margin-left: 10px}
 
 .kzvk-audio.audio_row .audio_row__lyrics{padding: var(--a-btn-padding) 0}
 .kzvk-audio.audio_row .audio_row__lyrics{}

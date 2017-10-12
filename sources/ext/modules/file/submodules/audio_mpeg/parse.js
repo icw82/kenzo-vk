@@ -9,13 +9,15 @@ sub.parse = (input) => new Promise((resolve, reject) => {
 
 });
 
-sub.parse_by_url = (url) => new Promise((resolve, reject) => {
+sub.parse_by_url = url => new Promise((resolve, reject) => {
      mod.get__headers(url).then(result => {
         sub.parse_by_object(result).then(resolve, reject);
     }, reject);
 });
 
-sub.parse_by_object = (data) => new Promise((resolve, reject) => {
+sub.parse_by_object = data => new Promise((resolve, reject) => {
+//    console.log('parse_by_object', data);
+
     sub.read_the_first_expected_headers(data)
         .then(sub.find_headers, reject)
         .then(resolve, reject);

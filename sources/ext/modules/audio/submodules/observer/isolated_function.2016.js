@@ -4,11 +4,35 @@ const isolated_function_2016 = properties => {
     let registered = false;
     let secret_key = null;
     let stop_observe = false;
+    let last = false;
 
     var browser = chrome; // FIXME
 
+    kk.watch(window, 'ap', window => {
+        const ap = window.ap;
+
+        if (!kk.is_o(ap) || ap === null) {
+            warn('Некорректный объект плеера')
+            return;
+        }
+
+//        if (last )
+
+//
+//        if (kk.is_o(last_ap))
+//
+//        if (kk. && last_ap === window.ap) {
+//            // Существующий
+//        } else {
+//            console.log('new AP', window.ap);
+//            last_ap = window.ap;
+//        }
+
+
+    });
+
     // Регистрация провайдера и получение секретного ключа
-    const register = ap => {
+    const register = window => {
         const message = {
             target: properties.id,
             action: properties.actions.register,
@@ -24,39 +48,31 @@ const isolated_function_2016 = properties => {
                 return;
 
             secret_key = key;
-            registered = true;
+//            registered = true;
 
-            const keys = ['_isPlaying', '_currentAudio'];
-
-            if (!kk.is_o(ap)) {
-                console.warn('isolated_function 2016: Прокси не создан');
-                return;
-            }
-
-            kk.proxy(ap, keys, ap_observer);
-
-//            console.warn(ap);
-
-            /*
-                Нужна модификация.
-                Проблема в том, что нельзя задать новый обработчик или
-                убрать имеющийся.
-
-                kk.proxy(ap, keys);
-                (выдавать ошибку, если свойства
-                    addEventListner и removeEventListner заняты)
-                ap.addEventListner('_isPlaying', callback);
-                ap.removeEventListner('_isPlaying', callback);
-
-                [или ap.__on__._isPlaying.addEventListner(callback)?]
-
-                а также полный возврат к нормальному свойству.
-            */
+//            const keys = ['_isPlaying', '_currentAudio'];
+//
+//            if (!kk.is_o(window.ap)) {
+//                console.warn('isolated_function 2016: Прокси не создан');
+//                return;
+//            }
+//
+//            const proxy = new Proxy(window.ap, {
+//                get: ap_observer,
+//                set: function(target, property, value, receiver) {
+//                    console.warn('set', target, property, value);
+//                }
+//            });
+//
+//            window.ap = proxy;
 
         });
     }
 
     const ap_observer = (object, property) => {
+        console.warn('ap_observer', object, property)
+        console.info(typeof object[property])
+
         if (stop_observe)
             return;
 
@@ -99,17 +115,6 @@ const isolated_function_2016 = properties => {
             console.error(error);
 //                 stop_observe = true;
         }
-    }
-
-    if ('ap' in window) {
-        register(ap);
-    } else {
-        // Отлов объекта ap
-        kk.proxy(window, 'ap', (object, property) => {
-            if (registered)
-                return;
-            register(ap);
-        });
     }
 
     // Уёбищность как следствие уёбищности кода VK.

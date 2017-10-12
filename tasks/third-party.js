@@ -10,7 +10,7 @@ const paths_to_scripts = [
     'angular/angular.min.js.map',
 //    'angular-sanitize/angular-sanitize.min.js',
 //    'angular-sanitize/angular-sanitize.min.js.map',
-    'kk/kk.min.js',
+    'kenzo-kit/kk.min.js',
     'blueimp-md5/js/md5.min.js',
     'he/he.js'
 ].map(item => './bower_components/' + item);

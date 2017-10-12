@@ -44,8 +44,10 @@ class DownloadQueue {
 //            console.log('— storage changes →', changes, mod.storage.queue.length);
 //        });
 
-        // Последний использованный идентификатор
-        mod.log('counter', mod.storage.count);
+        mod.log(
+            'Последний использованный идентификатор',
+            mod.storage.count
+        );
 
         // События
         this.on_add = new kk.Event();

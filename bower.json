@@ -13,9 +13,9 @@
     "tests"
   ],
   "devDependencies": {
-    "kk": "~0",
-    "blueimp-md5": "~1.1.0",
-    "he": "~0.5.0",
-    "angular": "^1.6.4"
+    "kenzo-kit": "kk#^0.8.0",
+    "he": "^1.1.1",
+    "blueimp-md5": "^2.10.0",
+    "angular": "^1.6.6"
   }
 }

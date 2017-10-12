@@ -6,15 +6,23 @@ sub.read_the_first_expected_headers = data => new Promise((resolve, reject) => {
         [0,  9]
     ];
 
-    kk.get_buffer.apply(null, args).then(parts => {
-        if (kk.is_A(parts)) {
-            data.ID3v1 = sub.read_ID3v1_header(parts[0].content);
+    kk.get_buffer(...args).then(result => {
+
+        if (!kk.is_o(result)) {
+            reject('read_the_first_expected_headers: некорректыне данные');
+        }
+
+        if (kk.is_A(result)) {
+            const v1 = result[0].content;
+            const v2 = result[1].content;
+
+            data.ID3v1 = sub.read_ID3v1_header(v1);
             data.ID3v2 = [];
 
             // FIXME: Одинаковый код
-            let ID3v2_offset = sub.find_ID3v2_header(parts[1].content);
+            let ID3v2_offset = sub.find_ID3v2_header(v2);
             if (ID3v2_offset !== false) {
-                let buffer = parts[1].content.slice(ID3v2_offset, ID3v2_offset + 10);
+                let buffer = v2.slice(ID3v2_offset, ID3v2_offset + 10);
                 let ID3v2 = sub.read_ID3v2_header(buffer);
 
                 if (ID3v2) {
@@ -24,7 +32,11 @@ sub.read_the_first_expected_headers = data => new Promise((resolve, reject) => {
             }
 
             resolve(data);
-        } else {
+        } else if (
+            'content' in result &&
+            (result.content instanceof ArrayBuffer)
+        ) {
+            sub.warn('Почему не массив?');
             reject('ERROR 160811');
         }
     }, reject);

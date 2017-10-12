@@ -56,6 +56,7 @@
 ,.kzvk-ui-unrounding .im_chatbox_mem_photo /* Участники беседы */
 ,.kzvk-ui-unrounding .im-member-item--photo /* Участники беседы */
 ,.kzvk-ui-unrounding .im-prebody img /* Результаты опроса: подробно */
+,.kzvk-ui-unrounding .like_share_ava img /* При репосте */
 ,.kzvk-ui-unrounding .like_tt_image /* Лайкнувшие */
 ,.kzvk-ui-unrounding .mail_box_single_ava_img /* Написать сообщение */
 ,.kzvk-ui-unrounding .mention_tt_img /* Создатель опроса */
@@ -71,7 +72,9 @@
 ,.kzvk-ui-unrounding .page_list_module .thumb /* Блок «Интересные страницы» */
 ,.kzvk-ui-unrounding .people_cell_img /* Блок людей (друзей) */
 ,.kzvk-ui-unrounding .poll_tt_image /* Голосовавшие */
+,.kzvk-ui-unrounding .post_field_choose_image /* Постинг в сообщество */
 ,.kzvk-ui-unrounding .post_field_user_image /* Блок «Что у вас нового?» */
+,.kzvk-ui-unrounding .post_from_tt_image /* Постинг в сообщество: смена автора */
 ,.kzvk-ui-unrounding .post_img /* Пост */
 ,.kzvk-ui-unrounding .profile_career_img /* Место работы в профиле */
 ,.kzvk-ui-unrounding .reply_img /* Комментарий */
