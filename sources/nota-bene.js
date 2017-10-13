@@ -8,23 +8,6 @@
 //    "default_popup": "layouts/browser_action.html"
 //},
 
-// FUTURE: banlist;
-//    var xhr = new XMLHttpRequest();
-//    var url = 'https://raw.githubusercontent.com/icw82/blacklist/master/blacklist.json';
-//    xhr.open('GET', url, true);
-//    xhr.onreadystatechange = function() {
-//        if (xhr.readyState !== 4) return;
-//        if (xhr.status === 200) {
-//            var data = JSON.parse(this.response);
-//            console.log()
-//        }
-//    }
-//
-//    xhr.send(null);
-//
-//    https://github.com/icw82/blacklist/blob/master/blacklist.json
-
-
 //    browser.tabs.query({url: [
 //        "*://vk.com/*",
 //        "*://*.vk.com/*",

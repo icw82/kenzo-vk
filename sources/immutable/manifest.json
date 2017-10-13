@@ -19,9 +19,7 @@
         "https://*.vk.com/*",
         "*://*.vk.me/*",
         "*://*.vk-cdn.net/*",
-        "*://*.userapi.com/*",
-        "https://raw.githubusercontent.com/icw82/*",
-        "https://api.github.com/repos/icw82/*"
+        "*://*.userapi.com/*"
     ],
     "externally_connectable": {
         "matches": [
