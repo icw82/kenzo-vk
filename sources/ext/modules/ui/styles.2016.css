@@ -18,12 +18,31 @@
     content: ''}
 .page_cover_info + .kzvk-ui-id{}
 
+.kzvk-ui-unrounding .online:after,
+.kzvk-ui-unrounding .online.mobile:after{
+    left: calc(100% - 4px); top: 7px; bottom: auto}
+
+.kzvk-ui-unrounding .online.mobile:after{top: 5px}
+.kzvk-ui-unrounding .friends_user_row .online:after{
+    left: calc(100% - 6px); top: 5px}
+.kzvk-ui-unrounding .friends_user_row .online.mobile:after{top: 4px}
+
+
+.kzvk-ui-unrounding .post_images .online:after{top: 10px}
+
+.kzvk-ui-unrounding .friends_photo,
+.kzvk-ui-unrounding .ui_zoom_wrap,
+.kzvk-ui-unrounding .friends_photo_wrap{overflow: visible}
+
+.kzvk-ui-unrounding .friends_user_row .online:after{border-width: 2px}
+
 
  .kzvk-ui-unrounding .apps_feed_user_img /* В приложениях */
 ,.kzvk-ui-unrounding .audio_owner_avatar /* Владелец плейлиста */
 ,.kzvk-ui-unrounding .audio_owner_item__img /* Изображения в рекомендациях */
 ,.kzvk-ui-unrounding .bd_cell_img /* Календарь */
 ,.kzvk-ui-unrounding .bd_img /* Календарь */
+,.kzvk-ui-unrounding .blog_entry_author_ava /* Блог разработчиков */
 ,.kzvk-ui-unrounding .blst_img /* Список обсуждений */
 ,.kzvk-ui-unrounding .bp_img /* Обсуждения */
 ,.kzvk-ui-unrounding .cell_img /* Блок «Интересные страницы» */

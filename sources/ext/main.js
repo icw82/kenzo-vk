@@ -13,6 +13,8 @@ ext.defaults.options = {
     }
 }
 
+// CHROME MARKET kkmoffkcnaagfmkigckpkdcodobjdfga
+
 // Определение версии ВК
 if (location.hostname === 'vk.com')
     ext.mode = 2016;
@@ -39,14 +41,14 @@ ext.init__content = () => {
     });
 
     if (!ext.options.debug._) {
-        console.warn('ОТЛАДОЧНЫЕ СООБЩЕНИЯ ОТКЛЮЧЕНЫ');
+        console.info('ОТЛАДОЧНЫЕ СООБЩЕНИЯ ОТКЛЮЧЕНЫ');
         return;
     }
 }
 
 ext.init__background = () => {
     if (!ext.options.debug._) {
-        console.warn('ОТЛАДОЧНЫЕ СООБЩЕНИЯ ОТКЛЮЧЕНЫ');
+        console.info('ОТЛАДОЧНЫЕ СООБЩЕНИЯ ОТКЛЮЧЕНЫ');
         return;
     }
 
