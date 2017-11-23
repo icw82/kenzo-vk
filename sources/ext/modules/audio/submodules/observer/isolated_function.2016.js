@@ -26,7 +26,6 @@ const isolated_function_2016 = properties => {
         });
     }
 
-
     kk.watch(window, 'ap', window => {
         if (!kk.is_o(window.ap) || window.ap === null) {
             warn('Некорректный объект плеера')
@@ -79,8 +78,6 @@ const isolated_function_2016 = properties => {
                         duration: object._currentAudio[5]
                     }
                 }
-
-//                console.log('message', message.info);
 
                 if (secret_key) {
                     browser.runtime.sendMessage(properties.id, message);

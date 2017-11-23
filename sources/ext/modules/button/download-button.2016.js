@@ -291,7 +291,7 @@ class DownloadButton2016 {
             if (event.button === 0) {
                 if (self.file.available) {
                     if (event.ctrlKey || event.altKey) {
-                        ext.info(self);
+                        ext.log(self);
                     } else {
                         if (self.file.state === 0)
                             start();
@@ -313,7 +313,7 @@ class DownloadButton2016 {
                 module: self.module
             };
 
-            ext.info('Start download:', item);
+            ext.log('Start download:', item);
 
             browser.runtime.sendMessage({
                 action: 'download',

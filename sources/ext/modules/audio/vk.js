@@ -182,6 +182,9 @@ mod.vk = (mod => {
                 }
                 return string;
             },
+            i: function (t, e) {
+                return transforms.s(t, e ^ mod.ext.origins.vk.id)
+            },
             x: function (t, e) {
 //                console.log('X');
                 var i = [];
@@ -229,11 +232,17 @@ mod.vk = (mod => {
         function hueta(string, number) {
             const size = string.length;
             const array = [];
+
+            // e — number
+            // a — count
+            // i — size
+            // o — array
+
             if (size) {
                 let count = size;
                 for (number = Math.abs(number); count--;) {
-                    array[count] =
-                        (number += number * (count + size) / number) % size | 0
+                        number = (size * (count + 1) ^ number + count) % size,
+                        array[count] = number
                 }
             }
             return array

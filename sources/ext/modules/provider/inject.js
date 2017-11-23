@@ -1,10 +1,11 @@
 mod.inject = function(tab_id, key) {
-    if ((typeof tab_id != 'number') || (typeof key != 'string')) return;
+    if (!kk.is_n(tab_id) || !kk.is_s(key))
+        return;
 
-    var provider = document.createElement('script');
+    const script_element = document.createElement('script');
 
     // Объект, передаваемый в формате JSON изолированной функции
-    var _ = {
+    const args = {
         ext_id: browser.runtime.id,
         full_name: mod.full_name,
         key: key,
@@ -14,9 +15,10 @@ mod.inject = function(tab_id, key) {
 
     // Функция-провайдер, передаваемая во внешний скрипт в форме текста.
     // Работает только в контексте страницы.
-    var isolated_function = function(_) {
+    var isolated_function = function(args) {
+
         var browser = chrome; // FIXME
-        var port = browser.runtime.connect(_.ext_id, {name: _.full_name});
+        var port = browser.runtime.connect(args.ext_id, {name: args.full_name});
 
         port.onMessage.addListener(awaiting_confirmation);
 
@@ -29,27 +31,27 @@ mod.inject = function(tab_id, key) {
             // Новый слушатель
             port.onMessage.addListener(after_confirmation);
 
-            _.debug__log &&
-                console.log(_.full_name, '— Page is connected');
+            args.debug__log &&
+                console.log(args.full_name, '— Page is connected');
         }
 
         function after_confirmation(message, port) {
             if (message.action === 'get')
                 methods.get(message, port);
             else
-                _.debug__log &&
-                    console.log(_.full_name, '(page) incoming message', message);
+                args.debug__log &&
+                    console.log(args.full_name, '(page) incoming message', message);
         }
 
         port.onDisconnect.addListener(function() {
-            _.debug__log &&
+            args.debug__log &&
                 console.log('Page: onDisconnect', arguments);
         });
 
         port.postMessage({
             action: 'register page',
-            tab_id: _.tab_id,
-            key: _.key
+            tab_id: args.tab_id,
+            key: args.key
         });
 
         var methods = {};
@@ -80,10 +82,11 @@ mod.inject = function(tab_id, key) {
         }
     }
 
-    provider.innerHTML = '(' + isolated_function + ')(' + JSON.stringify(_) + ')';
+    script_element.innerHTML =
+        `(${ isolated_function })(${ JSON.stringify(args) })`;
 
     core.events.on_content_loaded.addListener(() => {
-        document.body.appendChild(provider);
+        document.body.appendChild(script_element);
         // Сразу после создания DOM-объекта, функция выполняется.
         // Проверка показала, что скрипт-провайдер выполняется в первую очередь
         // и маловероятно, что чужеродный скрипт (eve.js) может сымитировать поведение

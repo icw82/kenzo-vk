@@ -42,14 +42,14 @@ class Module {
         this.on_init.addListener(() => {
             self.initiated = true;
             if (!self.loaded)
-                self.log('Модуль инициирован');
+                self.log('Модуль инициирован', self);
             core.events.on_module_init.dispatch(self.name);
 
         });
 
         this.on_loaded.addListener(() => {
             self.loaded = true;
-            self.log('Модуль загружен');
+            self.log('Модуль загружен', self);
             core.events.on_module_loaded.dispatch(self.name);
         });
 
@@ -64,44 +64,55 @@ class Module {
         const self = this;
         const init = this['init__' + core.scope];
 
-        if (!kk.is_f(init))
+        if (!kk.is_f(init)) {
+            self.warn(`Модуль не инициируется в ${core.scope}`);
             return;
+        }
 
         this.dom = {};
-        this.dependencies = this.dependencies.filter(item => item !== this.name);
-
-        // Замена названий модулей на ссылки
-        each (self.dependencies, (module, i) => {
-            if (module in ext.modules) {
-                self.dependencies[i] = ext.modules[module];
-            } else {
-                throw new Error('Модуль «' + module + '» не обнаружен');
+        this.dependencies = this.dependencies.filter(item => {
+            if (!kk.is_s(item)) {
+                console.error('Не корректное название модуля', item);
+                return;
             }
+            return item !== this.name;
         });
 
-        const try_init = () => {
-            this.dependencies = this.dependencies.filter(module => !module.loaded);
-//            this.log('Dependencies', self.dependencies);
+        // Замена названий модулей на ссылки
+        self.dependencies = self.dependencies.map(module => {
+            if (module in ext.modules)
+                return ext.modules[module];
 
-            if (self.dependencies.length === 0) {
+            throw new Error('Модуль «' + module + '» не обнаружен');
+        });
+
+        const iteration_limit = 20;
+        let try_count = 0;
+
+        const try_init = () => {
+            if (try_count > self.iteration_limit) {
+                core.events.on_module_loaded.removeListener(try_init);
+                self.warn('Модуль не загружен');
+                self.warn('Достигнут предел итераций', self);
+                return;
+            }
+
+            const left = self.dependencies.filter(module => !module.loaded);
+
+            if (left.length === 0) {
                 core.events.on_module_loaded.removeListener(try_init);
 
-                each (core.scopes, scope => {
-                    if (core.scope === scope) {
-                        const init = self['init__' + scope];
-                        kk.is_f(init) && init();
-                        return true;
-                    }
-                })
-
+                init();
                 init_submodules();
 
                 self.on_init.dispatch();
             }
 
-            if (!self.initiated) {
+            if (!self.initiated && try_count === 0) {
                 core.events.on_module_loaded.addListener(try_init);
             }
+
+            try_count++;
         }
 
         const init_submodules = () => {

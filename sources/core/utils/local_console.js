@@ -2,7 +2,7 @@ core.utils.local_console = (object, prefix) => {
     if (!kk.is_o(object) || !kk.is_s(prefix))
         throw kk.msg.ia;
 
-    prefix += ' (' + core.s + ') —';
+    prefix += ` (${core.s}) —`;
 
     const add_prefix = args => {
         args = Array.prototype.slice.call(args);
@@ -10,7 +10,7 @@ core.utils.local_console = (object, prefix) => {
         return args;
     }
 
-    each (['log', 'info', 'warn', 'error'], method => {
+    ['log', 'info', 'warn', 'error'].forEach(method => {
         object[method] = function() {
             if (
                 ext &&

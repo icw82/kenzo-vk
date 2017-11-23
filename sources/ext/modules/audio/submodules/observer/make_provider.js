@@ -1,12 +1,5 @@
 sub.make_provider = key => {
-    const provider = document.createElement('script');
-
-    // Объект, передаваемый в формате JSON изолированной функции
-    const properties = {
-        id: browser.runtime.id,
-        actions: sub.actions,
-        key: key
-    }
+    const script_element = document.createElement('script');
 
 //    kk.r.addEventListener('message', event => {
 //        if (event.origin == 'https://vk.com') {
@@ -15,9 +8,17 @@ sub.make_provider = key => {
 //        }
 //    });
 
-    provider.innerHTML = '(' + sub.isolated_function + ')(' + JSON.stringify(properties) + ')';
+    // Объект, передаваемый в формате JSON изолированной функции
+    const properties = {
+        id: browser.runtime.id,
+        actions: sub.actions,
+        key: key
+    }
+
+    script_element.innerHTML =
+        `(${ sub.isolated_function })(${ JSON.stringify(properties) })`;
 
     core.events.on_content_loaded.addListener(() => {
-        document.body.appendChild(provider);
+        document.body.appendChild(script_element);
     });
 }

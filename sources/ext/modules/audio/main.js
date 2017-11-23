@@ -1,4 +1,4 @@
-//mod.dependencies = ['file'];
+mod.dependencies = ['common'];
 
 mod.defaults.options = {
     _: true,

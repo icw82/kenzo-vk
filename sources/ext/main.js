@@ -24,31 +24,15 @@ else
     ext.mode = false;
 
 ext.init__content = () => {
-    core.events.on_content_loaded.addListener(() => {
-        document.body.setAttribute('id', 'kz-ext');
-
-        ext.dom.vk = {
-            header: document.body.querySelector('#page_header_cont'),
-            sidebar: document.body.querySelector('#side_bar'),
-            body: document.body.querySelector('#page_body'),
-            footer: document.body.querySelector('#footer_wrap')
-            //narrow_column_wrap
-        }
-
-        if (ext.options.debug._ && ext.options.debug.styles) {
-            kk.class_forever('kzvk-debug', document.body);
-        }
-    });
-
     if (!ext.options.debug._) {
-        console.info('ОТЛАДОЧНЫЕ СООБЩЕНИЯ ОТКЛЮЧЕНЫ');
+        console.log('ОТЛАДОЧНЫЕ СООБЩЕНИЯ ОТКЛЮЧЕНЫ');
         return;
     }
 }
 
 ext.init__background = () => {
     if (!ext.options.debug._) {
-        console.info('ОТЛАДОЧНЫЕ СООБЩЕНИЯ ОТКЛЮЧЕНЫ');
+        console.log('ОТЛАДОЧНЫЕ СООБЩЕНИЯ ОТКЛЮЧЕНЫ');
         return;
     }
 

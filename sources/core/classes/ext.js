@@ -13,6 +13,9 @@ class Extention {
             keys: []
         };
 
+        // Оригинальные данные (конкест страницы)
+        this.origins = {}
+
         core.storage.defaults._ = this.defaults;
 
         Object.defineProperty(this, 'storage', {
@@ -40,27 +43,34 @@ class Extention {
         const self = this;
 
         this.initiated = true;
-        this.info(this);
+        this.log(this);
         this.dom = {};
 
         if (core.scope === 'content') {
             // Подключение Kenzo Kit к странице
-            core.utils.inject_to_dom('js', browser.extension.getURL('scripts/kk.min.js'));
+            core.utils.inject_to_dom(
+                'js',
+                browser.extension.getURL('scripts/kk.min.js')
+            );
 
             // Подключение стилей
-            const modes = [2016, 'm'];
+            const available_modes = [2016, 'm'];
 
-            each (modes, name => {
-                if (ext.mode === name) {
-                    let url = browser.extension.getURL('styles/ext.' + name + '.css')
+            available_modes
+                .filter(mode => mode === ext.mode)
+                .forEach(mode => {
+                    const url = browser.extension
+                        .getURL(`styles/ext.${mode}.css`);
+
                     if (url)
                         core.utils.inject_to_dom('css', url);
-                    return true;
-                }
-            });
+                });
 
             // Встраивание векторной графики
-            core.utils.inject_to_dom('svg', browser.extension.getURL('images/graphics.svg'));
+            core.utils.inject_to_dom(
+                'svg',
+                browser.extension.getURL('images/graphics.svg')
+            );
         }
 
         for (let name in self.modules) {

@@ -20,20 +20,28 @@
 
 .kzvk-ui-unrounding .online:after,
 .kzvk-ui-unrounding .online.mobile:after{
-    left: calc(100% - 4px); top: 7px; bottom: auto}
+    left: calc(100% - 4px); bottom: auto}
 
+.kzvk-ui-unrounding .online:after{top: 7px}
 .kzvk-ui-unrounding .online.mobile:after{top: 5px}
+
 .kzvk-ui-unrounding .friends_user_row .online:after{
     left: calc(100% - 6px); top: 5px}
 .kzvk-ui-unrounding .friends_user_row .online.mobile:after{top: 4px}
 
+.kzvk-ui-unrounding .post_header .online:after{
+    left: calc(100% - 5px); top: 10px}
+.kzvk-ui-unrounding .post_header .online.mobile:after{top: 8px}
+
 
 .kzvk-ui-unrounding .post_images .online:after{top: 10px}
 
+.kzvk-ui-unrounding .search_row .img,
 .kzvk-ui-unrounding .friends_photo,
 .kzvk-ui-unrounding .ui_zoom_wrap,
 .kzvk-ui-unrounding .friends_photo_wrap{overflow: visible}
 
+.kzvk-ui-unrounding .search_row .online:after,
 .kzvk-ui-unrounding .friends_user_row .online:after{border-width: 2px}
 
 
@@ -100,6 +108,8 @@
 ,.kzvk-ui-unrounding .result_list img /* Поиск-подсказка */
 ,.kzvk-ui-unrounding .search_item_img /* Поиск */
 ,.kzvk-ui-unrounding .settings_bl_photo /* Черный список пользователя */
+,.kzvk-ui-unrounding .stories_feed_item_ava /* Истории */
+,.kzvk-ui-unrounding .stories_feed_item_ava_img /* Истории */
 ,.kzvk-ui-unrounding .submit_post_box .thumb_off /* Написание поста в группе */
 ,.kzvk-ui-unrounding .submit_post_box .thumb_on /* Написание поста в группе */
 ,.kzvk-ui-unrounding .top_profile_img /* В шапке */

@@ -13,7 +13,7 @@ const paths_to_scripts = [
     'kenzo-kit/kk.min.js',
     'blueimp-md5/js/md5.min.js',
     'he/he.js'
-].map(item => './bower_components/' + item);
+].map(item => './node_modules/' + item);
 
 gulp.task(task_name + ':scripts', () => gulp
     .src(paths_to_scripts)//, { allowEmpty: true}

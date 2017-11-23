@@ -5,7 +5,7 @@ core.storage.init = () => new Promise((resolve, reject) => {
             if (area !== 'local')
                 return;
 
-//            console.info('browser.storage.onChanged', changes);
+//            console.log('browser.storage.onChanged', changes);
 //            for (let path in changes) {
 //                core.storage.map[path] = changes[path].newValue;
 //                if (!(path in core.storage.map)) {
@@ -31,7 +31,7 @@ core.storage.init = () => new Promise((resolve, reject) => {
                     root.on_storage_changed.dispatch(changes[name]);
                 }
 
-//                console.info('Storage onChanged', changes);
+//                console.log('Storage onChanged', changes);
             });
         });
 

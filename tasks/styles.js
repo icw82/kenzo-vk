@@ -27,7 +27,7 @@ const task = (() => {
         subtasks.push(subtask_name);
 
         gulp.task(subtask_name, () => gulp
-            .src('./bower_components/kenzo-kit/kk-reset.css')
+            .src('./node_modules/kenzo-kit/kk-reset.css')
             .pipe(gulp.dest('build/styles'))
         );
     }
