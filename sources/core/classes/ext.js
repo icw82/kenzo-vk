@@ -48,10 +48,16 @@ class Extention {
 
         if (core.scope === 'content') {
             // Подключение Kenzo Kit к странице
-            core.utils.inject_to_dom(
+            core.utils.inject_file_to_dom(
                 'js',
                 browser.extension.getURL('scripts/kk.min.js')
             );
+
+//            // Подключение ядра Kenzo VK к странице
+//            core.utils.inject_file_to_dom(
+//                'js',
+//                browser.extension.getURL('scripts/core.js')
+//            );
 
             // Подключение стилей
             const available_modes = [2016, 'm'];
@@ -63,11 +69,11 @@ class Extention {
                         .getURL(`styles/ext.${mode}.css`);
 
                     if (url)
-                        core.utils.inject_to_dom('css', url);
+                        core.utils.inject_file_to_dom('css', url);
                 });
 
             // Встраивание векторной графики
-            core.utils.inject_to_dom(
+            core.utils.inject_file_to_dom(
                 'svg',
                 browser.extension.getURL('images/graphics.svg')
             );

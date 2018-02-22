@@ -1,5 +1,5 @@
 // Присоединение к странице
-core.utils.inject_to_dom = (type, url) => {
+core.utils.inject_file_to_dom = (type, url) => {
     if (!['js', 'svg', 'css'].includes(type))
         return;
 

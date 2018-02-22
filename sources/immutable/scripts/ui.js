@@ -1,7 +1,10 @@
 'use strict';
 
 // Встраивание векторной графики
-core.utils.inject_to_dom('svg', browser.extension.getURL('images/graphics.svg'));
+core.utils.inject_file_to_dom(
+    'svg',
+    browser.extension.getURL('images/graphics.svg')
+);
 
 const modules = [];
 
@@ -120,7 +123,6 @@ function data($rootScope) {
             'audio', [
                 'header',
 
-                'cache',
                 'download_button',
                 'hide_hq_label',
                 'separator',

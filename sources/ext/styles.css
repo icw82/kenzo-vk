@@ -1,11 +1,19 @@
 #kz-ext.kzvk-debug .wall_text_name_explain_promoted_post{
     background-color: red !important}
 
-#kz-ext.kzvk-debug .page_top{background: rgba(255, 0, 0, 0.3)}
-#kz-ext.kzvk-debug .page_name {background: rgba(255, 79, 187, 0.6)}
-#kz-ext.kzvk-debug .page_current_info{background-color: rgba(79, 255, 187, 0.6)}
-#kz-ext.kzvk-debug .audio_row__inner{background-color: rgba(80, 214, 199, 0.6)}
-#kz-ext.kzvk-debug .audio_row__info{background-color: rgba(244, 111, 255, 0.6)}
-#kz-ext.kzvk-debug .audio_row__duration{background-color: rgba(242, 205, 49, 0.6)}
-#kz-ext.kzvk-debug .audio_row__actions{background-color: rgba(16, 0, 209, 0.6)}
-#kz-ext.kzvk-debug .audio_row__performer_title{background-color: rgba(124, 93, 51, 0.6)}
+#kz-ext.kzvk-debug .page_top{
+    background: rgba(255, 0, 0, 0.3)}
+#kz-ext.kzvk-debug .page_name{
+    background: rgba(255, 79, 187, 0.6)}
+#kz-ext.kzvk-debug .page_current_info{
+    background-color: rgba(79, 255, 187, 0.6)}
+#kz-ext.kzvk-debug .audio_row__inner{
+    background-color: rgba(80, 214, 199, 0.6)}
+#kz-ext.kzvk-debug .audio_row__info{
+    background-color: rgba(244, 111, 255, 0.6)}
+#kz-ext.kzvk-debug .audio_row__duration{
+    background-color: rgba(242, 205, 49, 0.6)}
+#kz-ext.kzvk-debug .audio_row__actions{
+    background-color: rgba(16, 0, 209, 0.6)}
+#kz-ext.kzvk-debug .audio_row__performer_title{
+    background-color: rgba(124, 93, 51, 0.6)}
