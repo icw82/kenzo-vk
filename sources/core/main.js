@@ -11,7 +11,14 @@ const core = {
 }
 
 // Определение контекста
-if (location.protocol === 'chrome-extension:') {
+
+if (location.protocol === 'https:') {
+    core.scope = 'content';
+    core.s = 'cs';
+} else if ([
+    'chrome-extension:',
+    'moz-extension:'
+].includes(location.protocol)) {
     if (location.pathname === '/_generated_background_page.html') {
         core.scope = 'background';
         core.s = 'bg';
@@ -23,8 +30,7 @@ if (location.protocol === 'chrome-extension:') {
         core.s = 'act';
     }
 } else {
-    core.scope = 'content';
-    core.s = 'cs';
+    console.warn('Неизвестный протокол');
 }
 
 core.init = () => {

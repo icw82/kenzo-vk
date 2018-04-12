@@ -1,19 +1,28 @@
 // Встраиваемый приемопередатчик
-mod.page_transceiver = function(args) {
+mod.page_transceiver = function(settings) {
+
+    const log_prefix = settings.full_name + ' (page) —';
 
     const transceiver = {
         onMessageFromContentScript: new kk.Event(),
-        onMessageFromBackground: new kk.Event()
+        onMessageFromBackground: new kk.Event(),
+        methods: {}
     }
 
-    const log_prefix = args.full_name + ' (page) —';
+    window.KenzoTransceiver = transceiver;
+
+
+    // I N P U T
 
     window.addEventListener('message', event => {
-        if (
-            event.origin !== window.location.origin ||
-            event.data.id !== args.id ||
-            event.data.to !== 'page'
-        ) return;
+        if (event.origin !== window.location.origin)
+            return;
+
+        if (event.data.key !== settings.key)
+            return;
+
+        if (event.data.to !== 'page')
+            return;
 
         if (event.data.from === 'cs') {
             transceiver.onMessageFromContentScript
@@ -28,24 +37,15 @@ mod.page_transceiver = function(args) {
 
     }, false);
 
-    transceiver.onMessageFromContentScript.addListener(message => {
-        args.debug &&
-            console.log(log_prefix, 'Message From ContentScript', message);
 
-    });
-
-    transceiver.onMessageFromBackground.addListener(message => {
-        args.debug &&
-            console.log(log_prefix, 'Message From Background', message);
-
-    });
+    // O U T P U T
 
     transceiver.postMessage = (message, address, callback) => {
         if (!['cs', 'bg'].includes(address))
             throw Error('Неверный адрес');
 
         wrapper = {
-            id: args.id,
+            key: settings.key,
             from: 'page',
             to: address,
             message: message
@@ -57,37 +57,92 @@ mod.page_transceiver = function(args) {
             wrapper.message_id = message_id;
         }
 
-        window.postMessage(wrapper, args.origin);
+//        console.log('-- 1 --', wrapper);
+
+        window.postMessage(wrapper, settings.origin);
     }
 
-    window.KenzoTransceiver = transceiver;
 
-// Функционал
-//    var methods = {};
-//
-//    methods.get = function(message, port) {
-//        if (typeof message.key !== 'string') return;
-//        if (typeof message.value !== 'string') return;
-//
-//        var response = {
-//            action: 'get:response-from-page',
-//            key: message.key
-//        }
-//
-//        try {
-//            response.value = window.eval(message.value);
-//            response.meta = {};
-//            if (response.value instanceof Element) {
-//                 response.meta.is_element = true;
-//            } else if (response.value instanceof NodeList) {
-//                 response.meta.is_nodelist = true;
-//            }
-//        } catch (error) {
-//            // FUTURE: Как передать весь стек?
-//            response.error = error.toString();
-//        }
-//
-//        port.postMessage(response);
-//    }
+    // E V E N T S
+
+    transceiver.onMessageFromContentScript.addListener(message => {
+        settings.debug &&
+            console.log(log_prefix, 'Message From ContentScript', message);
+
+        if (message.method in transceiver.methods) {
+            transceiver.methods[message.method](...message.args).then(data => {
+                const response = {
+                    key: settings.key,
+                    id: message.id,
+                    ts: message.ts,
+                    from: 'page',
+                    to: 'cs',
+                    response: data
+                }
+
+                window.postMessage(response, settings.origin);
+
+            }, error => {
+                settings.debug && console.error(log_prefix, error);
+            });
+        }
+
+    });
+
+    transceiver.onMessageFromBackground.addListener(message => {
+        settings.debug &&
+            console.log(log_prefix, 'Message From Background', message);
+
+    });
+
+
+    // M E T H O D S
+
+    transceiver.methods.get = async path => {
+        try {
+            const response = window.eval(path);
+            return window.eval(path);
+        } catch (error) {
+            settings.debug && console.error(log_prefix, error);
+        }
+    }
+
+    transceiver.methods.httpRequest = async params => {
+//        settings.debug &&
+//            console.log(log_prefix, 'params', params);
+
+        const xhr = new XMLHttpRequest();
+        xhr.open(params.method, params.url, true);
+        if (params.headers) {
+            for (let key in params.headers) {
+                xhr.setRequestHeader(key, params.headers[key]);
+            }
+        }
+
+        xhr.send(params.query);
+
+        return await new Promise((resolve, reject) => {
+            xhr.onload = () => resolve(xhr.response)
+        });
+    }
+
+
+    // I N I T
+
+    {
+        const id = kk.generate_key(15);
+        const ts = Date.now();
+
+        const message = {
+            key: settings.key,
+            id: id,
+            ts: ts,
+            from: 'page',
+            to: 'cs',
+            method: 'init'
+        }
+
+        window.postMessage(message, settings.origin);
+    }
 
 }

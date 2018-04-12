@@ -1,10 +1,12 @@
-// Класс аудиоозаписи
+// Класс аудиозаписи
 // Экземпляр соответсвует каждому аудио-элементу на страницах ВК, то есть
 // если на странице расположены абсолютно одинакоывае аудиозаписи, для них
 // всё равно будет создан свой экземпляр
 
 class Audio2016 {
     constructor (element) {
+
+        // FIXME: Цикл при возникновении ошибки
         const self = this;
 
         this.dom = {
@@ -105,7 +107,8 @@ class Audio2016 {
         this.dom.play_button = this.dom.play_button.firstChild;
         this.dom.button_wrapper.appendChild(this.dom.play_button);
 
-        mod.vk.get_url(this.vk.full_id).then(url => {
+        mod.submodules.host_service.get_url(this.vk.full_id).then(url => {
+
             // Добавление или извлечение записи из реестра файлов;
             this.file = ext.modules.file.registry.add(url);
 

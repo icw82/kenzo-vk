@@ -1,5 +1,4 @@
 mod.init__background = function() {
-
     mod.tabs = [];
 
     browser.runtime.onConnect.addListener(port => {

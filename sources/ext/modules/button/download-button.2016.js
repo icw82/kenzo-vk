@@ -155,7 +155,7 @@ class DownloadButton2016 {
 
         let quality = 5; // index
 
-        if (!this.file.available && this.file.url !== null) {
+        if (!this.file.url) {
 //            this.element.style.opacity = opacity;
             this.unavailable.innerHTML = '×_×';
             kk.class(self.element, 'kzvk-unavailable', this.classes.state);
@@ -216,7 +216,7 @@ class DownloadButton2016 {
     update_state() {
         const self = this;
 
-        if (!this.file.available)
+        if (!this.file.url)
             return;
 
         if (self.file.state === 0) {
@@ -289,7 +289,7 @@ class DownloadButton2016 {
             event.preventDefault();
 
             if (event.button === 0) {
-                if (self.file.available) {
+                if (self.file.url) {
                     if (event.ctrlKey || event.altKey) {
                         ext.log(self);
                     } else {

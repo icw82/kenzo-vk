@@ -1,9 +1,9 @@
 mod.init__content = () => {
+    const key = kk.generate_key(15);
 
-    const transceiver = {
-        onMessageFromBackground: new kk.Event(),
-        onMessageFromPage: new kk.Event()
-    }
+    Object.defineProperty(mod, 'key', {
+        get: () => key
+    });
 
     // Создание соединения с фоновой страницей
     {
@@ -23,12 +23,12 @@ mod.init__content = () => {
         });
 
         port.onMessage.addListener(data => {
-            transceiver.onMessageFromBackground
+            mod.onMessageFromBackground
                 .dispatch(data);
         });
 
-        // TEST
-        port.postMessage({action: 'NEW SHIT'});
+        // TEST to BG
+//        port.postMessage({action: 'NEW SHIT'});
 
 //    var ignore_actions = [
 //        'get:response',
@@ -60,12 +60,9 @@ mod.init__content = () => {
 
     // Встраивание приемопередатчика в страницу
     {
-        const id = kk.generate_key(15);
-        const init_time = Date.now();
-
-        const args = {
-            id: id,
-            init_time: init_time,
+        const settings = {
+            key: mod.key,
+            injection_time: Date.now(),
             origin: window.location.origin,
             ext_id: browser.runtime.id,
             root_url: browser.extension.getURL('/'),
@@ -75,30 +72,33 @@ mod.init__content = () => {
 
         core.utils.inject_isolated_function_to_dom(
             mod.page_transceiver,
-            args
+            settings
         );
 
         window.addEventListener('message', event => {
             if (
                 event.origin !== window.location.origin ||
-                event.data.id !== id ||
+                event.data.key !== mod.key ||
                 event.data.from !== 'page'||
                 event.data.to !== 'cs'
             ) return;
 
-            transceiver.onMessageFromPage
-                .dispatch(event.data);
+            mod.onMessageFromPage.dispatch(event.data);
 
         }, false);
     }
 
-    transceiver.onMessageFromBackground.addListener(message => {
+    mod.onMessageFromBackground.addListener(message => {
         mod.log('Message From Background', message);
 
     });
 
-    transceiver.onMessageFromPage.addListener(message => {
+    mod.onMessageFromPage.addListener(message => {
         mod.log('Message From Page', message);
 
+        if (message.method === 'init')
+            mod.onTransceiverInit.complete();
     });
+
+    mod.on_loaded.dispatch();
 }

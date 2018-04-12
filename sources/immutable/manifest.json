@@ -23,6 +23,7 @@
 
 
     "author": "icw82",
+
     "background": {
         "scripts": [
             "scripts/kk.min.js",

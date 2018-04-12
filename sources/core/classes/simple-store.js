@@ -2,16 +2,16 @@
 class SimpleStore {
     constructor(schema) {
         if (!kk.is_o(schema))
-            throw kk.msg.ia;
+            throw new TypeError();
 
         if (!kk.is_s(schema.name))
-            throw kk.msg.ia;
+            throw new TypeError();
 
         if (!kk.is_o(schema.store))
-            throw kk.msg.ia;
+            throw new TypeError();
 
         if (!kk.is_s(schema.store.name))
-            throw kk.msg.ia;
+            throw new TypeError();
 
         // Если версия не указана и база с таким названием не найдена,
         // то будет создана база данных указанным названием и версией 1.
@@ -92,6 +92,9 @@ class SimpleStore {
 
     get (id, index) {
         const self = this;
+
+        if (!kk.is_n(id) && !kk.is_s(id))
+            throw new TypeError;
 
         return new Promise((resolve, reject) => {
             self.db.then(db => {

@@ -494,6 +494,7 @@ class DownloadQueue {
         else
             input = [input];
 
+        // Косяк тут
         each (input, item => {
             if (!kk.is_s(item.url)) {
                 kk.__a();

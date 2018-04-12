@@ -1,5 +1,7 @@
 const ext = new core.Extention();
 
+ext.host_service = 'vk.com';
+
 ext.defaults.options = {
     filters: true,
     filters__square_brackets: true,
@@ -16,9 +18,9 @@ ext.defaults.options = {
 // CHROME MARKET kkmoffkcnaagfmkigckpkdcodobjdfga
 
 // Определение версии ВК
-if (location.hostname === 'vk.com')
+if (location.hostname === ext.host_service)
     ext.mode = 2016;
-else if (location.hostname === 'm.vk.com')
+else if (location.hostname === `m.${ ext.host_service }`)
     ext.mode = 'm';
 else
     ext.mode = false;
@@ -35,6 +37,7 @@ ext.init__background = () => {
         console.log('ОТЛАДОЧНЫЕ СООБЩЕНИЯ ОТКЛЮЧЕНЫ');
         return;
     }
+
 
     // TODO: В утилиты?
 //    // Изменения, которые нужно произвести при загрузке новой версии

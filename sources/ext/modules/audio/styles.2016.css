@@ -1,5 +1,6 @@
 /* Стили только для 2016 */
 .kzvk-audio .audio_play_wrap{position: relative}
+.audio_row.kzvk-audio .audio_row__sound_bars{display: none}
 
 .kzvk-audio__button-wrapper{min-height: var(--a-btn-h); /*height: 34px;*/
     position: relative; float: left}
