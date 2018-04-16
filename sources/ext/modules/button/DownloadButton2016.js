@@ -1,6 +1,45 @@
 class DownloadButton2016 {
+
+    applyStateClass(name) {
+        const { CLASSES, element } = this;
+        kk.class(element, name, Object.values(CLASSES.STATE))
+    }
+
+    applyQualityClass(quality) {
+        const { CLASSES, element, prefix } = this;
+        kk.class(
+            element,
+            `${ prefix }-quality-${ quality }`,
+            CLASSES.QUALITY //Object.values(CLASSES.QUALITY)
+        );
+    }
+
     constructor (file, props) {
-        const self = this;
+        if (!(file instanceof ext.File))
+            throw new TypeError(file);
+
+        const prefix = 'kzvk';
+
+        const CLASSES = {
+            STATE: [
+                'label',
+                'pending',
+                'progress',
+                'unavailable'
+            ].reduce(
+                (_, key) => {
+                    _[key.toUpperCase()] = `${ prefix }-${ key }`
+                    return _;
+                },
+                {}
+            ),
+
+            QUALITY: [
+                1, 2, 3, 4, 5, 'vbr'
+            ].map(key => `${ prefix }-quality-${ key }`)
+        }
+
+        Object.defineProperty(this, 'CLASSES', { get: () => CLASSES });
 
         if (props) {
             if (props.mode)
@@ -11,18 +50,6 @@ class DownloadButton2016 {
         }
 
         this.counter = 0;
-
-        this.classes = {
-            state: [
-                'kzvk-label',
-                'kzvk-pending',
-                'kzvk-progress',
-                'kzvk-unavailable'
-            ],
-            quality: [
-                1, 2, 3, 4, 5, 'vbr'
-            ].map(item => 'kzvk-quality-' + item)
-        };
 
 //        this.container_classes = [
 //            'kzvk-download-button__container'
@@ -107,6 +134,8 @@ class DownloadButton2016 {
 
         }
 
+        const self = this;
+
         this.container.addEventListener('mousedown', event => {
             self.button_handler(event);
         });
@@ -119,38 +148,34 @@ class DownloadButton2016 {
             self.button_handler(event);
         });
 
-        self.set_file(file);
+        this.bindFile(file);
 
     }
 
-    set_file(file) {
-        const self = this;
-
-        if (self.file instanceof ext.File) {
-            mod.log('self.file instanceof ext.File');
-        } else {
-
+    bindFile(file) {
+        if (this.file instanceof ext.File) {
+            mod.warn('Файл уже привязанк к кнопке');
+            return;
         }
 
-        self.file = file;
+        const main_handler = () => { this.update() };
+        const state_handler = () => { this.updateState() };
 
-        self.file.on_change_url.addListener(self.update.bind(self));
-        self.file.on_enrich.addListener(self.update.bind(self));
-//        self.file.on_error.addListener(self.update.bind(self));
+        this.file = file;
 
+        this.file.on_change_url.addListener(main_handler);
+        this.file.on_enrich.addListener(main_handler);
+//        this.file.on_error.addListener(main_handler);
 
-//        mod.log('Bind', self.update.bind(self));
+        this.update('bindFile'); // Почему именно здесь?
 
-        //removeListener
-
-        self.update();
-
-        self.file.on_change_progress.addListener(self.update_state.bind(self));
-        self.file.on_change_state.addListener(self.update_state.bind(self));
-
+        this.file.on_change_progress.addListener(state_handler);
+        this.file.on_change_state.addListener(state_handler);
     }
 
-    update() {
+    update(source) {
+//        console.log('U P D A T E', source);
+
         const self = this;
 
         let quality = 5; // index
@@ -158,7 +183,7 @@ class DownloadButton2016 {
         if (!this.file.url) {
 //            this.element.style.opacity = opacity;
             this.unavailable.innerHTML = '×_×';
-            kk.class(self.element, 'kzvk-unavailable', this.classes.state);
+            this.applyStateClass(this.CLASSES.STATE.UNAVAILABLE);
 
 //            console.log(this.file.url);
             return;
@@ -168,10 +193,16 @@ class DownloadButton2016 {
         let title = [];
 
         if (this.file.url !== null) {
-            this.container.setAttribute('href', this.file.clean_url);
-            this.container.setAttribute('download', this.file.name + this.file.extension);
+            this.container.setAttribute(
+                'href',
+                this.file.clean_url
+            );
+            this.container.setAttribute(
+                'download',
+                this.file.name + this.file.extension
+            );
 
-            if (kk.is_n(this.file.size))
+            if (kk.is.n(this.file.size))
                 title.push(core.utils.format_filesize(this.file.size));
 
             if (this.mode === 'audio') {
@@ -195,7 +226,7 @@ class DownloadButton2016 {
                         label = 'VBR';
 //                        title.push(this.file.MPEG.method.name);
 //                        if (this.file.MPEG.method.quality !== false)
-//                            this.element.style.opacity =
+//                            element.style.opacity =
 //                                1 - this.file.MPEG.method.quality / 100 * .6;
                         quality = 'vbr';
                     }
@@ -206,48 +237,41 @@ class DownloadButton2016 {
                 this.element.setAttribute('title', title.join(', '));
         }
 
-        this.element.classList
-        kk.class(self.element, 'kzvk-quality-' + quality, self.classes.quality);
+        this.applyQualityClass(quality);
+
 //        this.element.style.opacity = opacity;
         this.label.innerHTML = label;
-        this.update_state();
+        this.updateState();
     }
 
-    update_state() {
-        const self = this;
 
-        if (!this.file.url)
-            return;
+    updateState() {
+        console.log('U P D A T E   S T A T E', this.file.url, this.file.state);
 
-        if (self.file.state === 0) {
-            kk.class(self.element, 'kzvk-label', self.classes.state);
-            return;
-        }
+        switch (this.file.state) {
+            case 0:
+                this.applyStateClass(this.CLASSES.STATE.LABEL);
+                break;
 
-        if (self.file.state === 1) {
-            kk.class(self.element, 'kzvk-pending', self.classes.state);
-            return;
-        }
+            case 1:
+                this.applyStateClass(this.CLASSES.STATE.PENDING);
+                break;
 
-        if (self.file.state === 2) {
-//            console.log('self.file.progress', self.file.progress);
-            kk.class(self.element, 'kzvk-progress', self.classes.state);
-            self.progress__filling.style.transform =
-                'translateX(' + (-100 + self.file.progress) + '%)';
-            return;
-        }
+            case 2:
+                this.applyStateClass(this.CLASSES.STATE.PROGRESS);
+                this.progress__filling.style.transform =
+                    'translateX(' + (-100 + file.progress) + '%)';
+                break;
 
-        if (self.file.state === 3) {
-            kk.class(self.element, 'kzvk-progress', self.classes.state);
-            self.progress__filling.style.transform =
-                'translateX(' + (-100 + self.file.progress) + '%)';
-            return;
+            case 3:
+                this.applyStateClass(this.CLASSES.STATE.PROGRESS);
+                this.progress__filling.style.transform =
+                    'translateX(' + (-100 + file.progress) + '%)';
+                break;
         }
     }
 
     button_handler(event) {
-        const self = this;
-
         // Прекращение распространения события
         event.stopPropagation();
 
@@ -289,14 +313,14 @@ class DownloadButton2016 {
             event.preventDefault();
 
             if (event.button === 0) {
-                if (self.file.url) {
+                if (this.file.url) {
                     if (event.ctrlKey || event.altKey) {
-                        ext.log(self);
+                        ext.log(this);
                     } else {
-                        if (self.file.state === 0)
-                            start();
+                        if (this.file.state === 0)
+                            this.file.startDownload('vk');
                         else
-                            stop();
+                            this.file.stopDownload();
                     }
                 } else
                     ext.log('Запись недоступна');
@@ -304,32 +328,6 @@ class DownloadButton2016 {
                 return;
             }
 
-        }
-
-        function start() {
-            let item = {
-                url: self.file.clean_url,
-                name: self.file.vk.name + self.file.extension,
-                module: self.module
-            };
-
-            ext.log('Start download:', item);
-
-            browser.runtime.sendMessage({
-                action: 'download',
-                item: item
-            });
-        }
-
-        function stop() {
-            if (self.file.queue_id) {
-                browser.runtime.sendMessage({
-                    action: 'cancel-download',
-                    id: self.file.queue_id
-                });
-            } else {
-                console.warn('Нет идентификатора')
-            }
         }
     }
 }

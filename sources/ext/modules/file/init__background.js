@@ -17,7 +17,7 @@ mod.init__background = () => {
             !['get'].includes(request.method)
         ) return;
 
-        if (!kk.is_A(request.arguments))
+        if (!kk.is.A(request.arguments))
             request.arguments = [request.arguments];
 
         let result = mod[request.method](...request.arguments);

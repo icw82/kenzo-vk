@@ -52,7 +52,7 @@ mod.page_transceiver = function(settings) {
         }
 
         // Ожидание ответа (callback)
-        if (kk.is_f(callback)) {
+        if (kk.is.f(callback)) {
             const message_id = `${ kk.generate_key(15) }-${ Date.now() }`;
             wrapper.message_id = message_id;
         }

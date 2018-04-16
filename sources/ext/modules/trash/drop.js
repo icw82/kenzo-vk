@@ -10,17 +10,17 @@ mod.drop = (input, option) => {
         mod.log('drop', node);
     }
 
-    if (kk.is_s(input)) {
+    if (kk.is.s(input)) {
         each (document.querySelectorAll(input), drop);
         return;
     }
 
-    if (kk.is_NL(input)) {
+    if (kk.is.NL(input)) {
         each (input, drop);
         return;
     }
 
-    if (kk.is_N(input)) {
+    if (kk.is.N(input)) {
         drop(input);
     }
 }

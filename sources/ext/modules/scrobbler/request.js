@@ -1,8 +1,8 @@
 mod.request = (params, post) => new Promise((resolve, reject) => {
-    if (!kk.is_o(params))
+    if (!kk.is.o(params))
         params = {};
 
-    if (!kk.is_s(params.method)) {
+    if (!kk.is.s(params.method)) {
         mod.warn('Метод не задан');
         return;
     }
@@ -50,7 +50,7 @@ mod.request = (params, post) => new Promise((resolve, reject) => {
     params.api_key = mod.api_key;
 
     if (
-        kk.is_o(mod.storage.session)
+        kk.is.o(mod.storage.session)
         && (mod.storage.session !== null)
         && ('key' in mod.storage.session)
     ) {

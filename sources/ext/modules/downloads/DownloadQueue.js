@@ -1,4 +1,4 @@
-class DownloadQueue {
+mod.DownloadQueue = class DownloadQueue {
 //     0 — removal (исключение)
 //     1 — pending (в очереди)
 //     2 — active (скачивается)
@@ -10,7 +10,7 @@ class DownloadQueue {
         return ['ext', 'chrome'];
     }
 
-    get default () {
+    get blank () {
         return {
             state: 1,
 
@@ -18,14 +18,14 @@ class DownloadQueue {
             group: null,
             url: null,
             name: null,
-            module: null,
 
             chrome_id: null,
             mime: null,
             progress: null,
             reason: null,
 
-            time__added: null, // NOTE: Что будет, если произойдёт изменение системного времени?
+            // NOTE: Что будет, если произойдёт изменение системного времени?
+            time__added: null,
             time__start: null,
             time__end: null,
 
@@ -107,7 +107,9 @@ class DownloadQueue {
 
             url: download.url,
             name: download.filename.replace(/.+(?:[\/\\])(.+?)$/, '$1'),
-            progress: Math.floor(download.bytesReceived / download.totalBytes * 100) || null,
+            progress: Math.floor(
+                download.bytesReceived / download.totalBytes * 100
+            ) || null,
 
             time__start: Date.parse(download.startTime) || null,
             time__end: Date.parse(download.endTime) || null,
@@ -134,7 +136,7 @@ class DownloadQueue {
 
         }
 
-        return Object.assign(self.default, update);
+        return Object.assign(self.blank, update);
     }
 
     // Синхронизация
@@ -305,11 +307,9 @@ class DownloadQueue {
             removed: 0
         };
 
-        if (!kk.is_A(updates)) {
-            if (!kk.is_o(updates)) {
-                kk.__a;
-                return;
-            }
+        if (!kk.is.A(updates)) {
+            if (!kk.is.o(updates))
+                throw new TypeError();
 
             updates = [updates];
         }
@@ -350,7 +350,6 @@ class DownloadQueue {
 //                'url',
                 'name', // FUTURE: При каких условиях может обновиться?
 //                'time__added',
-//                'module',
                 'chrome_id', // Может отсутствовать у элемента в очереди;
                 'state',
                 // 'reason', // В очереди не может быть элементов со state == 0;
@@ -484,81 +483,49 @@ class DownloadQueue {
 
     // Метод добавления элемента в очередь.
     // Внутри класса не используется.
-    add (input) {
-        const self = this;
-        let as_group = false;
-        let to_update = [];
+    add (args) {
+        const { blank } = this;
+        const as_group = kk.is.A(args);
 
-        if (kk.is_A(input))
-            as_group = true;
+        if (as_group)
+            args.group = kk.generate_key(15);
         else
-            input = [input];
+            args = [args];
 
-        // Косяк тут
-        each (input, item => {
-            if (!kk.is_s(item.url)) {
-                kk.__a();
-                return;
-            }
+        const items = args.map(item => {
+            if (!kk.is.s(item.url))
+                throw new TypeError(item);
 
-            let update = {
-                url: item.url
-            }
-
-            if (kk.is_s(item.name))
-                update.name = item.name;
-
-            if (kk.is_s(item.module))
-                update.module = item.module;
-
-            if (as_group) {
-                // TODO: Группы
-            }
-
-            to_update.push(Object.assign(self.default, update));
-
+            return Object.assign({}, blank, item);
         });
 
-        if (to_update.length > 0) {
-            self.update(to_update, 'add');
-        }
+        this.update(items, 'add');
     }
 
     // Метод удаления элемента из очереди.
     // Внутри класса не используется.
-    remove (input) {
-        const self = this;
-        let to_update = [];
+    remove (args) {
+        const {id, group} = args;
 
-        if (input instanceof kk._A)
-            as_group = true;
-        else
-            input = [input];
+        // TODO: удаление группы из очереди скачивания
 
-        each (input, function(id) {
+        const existing = this.get(id);
 
-            let item = self.get(id);
+        if (!existing)
+            return;
 
-            if (item) {
-                if (item.state === 1) {
-                    // Элемент в ожидании;
-                    item.state = 0;
-                    item.reason = 'canceled';
-                    to_update.push(item);
+        const item = Object.assign({}, existing);
 
-                } else if (item.state === 2 || item.state === 3) {
-                    browser.downloads.cancel(item.chrome_id);
-                }
-            }
-        });
+        // Элемент в ожидании
+        if (item.state === 1) {
+            item.state = 0;
+            item.reason = 'canceled';
+            self.update(item, 'remove');
 
-        if (to_update.length > 0) {
-            self.update(to_update, 'remove');
+        // Уже скачивается. Очередь обновится сама
+        } else if (item.state === 2 || item.state === 3) {
+            browser.downloads.cancel(item.chrome_id);
         }
-    }
-
-    remove_group (input) {
-        const self = this;
 
     }
 
@@ -567,5 +534,3 @@ class DownloadQueue {
     }
 
 }
-
-mod.DownloadQueue = DownloadQueue;

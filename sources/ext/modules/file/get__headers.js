@@ -1,6 +1,6 @@
 mod.get__headers = url => new Promise(function(resolve, reject) {
 
-    if (!kk.is_s(url)) {
+    if (!kk.is.s(url)) {
         throw 'file.get__headers: url is\'nt string';
     }
 

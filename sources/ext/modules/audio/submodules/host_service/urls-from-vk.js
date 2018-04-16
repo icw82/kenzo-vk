@@ -114,7 +114,7 @@ class List {
     }
 
     add(item, dispatch_event = true) {
-        if (kk.is_A(item)) {
+        if (kk.is.A(item)) {
             item = item.map(item => this.add(item, true));
             dispatch_event && this.on_add.dispatch([item]);
             return item;

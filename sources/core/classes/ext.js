@@ -94,7 +94,7 @@ class Extention {
             if (each (core.scopes, scope => {
                 if (core.scope === scope) {
                     const init = self['init__' + scope];
-                    kk.is_f(init) && init();
+                    kk.is.f(init) && init();
                     return true;
                 }
             })) {

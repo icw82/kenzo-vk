@@ -460,13 +460,17 @@ function QueueCtrl($scope, $element, data) {
     }
 
     this.remove = id => {
-        if (kk.is_n(id)) {
-            browser.runtime.sendMessage({
-                action: 'cancel-download',
+        if (!kk.is.n(id))
+            throw new TypeError(id);
+
+        const message = {
+            module: 'downloads',
+            action: 'stop',
+            args: {
                 id: id
-            });
-        } else {
-            console.warn('Нет идентификатора');
+            }
         }
+
+        browser.runtime.sendMessage(message);
     }
 }

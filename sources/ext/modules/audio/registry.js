@@ -12,9 +12,9 @@ mod.registry = (() => {
     _.update = input => {
         let collection;
 
-        if (kk.is_E(input))
+        if (kk.is.E(input))
             collection = [input];
-        else if (kk.is_NL(input))
+        else if (kk.is.NL(input))
             collection = input;
 
         each (collection, element => {

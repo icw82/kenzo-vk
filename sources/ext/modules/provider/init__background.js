@@ -3,7 +3,7 @@ mod.init__background = function() {
 
     browser.runtime.onConnect.addListener(port => {
         if (
-            port.name !== mod.full_name ||
+            port.name !== mod.name ||
             port.sender.id !== browser.runtime.id
         )
             return;

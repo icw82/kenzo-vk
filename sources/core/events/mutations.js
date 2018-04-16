@@ -22,13 +22,13 @@
 
     core.events.on_element_addition = new kk.Event(key);
     core.events.on_node_addition.addListener(element => {
-        if (kk.is_E(element))
+        if (kk.is.E(element))
             core.events.on_element_addition.dispatch(key, element);
     });
 
     core.events.on_element_removal = new kk.Event(key);
     core.events.on_node_removal.addListener(element => {
-        if (kk.is_E(element))
+        if (kk.is.E(element))
             core.events.on_element_removal.dispatch(key, element);
     });
 }

@@ -7,7 +7,6 @@ ext.File = class File {
 
         this.updateURL(url);
 
-
 //        const _ = {
 //            url: undefined,
 //            clean_url: undefined,
@@ -38,32 +37,30 @@ ext.File = class File {
 
         const self = this;
 
-        [
-            'progress',
-            'state',
-        ].forEach(key => {
-            self[`on_change_${ key }`] = new kk.Event();
+        this.on_change_progress = new kk.Event();
+        kk.watch(this, 'progress', this.on_change_progress);
 
-            kk.watch(this, key, () => {
-                self['on_change_' + key].dispatch(this[key]);
-            });
-        });
+        this.on_change_state = new kk.Event();
+        kk.watch(this, 'state', this.on_change_state);
+
     }
 
-    updateURL(url) {
-        if (kk.is_s(url))
-            url = new URL(url);
+    updateURL(new_value) {
+        if (kk.is.s(new_value))
+            new_value = new URL(new_value);
 
-        if (!(url instanceof URL))
+        if (!(new_value instanceof URL))
             throw TypeError();
 
         if (this.url && this.url.href === url.href)
             return;
 
-        this.url = url;
+        const prev_value = this.url;
+
+        this.url = new_value;
         this.name = this.url.pathname.match(/\/(\w+?)\.\w+$/)[1];
         this.extension = this.url.pathname.match(/(\.\w+)$/)[1];
-        this.on_change_url.dispatch();
+        this.on_change_url.dispatch(prev_value, new_value);
 
     }
 
@@ -93,5 +90,40 @@ ext.File = class File {
             self.on_enrich.dispatch();
         });
 
+    }
+
+    startDownload(from) {
+        mod.log('Start download:', this);
+
+        const message = {
+            module: 'downloads',
+            action: 'start',
+            args: {
+                url: this.url.href,
+            }
+        }
+
+        if (kk.is.s(from) && this[from] && this[from].name)
+            message.args.name = this[from].name + this.extension;
+
+        browser.runtime.sendMessage(message);
+    }
+
+    stopDownload() {
+        mod.log('Stop download:', this);
+
+        if (this.queue_id) {
+            const message = {
+                module: 'downloads',
+                action: 'stop',
+                args: {
+                    id: this.queue_id
+                }
+            }
+
+            browser.runtime.sendMessage(message);
+        } else {
+            mod.warn('Нет идентификатора');
+        }
     }
 }

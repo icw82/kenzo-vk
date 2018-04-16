@@ -1,5 +1,5 @@
 core.utils.local_console = (object, prefix) => {
-    if (!kk.is_o(object) || !kk.is_s(prefix))
+    if (!kk.is.o(object) || !kk.is.s(prefix))
         throw kk.msg.ia;
 
     prefix += ` (${core.s}) —`;

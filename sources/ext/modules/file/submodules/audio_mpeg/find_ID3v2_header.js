@@ -17,5 +17,5 @@ sub.find_ID3v2_header = buffer => {
         return;
     });
 
-    return kk.is_n(index) ? index : false;
+    return kk.is.n(index) ? index : false;
 }

@@ -1,7 +1,7 @@
 core.utils.filter = {}
 
 core.utils.filter.base = string => {
-    if (!kk.is_s(string)) {
+    if (!kk.is.s(string)) {
         console.error('base: not string');
         return string;
     }
@@ -13,7 +13,7 @@ core.utils.filter.base = string => {
 // TODO: удалять ссылки, сердечки, смайлики и прочую лабуду.
 
 core.utils.filter.trash = string => {
-    if (!kk.is_s(string)) {
+    if (!kk.is.s(string)) {
         console.error('core.utils.filter.trash: not string');
         return string;
     }

@@ -32,7 +32,7 @@ const isolated_function_2016 = args => {
 //
 //        // TODO: новый интерфейс
 //        browser.runtime.sendMessage(properties.id, message, key => {
-//            if (!kk.is_s(key))
+//            if (!kk.is.s(key))
 //                return;
 //
 //            secret_key = key;
@@ -40,7 +40,7 @@ const isolated_function_2016 = args => {
 //    }
 //
 //    kk.watch(window, 'ap', window => {
-//        if (!kk.is_o(window.ap) || window.ap === null) {
+//        if (!kk.is.o(window.ap) || window.ap === null) {
 //            warn('Некорректный объект плеера')
 //            return;
 //        }

@@ -1,7 +1,7 @@
 sub.parse = (input) => new Promise((resolve, reject) => {
-    if (kk.is_s(input)) {
+    if (kk.is.s(input)) {
         sub.parse_by_url(input).then(resolve, reject);
-    } else if (kk.is_o(input)) {
+    } else if (kk.is.o(input)) {
         sub.parse_by_object(input).then(resolve, reject);
     } else {
         throw 'file.audio_mpeg: incorrect argument';

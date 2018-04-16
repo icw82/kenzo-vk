@@ -31,14 +31,14 @@ sub.init__background = () => {
 
         if (request.action === sub.actions.update) {
             if (sub.audio_player_keys.includes(request.key)) {
-                if (!kk.is_o(request.info)) {
+                if (!kk.is.o(request.info)) {
                     sub.error('Информация не передана');
                     return;
                 }
 
                 const info = request.info;
 
-                if (!kk.is_s(info.performer) || !kk.is_s(info.title)) {
+                if (!kk.is.s(info.performer) || !kk.is.s(info.title)) {
                     sub.error('Отсутсвует необходимая информация');
                     return;
                 }

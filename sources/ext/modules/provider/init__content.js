@@ -9,7 +9,7 @@ mod.init__content = () => {
     {
         const connectToBackground = () => {
             const port = browser.runtime.connect({
-                name: mod.full_name
+                name: mod.name
             });
 
             return port;

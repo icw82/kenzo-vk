@@ -12,6 +12,13 @@ const core = {
 
 // Определение контекста
 
+if (!kk.is.o(kk.r.browser)) {
+    if (!kk.is.o(kk.r.chrome))
+        throw new Error('Обект браузера не обнаружен');
+
+    kk.r.browser = kk.r.chrome;
+}
+
 if (location.protocol === 'https:') {
     core.scope = 'content';
     core.s = 'cs';

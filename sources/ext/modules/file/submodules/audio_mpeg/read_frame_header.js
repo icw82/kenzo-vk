@@ -100,13 +100,13 @@ sub.read_frame_header = buffer => {
         return MPEG;
     }
 
-    if (kk.is_o(Xing)) {
+    if (kk.is.o(Xing)) {
         MPEG.method = Xing;
         return MPEG;
     }
 
     let VBRI = sub.read_VBRI(buffer, MPEG);
-    if (kk.is_o(VBRI)) {
+    if (kk.is.o(VBRI)) {
         MPEG.method = VBRI;
     } else {
         MPEG.method = 'CBR';
