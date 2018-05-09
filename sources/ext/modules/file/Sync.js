@@ -1,26 +1,23 @@
 // Синхронизация реестра файлов (registry.js) с очередью загрузок;
-mod.queue_sync = (() => {
-    const _ = {};
-
-    _.init = () => {
+class Sync {
+    constructor() {
+        // E V E N T S
         // При изменении очереди загрузок провести синхронизацию
         // с реестром файлов:
-        ext.modules.downloads.on_storage_changed.addListener(_.sync);
+        ext.modules.downloads.on_storage_changed.addListener(
+            this.sync.bind(this));
     }
 
-    _.sync = () => {
-        // Перебор зарегистированных на странице файлов:
-        each (mod.registry.list, _.update);
+    sync(changes) {
+//        console.log(`changes`, changes);
+        // Проход по всем обработанным файлам (кнопкам) на странице:
+        mod.registry.list.forEach(this.update.bind(this));
     }
 
-    _.update = file => {
+    update (file) {
         // Поиск соответствия зарегистрированного файла и записи в очереди:
-        let item = each (ext.modules.downloads.storage.queue, item => {
-            // Первая попавшаяся запись с этим URL:
-            if (item.url === file.clean_url) {
-                return item;
-            }
-        });
+        const item = ext.modules.downloads.storage.queue.find(
+            item => item.url === file.url.href);
 
         if (item) {
             file.state = item.state;
@@ -31,8 +28,4 @@ mod.queue_sync = (() => {
             file.queue_id = false;
         }
     }
-
-    return _;
-
-})();
-
+}

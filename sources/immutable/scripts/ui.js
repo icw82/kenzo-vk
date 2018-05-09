@@ -450,7 +450,7 @@ function QueueCtrl($scope, $element, data) {
         return '';
     }
 
-    this.toggle_view = function(id) {
+    this.toggle_view = id => {
         let index = this.extedned_view.indexOf(id);
 
         if (index >= 0)
@@ -460,17 +460,18 @@ function QueueCtrl($scope, $element, data) {
     }
 
     this.remove = id => {
-        if (!kk.is.n(id))
-            throw new TypeError(id);
-
-        const message = {
-            module: 'downloads',
-            action: 'stop',
-            args: {
-                id: id
+        if (id) {
+            const message = {
+                module: 'downloads',
+                action: 'stop',
+                args: {
+                    id: id
+                }
             }
-        }
 
-        browser.runtime.sendMessage(message);
+            browser.runtime.sendMessage(message);
+        } else {
+            mod.warn('Нет идентификатора');
+        }
     }
 }

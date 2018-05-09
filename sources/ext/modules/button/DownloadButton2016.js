@@ -158,8 +158,9 @@ class DownloadButton2016 {
             return;
         }
 
-        const main_handler = () => { this.update() };
-        const state_handler = () => { this.updateState() };
+        const main_handler = () => this.update();
+        const state_handler = (prev, next) =>
+            this.updateState(`state_handler`);
 
         this.file = file;
 
@@ -241,12 +242,12 @@ class DownloadButton2016 {
 
 //        this.element.style.opacity = opacity;
         this.label.innerHTML = label;
-        this.updateState();
+        this.updateState('update');
     }
 
 
-    updateState() {
-        console.log('U P D A T E   S T A T E', this.file.url, this.file.state);
+    updateState(source) {
+//        console.log(`U P D A T E   S T A T E`, source);
 
         switch (this.file.state) {
             case 0:
@@ -260,13 +261,13 @@ class DownloadButton2016 {
             case 2:
                 this.applyStateClass(this.CLASSES.STATE.PROGRESS);
                 this.progress__filling.style.transform =
-                    'translateX(' + (-100 + file.progress) + '%)';
+                    'translateX(' + (-100 + this.file.progress) + '%)';
                 break;
 
             case 3:
                 this.applyStateClass(this.CLASSES.STATE.PROGRESS);
                 this.progress__filling.style.transform =
-                    'translateX(' + (-100 + file.progress) + '%)';
+                    'translateX(' + (-100 + this.file.progress) + '%)';
                 break;
         }
     }

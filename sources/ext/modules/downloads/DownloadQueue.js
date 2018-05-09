@@ -95,8 +95,6 @@ mod.DownloadQueue = class DownloadQueue {
 
     // Конвертирование хром-загрузки в формат элемента очереди
     convert (download) {
-        const self = this;
-
         if (!('id' in download)) {
             mod.warn('convert:', 'Нет идентификатора');
             return;
@@ -136,7 +134,7 @@ mod.DownloadQueue = class DownloadQueue {
 
         }
 
-        return Object.assign(self.blank, update);
+        return Object.assign(this.blank, update);;
     }
 
     // Синхронизация
@@ -155,13 +153,13 @@ mod.DownloadQueue = class DownloadQueue {
             const to_update = [];
 
             // Со стороны Хром-загрузок
-            each (downloads, download => {
+            downloads.forEach(download => {
                 ids.push(download.id);
                 to_update.push(self.convert(download));
-            });
+            })
 
             // Со стороны Очереди
-            each (mod.storage.queue, item => {
+            mod.storage.queue.forEach(item => {
                 // Выпиливание неформатных записей из очереди
 
                 if (!('state' in item)) {
@@ -209,7 +207,8 @@ mod.DownloadQueue = class DownloadQueue {
     }
 
     // Синхронизационный цикл (Прогресс, Пауза)
-    // Автоматически продолжается, пока есть хотя бы одна активная загрузка не на паузе;
+    // Автоматически продолжается, пока есть хотя бы одна
+    // активная загрузка не на паузе;
     loop (source) {
         const self = this;
         let stop = true;
@@ -221,6 +220,7 @@ mod.DownloadQueue = class DownloadQueue {
 
         browser.downloads.search(query, downloads => {
 //            console.log('————————————— loop (' + source + ') —————————————');
+
             each (downloads, download => {
                 // Прогресс
                 to_update.push(self.convert(download));
@@ -300,7 +300,6 @@ mod.DownloadQueue = class DownloadQueue {
     // U — обновление
     // Q — элемент очереди
     update (updates, source) {
-        const self = this;
         const changes = {
             updated: 0,
             added: 0,
@@ -315,16 +314,16 @@ mod.DownloadQueue = class DownloadQueue {
         }
 
         // Отправка в историю
-        const send_to_history = item => {
-            mod.history.update(item);
-//            mod.log('TO HISTORY');
-        }
+//        const send_to_history = item => {
+//            mod.history.update(item);
+////            mod.log('TO HISTORY');
+//        }
 
         // Удаление элемента из очереди
         const remove_item = (update, item) => {
-            if (update.reason === 'completed') {
-                send_to_history(update);
-            }
+//            if (update.reason === 'completed') {
+//                send_to_history(update);
+//            }
 
             // item передаётся через apply и всегда указывает
             // на существующий в очереди элемент
@@ -375,23 +374,6 @@ mod.DownloadQueue = class DownloadQueue {
             }
         }
 
-        // Поиск соответсвия обновления элементу очереди,
-        // где key — ключ, по которому определяется соответсвие (id, chrome_id, url)
-        const find = (update, key) => {
-
-            if (update[key] === null)
-                return;
-
-            let result = each (mod.storage.queue, item => {
-                if (update[key] === item[key])
-                    return item;
-            });
-
-//            console.log('[ find ]', update[key], ' → ', result);
-
-            return result;
-        }
-
         // Применение обновления (update) к элементу очереди (item)
         const apply = (update, item) => {
             if (update.state === 0) {
@@ -415,52 +397,50 @@ mod.DownloadQueue = class DownloadQueue {
             changes.added++;
         }
 
-        each (updates, update => {
-            if (!update.url) {
-                mod.warn('Не указан URL');
-                return;
-            }
+        updates.forEach(upd => {
+            if (!kk.is.s(upd.url))
+                throw new TypeError();
 
-//            console.log('— update (' + source + ') →', update, update.id);
-
-            if (update.id) {
+            if (upd.id) {
                 // Если обновлению соответсвует элемент очереди
-                const item = find(update, 'id');
-                if (item) {
-                    apply(update, item);
-                }
+                const item = mod.storage.queue.find(
+                    item => item.id === upd.id
+                );
+
+                item && apply(upd, item);
+
+            } else if (upd.chrome_id) {
+                const item = mod.storage.queue.find(
+                    item => item.chrome_id === upd.chrome_id
+                );
+
+                if (item)
+                    apply(upd, item);
+                else
+                    upd.state === 0 ? remove_item(upd) : add_item(upd);
+
             } else {
-                if (update.chrome_id) {
-                    const item = find(update, 'chrome_id');
+                if (upd.state === 0) {
+                    mod.warn('Нельзя удалить элемент только по URL');
+
+                } else {
+                    const item = mod.storage.queue.find(
+                        item => item.url === upd.url
+                    );
 
                     if (item) {
-                        apply(update, item);
+                        mod.warn(
+                            `Элемент с таким же URL уже находится в очереди`
+                        );
+
                     } else {
-                        if (update.state === 0) {
-                            remove_item(update);
-                        } else {
-                            add_item(update);
-                        }
-                    }
-                } else {
-                    if (update.state === 0) {
-                        mod.warn('Нельзя удалить элемент только по URL');
-                    } else {
-                        const item = find(update, 'url');
-                        if (item) {
-                            mod.warn('Элемент с таким же URL уже находится в очереди');
-                        } else {
-                            add_item(update);
-                        }
+                        add_item(upd);
                     }
                 }
             }
         });
 
-        // FUTURE: присобачить информацию из кэша. Зачем?
-
-//        mod.log('queue', mod.storage.queue);
-        self.update_storage(changes);
+        this.update_storage(changes);
     }
 
     update_storage (changes) {
@@ -520,7 +500,7 @@ mod.DownloadQueue = class DownloadQueue {
         if (item.state === 1) {
             item.state = 0;
             item.reason = 'canceled';
-            self.update(item, 'remove');
+            this.update(item, 'remove');
 
         // Уже скачивается. Очередь обновится сама
         } else if (item.state === 2 || item.state === 3) {

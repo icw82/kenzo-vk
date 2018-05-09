@@ -25,7 +25,7 @@ mod.init__background = () => {
             mod.queue.add(request.args);
 
         else if (request.action === 'stop')
-            mod.queue.remove(request.args.id);
+            mod.queue.remove(request.args);
 
         else
             mod.warn('Действие не произведено', request);
