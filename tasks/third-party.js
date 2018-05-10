@@ -12,6 +12,7 @@ const paths_to_scripts = [
 //    'angular-sanitize/angular-sanitize.min.js.map',
     'kenzo-kit/kk.min.js',
     'blueimp-md5/js/md5.min.js',
+//    'blueimp-md5/js/md5.min.js.map',
     'he/he.js'
 ].map(item => './node_modules/' + item);
 

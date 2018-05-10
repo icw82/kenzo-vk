@@ -37,7 +37,7 @@ sub.find_headers = data => new Promise((resolve, reject) => {
                 if (data.ID3v1)
                     data.MPEG.content_length -= 128;
 
-                if (kk.is_o(data.MPEG.method)) {
+                if (kk.is.o(data.MPEG.method)) {
                     if (data.MPEG.method.name === 'Xing' || data.MPEG.method.name === 'VBRI') {
                         data.MPEG.duration =
                             data.MPEG.method.frames *

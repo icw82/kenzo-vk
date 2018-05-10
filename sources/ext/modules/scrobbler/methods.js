@@ -13,7 +13,7 @@ mod.methods.auth.getSession = token => new Promise((resolve, reject) => {
     }
 
     mod.request(params, true).then(response => {
-        if (!kk.is_o(response))
+        if (!kk.is.o(response))
             return;
 
         mod.storage.session = response.session;
@@ -26,7 +26,7 @@ mod.methods.track.updateNowPlaying = params => new Promise((resolve, reject) => 
     params.method = 'track.updateNowPlaying';
 
     mod.request(params, true).then(response => {
-        if (!kk.is_o(response))
+        if (!kk.is.o(response))
             return;
 
         resolve(response);

@@ -1,4 +1,4 @@
-mod.get = async path => {
+mod.httpRequest = async function(...args) {
     const id = kk.generate_key(15);
     const ts = Date.now();
     let response;
@@ -9,8 +9,8 @@ mod.get = async path => {
         ts: ts,
         from: 'cs',
         to: 'page',
-        method: 'get',
-        args: [path]
+        method: 'httpRequest',
+        args: [...args]
     }
 
     if (mod.onTransceiverInit.state.completed) {

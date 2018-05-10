@@ -1,7 +1,7 @@
 //// TODO: Чтение тегов из mp3
 //sub.get_info_tags = (url, offset) => new Promise((resolve, reject) => {
 //
-//    if (!kk.is_n(offset))
+//    if (!kk.is.n(offset))
 //        offset = 0;
 //
 //    const prefix = 'file.audio_mpeg.get_info_tags — ';

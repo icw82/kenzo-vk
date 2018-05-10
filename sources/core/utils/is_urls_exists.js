@@ -1,5 +1,5 @@
 core.utils.is_urls_exists = urls => new Promise((resolve, reject) => {
-    if (!kk.is_A(urls)) {
+    if (!kk.is.A(urls)) {
         reject();
         return;
     }

@@ -21,7 +21,7 @@ mod.registry = (() => {
         } else {
             file = new ext.File(url);
             registry.list.push(file);
-            mod.queue_sync.update(file);
+            mod.synchronizeQueue.update(file);
             return file;
         }
     }

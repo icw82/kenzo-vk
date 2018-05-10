@@ -13,7 +13,7 @@ class SubModule {
         const self = this;
         const init = this['init__' + core.scope];
 
-        if (!kk.is_f(init))
+        if (!kk.is.f(init))
             return;
 
         init();

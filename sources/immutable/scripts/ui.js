@@ -1,7 +1,10 @@
 'use strict';
 
 // Встраивание векторной графики
-core.utils.inject_to_dom('svg', browser.extension.getURL('images/graphics.svg'));
+core.utils.inject_file_to_dom(
+    'svg',
+    browser.extension.getURL('images/graphics.svg')
+);
 
 const modules = [];
 
@@ -120,7 +123,6 @@ function data($rootScope) {
             'audio', [
                 'header',
 
-                'cache',
                 'download_button',
                 'hide_hq_label',
                 'separator',
@@ -448,7 +450,7 @@ function QueueCtrl($scope, $element, data) {
         return '';
     }
 
-    this.toggle_view = function(id) {
+    this.toggle_view = id => {
         let index = this.extedned_view.indexOf(id);
 
         if (index >= 0)
@@ -458,13 +460,18 @@ function QueueCtrl($scope, $element, data) {
     }
 
     this.remove = id => {
-        if (kk.is_n(id)) {
-            browser.runtime.sendMessage({
-                action: 'cancel-download',
-                id: id
-            });
+        if (id) {
+            const message = {
+                module: 'downloads',
+                action: 'stop',
+                args: {
+                    id: id
+                }
+            }
+
+            browser.runtime.sendMessage(message);
         } else {
-            console.warn('Нет идентификатора');
+            mod.warn('Нет идентификатора');
         }
     }
 }

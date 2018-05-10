@@ -8,11 +8,11 @@ sub.read_the_first_expected_headers = data => new Promise((resolve, reject) => {
 
     kk.get_buffer(...args).then(result => {
 
-        if (!kk.is_o(result)) {
+        if (!kk.is.o(result)) {
             reject('read_the_first_expected_headers: некорректыне данные');
         }
 
-        if (kk.is_A(result)) {
+        if (kk.is.A(result)) {
             const v1 = result[0].content;
             const v2 = result[1].content;
 

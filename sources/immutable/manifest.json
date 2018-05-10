@@ -1,37 +1,30 @@
 {
-    "default_locale": "ru",
+    "manifest_version": 2,
     "name": "Kenzo VK",
     "short_name": "Kenzo VK",
     "version": "::version::",
+
+    "default_locale": "ru",
     "description": "__MSG_ext_description__",
-    "author": "icw82",
     "icons": {
         "16": "images/icons/16.png",
         "48": "images/icons/48.png",
         "64": "images/icons/64.png",
         "128": "images/icons/128.png"
     },
-    "permissions": [
-        "storage",
-        "unlimitedStorage",
-        "downloads",
-        "https://vk.com/*",
-        "https://*.vk.com/*",
-        "*://*.vk.me/*",
-        "*://*.vk-cdn.net/*",
-        "*://*.userapi.com/*"
-    ],
-    "externally_connectable": {
-        "matches": [
-            "*://vk.com/*",
-            "*://*.vk.com/*",
-            "*://*.vk.me/*",
-            "*://*.vk-cdn.net/*",
-            "*://ws.audioscrobbler.com/*"
-        ]
+
+    "browser_action": {
+        "default_icon": {
+            "19": "images/icons/19.png",
+            "38": "images/icons/38.png"
+        },
+        "default_popup": "layouts/browser_action.html"
     },
+
+
+    "author": "icw82",
+
     "background": {
-        "persistent": true,
         "scripts": [
             "scripts/kk.min.js",
             "scripts/md5.min.js",
@@ -40,7 +33,26 @@
             "scripts/ext.js"
         ]
     },
-    "options_page": "layouts/options.html",
+
+    "permissions": [
+        "storage",
+        "unlimitedStorage",
+        "downloads",
+        "https://vk.com/*",
+        "https://*.vk.com/*",
+        "*://*.vk.me/*",
+        "*://*.vk-cdn.net/*",
+        "*://*.vk-cdn.com/*",
+        "*://*.userapi.com/*",
+        "*://*.vkuseraudio.net/*",
+        "*://*.vkuservideo.net/*"
+    ],
+
+    "options_ui": {
+        "open_in_tab": true,
+        "page": "layouts/options.html"
+    },
+
     "content_scripts": [
         {
             "matches": [
@@ -61,15 +73,9 @@
             "run_at": "document_start"
         }
     ],
-    "browser_action": {
-        "default_icon": {
-            "19": "images/icons/19.png",
-            "38": "images/icons/38.png"
-        },
-        "default_popup": "layouts/browser_action.html"
-    },
     "content_security_policy":
-        "script-src 'self' 'unsafe-eval'; object-src 'self'",
+        "script-src 'self' 'unsafe-eval'; object-src 'self';",
+
     "web_accessible_resources": [
         "scripts/angular.min.js.map",
         "scripts/kk.min.js",
@@ -92,6 +98,6 @@
 
         "layouts/options.html"
     ],
-    "minimum_chrome_version": "61",
-    "manifest_version": 2
+
+    "minimum_chrome_version": "61"
 }

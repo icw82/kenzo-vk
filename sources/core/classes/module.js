@@ -64,14 +64,14 @@ class Module {
         const self = this;
         const init = this['init__' + core.scope];
 
-        if (!kk.is_f(init)) {
+        if (!kk.is.f(init)) {
             self.warn(`Модуль не инициируется в ${core.scope}`);
             return;
         }
 
         this.dom = {};
         this.dependencies = this.dependencies.filter(item => {
-            if (!kk.is_s(item)) {
+            if (!kk.is.s(item)) {
                 console.error('Не корректное название модуля', item);
                 return;
             }

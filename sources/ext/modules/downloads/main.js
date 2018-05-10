@@ -14,30 +14,26 @@ mod.init__background = () => {
     mod.history = new mod.DownloadHistory();
     mod.queue = new mod.DownloadQueue();
 
-    // Обработка сообщений
-    browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
-        if (sender.id !== browser.runtime.id)
+    const handler = (request, sender, sendResponse) => {
+        if (
+            sender.id !== browser.runtime.id ||
+            request.module !== mod.name
+        )
             return;
 
-        if (request.action === 'download') {
-//            console.log('download');
-            if (request.item) {
-                mod.queue.add(request.item);
-                return;
-            }
+        if (request.action === 'start')
+            mod.queue.add(request.args);
 
-            if (kk.is_A(request.items) && request.items.length > 0) {
-                mod.queue.add(request.items)
-                return;
-            }
+        else if (request.action === 'stop')
+            mod.queue.remove(request.args);
 
-            mod.warn('Кажется что-то пошло не так');
+        else
+            mod.warn('Действие не произведено', request);
 
-        } else if (request.action === 'cancel-download') {
-            mod.queue.remove(request.id);
+    }
 
-        }
-    });
+    // Обработка сообщений
+    browser.runtime.onMessage.addListener(handler);
 
     // FUTURE: Определить зависимости для модулей, использующих загрузки
     mod.on_loaded.dispatch();

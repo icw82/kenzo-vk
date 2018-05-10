@@ -1,7 +1,6 @@
-class DownloadHistory {
+mod.DownloadHistory = class DownloadHistory {
 
     constructor () {
-
         this.sync();
 
     }
@@ -15,8 +14,4 @@ class DownloadHistory {
 //        console.log('History.UPDATE', item);
 
     }
-
-
 }
-
-mod.DownloadHistory = DownloadHistory;

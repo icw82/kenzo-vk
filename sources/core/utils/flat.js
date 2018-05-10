@@ -4,14 +4,14 @@ core.utils.object_to_flat = object => {
         for (let key in source) {
             let path = '';
 
-            if (kk.is_s(prefix))
+            if (kk.is.s(prefix))
                 path += prefix + '.' + key;
             else
                 path += key;
 
             if (
-                kk.is_o(source[key])
-                && !kk.is_A(source[key])
+                kk.is.o(source[key])
+                && !kk.is.A(source[key])
                 && (source[key] !== null)
                 && Object.keys(source[key]).length > 0
             ) {
@@ -39,7 +39,7 @@ core.utils.flat_to_object = flat => {
         each (splited_path, (key, i) => {
             if (i < splited_path.length - 1) {
                 // Путь
-                if (!kk.is_o(current[key]) || current[key] === null) {
+                if (!kk.is.o(current[key]) || current[key] === null) {
                     current[key] = {};
                 }
 

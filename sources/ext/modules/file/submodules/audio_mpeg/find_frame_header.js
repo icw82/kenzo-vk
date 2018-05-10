@@ -18,5 +18,5 @@ sub.find_frame_header = buffer => {
         }
     });
 
-    return kk.is_n(index) ? index : false;
+    return kk.is.n(index) ? index : false;
 }

@@ -1,5 +1,5 @@
 core.utils.is_url_exists = url => new Promise((resolve, reject) => {
-    if (!kk.is_s(url))
+    if (!kk.is.s(url))
         throw 'is_url_exists: url is\'nt string';
 
     const xhr = new XMLHttpRequest();

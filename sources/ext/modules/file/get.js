@@ -1,51 +1,48 @@
-//                          нет
-//                 есть?  ——————> Достать новую инфу ———————\
-// Чекнуть в кэше ——————>   да                              |————> Записать в кэш
-//                        ——————> Вернуть инфу в промис <———/
+mod.get = async url => {
+    url = new URL(url);
+    url = url.href;
 
-mod.get = url => new Promise((resolve, reject) => {
-    if (!kk.is_s(url)) {
-        throw 'file.get: url is\'nt string';
-    }
+    try {
+        const cashed = await mod.cache.get(url.href, 'basic.url');
 
-    if (url === '') {
-        throw 'file.get: url is empty string';
-    }
+//    mod.cache.get(url, 'basic.url').then(data => {
+//        if (data.length > 1) {
+////            mod.warn('cached data', data);
+//        }
+//
+//        resolve(data[0]);
+//
+        console.warn('cashed', cashed);
 
-    mod.cache.get(url, 'basic.url').then(data => {
-        if (data.length > 1) {
-//            mod.warn('cached data', data);
-        }
+    } catch (error) {
+        // Если в кэше нет:
+        try {
+            const data = {
+                basic: {
+                    url: url
+                }
+            };
 
-        resolve(data[0]);
+            const header = await mod.get__headers(url);
 
-    // Если в кэше нет:
-    }, event => {
-        const data = {
-            basic: {
-                url: url
-            }
-        };
+            Object.assign(data.basic, header.basic);
 
-        mod.get__headers(url).then(result => {
-            Object.assign(data.basic, result.basic);
-
-            if (result.basic.mime === 'audio/mpeg') {
-                mod.submodules.audio_mpeg.parse(url).then(data => {
-                    data.ts = kk.ts();
-//                    mod.log('audio_mpeg >', data);
-                    mod.cache.put(data);
-                    resolve(data);
-                }, reject);
+            if (data.basic.mime === 'audio/mpeg') {
+                const meta = await mod.submodules.audio_mpeg.parse(url);
+                meta.ts = kk.ts();
+//                mod.log('audio_mpeg >', meta);
+                mod.cache.put(meta);
+                return meta;
 
             } else {
-                mod.warn('Неизвестный MIME-тип', url, data);
-                reject(data);
+                mod.warn('Неизвестный MIME-тип', data);
             }
 
-        }, error => {
-//            mod.warn('ОНО', url);
-            reject(error);
-        });
-    });
-});
+
+
+        } catch (error) {
+            console.warn('Нет заголовка', error);
+        }
+    }
+}
+
