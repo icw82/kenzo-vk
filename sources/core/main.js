@@ -11,12 +11,11 @@ const core = {
 }
 
 // Определение контекста
-
-if (!kk.is.o(kk.r.browser)) {
-    if (!kk.is.o(kk.r.chrome))
+if (!kk.is.o(browser)) {
+    if (!kk.is.o(chrome))
         throw new Error('Обект браузера не обнаружен');
 
-    kk.r.browser = kk.r.chrome;
+    browser = chrome;
 }
 
 if (location.protocol === 'https:') {

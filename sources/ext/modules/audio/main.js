@@ -37,13 +37,14 @@ mod.init__content = () => {
         });
 
         const nodeHandler = node => {
-            if (!kk.is.E(node))
+            if (!kk.is.E(node)) {
                 return;
+            }
 
             // Элементы аудио
-            if (node.classList.contains('audio_row'))
+            if (node.classList.contains('audio_row')) {
                 mod.registry.update(node);
-            else {
+            } else {
                 const elements = node.querySelectorAll('.audio_row');
                 if (elements.length > 0) {
                     mod.registry.update(elements);
