@@ -184,6 +184,7 @@ function data($rootScope) {
                 'profile_rate',
                 'promoted_posts',
                 'sidebar_ads',
+                'stories',
                 'user_reposts'
             ]
         ], [
@@ -248,10 +249,16 @@ function data($rootScope) {
             return text;
     }
 
-    pre_i18n.info.beta = replace_links(pre_i18n.info.beta, 'https://vk.com/kenzovk');
+    pre_i18n.info.beta = replace_links(
+        pre_i18n.info.beta,
+        'https://vk.com/kenzovk'
+    );
 
     // FIXME: Убрать этот бред отсюда
-    function get_msg(name) { return browser.i18n.getMessage('o__' + name) }
+    function get_msg(name) {
+        return browser.i18n.getMessage('o__' + name)
+    }
+
     pre_i18n.audio.separators = [
         {
             char: get_msg('audio__separator__1'),

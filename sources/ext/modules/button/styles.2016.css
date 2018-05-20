@@ -1,6 +1,7 @@
 /* Стили только для 2016 */
 .kzvk-download-button{
     display: inline-block; width: var(--a-btn-w); height: var(--a-btn-h);
+    position: relative;
     transition: height .2s ease, line-height .2s ease;
     -webkit-user-select: none;
     -moz-user-select: none;

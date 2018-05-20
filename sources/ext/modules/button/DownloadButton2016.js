@@ -19,6 +19,7 @@ class DownloadButton2016 {
             throw new TypeError(file);
 
         const prefix = 'kzvk';
+        this.prefix = prefix;
 
         const CLASSES = {
             STATE: [

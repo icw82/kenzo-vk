@@ -89,6 +89,13 @@
             <p>
                 <label class="f-label checkbox">
                     <input type="checkbox"
+                        ng-model="mod.options.stories">
+                    <span ng-bind="i18n.trash.stories"></span>
+                </label>
+            </p>
+            <p>
+                <label class="f-label checkbox">
+                    <input type="checkbox"
                         ng-model="mod.options.playlists_block">
                     <span ng-bind="i18n.trash.playlists_block"></span>
                 </label>

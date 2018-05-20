@@ -14,7 +14,7 @@ class Extention {
         };
 
         // Оригинальные данные (конкест страницы)
-        this.origins = {}
+        this.host_data = {}
 
         core.storage.defaults._ = this.defaults;
 

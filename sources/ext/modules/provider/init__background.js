@@ -126,4 +126,6 @@ mod.init__background = function() {
 //        });
 //
 //    });
+
+    mod.on_loaded.dispatch();
 }

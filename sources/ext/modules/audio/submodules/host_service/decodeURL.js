@@ -31,7 +31,7 @@ sub.decodeURL = source => {
             return string;
         },
         i: function (t, e) {
-            return transforms.s(t, e ^ mod.ext.origins.vk.id)
+            return transforms.s(t, e ^ mod.ext.host_data.vk.id)
         },
         x: function (t, e) {
 //                console.log('X');

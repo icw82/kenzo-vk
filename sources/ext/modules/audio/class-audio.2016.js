@@ -1,3 +1,13 @@
+const replaceClass = (container, target, new_class) => {
+    const node = container.querySelector(`.${ target }`);
+    if (node) {
+        node.classList.remove(target);
+        if (new_class)
+            node.classList.add(new_class);
+        return node;
+    }
+}
+
 // Класс аудиозаписи
 // Экземпляр соответсвует каждому аудио-элементу на страницах ВК, то есть
 // если на странице расположены абсолютно одинакоывае аудиозаписи, для них
@@ -5,13 +15,17 @@
 
 class Audio2016 {
     constructor (element) {
-
-        // FIXME: Цикл при возникновении ошибки
         const self = this;
+        const prefix = `kzvk-audio`;
 
         this.dom = {
             element: element
         }
+
+        if (element.executed)
+            return;
+
+        element.executed = true;
 
         // Получение информации об аудиозаписи со страницы VK
         const info = JSON.parse(this.dom.element.getAttribute('data-audio'));
@@ -79,22 +93,47 @@ class Audio2016 {
         }
 
         // Элемент с названием, временем и кнопками действия
-        this.dom.inner = this.dom.element.querySelector('.audio_row__inner');
+        this.dom.content =
+            this.dom.element.querySelector('.audio_row_content');
 
-        if (!this.dom.inner) {
-            console.warn('Не найден элемент .audio_row__inner');
+//        this.dom.title_cell =
+//            this.dom.element.querySelector('.audio_row__inner');
+        this.dom.title_cell = replaceClass(
+            this.dom.element,
+            `audio_row__inner`,
+            `${ prefix }__title_cell`
+        );
+
+//        this.dom.lyrics =
+//            this.dom.element.querySelector('.audio_row__lyrics');
+
+        if (!this.dom.content || !this.dom.title_cell) {
+            console.warn('Элемент не найден');
             return;
         }
 
-        // Обёртка для кнопок
-        this.dom.button_wrapper = document.createElement('div');
-        this.dom.button_wrapper.classList.add('kzvk-audio__button-wrapper');
+        // В КК
+        const makeElement = (class_name, tag = 'div') => {
+            const element = document.createElement(tag);
+            element.classList.add(`${ prefix }__${ class_name }`);
+            return element;
+        }
 
-        this.dom.inner.parentElement.insertBefore(
-            this.dom.button_wrapper,
-            this.dom.inner.parentElement.firstChild
+        // Разметка (сетка) элемента аудиозаписи
+        this.dom.play_button_cell = makeElement(`play_button_cell`);
+        this.dom.download_button_cell = makeElement(`download_button_cell`);
+
+        this.dom.content.insertBefore(
+            this.dom.download_button_cell,
+            this.dom.content.firstChild
         );
 
+        this.dom.content.insertBefore(
+            this.dom.play_button_cell,
+            this.dom.download_button_cell
+        );
+
+        // Наполнение сетки
         this.dom.play_button = document.createElement('div');
         this.dom.play_button.innerHTML =
             '<svg class="kzvk-audio__play_button">' +
@@ -105,7 +144,8 @@ class Audio2016 {
             '</svg>';
 
         this.dom.play_button = this.dom.play_button.firstChild;
-        this.dom.button_wrapper.appendChild(this.dom.play_button);
+        this.dom.play_button_cell.appendChild(this.dom.play_button);
+
 
         mod.submodules.host_service.get_url(this.vk.full_id).then(url => {
 
@@ -122,8 +162,9 @@ class Audio2016 {
                     module: mod.name
                 });
 
-                this.dom.button_wrapper.appendChild(
-                    this.download_button.element);
+                this.dom.download_button_cell.appendChild(
+                    this.download_button.element
+                );
             }
 
             if (this.deleted) {
@@ -142,16 +183,54 @@ class Audio2016 {
                     module: mod.name
                 });
 
-                this.dom.button_wrapper.appendChild(this.download_button.element);
+                this.dom.download_button_cell.appendChild(
+                    this.download_button.element
+                );
             }
         });
 
         this.dom.element.classList.add('kzvk-audio');
 
-//        let observer = new MutationObserver(mutations => {
-//            self.update();
-//        });
-//        observer.observe(this.dom.element, {childList: true, subtree: true});
+        // Удаление оригинальныйх классов
+        [
+            [
+                'audio_row__performer_title',
+                `${ prefix }__title-container`
+            ], [
+                'audio_row__performers',
+                `${ prefix }__performers`
+            ], [
+                'audio_row__title',
+                `${ prefix }__title`
+            ], [
+                'audio_row__title_inner',
+                `${ prefix }__title-inner`
+            ], [
+                'audio_row__title_inner_subtitle',
+                `${ prefix }__subtitle`
+            ]
+        ].forEach(item => {
+            replaceClass(this.dom.title_cell, item[0], item[1])
+        });
+
+//        this.dom.element.classList.remove('audio_row');
+//        this.dom.element.classList.remove('_audio_row');
+
+        // Исправление бага с высотой элемента при открытии
+        // и закрытии сопроводительного текста
+        {
+            const observer = new MutationObserver(mutations => {
+                mutations.forEach(mutation => {
+                    if (
+                        mutation.attributeName === 'style' &&
+                        this.dom.element.style.height
+                    ) {
+                        this.dom.element.style.height = null;
+                    }
+                });
+            });
+            observer.observe(this.dom.element, {attributes: true});
+        }
 
     }
 }

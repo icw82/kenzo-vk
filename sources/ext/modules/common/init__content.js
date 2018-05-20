@@ -20,8 +20,8 @@ mod.init__content = () => {
         document.body.appendChild(mod.ext.dom.overlay);
 
         mod.ext.modules.provider.get('vk').then(response => {
-            mod.ext.origins.vk = response;
-//            mod.on_loaded.dispatch();
+            mod.ext.host_data.vk = response;
+            mod.on_loaded.dispatch();
         }, error => {
             console.error(error);
         });

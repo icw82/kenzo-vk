@@ -26,7 +26,7 @@ let element = false;
 
 let promise = name => new Promise((resolve, reject) => {
     let xhr = new XMLHttpRequest();
-    let url = 'https://api.vk.com/method/utils.resolveScreenName?screen_name=' + name;
+    let url = 'https://api.vk.com/method/utils.resolveScreenName?v=5.74&screen_name=' + name;
     // v = 5.0?
     xhr.open('GET', url, true);
     xhr.onreadystatechange = function() {
@@ -180,9 +180,9 @@ let create = (id, type) => {
 }
 
 sub.init__content = () => {
-    core.events.on_mutation.addListener(mutations => {
-        if (sub.mod.options._ && sub.mod.options.ids) {
-            check();
-        }
-    });
+//    core.events.on_mutation.addListener(mutations => {
+//        if (sub.mod.options._ && sub.mod.options.ids) {
+//            check();
+//        }
+//    });
 }

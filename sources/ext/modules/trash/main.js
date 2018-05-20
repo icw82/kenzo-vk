@@ -15,7 +15,8 @@ mod.defaults.options = {
 //    audio_catalog_performers: true
 //    user_reposts: false,
 //    group_reposts: false,
-    sidebar_ads: true
+    sidebar_ads: true,
+    stories: false,
 }
 
 // FUTURE: Удалять шары групп и прочего;

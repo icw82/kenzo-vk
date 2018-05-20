@@ -160,6 +160,9 @@
     "o__trash__sidebar_ads": {
         "message": "Реклама в сайдбаре"
     },
+    "o__trash__stories": {
+        "message": "Истории в новостях"
+    },
     "o__trash__user_reposts": {
         "message": "Репосты пользователей"
     },

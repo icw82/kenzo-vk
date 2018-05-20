@@ -1,8 +1,7 @@
 sub.init__background = () => {
 
     browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
-        console.log(request, sender, sendResponse);
-
+//        console.log(request, sender, sendResponse);
 
         if (sender.id !== browser.runtime.id)
             return;

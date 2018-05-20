@@ -2,16 +2,12 @@
 .kzvk-audio .audio_play_wrap{position: relative}
 .audio_row.kzvk-audio .audio_row__sound_bars{display: none}
 
-.kzvk-audio__button-wrapper{min-height: var(--a-btn-h); /*height: 34px;*/
-    position: relative; float: left}
-
 .kzvk-audio__play_button{display: block;
     width: var(--w-play); height: var(--a-btn-h); box-sizing: border-box;
     border-radius: var(--a-btn-radius);
     box-shadow: inset 0 0 0 1px rgba(87, 124, 161, .7);
     fill: rgba(87, 124, 161, .78)}
 
-/* Почему -50% тупит? */
 .kzvk-audio__play{transform: translate3d(-3px, -5px, 0); opacity: 1}
 .kzvk-audio__pause{transform: translate3d(-4px, -5px, 0); opacity: 0}
 
@@ -33,16 +29,96 @@
     margin-bottom: 4px;
 }
 .kzvk-audio .audio_row_content{
-    height: var(--a-btn-h);
-    position: relative;
+    display: grid;
+    grid-template-columns: var(--w-play) var(--a-btn-w) 1fr;
+    grid-template-rows: var(--a-btn-h);
+    grid-column-gap: var(--a-btn-space);
+/*    grid-row-gap: var(--a-btn-padding);*/
     padding: var(--a-btn-padding);
     transition:
         padding-bottom var(--a-btn-transition) ease}
-.kzvk-audio .audio_row__inner,
-.kzvk-audio.audio_row .audio_row__inner{
-    height: 100%;
-    padding-left: calc(var(--w-play) + var(--a-btn-space))
+
+.kzvk-audio .kzvk-audio__play_button_cell{
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+/*    min-height: var(--a-btn-h); height: 34px;*/
 }
+
+.kzvk-audio .kzvk-audio__download_button_cell{
+    grid-column: 0;
+    position: relative;
+}
+
+.kzvk-audio .kzvk-audio__title_cell{
+    grid-column: 2 / 4;
+    grid-row: 1 / 2;
+    padding-left: 0;
+}
+
+.kzvk-audio.with-button .kzvk-audio__download_button_cell{
+    grid-column: 2 / 3;
+}
+
+.kzvk-audio.with-button .kzvk-audio__title_cell{
+    display: flex; box-sizing: border-box; align-items: stretch;
+    grid-column: 3 / 4;
+    height: var(--a-btn-h);
+    overflow: hidden; line-height: var(--a-btn-h);
+    padding-left: 0;
+}
+
+#kz-ext.kzvk-debug .kzvk-audio__play_button_cell{background-color: aquamarine}
+#kz-ext.kzvk-debug .kzvk-audio__download_button_cell{background-color: aqua}
+#kz-ext.kzvk-debug .kzvk-audio__title_cell{background-color: cyan}
+
+/* Область названия */
+.kzvk-audio__title-container{
+    width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.kzvk-audio__performers{
+    display: inline-block; max-width: 55%;
+    overflow: hidden; text-overflow: ellipsis;
+    line-height: var(--a-btn-h);
+    vertical-align: top;
+}
+
+.with-button .kzvk-audio__performers{max-width: 52%}
+
+.kzvk-audio__title{
+    display: inline-block;
+    position: relative;
+    padding-left: 1.2em;
+    line-height: var(--a-btn-h);
+    vertical-align: top;
+    transition: width var(--a-btn-transition) ease;
+}
+.kzvk-audio__title:before{
+    position: absolute;
+    left: 0;
+    content: '—';
+};
+
+.kzvk-audio__title-inner{}
+.audio_has_lyrics .kzvk-audio__title-inner{text-decoration: underline}
+.kzvk-audio__subtitle{
+    color: rgb(130, 130, 130);
+    font-weight: 400;
+}
+
+#kz-ext.kzvk-debug .kzvk-audio__performers{
+    background-color: coral}
+#kz-ext.kzvk-debug .kzvk-audio__performers > a{
+    background-color: rgba(255, 255, 255, .3)}
+#kz-ext.kzvk-debug .kzvk-audio__title{
+    background-color: rgb(76, 212, 148)}
+#kz-ext.kzvk-debug .kzvk-audio__title-inner{
+    background-color: rgba(255, 255, 255, .3)}
+#kz-ext.kzvk-debug .kzvk-audio__subtitle{
+    background-color: rgba(0, 0, 0, .3)}
 
 .kzvk-audio .audio_row__info{
     height: var(--a-btn-h); line-height: var(--a-btn-h);
@@ -58,29 +134,30 @@
     height: 24px;
     margin-top: calc( (24px - var(--a-btn-h)) / -2 )!important}
 
-/*.kzvk-audio .audio_row .audio_row__action{display: inline-block}*/
 
-.kzvk-audio .audio_row__performer_title{
-    height: var(--a-btn-h); line-height: var(--a-btn-h);
-    top: auto!important;
-    transition: none;
-}
-.kzvk-audio .audio_row__performer{max-width: 55%}
-
+/*
+    audio_player__place — область таймлайна
+*/
 .kzvk-audio .audio_player__place{
-    width: 100%; height: 12px;
-    position: absolute;
-    left: 0; top: calc(var(--a-btn-h) + var(--a-btn-padding) * 2);
-    margin: 0; padding: 0 var(--a-btn-padding);
+    grid-column: 2 / 4;
+/*    width: 100%;*/
+    height: 0;
+    position: relative;
+    left: auto; top: 0;
+    margin: 0;
+    padding: calc(var(--a-btn-padding) - 3px) 0 0 0;
     opacity: 0;
-    transition: opacity var(--a-btn-transition) ease}
+    transition:
+        opacity var(--a-btn-transition) ease,
+        height var(--a-btn-transition) ease
+    }
 .kzvk-audio .audio_inline_player{overflow: visible;
     padding-right: 65px}
 
 .kzvk-audio .audio_inline_player_left{overflow: visible;
     padding-left: 1px; padding-right: 0}
 .kzvk-audio .audio_inline_player_right{position: absolute;
-    right: var(--a-btn-padding); margin-left: auto}
+    right: 0; margin-left: auto}
 .kzvk-audio .audio_inline_player .slider{padding: 5px 0}
 .kzvk-audio .audio_inline_player .slider_slide{height: 3px;
     background-color: white}
@@ -92,31 +169,13 @@
             rgba(87, 124, 161, 0) 3px)
 }
 
-.kzvk-audio .audio_row__title{
-    transition: width var(--a-btn-transition) ease}
-
-/*
-.kzvk-audio .audio_inline_player .audio_player_hint{
-    box-shadow: 0 0 0 1px rgba(0, 10, 30, .1)}
-*/
-
-.kzvk-audio.with-button .kzvk-audio__button-wrapper{
-    padding-right: calc(var(--a-btn-space) + var(--a-btn-w))}
-.kzvk-audio.with-button .audio_row__inner{
-    padding-left: calc(
-        var(--w-play) +
-        var(--a-btn-w) +
-        var(--a-btn-space) * 2)}
-.kzvk-audio.with-button .audio_performer{max-width: 52%!important}
-
-.kzvk-audio .kzvk-download-button{
-    position: absolute;
-    left: calc(var(--w-play) + var(--a-btn-space));
-    top: 0}
-
-.kzvk-audio.audio_row__current .audio_player__place{opacity: 1}
+.kzvk-audio.audio_row__current .audio_player__place{
+    opacity: 1;
+    height: 12px;
+}
 .kzvk-audio.audio_row__current .audio_row_content{
-    padding-bottom: calc(var(--a-btn-padding) * 2 + 10px)}
+/*    padding-bottom: calc(var(--a-btn-padding) * 2 + 10px);*/
+}
 
 .kzvk-audio.audio_row__current:hover .kzvk-overlay{
     fill: rgb(234, 238, 242)}
@@ -125,8 +184,16 @@
 .kzvk-audio:not(.audio_row__current):hover .kzvk-overlay{
     fill: rgb(242, 244, 247)}
 
-.kzvk-audio:not(.audio_row__current) .audio_player__place{display: none}
+.kzvk-audio:not(.audio_row__current) .audio_player__place{
+    padding: 0;
+/*    display: none*/
+}
 
+#kz-ext.kzvk-debug .audio_player__place{
+    background-color: rgba(0, 0, 0, .08)}
+
+
+/* Плейлист */
 .audio_pl_edit_box.kzvk-audio-playlist-edit
     .ape_audio_item_wrap .ape_check{
         box-sizing: border-box;
@@ -134,12 +201,62 @@
         padding: var(--a-btn-padding)}
 .audio_pl_edit_box.kzvk-audio-playlist-edit
     .ape_audio_item_wrap .ape_check{
-        transform: scale(0.85)}
+        transform: scale(0.8)}
 .audio_pl_edit_box.kzvk-audio-playlist-edit
     .ape_audio_item_wrap .ape_check .ape_check_icon{
         margin-top: calc( (22px - var(--a-btn-h)) / -2 - 1px)}
 
+
+/* Аудиозаписи в сообщениях */
 .im-mess--post .kzvk-audio{margin-left: 10px}
 
-.kzvk-audio.audio_row .audio_row__lyrics{padding: var(--a-btn-padding) 0}
-.kzvk-audio.audio_row .audio_row__lyrics{}
+
+/* Cопроводительный текст */
+.kzvk-audio.audio_row .audio_row__lyrics{
+    grid-column: 2 / 4;
+    padding: 0;
+    padding-top: calc(var(--a-btn-padding) + 5px);
+    padding-bottom: 5px;
+}
+.kzvk-audio.audio_row .audio_row__lyrics .audio_row__lyrics_inner{
+    max-height: none;
+    overflow: visible;
+/*
+    border-radius: 1px;
+    background-color: rgba(255, 235, 0, .1);
+    box-shadow: 0 0 0 var(--a-btn-padding) rgba(255, 235, 0, .1);
+    font-size: 16px;
+*/
+    line-height: 1.4;
+    color: rgba(0, 0, 0, .8);
+}
+
+/*
+.kzvk-audio.audio_row__current .audio_row__lyrics .audio_row__lyrics_inner,
+.kzvk-audio.audio_row:hover .audio_row__lyrics .audio_row__lyrics_inner{
+    background-color: transparent;
+    box-shadow: none;
+}
+*/
+
+#kz-ext.kzvk-debug .audio_row__lyrics{
+    background-color: rgb(255, 235, 0);}
+
+
+/* Кнопка перемешивания */
+.audio_page__shuffle_all.kzvk{
+    height: auto;
+    margin-bottom: 14px;
+}
+
+.audio_page__shuffle_all.kzvk > button{
+    height: calc(var(--a-btn-h) + var(--a-btn-padding) * 2);
+    line-height: calc(var(--a-btn-h) + 1px);
+    padding-left: calc(var(--w-play) + var(--a-btn-padding) * 2);
+}
+.audio_page__shuffle_all.kzvk > button:before{
+    width: var(--w-play);
+    height: var(--a-btn-h);
+    left: var(--a-btn-padding);
+    top: auto;
+}

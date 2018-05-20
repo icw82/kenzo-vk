@@ -40,8 +40,6 @@ if (location.protocol === 'https:') {
     console.warn('Неизвестный протокол');
 }
 
-console.log('core -----------------------------', core.scope);
-
 core.init = () => {
 
 }
