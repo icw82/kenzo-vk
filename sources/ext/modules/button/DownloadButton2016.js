@@ -184,7 +184,7 @@ class DownloadButton2016 {
 
         if (!this.file.url) {
 //            this.element.style.opacity = opacity;
-            this.unavailable.innerHTML = '×_×';
+            this.unavailable.textContent = '×_×';
             this.applyStateClass(this.CLASSES.STATE.UNAVAILABLE);
 
 //            console.log(this.file.url);
@@ -197,7 +197,7 @@ class DownloadButton2016 {
         if (this.file.url !== null) {
             this.container.setAttribute(
                 'href',
-                this.file.clean_url
+                this.file.url.href
             );
             this.container.setAttribute(
                 'download',
@@ -242,7 +242,7 @@ class DownloadButton2016 {
         this.applyQualityClass(quality);
 
 //        this.element.style.opacity = opacity;
-        this.label.innerHTML = label;
+        this.label.textContent = label;
         this.updateState('update');
     }
 

@@ -97,11 +97,15 @@ mod.page_transceiver = function(settings) {
 
 
     // M E T H O D S
-
     transceiver.methods.get = async path => {
         try {
-            const response = window.eval(path);
-            return window.eval(path);
+            path = path.replace(/\[["'](.+?)["']\]/g, `.$1`);
+            path = path.replace(/\[(.+?)\]/g, `.$1`);
+            path = path.split('.');
+
+            return path.reduce((prev, item) => {
+                return prev[item];
+            }, window);
         } catch (error) {
             settings.debug && console.error(log_prefix, error);
         }

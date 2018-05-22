@@ -44,8 +44,10 @@
 .kzvk-ui-unrounding .search_row .online:after,
 .kzvk-ui-unrounding .friends_user_row .online:after{border-width: 2px}
 
+/*.article_layer .article_layer__header .article_layer__header_owner_img*/
 
  .kzvk-ui-unrounding .apps_feed_user_img /* В приложениях */
+,.kzvk-ui-unrounding .article_layer__header_owner_img /* В статьях */
 ,.kzvk-ui-unrounding .audio_owner_avatar /* Владелец плейлиста */
 ,.kzvk-ui-unrounding .audio_owner_item__img /* Изображения в рекомендациях */
 ,.kzvk-ui-unrounding .bd_cell_img /* Календарь */

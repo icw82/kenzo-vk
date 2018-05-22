@@ -14,10 +14,8 @@
 .kzvk-audio.audio_row__playing .kzvk-audio__play{opacity: 0}
 .kzvk-audio.audio_row__playing .kzvk-audio__pause{opacity: 1}
 
-.audio_row.audio_row__deleted .kzvk-audio__play_button,
-.audio_row.audio_claimed .kzvk-audio__play_button,
-.audio_row.audio_row__deleted .kzvk-download-button,
-.audio_row.audio_claimed .kzvk-download-button{opacity: .4!important}
+.kzvk-audio.audio_row__deleted,
+.kzvk-audio.audio_claimed{opacity: .4}
 
 /*.wall_audio_rows:not(:first-child){margin-top: 8px}*/
 
@@ -86,12 +84,16 @@
     vertical-align: top;
 }
 
+.kzvk-audio__performers > a{
+    font-weight: bold;
+}
+
 .with-button .kzvk-audio__performers{max-width: 52%}
 
 .kzvk-audio__title{
     display: inline-block;
     position: relative;
-    padding-left: 1.2em;
+    padding-left: 1.1em;
     line-height: var(--a-btn-h);
     vertical-align: top;
     transition: width var(--a-btn-transition) ease;
@@ -103,7 +105,12 @@
 };
 
 .kzvk-audio__title-inner{}
-.audio_has_lyrics .kzvk-audio__title-inner{text-decoration: underline}
+.audio_has_lyrics .kzvk-audio__title-inner{
+    color: var(--anchor-color);
+}
+.audio_has_lyrics .kzvk-audio__title-inner:hover{
+    text-decoration: underline;
+}
 .kzvk-audio__subtitle{
     color: rgb(130, 130, 130);
     font-weight: 400;

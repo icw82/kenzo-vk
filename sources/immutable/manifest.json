@@ -21,7 +21,6 @@
         "default_popup": "layouts/browser_action.html"
     },
 
-
     "author": "icw82",
 
     "background": {
@@ -31,7 +30,8 @@
             "scripts/he.js",
             "scripts/core.js",
             "scripts/ext.js"
-        ]
+        ],
+        "persistent": true
     },
 
     "permissions": [
@@ -74,7 +74,7 @@
         }
     ],
     "content_security_policy":
-        "script-src 'self' 'unsafe-eval'; object-src 'self';",
+        "script-src 'self'; object-src 'self';",
 
     "web_accessible_resources": [
         "scripts/angular.min.js.map",

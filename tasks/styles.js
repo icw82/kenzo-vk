@@ -8,6 +8,7 @@ const task_name = path.basename(__filename, '.js');
 const streamqueue = require('streamqueue');
 //const insert = require('gulp-insert');
 const concat = require('gulp-concat');
+const strip = require('gulp-strip-comments');
 //const csso = require('gulp-csso');
 //const rename = require('gulp-rename');
 //const replace = require('gulp-replace');
@@ -48,8 +49,12 @@ const task = (() => {
         subtasks.push(subtask_name);
 
         gulp.task(subtask_name, () => gulp
-            .src(glob.map(item => item + mode.postfix + ext), { allowEmpty: true })
+            .src(
+                glob.map(item => item + mode.postfix + ext),
+                { allowEmpty: true }
+            )
             .pipe(concat('ext' + mode.postfix + '.css'))
+            .pipe(strip.text())
             .pipe(gulp.dest('build/styles'))
         );
     }

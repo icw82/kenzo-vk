@@ -12,6 +12,7 @@ const ms = require('./../tools/ms');
 const streamqueue = require('streamqueue');
 const insert = require('gulp-insert');
 const concat = require('gulp-concat');
+const strip = require('gulp-strip-comments');
 //const rename = require('gulp-rename');
 //const uglify = require('gulp-uglify');
 //const replace = require('gulp-replace');
@@ -33,6 +34,7 @@ gulp.task(task_name + ':core', () => gulp
         '("Неизвестный браузер")}\n' +
         'const core = (kk => {\n\nconst each = kk.each;\n\n',
         '\nreturn core;\n})(kk);\n\ncore.init();\n'))
+    .pipe(strip())
     .pipe(gulp.dest('build/scripts'))
 );
 
@@ -118,6 +120,7 @@ gulp.task(task_name + ':ext', () => {
         .pipe(insert.wrap(
             'const ext = ((kk, core) => {\n\nconst each = kk.each;\n\n',
             '\nreturn ext;\n})(kk, core);\n\next.init();\n'))
+        .pipe(strip())
         .pipe(gulp.dest('build/scripts'));
 
 });

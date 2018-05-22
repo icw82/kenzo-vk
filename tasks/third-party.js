@@ -7,7 +7,7 @@ const info = require('./../package.json');
 
 const paths_to_scripts = [
     'angular/angular.min.js',
-    'angular/angular.min.js.map',
+//    'angular/angular.min.js.map',
 //    'angular-sanitize/angular-sanitize.min.js',
 //    'angular-sanitize/angular-sanitize.min.js.map',
     'kenzo-kit/kk.min.js',

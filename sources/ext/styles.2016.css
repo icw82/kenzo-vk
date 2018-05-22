@@ -1,6 +1,7 @@
 /* Стили только для 2016 */
 :root {
     --color-main: rgb(87, 124, 161);
+    --anchor-color: rgb(42, 88, 133);
 
     --a-btn-w: 34px;
     --a-btn-h: 20px;
