@@ -86,7 +86,8 @@ class Request {
         response = JSON.parse(response.substring(7));
 
         response.forEach(data => {
-            const id = `${ data[1] }_${ data[0]}`;
+            const hash = data[13].split('/');
+            const id = `${ data[1] }_${ data[0]}_${ hash[2]}_${ hash[5]}`;
             const item = this.has(id);
 
             item.setResponse(data);

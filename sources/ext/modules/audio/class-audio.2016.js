@@ -36,8 +36,10 @@ class Audio2016 {
         this.vk = {
             id: info[0],
             owner_id: info[1],
+            hashes: info[13],
             get full_id() {
-                return this.owner_id + '_' + this.id
+                let hashes = this.hashes.split(`/`);
+                return this.owner_id + '_' + this.id + '_' + hashes[2] + '_' + hashes[5]
             },
             performer: clean(info[4]),
             title: clean(info[3]),
