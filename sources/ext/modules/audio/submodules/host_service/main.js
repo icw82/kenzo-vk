@@ -8,4 +8,4 @@ sub.cache = new core.SimpleStore({
     }
 });
 
-sub.expiration = 1000 * 60 * 60 * 10; // Часов
+sub.expiration = 1000 * 60 * 60 * 10; // 10 Часов

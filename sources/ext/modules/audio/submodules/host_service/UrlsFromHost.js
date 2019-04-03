@@ -10,7 +10,7 @@ class RequestItem {
 
     setResponse(data) {
         if (this.response)
-            throw Error('Ответ уже получен');
+            throw Error(`Ответ уже получен`);
 
         this.response = data;
         this.on_response.complete(this.response);
@@ -41,25 +41,26 @@ class Request {
         this.items.forEach(item => item.request = this);
 
         this.query = {
-            act: 'reload_audio',
+            act: `reload_audio`,
             al: 1,
-            ids: this.items.map(item => item.id).join(',')
+            ids: this.items.map(item => item.id).join(`,`)
         }
 
         this.encoded_query = [];
 
-        for (let key in this.query)
+        for (let key in this.query) {
             this.encoded_query.push(
                 `${ key }=${ encodeURIComponent(this.query[key]) }`
             );
-        this.encoded_query = this.encoded_query.join('&');
+        }
+        this.encoded_query = this.encoded_query.join(`&`);
 
         this.request = {
-            url: 'https://vk.com/al_audio.php',
-            method: 'POST',
+            url: `https://vk.com/al_audio.php`,
+            method: `POST`,
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'X-Requested-With': 'XMLHttpRequest'
+                'Content-Type': `application/x-www-form-urlencoded`,
+                'X-Requested-With': `XMLHttpRequest`
             },
             query: this.encoded_query
         }
@@ -86,8 +87,8 @@ class Request {
             return {};
         }
 
-        response = response.split('<!>');
-        response = response.find(item => item.substring(0, 7) === '<!json>');
+        response = response.split(`<!>`);
+        response = response.find(item => item.substring(0, 7) === `<!json>`);
 
         if (!response) {
             return {};
@@ -96,7 +97,7 @@ class Request {
         response = JSON.parse(response.substring(7));
 
         response.forEach(data => {
-            const hash = data[13].split('/');
+            const hash = data[13].split(`/`);
             const id = `${ data[1] }_${ data[0]}_${ hash[2]}_${ hash[5]}`;
             const item = this.has(id);
 
@@ -154,11 +155,15 @@ class Setting extends List {
 
         this.request_size = request_size;
 
-        Object.defineProperty(this, 'is_there_enough', {
+        Object.defineProperty(this, `is_there_enough`, {
             get: () => this.items.length >= this.request_size
         });
     }
 
+    /**
+     * Вырезать из набора N=size элементов и вернуть их.
+     * @param {*} size
+     */
     pull(size = this.request_size) {
         const items = this.items.splice(0, size);
         this.on_change.dispatch();
@@ -199,8 +204,9 @@ class UrlsFromHost {
             if (this.setting.is_there_enough) {
                 this.send_request();
             } else {
-                if (this.waiting)
+                if (this.waiting) {
                     clearTimeout(this.waiting);
+                }
 
                 this.waiting = setTimeout(
                     self.send_request.bind(self, null),
@@ -245,21 +251,21 @@ class UrlsFromHost {
         let url = void 0;
         const encoded_url = response[2];
 
-        if (encoded_url.includes('audio_api_unavailable')) {
+        if (encoded_url.includes(`audio_api_unavailable`)) {
             url = sub.decodeURL(encoded_url);
 
             if (/\.m3u8\?/.test(url)) {
                 url = this.convert_URL_m3u8_to_mp3(url);
             }
 
-            if (url.includes('audio_api_unavailable')) {
-                mod.warn('audio_api_unavailable');
+            if (url.includes(`audio_api_unavailable`)) {
+                mod.warn(`audio_api_unavailable`);
             }
         } else {
             url = encoded_url;
         }
 
-        url = url.replace(/^(.+?)\?.*/, '$1');
+        url = url.replace(/^(.+?)\?.*/, `$1`);
 
         return url;
 

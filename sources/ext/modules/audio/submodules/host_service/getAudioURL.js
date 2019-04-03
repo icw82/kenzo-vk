@@ -1,4 +1,4 @@
-sub.get_url = async id => {
+sub.getAudioURL = async (id, id_for_request) => {
     try {
         const data = await sub.cache.get(id);
 
@@ -11,15 +11,15 @@ sub.get_url = async id => {
             if (exists)
                 return data.url;
             else
-                return await refresh_url(id);
+                return await refresh_url(id, id_for_request);
         }
 
     } catch(error) {
-        return await refresh_url(id)
+        return await refresh_url(id, id_for_request)
     }
 }
 
-const refresh_url = async id => {
+const refresh_url = async (id, id_for_request) => {
     try {
         const url = await sub.UrlsFromHost.get(id);
 
