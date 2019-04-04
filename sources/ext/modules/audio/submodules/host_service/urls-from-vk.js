@@ -71,18 +71,28 @@ class Request {
     }
 
     has(item) {
-        if (item instanceof RequestItem)
+        if (item instanceof RequestItem) {
             return this.items.find(li => li.id === item.id);
-        else
+        } else {
             return this.items.find(li => li.id === item);
+        }
     }
 
     async send() {
         let response = await mod.ext.modules
             .provider.httpRequest(this.request);
 
+        if (!response) { // NOTE: Зачем?
+            return {};
+        }
+
         response = response.split('<!>');
         response = response.find(item => item.substring(0, 7) === '<!json>');
+
+        if (!response) {
+            return {};
+        }
+
         response = JSON.parse(response.substring(7));
 
         response.forEach(data => {
@@ -108,10 +118,11 @@ class List {
     }
 
     has(item) {
-        if (item instanceof RequestItem)
+        if (item instanceof RequestItem) {
             return this.items.find(li => li.id === item.id);
-        else
+        } else {
             return this.items.find(li => li.id === item);
+        }
     }
 
     add(item, dispatch_event = true) {
@@ -122,11 +133,13 @@ class List {
         }
 
         const existing_item = this.has(item);
-        if (existing_item)
+        if (existing_item) {
             return existing_item;
+        }
 
-        if (!(item instanceof RequestItem))
+        if (!(item instanceof RequestItem)) {
             item = new RequestItem(item);
+        }
 
         this.items.push(item);
         dispatch_event && this.on_add.dispatch([item]);
@@ -210,6 +223,14 @@ class UrlsFromHost {
         request.send();
     }
 
+    convert_URL_m3u8_to_mp3(url) {
+        var mp3u8 = (url = url.replace('/index.m3u8', '.mp3')).split('/');
+        mp3u8.splice(mp3u8.length - (2 + (url.indexOf('audios') !== -1 ? 1 : 0)), 1);
+        url = mp3u8.join('/');
+
+        return url;
+    }
+
     async get(id) {
         let response
         let item = this.pending.has(id);
@@ -226,6 +247,11 @@ class UrlsFromHost {
 
         if (encoded_url.includes('audio_api_unavailable')) {
             url = sub.decodeURL(encoded_url);
+
+            if (/\.m3u8\?/.test(url)) {
+                url = this.convert_URL_m3u8_to_mp3(url);
+            }
+
             if (url.includes('audio_api_unavailable')) {
                 mod.warn('audio_api_unavailable');
             }

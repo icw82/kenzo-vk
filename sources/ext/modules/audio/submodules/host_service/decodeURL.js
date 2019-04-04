@@ -10,25 +10,29 @@ sub.decodeURL = source => {
         },
         r: function (t, e) {
 //                console.log('R');
-            t = t.split('');
-            for (var i, o = map + map, a = t.length; a--;)
-                i = o.indexOf(t[a]), ~i && (t[a] = o.substr(i - e, 1));
-            return t.join('')
-        },
-        s: (string, number) => {
+            t = t.split("");
+            for (var i, n = r + r, o = t.length; o--;) ~(i = n.indexOf(t[o])) && (t[o] = n.substr(i - e, 1));
+            return t.join("")
+            },
+        s: (t, e) => {
 //                console.log('S');
-            const size = string.length;
-            if (size) {
-                var o = hueta(string, number);
-                var a = 0;
-                for (string = string.split(''); ++a < size;) {
-                    string[a] = string.splice(
-                        o[size - 1 - a], 1, string[a]
-                    )[0];
-                }
-                string = string.join('')
+            var i = t.length;
+            if (i) {
+                var r = function (t, e) {
+                        var i = t.length,
+                            r = [];
+
+                        if (i) {
+                            var n = i;
+                            for (e = Math.abs(e); n--;) e = (i * (n + 1) ^ e + n) % i, r[n] = e
+                        }
+                        return r
+                    }(t, e),
+                    n = 0;
+                for (t = t.split(""); ++n < i;) t[n] = t.splice(r[i - 1 - n], 1, t[n])[0];
+                t = t.join("")
             }
-            return string;
+            return t
         },
         i: function (t, e) {
             return transforms.s(t, e ^ mod.ext.host_data.vk.id)

@@ -1,8 +1,6 @@
 {
-    const key = kk.generate_key(10);
-
     // Изменение URL (Пока разработчики не родили нормальный тригер изменения url)
-    core.events.on_change_location = new kk.Event(key);
+    core.events.on_change_location = new kk.Event();
     if (core.scope === 'content') {
 
         let period = 50;
@@ -42,7 +40,7 @@
                 last_state.url = window.location.href;
 
                 if (changes.length > 0) {
-                    core.events.on_change_location.dispatch(key, changes);
+                    core.events.on_change_location.dispatch(changes);
                 }
             }
         }
