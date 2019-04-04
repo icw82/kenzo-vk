@@ -27,22 +27,18 @@ mod.get = async url => {
 
             Object.assign(data.basic, header.basic);
 
-            if (data.basic.mime === 'audio/mpeg') {
+            if (data.basic.mime === `audio/mpeg`) {
                 const meta = await mod.submodules.audio_mpeg.parse(url);
                 meta.ts = kk.ts();
-//                mod.log('audio_mpeg >', meta);
+                // mod.log('audio_mpeg >', meta);
                 mod.cache.put(meta);
                 return meta;
-
-            } else {
-                mod.warn('Неизвестный MIME-тип', data);
             }
 
-
+            mod.warn('Неизвестный MIME-тип', data);
 
         } catch (error) {
             console.warn('Нет заголовка', error);
         }
     }
 }
-

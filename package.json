@@ -1,6 +1,6 @@
 {
     "name": "kenzo-ext",
-    "version": "6.0.1",
+    "version": "6.0.3",
     "repository": {
         "type": "git",
         "url": "git@github.com:icw82/kenzovk.git"
@@ -9,21 +9,21 @@
     "scripts": {
         "start": "gulp"
     },
-    "devDependencies": {
-        "angular": "^1.7.0",
+    "devDependencies": {},
+    "dependencies": {
+        "angular": "^1.7.8",
         "blueimp-md5": "^2.10.0",
         "del": "^3.0.0",
-        "gulp": "github:gulpjs/gulp#4.0",
+        "gulp": "^4.0.0",
         "gulp-concat": "^2.6.1",
         "gulp-insert": "^0.5.0",
-        "gulp-rename": "^1.2.2",
+        "gulp-rename": "^1.4.0",
         "gulp-replace": "^0.6.1",
         "gulp-strip-comments": "^2.5.2",
-        "he": "^1.1.1",
-        "kenzo-kit": "^0.17.0",
-        "streamqueue": "^1.1.1"
+        "he": "^1.2.0",
+        "kenzo-kit": "^0.21.0",
+        "streamqueue": "^1.1.2"
     },
-    "dependencies": {},
     "optionalDependencies": {},
     "engines": {
         "node": "^8.6.0",

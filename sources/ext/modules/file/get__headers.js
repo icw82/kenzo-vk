@@ -1,11 +1,11 @@
 mod.get__headers = url => new Promise(function(resolve, reject) {
 
     if (!kk.is.s(url)) {
-        throw 'file.get__headers: url is\'nt string';
+        throw `file.get__headers: url is’nt string`;
     }
 
-    if (url === '') {
-        throw 'file.get__headers: url is empty string';
+    if (url === ``) {
+        throw `file.get__headers: url is empty string`;
     }
 
     const data = {
@@ -20,9 +20,9 @@ mod.get__headers = url => new Promise(function(resolve, reject) {
         if (xhr.readyState === xhr.HEADERS_RECEIVED) {
             if (xhr.status === 200) {
                 data.basic.mime = xhr.getResponseHeader('content-type');
-                data.basic.size = Number.parseInt(xhr.getResponseHeader('content-length'));
-                data.basic.modified = Date.parse(xhr.getResponseHeader('last-modified'));
-                data.basic.expires = Date.parse(xhr.getResponseHeader('expires'));
+                data.basic.size = Number.parseInt(xhr.getResponseHeader('content-length')) || null;
+                data.basic.modified = Date.parse(xhr.getResponseHeader('last-modified')) || null;
+                data.basic.expires = Date.parse(xhr.getResponseHeader('expires')) || null;
 
                 resolve(data);
             } else {
