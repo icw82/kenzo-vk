@@ -1,7 +1,7 @@
 'use strict';
 
 const fs = require('fs');
-const is = require('./tools/is');
+const is = require('./kit/tools/is');
 
 if (
     !is.dir('./sources') ||
@@ -15,7 +15,7 @@ if (
     );
 }
 
-const tasks_dir = './tasks/';
+const tasks_dir = './kit/tasks/';
 const tasks = fs.readdirSync(tasks_dir);
 tasks.forEach(task => {
     const path = tasks_dir + '/' + task;

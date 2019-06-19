@@ -1,7 +1,5 @@
 ._*
 *.nex
-ehthumbs.db
-Thumbs.db
 /build/
 /node_modules/
 /.builds/
