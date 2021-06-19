@@ -87,8 +87,8 @@ class Request {
             return {};
         }
 
-        response = response.split(`<!>`);
-        response = response.find(item => item.substring(0, 7) === `<!json>`);
+        response = response.split('<!>');
+        response = response.find(item => item.substring(0, 7) === '<!json>');
 
         if (!response) {
             return {};
@@ -97,7 +97,7 @@ class Request {
         response = JSON.parse(response.substring(7));
 
         response.forEach(data => {
-            const hash = data[13].split(`/`);
+            const hash = data[13].split('/');
             const id = `${ data[1] }_${ data[0]}_${ hash[2]}_${ hash[5]}`;
             const item = this.has(id);
 
