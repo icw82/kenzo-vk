@@ -1,0 +1,72 @@
+{
+    "name": "Kenzo VK",
+    "short_name": "Kenzo VK",
+    "version": "::version::",
+    "manifest_version": 3,
+
+    "default_locale": "ru",
+    "description": "__MSG_ext_description__",
+
+    "author": "::author::",
+
+    "icons": {
+        "16": "images/icons/16.png",
+        "48": "images/icons/48.png",
+        "64": "images/icons/64.png",
+        "128": "images/icons/128.png"
+    },
+
+    "background": {
+        "service_worker": "background.js",
+        "type": "module"
+    },
+
+    "permissions": [
+        "storage",
+        "management",
+        "unlimitedStorage",
+        "downloads"
+    ],
+
+    "host_permissions": [
+        "https://vk.com/*",
+        "https://*.vk.com/*",
+        "*://*.vk.me/*",
+        "*://*.vk-cdn.net/*",
+        "*://*.vk-cdn.com/*",
+        "*://*.userapi.com/*",
+        "*://*.vkuseraudio.net/*",
+        "*://*.vkuservideo.net/*"
+    ],
+
+    "options_ui": {
+        "open_in_tab": true,
+        "page": "layouts/options.html"
+    },
+
+    "content_scripts": [
+        {
+            "matches": [
+                "https://vk.com/*",
+                "https://*.vk.com/*"
+            ],
+            "css": [
+                "main.css"
+            ],
+            "js": [
+                "content-script.js"
+            ],
+            "run_at": "document_start"
+        }
+    ],
+
+    "web_accessible_resources": [{
+        "resources": [ "modules/*", "main.js" ],
+        "matches": [
+            "https://vk.com/*",
+            "https://*.vk.com/*"
+        ]
+    }],
+
+    "minimum_chrome_version": "92"
+}
