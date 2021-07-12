@@ -1,0 +1,25 @@
+{
+    "name": "web-ext-kit",
+    "version": "1.0.0",
+    "description": "Kit for develope simple web-extensions",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+ssh://git@github.com/icw82/web-ext-kit.git"
+    },
+    "keywords": [
+        "web-extention"
+    ],
+    "author": "icw82",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/icw82/web-ext-kit/issues"
+    },
+    "homepage": "https://github.com/icw82/web-ext-kit#readme",
+    "engines": {
+        "node": ">=16.0"
+    }
+}

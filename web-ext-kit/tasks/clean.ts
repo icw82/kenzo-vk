@@ -1,4 +1,4 @@
-import * as del  from 'del';
+import del = require('del');
 import { TaskFunction } from 'undertaker';
 
 

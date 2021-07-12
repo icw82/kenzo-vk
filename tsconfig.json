@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./sources",
+        "module": "CommonJS",
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "target": "ESNext"
+    },
+    "include": [
+        "./**/*.ts"
+    ],
+    "exclude": [
+        "node_modules",
+        ".vscode"
+    ]
+}
